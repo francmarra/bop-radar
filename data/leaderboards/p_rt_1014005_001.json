@@ -1,0 +1,69 @@
+{
+"date": "2026-05-11",
+"board": "p_rt_1014005_001",
+"race": "C",
+"track": "WeatherTech Raceway Laguna Seca",
+"course_id": "41",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x3",
+"tyre_wear": "x6",
+"cars": [
+{
+"code": 3474,
+"name": "Subaru BRZ GT300 '21",
+"laps": 110,
+"best_ms": 80326,
+"pace_ms": 80762,
+"gap_pct": 0.073,
+"top100": 34
+},
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 812,
+"best_ms": 80635,
+"pace_ms": 80811,
+"gap_pct": 0.134,
+"top100": 60
+},
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 5,
+"best_ms": 81012,
+"pace_ms": 81328,
+"gap_pct": 0.775,
+"top100": 1
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 11,
+"best_ms": 80915,
+"pace_ms": 81428,
+"gap_pct": 0.899,
+"top100": 1
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 27,
+"best_ms": 81247,
+"pace_ms": 81570,
+"gap_pct": 1.075,
+"top100": 0
+},
+{
+"code": 2158,
+"name": "Ferrari 458 Italia GT3 '13",
+"laps": 9,
+"best_ms": 81026,
+"pace_ms": 81629,
+"gap_pct": 1.148,
+"top100": 1
+}
+]
+}

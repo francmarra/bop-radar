@@ -1,0 +1,78 @@
+{
+"date": "2026-07-20",
+"board": "p_rt_1014483_001",
+"race": "B",
+"track": "Brands Hatch Grand Prix Circuit",
+"course_id": "119",
+"group": "gr3",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3474,
+"name": "Subaru BRZ GT300 '21",
+"laps": 295,
+"best_ms": 83172,
+"pace_ms": 83564,
+"gap_pct": 0.017,
+"top100": 60
+},
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 628,
+"best_ms": 83453,
+"pace_ms": 83870,
+"gap_pct": 0.384,
+"top100": 28
+},
+{
+"code": 2185,
+"name": "Mitsubishi Lancer Evolution Final Edition Gr.3",
+"laps": 5,
+"best_ms": 83841,
+"pace_ms": 83871,
+"gap_pct": 0.385,
+"top100": 3
+},
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 15,
+"best_ms": 83696,
+"pace_ms": 84294,
+"gap_pct": 0.891,
+"top100": 4
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 13,
+"best_ms": 83774,
+"pace_ms": 84472,
+"gap_pct": 1.104,
+"top100": 2
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 5,
+"best_ms": 84060,
+"pace_ms": 84487,
+"gap_pct": 1.122,
+"top100": 0
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 6,
+"best_ms": 83873,
+"pace_ms": 84578,
+"gap_pct": 1.231,
+"top100": 1
+}
+]
+}

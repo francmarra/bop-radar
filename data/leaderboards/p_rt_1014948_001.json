@@ -1,0 +1,24 @@
+{
+"date": "2026-10-05",
+"board": "p_rt_1014948_001",
+"race": "B",
+"track": "Kyoto Driving Park - Yamagiwa",
+"course_id": "376",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3590,
+"name": "Hyundai ELANTRA N TC '24",
+"laps": 1000,
+"best_ms": 101896,
+"pace_ms": 102224,
+"gap_pct": 0.0,
+"top100": 100
+}
+]
+}

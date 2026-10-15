@@ -1,0 +1,52 @@
+{
+"date": "2026-09-07",
+"board": "p_rt_1014600_001",
+"race": "C",
+"track": "Dragon Trail - Seaside",
+"course_id": "363",
+"group": "gr3",
+"tyres": [
+"RM",
+"RS"
+],
+"fuel": "x3",
+"tyre_wear": "x6",
+"cars": [
+{
+"code": 2160,
+"name": "Hyundai Genesis Gr.3",
+"laps": 961,
+"best_ms": 95428,
+"pace_ms": 95556,
+"gap_pct": 0.0,
+"top100": 96
+},
+{
+"code": 3508,
+"name": "SUZUKI Vision Gran Turismo (Gr.3 Version)",
+"laps": 9,
+"best_ms": 95824,
+"pace_ms": 96238,
+"gap_pct": 0.713,
+"top100": 2
+},
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 5,
+"best_ms": 95994,
+"pace_ms": 96312,
+"gap_pct": 0.791,
+"top100": 0
+},
+{
+"code": 3340,
+"name": "Lexus RC F GT3 '17",
+"laps": 13,
+"best_ms": 95829,
+"pace_ms": 96445,
+"gap_pct": 0.93,
+"top100": 2
+}
+]
+}

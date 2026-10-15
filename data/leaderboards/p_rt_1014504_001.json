@@ -1,0 +1,42 @@
+{
+"date": "2026-08-03",
+"board": "p_rt_1014504_001",
+"race": "B",
+"track": "Red Bull Ring",
+"course_id": "470",
+"group": "gr4",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 801,
+"best_ms": 95718,
+"pace_ms": 95918,
+"gap_pct": 0.0,
+"top100": 99
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 182,
+"best_ms": 96167,
+"pace_ms": 96356,
+"gap_pct": 0.457,
+"top100": 1
+},
+{
+"code": 3258,
+"name": "Mitsubishi Lancer Evolution Final Edition Gr.4",
+"laps": 5,
+"best_ms": 96401,
+"pace_ms": 96504,
+"gap_pct": 0.611,
+"top100": 0
+}
+]
+}

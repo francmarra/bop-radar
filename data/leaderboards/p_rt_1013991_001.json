@@ -1,0 +1,43 @@
+{
+"date": "2026-04-27",
+"board": "p_rt_1013991_001",
+"race": "C",
+"track": "Daytona Road Course",
+"course_id": "1163",
+"group": "gr4",
+"tyres": [
+"RM",
+"RS"
+],
+"fuel": "x2",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3252,
+"name": "Jaguar F-type Gr.4",
+"laps": 963,
+"best_ms": 113967,
+"pace_ms": 114178,
+"gap_pct": 0.0,
+"top100": 97
+},
+{
+"code": 3247,
+"name": "Chevrolet Corvette C7 Gr.4",
+"laps": 10,
+"best_ms": 114354,
+"pace_ms": 114932,
+"gap_pct": 0.66,
+"top100": 2
+},
+{
+"code": 3590,
+"name": "Hyundai ELANTRA N TC '24",
+"laps": 13,
+"best_ms": 114807,
+"pace_ms": 115092,
+"gap_pct": 0.801,
+"top100": 0
+}
+]
+}

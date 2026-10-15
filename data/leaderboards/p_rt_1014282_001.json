@@ -1,0 +1,69 @@
+{
+"date": "2026-06-22",
+"board": "p_rt_1014282_001",
+"race": "B",
+"track": "Autodrome Lago Maggiore - Full Course Reverse",
+"course_id": "602",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3474,
+"name": "Subaru BRZ GT300 '21",
+"laps": 764,
+"best_ms": 114948,
+"pace_ms": 115295,
+"gap_pct": 0.0,
+"top100": 95
+},
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 70,
+"best_ms": 115606,
+"pace_ms": 116566,
+"gap_pct": 1.102,
+"top100": 2
+},
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 92,
+"best_ms": 116086,
+"pace_ms": 116628,
+"gap_pct": 1.157,
+"top100": 0
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 17,
+"best_ms": 116070,
+"pace_ms": 116719,
+"gap_pct": 1.235,
+"top100": 0
+},
+{
+"code": 3218,
+"name": "BMW M6 GT3 Endurance Model '16",
+"laps": 26,
+"best_ms": 115897,
+"pace_ms": 116753,
+"gap_pct": 1.265,
+"top100": 1
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 8,
+"best_ms": 116437,
+"pace_ms": 116875,
+"gap_pct": 1.37,
+"top100": 0
+}
+]
+}

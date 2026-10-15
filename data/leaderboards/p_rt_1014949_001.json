@@ -1,0 +1,43 @@
+{
+"date": "2026-10-05",
+"board": "p_rt_1014949_001",
+"race": "C",
+"track": "Daytona Road Course",
+"course_id": "1163",
+"group": "gr3",
+"tyres": [
+"RH",
+"RS"
+],
+"fuel": "x2",
+"tyre_wear": "x5",
+"cars": [
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 968,
+"best_ms": 104068,
+"pace_ms": 104183,
+"gap_pct": 0.0,
+"top100": 99
+},
+{
+"code": 3223,
+"name": "Dodge Viper SRT GT3-R '15",
+"laps": 21,
+"best_ms": 104364,
+"pace_ms": 104869,
+"gap_pct": 0.658,
+"top100": 1
+},
+{
+"code": 2160,
+"name": "Hyundai Genesis Gr.3",
+"laps": 6,
+"best_ms": 104689,
+"pace_ms": 104962,
+"gap_pct": 0.748,
+"top100": 0
+}
+]
+}

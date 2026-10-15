@@ -1,0 +1,42 @@
+{
+"date": "2026-09-21",
+"board": "p_rt_1014925_001",
+"race": "C",
+"track": "Sardegna - Road Track - A",
+"course_id": "921",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x2",
+"tyre_wear": "x8",
+"cars": [
+{
+"code": 2160,
+"name": "Hyundai Genesis Gr.3",
+"laps": 780,
+"best_ms": 100044,
+"pace_ms": 100250,
+"gap_pct": 0.0,
+"top100": 91
+},
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 199,
+"best_ms": 100292,
+"pace_ms": 100636,
+"gap_pct": 0.385,
+"top100": 9
+},
+{
+"code": 3508,
+"name": "SUZUKI Vision Gran Turismo (Gr.3 Version)",
+"laps": 11,
+"best_ms": 100654,
+"pace_ms": 101116,
+"gap_pct": 0.864,
+"top100": 0
+}
+]
+}

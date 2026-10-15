@@ -1,0 +1,79 @@
+{
+"date": "2026-05-18",
+"board": "p_rt_1014050_001",
+"race": "C",
+"track": "Dragon Trail - Seaside",
+"course_id": "363",
+"group": "gr4",
+"tyres": [
+"RH",
+"RM"
+],
+"fuel": "x2",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 344,
+"best_ms": 105914,
+"pace_ms": 106094,
+"gap_pct": 0.039,
+"top100": 62
+},
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 444,
+"best_ms": 105995,
+"pace_ms": 106226,
+"gap_pct": 0.164,
+"top100": 28
+},
+{
+"code": 3310,
+"name": "Porsche Cayman GT4 Clubsport '16",
+"laps": 144,
+"best_ms": 105992,
+"pace_ms": 106400,
+"gap_pct": 0.327,
+"top100": 6
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 22,
+"best_ms": 106035,
+"pace_ms": 106656,
+"gap_pct": 0.57,
+"top100": 1
+},
+{
+"code": 3247,
+"name": "Chevrolet Corvette C7 Gr.4",
+"laps": 10,
+"best_ms": 106511,
+"pace_ms": 106720,
+"gap_pct": 0.629,
+"top100": 0
+},
+{
+"code": 3537,
+"name": "MAZDA3 Gr.4",
+"laps": 8,
+"best_ms": 106299,
+"pace_ms": 106806,
+"gap_pct": 0.711,
+"top100": 1
+},
+{
+"code": 3590,
+"name": "Hyundai ELANTRA N TC '24",
+"laps": 6,
+"best_ms": 106814,
+"pace_ms": 106878,
+"gap_pct": 0.778,
+"top100": 0
+}
+]
+}

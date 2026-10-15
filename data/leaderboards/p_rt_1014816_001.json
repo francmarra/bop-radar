@@ -1,0 +1,51 @@
+{
+"date": "2026-09-14",
+"board": "p_rt_1014816_001",
+"race": "B",
+"track": "Autodromo Nazionale Monza",
+"course_id": "469",
+"group": "gr3",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 2160,
+"name": "Hyundai Genesis Gr.3",
+"laps": 928,
+"best_ms": 108893,
+"pace_ms": 109110,
+"gap_pct": 0.0,
+"top100": 95
+},
+{
+"code": 3508,
+"name": "SUZUKI Vision Gran Turismo (Gr.3 Version)",
+"laps": 36,
+"best_ms": 109229,
+"pace_ms": 109858,
+"gap_pct": 0.686,
+"top100": 4
+},
+{
+"code": 2186,
+"name": "Subaru WRX Gr.3",
+"laps": 6,
+"best_ms": 109686,
+"pace_ms": 110043,
+"gap_pct": 0.856,
+"top100": 0
+},
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 15,
+"best_ms": 109892,
+"pace_ms": 110106,
+"gap_pct": 0.913,
+"top100": 0
+}
+]
+}

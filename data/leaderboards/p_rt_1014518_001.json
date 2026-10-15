@@ -1,0 +1,60 @@
+{
+"date": "2026-08-10",
+"board": "p_rt_1014518_001",
+"race": "B",
+"track": "Fuji International Speedway",
+"course_id": "16",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 730,
+"best_ms": 97682,
+"pace_ms": 97888,
+"gap_pct": 0.0,
+"top100": 83
+},
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 152,
+"best_ms": 97899,
+"pace_ms": 98144,
+"gap_pct": 0.263,
+"top100": 11
+},
+{
+"code": 2158,
+"name": "Ferrari 458 Italia GT3 '13",
+"laps": 63,
+"best_ms": 98018,
+"pace_ms": 98340,
+"gap_pct": 0.462,
+"top100": 3
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 13,
+"best_ms": 98459,
+"pace_ms": 98649,
+"gap_pct": 0.778,
+"top100": 0
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 13,
+"best_ms": 98251,
+"pace_ms": 98673,
+"gap_pct": 0.802,
+"top100": 0
+}
+]
+}

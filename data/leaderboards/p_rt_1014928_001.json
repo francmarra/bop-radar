@@ -1,0 +1,25 @@
+{
+"date": "2026-09-28",
+"board": "p_rt_1014928_001",
+"race": "C",
+"track": "Red Bull Ring",
+"course_id": "470",
+"group": "gr4",
+"tyres": [
+"RM",
+"RS"
+],
+"fuel": "x2",
+"tyre_wear": "x5",
+"cars": [
+{
+"code": 3590,
+"name": "Hyundai ELANTRA N TC '24",
+"laps": 1000,
+"best_ms": 93217,
+"pace_ms": 93418,
+"gap_pct": 0.0,
+"top100": 100
+}
+]
+}

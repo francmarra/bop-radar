@@ -1,0 +1,60 @@
+{
+"date": "2026-07-20",
+"board": "p_rt_1014484_001",
+"race": "C",
+"track": "Circuit Gilles-Villeneuve",
+"course_id": "1322",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 365,
+"name": "Alfa Romeo 155 2.5 V6 TI '93",
+"laps": 702,
+"best_ms": 102401,
+"pace_ms": 102888,
+"gap_pct": 0.122,
+"top100": 53
+},
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 250,
+"best_ms": 102527,
+"pace_ms": 102890,
+"gap_pct": 0.123,
+"top100": 47
+},
+{
+"code": 3261,
+"name": "Subaru WRX Gr.4",
+"laps": 28,
+"best_ms": 103213,
+"pace_ms": 103768,
+"gap_pct": 0.978,
+"top100": 0
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 5,
+"best_ms": 103834,
+"pace_ms": 103904,
+"gap_pct": 1.11,
+"top100": 0
+},
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 6,
+"best_ms": 103515,
+"pace_ms": 103954,
+"gap_pct": 1.158,
+"top100": 0
+}
+]
+}

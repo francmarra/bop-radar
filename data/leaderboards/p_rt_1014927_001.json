@@ -1,0 +1,60 @@
+{
+"date": "2026-09-28",
+"board": "p_rt_1014927_001",
+"race": "B",
+"track": "Autodrome Lago Maggiore - Full Course Reverse",
+"course_id": "602",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 660,
+"best_ms": 115387,
+"pace_ms": 115791,
+"gap_pct": 0.145,
+"top100": 77
+},
+{
+"code": 2160,
+"name": "Hyundai Genesis Gr.3",
+"laps": 158,
+"best_ms": 115562,
+"pace_ms": 116198,
+"gap_pct": 0.496,
+"top100": 10
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 94,
+"best_ms": 115585,
+"pace_ms": 116300,
+"gap_pct": 0.585,
+"top100": 8
+},
+{
+"code": 3218,
+"name": "BMW M6 GT3 Endurance Model '16",
+"laps": 56,
+"best_ms": 115985,
+"pace_ms": 116535,
+"gap_pct": 0.788,
+"top100": 3
+},
+{
+"code": 3237,
+"name": "Mazda Atenza Gr.3",
+"laps": 8,
+"best_ms": 116221,
+"pace_ms": 116871,
+"gap_pct": 1.079,
+"top100": 0
+}
+]
+}

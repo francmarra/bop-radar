@@ -1,0 +1,43 @@
+{
+"date": "2026-08-24",
+"board": "p_rt_1014572_001",
+"race": "C",
+"track": "Circuit de Sainte-Croix - B",
+"course_id": "827",
+"group": "gr2",
+"tyres": [
+"RH",
+"RM"
+],
+"fuel": "x3",
+"tyre_wear": "x7",
+"cars": [
+{
+"code": 3349,
+"name": "Lexus RC F GT500 '16",
+"laps": 880,
+"best_ms": 110785,
+"pace_ms": 111132,
+"gap_pct": 0.003,
+"top100": 89
+},
+{
+"code": 3523,
+"name": "Audi RS 5 Turbo DTM '19",
+"laps": 50,
+"best_ms": 111089,
+"pace_ms": 111738,
+"gap_pct": 0.548,
+"top100": 7
+},
+{
+"code": 3350,
+"name": "Nissan GT-R NISMO GT500 '16",
+"laps": 69,
+"best_ms": 111304,
+"pace_ms": 111912,
+"gap_pct": 0.705,
+"top100": 4
+}
+]
+}

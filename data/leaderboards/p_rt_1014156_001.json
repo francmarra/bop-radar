@@ -1,0 +1,123 @@
+{
+"date": "2026-06-01",
+"board": "p_rt_1014156_001",
+"race": "B",
+"track": "Yas Marina Circuit",
+"course_id": "1333",
+"group": "gr3",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 799,
+"best_ms": 114139,
+"pace_ms": 114610,
+"gap_pct": 0.11,
+"top100": 73
+},
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 86,
+"best_ms": 114304,
+"pace_ms": 115124,
+"gap_pct": 0.559,
+"top100": 11
+},
+{
+"code": 3223,
+"name": "Dodge Viper SRT GT3-R '15",
+"laps": 5,
+"best_ms": 114857,
+"pace_ms": 115613,
+"gap_pct": 0.986,
+"top100": 1
+},
+{
+"code": 2160,
+"name": "Hyundai Genesis Gr.3",
+"laps": 8,
+"best_ms": 114837,
+"pace_ms": 115675,
+"gap_pct": 1.04,
+"top100": 2
+},
+{
+"code": 2158,
+"name": "Ferrari 458 Italia GT3 '13",
+"laps": 17,
+"best_ms": 115062,
+"pace_ms": 115694,
+"gap_pct": 1.056,
+"top100": 1
+},
+{
+"code": 3352,
+"name": "Toyota GR Supra Racing Concept '18",
+"laps": 5,
+"best_ms": 115471,
+"pace_ms": 115739,
+"gap_pct": 1.096,
+"top100": 0
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 14,
+"best_ms": 115102,
+"pace_ms": 115801,
+"gap_pct": 1.15,
+"top100": 1
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 12,
+"best_ms": 114754,
+"pace_ms": 115814,
+"gap_pct": 1.161,
+"top100": 1
+},
+{
+"code": 3238,
+"name": "Peugeot RCZ Gr.3",
+"laps": 10,
+"best_ms": 114204,
+"pace_ms": 115820,
+"gap_pct": 1.167,
+"top100": 2
+},
+{
+"code": 3419,
+"name": "MAZDA RX-VISION GT3 CONCEPT",
+"laps": 5,
+"best_ms": 115640,
+"pace_ms": 115861,
+"gap_pct": 1.202,
+"top100": 0
+},
+{
+"code": 2190,
+"name": "GT by Citroën Race Car (Gr.3)",
+"laps": 5,
+"best_ms": 115572,
+"pace_ms": 115872,
+"gap_pct": 1.212,
+"top100": 0
+},
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 5,
+"best_ms": 115325,
+"pace_ms": 115900,
+"gap_pct": 1.236,
+"top100": 0
+}
+]
+}

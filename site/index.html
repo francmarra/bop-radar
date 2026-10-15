@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GT7 BoP Tracker</title>
-  <meta name="description" content="Gran Turismo 7 Balance of Performance history and per-car context for Gr.1, Gr.2, Gr.3 and Gr.4.">
+  <meta name="description" content="Gran Turismo 7 Balance of Performance history, per-car context and best cars per track for Gr.1, Gr.2, Gr.3 and Gr.4.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23e10600'/%3E%3Cpath d='M9 22l5-12h4l-5 12zM16 22l5-12h3l-5 12z' fill='%23fff'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -13,16 +14,20 @@
   <header class="top">
     <a class="brand" href="#/"><span class="stripe"></span>GT7 <b>BoP</b> Tracker</a>
     <nav>
-      <a href="#/">Rankings</a>
-      <a href="#/updates">Updates</a>
-      <a href="#/about">About</a>
+      <a href="#/" data-page="rankings" data-t="nav_rankings">Rankings</a>
+      <a href="#/tracks" data-page="tracks" data-t="nav_tracks">Tracks</a>
+      <a href="#/updates" data-page="updates" data-t="nav_updates">Updates</a>
+      <a href="#/about" data-page="about" data-t="nav_about">About</a>
     </nav>
+    <div class="lang" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="pt">PT</button></div>
   </header>
   <main id="app"><p class="muted">Loading…</p></main>
   <footer>
-    BoP data: <a href="https://gt-engine.com/gt7/" target="_blank" rel="noopener">GT ENG!NE</a> ·
-    track classes: <a href="https://github.com/ddm999/gt7info" target="_blank" rel="noopener">gt7info</a> ·
-    tyre wear &amp; fuel are estimates · not affiliated with Polyphony Digital
+    BoP: <a href="https://gt-engine.com/gt7/" target="_blank" rel="noopener">GT ENG!NE</a> ·
+    leaderboards: <a href="https://gtsh-rank.com/daily/" target="_blank" rel="noopener">gtsh-rank</a> ·
+    tracks: <a href="https://github.com/ddm999/gt7info" target="_blank" rel="noopener">gt7info</a> ·
+    <span data-t="footer_est">tyre wear &amp; fuel are estimates</span> · <span data-t="unofficial">not affiliated with Polyphony Digital</span> ·
+    <a href="https://github.com/francmarra/gt7-bop" target="_blank" rel="noopener">GitHub</a>
   </footer>
   <script src="app.js"></script>
 </body>

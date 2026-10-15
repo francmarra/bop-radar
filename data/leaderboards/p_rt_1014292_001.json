@@ -1,0 +1,60 @@
+{
+"date": "2026-06-29",
+"board": "p_rt_1014292_001",
+"race": "B",
+"track": "Mount Panorama Motor Racing Circuit",
+"course_id": "116",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 829,
+"best_ms": 133791,
+"pace_ms": 134168,
+"gap_pct": 0.069,
+"top100": 70
+},
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 123,
+"best_ms": 133773,
+"pace_ms": 134296,
+"gap_pct": 0.164,
+"top100": 29
+},
+{
+"code": 3310,
+"name": "Porsche Cayman GT4 Clubsport '16",
+"laps": 6,
+"best_ms": 134596,
+"pace_ms": 134954,
+"gap_pct": 0.654,
+"top100": 0
+},
+{
+"code": 3231,
+"name": "Volkswagen Scirocco Gr.4",
+"laps": 5,
+"best_ms": 134998,
+"pace_ms": 135209,
+"gap_pct": 0.845,
+"top100": 0
+},
+{
+"code": 365,
+"name": "Alfa Romeo 155 2.5 V6 TI '93",
+"laps": 5,
+"best_ms": 135117,
+"pace_ms": 135388,
+"gap_pct": 0.978,
+"top100": 0
+}
+]
+}

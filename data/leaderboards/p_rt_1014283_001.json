@@ -1,0 +1,43 @@
+{
+"date": "2026-06-22",
+"board": "p_rt_1014283_001",
+"race": "C",
+"track": "24 Heures du Mans Racing Circuit",
+"course_id": "454",
+"group": "gr1",
+"tyres": [
+"RM",
+"IM"
+],
+"fuel": "x2",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3607,
+"name": "Porsche 963 '24",
+"laps": 926,
+"best_ms": 202739,
+"pace_ms": 203726,
+"gap_pct": 0.042,
+"top100": 92
+},
+{
+"code": 3499,
+"name": "TOYOTA GR010 HYBRID '21",
+"laps": 58,
+"best_ms": 203455,
+"pace_ms": 206247,
+"gap_pct": 1.28,
+"top100": 7
+},
+{
+"code": 3605,
+"name": "Ferrari 499P '23",
+"laps": 14,
+"best_ms": 204843,
+"pace_ms": 207132,
+"gap_pct": 1.715,
+"top100": 1
+}
+]
+}

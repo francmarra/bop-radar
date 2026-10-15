@@ -1,0 +1,33 @@
+{
+"date": "2026-08-20",
+"board": "p_rt_1014541_002",
+"race": "B",
+"track": "Autodrome Lago Maggiore - Full Course Reverse",
+"course_id": "602",
+"group": "gr4",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3590,
+"name": "Hyundai ELANTRA N TC '24",
+"laps": 988,
+"best_ms": 124126,
+"pace_ms": 124522,
+"gap_pct": 0.0,
+"top100": 100
+},
+{
+"code": 3480,
+"name": "Suzuki Swift Sport KATANA Edition Gr.4",
+"laps": 10,
+"best_ms": 125589,
+"pace_ms": 125912,
+"gap_pct": 1.116,
+"top100": 0
+}
+]
+}

@@ -1,0 +1,87 @@
+{
+"date": "2026-05-25",
+"board": "p_rt_1014096_001",
+"race": "B",
+"track": "Deep Forest Raceway",
+"course_id": "51",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 893,
+"best_ms": 94399,
+"pace_ms": 94572,
+"gap_pct": 0.0,
+"top100": 98
+},
+{
+"code": 3246,
+"name": "Bugatti Veyron Gr.4",
+"laps": 5,
+"best_ms": 94808,
+"pace_ms": 94978,
+"gap_pct": 0.429,
+"top100": 0
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 9,
+"best_ms": 94952,
+"pace_ms": 95048,
+"gap_pct": 0.503,
+"top100": 0
+},
+{
+"code": 3310,
+"name": "Porsche Cayman GT4 Clubsport '16",
+"laps": 13,
+"best_ms": 94707,
+"pace_ms": 95128,
+"gap_pct": 0.588,
+"top100": 1
+},
+{
+"code": 365,
+"name": "Alfa Romeo 155 2.5 V6 TI '93",
+"laps": 13,
+"best_ms": 94934,
+"pace_ms": 95169,
+"gap_pct": 0.631,
+"top100": 0
+},
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 31,
+"best_ms": 94806,
+"pace_ms": 95176,
+"gap_pct": 0.638,
+"top100": 1
+},
+{
+"code": 3480,
+"name": "Suzuki Swift Sport KATANA Edition Gr.4",
+"laps": 7,
+"best_ms": 95217,
+"pace_ms": 95245,
+"gap_pct": 0.712,
+"top100": 0
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 15,
+"best_ms": 95138,
+"pace_ms": 95266,
+"gap_pct": 0.734,
+"top100": 0
+}
+]
+}

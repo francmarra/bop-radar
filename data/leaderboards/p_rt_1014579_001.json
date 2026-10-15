@@ -1,0 +1,52 @@
+{
+"date": "2026-08-31",
+"board": "p_rt_1014579_001",
+"race": "C",
+"track": "24 Heures du Mans Racing Circuit",
+"course_id": "454",
+"group": "gr1",
+"tyres": [
+"RM",
+"IM"
+],
+"fuel": "x2",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3607,
+"name": "Porsche 963 '24",
+"laps": 836,
+"best_ms": 205374,
+"pace_ms": 206372,
+"gap_pct": 0.0,
+"top100": 84
+},
+{
+"code": 3604,
+"name": "BMW M Hybrid V8 '25",
+"laps": 103,
+"best_ms": 206717,
+"pace_ms": 207901,
+"gap_pct": 0.741,
+"top100": 11
+},
+{
+"code": 3605,
+"name": "Ferrari 499P '23",
+"laps": 40,
+"best_ms": 206636,
+"pace_ms": 209245,
+"gap_pct": 1.392,
+"top100": 3
+},
+{
+"code": 3606,
+"name": "Peugeot 9X8 '25",
+"laps": 20,
+"best_ms": 206920,
+"pace_ms": 210266,
+"gap_pct": 1.887,
+"top100": 2
+}
+]
+}

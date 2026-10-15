@@ -1,0 +1,60 @@
+{
+"date": "2026-07-13",
+"board": "p_rt_1014350_001",
+"race": "B",
+"track": "Nürburgring GP",
+"course_id": "349",
+"group": "gr4",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 681,
+"best_ms": 123482,
+"pace_ms": 123717,
+"gap_pct": 0.0,
+"top100": 93
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 256,
+"best_ms": 124130,
+"pace_ms": 124500,
+"gap_pct": 0.633,
+"top100": 4
+},
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 17,
+"best_ms": 123790,
+"pace_ms": 124957,
+"gap_pct": 1.002,
+"top100": 1
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 6,
+"best_ms": 124437,
+"pace_ms": 125010,
+"gap_pct": 1.045,
+"top100": 0
+},
+{
+"code": 3261,
+"name": "Subaru WRX Gr.4",
+"laps": 14,
+"best_ms": 124316,
+"pace_ms": 125090,
+"gap_pct": 1.11,
+"top100": 1
+}
+]
+}

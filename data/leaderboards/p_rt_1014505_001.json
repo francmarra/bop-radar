@@ -1,0 +1,51 @@
+{
+"date": "2026-08-03",
+"board": "p_rt_1014505_001",
+"race": "C",
+"track": "Tokyo Expressway - East Clockwise",
+"course_id": "361",
+"group": "gr3",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3352,
+"name": "Toyota GR Supra Racing Concept '18",
+"laps": 481,
+"best_ms": 118486,
+"pace_ms": 118586,
+"gap_pct": 0.014,
+"top100": 70
+},
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 371,
+"best_ms": 118575,
+"pace_ms": 118827,
+"gap_pct": 0.217,
+"top100": 21
+},
+{
+"code": 3436,
+"name": "Ford GT Race Car '18",
+"laps": 122,
+"best_ms": 118537,
+"pace_ms": 119070,
+"gap_pct": 0.422,
+"top100": 9
+},
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 5,
+"best_ms": 119077,
+"pace_ms": 119711,
+"gap_pct": 0.962,
+"top100": 0
+}
+]
+}

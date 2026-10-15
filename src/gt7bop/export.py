@@ -2,11 +2,13 @@
 
 import json
 import re
+import shutil
 import tomllib
 from datetime import date
 from pathlib import Path
 
 from gt7bop.build import GroupHistory, version_key
+from gt7bop.tracks import rate_combos
 
 GROUP_LABELS = {"gr1": "Gr.1", "gr2": "Gr.2", "gr3": "Gr.3", "gr4": "Gr.4"}
 
@@ -20,10 +22,25 @@ def _dump(path: Path, data) -> None:
     path.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
 
-def export(histories: list[GroupHistory], assessments: dict[str, dict], out: Path, notes_dir: Path) -> None:
-    index = {"generated": date.today().isoformat(), "groups": [], "updates": []}
+def _brief(e: dict) -> dict:
+    """What the site needs to write the summary sentence in any language."""
+    c = e["context"]
+    return {"verdict": e.get("verdict"), "changed": e["changed"], "delta": e.get("delta", {}), "of": e["of"],
+            "rank": e["sets"][c["best_set"]]["rank"], "tier": e["sets"][c["best_set"]]["tier"],
+            "best_set": c["best_set"], "all_rounder": c["all_rounder"], "strengths": c["strengths"],
+            "tyre_wear": c["tyre_wear"], "fuel_use": c["fuel_use"]}
+
+
+def export(histories: list[GroupHistory], assessments: dict[str, dict], out: Path, notes_dir: Path,
+           events: list[dict] | None = None) -> None:
+    for sub in ("cars", "updates"):  # generated output: drop files of cars/versions that no longer exist
+        shutil.rmtree(out / sub, ignore_errors=True)
+    index = {"generated": date.today().isoformat(), "groups": [], "updates": [], "events": len(events or [])}
     updates: dict[str, dict] = {}
+    car_files: dict[str, dict] = {}
+    combo_input: dict[str, dict] = {}
     for hist in histories:
+        combo_input[hist.group] = {"versions": hist.versions, "cars": []}
         cars_meta = []
         latest = hist.versions[-1][0]
         for name, car in hist.cars.items():
@@ -31,17 +48,20 @@ def export(histories: list[GroupHistory], assessments: dict[str, dict], out: Pat
             entries = assessments[hist.group][name]
             notes_file = notes_dir / f"{s}.toml"
             notes = tomllib.loads(notes_file.read_text(encoding="utf-8")) if notes_file.exists() else None
-            _dump(out / "cars" / f"{s}.json", {
+            car_files[s] = {
                 "id": s, "name": name, "maker": car.maker, "drivetrain": car.drivetrain,
-                "group": hist.group, "history": entries, "notes": notes,
-            })
+                "group": hist.group, "history": entries, "notes": notes, "tracks": [],
+            }
             last = entries[-1]
             if last["v"] == latest:  # still in the current BoP list
+                combo_input[hist.group]["cars"].append({
+                    "id": s, "name": name, "maker": car.maker, "fit": last["context"]["fit"],
+                    "changed_versions": sorted(car.changed, key=version_key)})
                 cars_meta.append({
                     "id": s, "name": name, "maker": car.maker, "drivetrain": car.drivetrain,
                     "sets": {k: {"rank": v["rank"], "tier": v["tier"], "pp": v.get("pp")}
                              for k, v in last["sets"].items()},
-                    "best_set": last["context"]["best_set"], "summary": last["summary"],
+                    "best_set": last["context"]["best_set"], "summary": last["summary"], "brief": _brief(last),
                     "last_change": next(({"v": e["v"], "verdict": e["verdict"]} for e in reversed(entries)
                                          if e["changed"] and e.get("verdict")), None),
                 })
@@ -50,11 +70,23 @@ def export(histories: list[GroupHistory], assessments: dict[str, dict], out: Pat
                     u = updates.setdefault(e["v"], {"version": e["v"], "date": e["date"], "groups": {}})
                     u["groups"].setdefault(hist.group, []).append({
                         "id": s, "name": name, "verdict": e["verdict"], "delta": e.get("delta", {}),
-                        "rank": e["sets"]["m"]["rank"], "summary": e["summary"],
+                        "rank": e["sets"]["m"]["rank"], "summary": e["summary"], "brief": _brief(e),
                     })
         cars_meta.sort(key=lambda c: c["sets"]["m"]["rank"])
         index["groups"].append({"id": hist.group, "label": GROUP_LABELS[hist.group],
                                 "latest": latest, "cars": cars_meta})
+    combos = rate_combos(events or [], combo_input)
+    _dump(out / "tracks.json", combos)
+    for t in combos:
+        for g in t["groups"].values():
+            for rank, c in enumerate(g["cars"], 1):
+                if c["lb"]:
+                    car_files[c["id"]]["tracks"].append({"id": t["id"], "name": t["name"], "set": t["set"],
+                                                         "rank": rank, "of": len(g["cars"]), "tier": c["tier"],
+                                                         **c["lb"]})
+    for s, payload in car_files.items():
+        payload["tracks"].sort(key=lambda r: r["rank"] / r["of"])
+        _dump(out / "cars" / f"{s}.json", payload)
     for v in sorted(updates, key=version_key, reverse=True):
         u = updates[v]
         _dump(out / "updates" / f"{v}.json", u)

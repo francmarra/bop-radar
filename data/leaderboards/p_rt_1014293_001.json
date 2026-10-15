@@ -1,0 +1,106 @@
+{
+"date": "2026-06-29",
+"board": "p_rt_1014293_001",
+"race": "C",
+"track": "Deep Forest Raceway",
+"course_id": "51",
+"group": "gr3",
+"tyres": [
+"RM",
+"RS"
+],
+"fuel": "x2",
+"tyre_wear": "x5",
+"cars": [
+{
+"code": 3223,
+"name": "Dodge Viper SRT GT3-R '15",
+"laps": 394,
+"best_ms": 85023,
+"pace_ms": 85187,
+"gap_pct": 0.033,
+"top100": 57
+},
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 360,
+"best_ms": 85062,
+"pace_ms": 85300,
+"gap_pct": 0.166,
+"top100": 22
+},
+{
+"code": 3436,
+"name": "Ford GT Race Car '18",
+"laps": 140,
+"best_ms": 85197,
+"pace_ms": 85318,
+"gap_pct": 0.188,
+"top100": 14
+},
+{
+"code": 3185,
+"name": "Alfa Romeo 4C Gr.3",
+"laps": 9,
+"best_ms": 85275,
+"pace_ms": 85513,
+"gap_pct": 0.416,
+"top100": 3
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 24,
+"best_ms": 85308,
+"pace_ms": 85740,
+"gap_pct": 0.683,
+"top100": 2
+},
+{
+"code": 1902,
+"name": "BMW Z4 GT3 '11",
+"laps": 5,
+"best_ms": 85641,
+"pace_ms": 85772,
+"gap_pct": 0.72,
+"top100": 0
+},
+{
+"code": 2182,
+"name": "McLaren 650S GT3 '15",
+"laps": 6,
+"best_ms": 85673,
+"pace_ms": 85827,
+"gap_pct": 0.785,
+"top100": 0
+},
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 17,
+"best_ms": 85446,
+"pace_ms": 85852,
+"gap_pct": 0.814,
+"top100": 0
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 5,
+"best_ms": 85725,
+"pace_ms": 85863,
+"gap_pct": 0.827,
+"top100": 0
+},
+{
+"code": 3238,
+"name": "Peugeot RCZ Gr.3",
+"laps": 12,
+"best_ms": 85754,
+"pace_ms": 85868,
+"gap_pct": 0.833,
+"top100": 0
+}
+]
+}

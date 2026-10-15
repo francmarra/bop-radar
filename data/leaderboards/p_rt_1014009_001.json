@@ -1,0 +1,51 @@
+{
+"date": "2026-05-04",
+"board": "p_rt_1014009_001",
+"race": "C",
+"track": "Circuit de Spa-Francorchamps",
+"course_id": "462",
+"group": "gr1",
+"tyres": [
+"RM"
+],
+"fuel": "x2",
+"tyre_wear": "x5",
+"cars": [
+{
+"code": 2179,
+"name": "Bugatti Vision Gran Turismo (Gr.1)",
+"laps": 478,
+"best_ms": 118173,
+"pace_ms": 118710,
+"gap_pct": 0.074,
+"top100": 69
+},
+{
+"code": 3334,
+"name": "Audi R18 '16",
+"laps": 486,
+"best_ms": 118547,
+"pace_ms": 118842,
+"gap_pct": 0.185,
+"top100": 28
+},
+{
+"code": 3312,
+"name": "Toyota TS050 - Hybrid '16",
+"laps": 13,
+"best_ms": 118879,
+"pace_ms": 119969,
+"gap_pct": 1.135,
+"top100": 3
+},
+{
+"code": 3313,
+"name": "Porsche 919 Hybrid '16",
+"laps": 20,
+"best_ms": 119539,
+"pace_ms": 120012,
+"gap_pct": 1.171,
+"top100": 0
+}
+]
+}

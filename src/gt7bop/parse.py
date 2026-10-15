@@ -58,6 +58,17 @@ def _value(text: str):
         return t or None
 
 
+BALANCE_RE = re.compile(r"^\d{1,2}:\d{1,2}$")
+
+
+def _metric(key: str, text: str):
+    """Numbers only (balance must look like '44:56'); anything else from the source becomes None."""
+    v = _value(text)
+    if key == "balance":
+        return v if isinstance(v, str) and BALANCE_RE.match(v) else None
+    return v if isinstance(v, (int, float)) else None
+
+
 class _Parser(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
@@ -166,11 +177,13 @@ def _rows_to_cars(rows: list[list[tuple[str, int]]]) -> dict[str, CarRow]:
             continue
         old, new = {}, {}
         for key, start, span in metric_cols:
-            old[key] = _value(cells[start])
-            new[key] = _value(cells[start + (2 if span == 5 else 1)])
+            old[key] = _metric(key, cells[start])
+            new[key] = _metric(key, cells[start + (2 if span == 5 else 1)])
             if span == 5:  # stability: value + N/U/O flag (neutral / understeer / oversteer)
-                old[key + "_flag"] = cells[start + 1]
-                new[key + "_flag"] = cells[start + 3]
+                old[key + "_flag"] = cells[start + 1] if cells[start + 1] in ("N", "U", "O") else None
+                new[key + "_flag"] = cells[start + 3] if cells[start + 3] in ("N", "U", "O") else None
+        if cells[maker_col[1]] in ("", "-") or cells[name_col[1]].startswith("("):
+            continue  # summary rows such as "(Average)"
         cars[cells[name_col[1]]] = CarRow(
             maker=cells[maker_col[1]],
             drivetrain=cells[drive_col[1]] if drive_col else "",

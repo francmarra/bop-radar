@@ -1,0 +1,78 @@
+{
+"date": "2026-04-20",
+"board": "p_rt_1013967_001",
+"race": "C",
+"track": "Red Bull Ring",
+"course_id": "470",
+"group": "gr3",
+"tyres": [
+"RS"
+],
+"fuel": "x2",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 2186,
+"name": "Subaru WRX Gr.3",
+"laps": 736,
+"best_ms": 87067,
+"pace_ms": 87244,
+"gap_pct": 0.018,
+"top100": 71
+},
+{
+"code": 2185,
+"name": "Mitsubishi Lancer Evolution Final Edition Gr.3",
+"laps": 191,
+"best_ms": 87102,
+"pace_ms": 87484,
+"gap_pct": 0.293,
+"top100": 21
+},
+{
+"code": 3237,
+"name": "Mazda Atenza Gr.3",
+"laps": 10,
+"best_ms": 87271,
+"pace_ms": 87820,
+"gap_pct": 0.678,
+"top100": 2
+},
+{
+"code": 3305,
+"name": "Volkswagen Beetle Gr.3",
+"laps": 21,
+"best_ms": 87453,
+"pace_ms": 87878,
+"gap_pct": 0.744,
+"top100": 3
+},
+{
+"code": 3508,
+"name": "SUZUKI Vision Gran Turismo (Gr.3 Version)",
+"laps": 9,
+"best_ms": 87344,
+"pace_ms": 88068,
+"gap_pct": 0.962,
+"top100": 1
+},
+{
+"code": 3502,
+"name": "Genesis X GR3",
+"laps": 5,
+"best_ms": 87308,
+"pace_ms": 88106,
+"gap_pct": 1.006,
+"top100": 1
+},
+{
+"code": 2131,
+"name": "Aston Martin V12 Vantage GT3 '12",
+"laps": 5,
+"best_ms": 87521,
+"pace_ms": 88129,
+"gap_pct": 1.032,
+"top100": 1
+}
+]
+}

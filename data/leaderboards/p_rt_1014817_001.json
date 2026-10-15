@@ -1,0 +1,33 @@
+{
+"date": "2026-09-14",
+"board": "p_rt_1014817_001",
+"race": "C",
+"track": "Brands Hatch Grand Prix Circuit",
+"course_id": "119",
+"group": "gr4",
+"tyres": [
+"RM"
+],
+"fuel": "x2",
+"tyre_wear": "x5",
+"cars": [
+{
+"code": 3590,
+"name": "Hyundai ELANTRA N TC '24",
+"laps": 985,
+"best_ms": 87990,
+"pace_ms": 88397,
+"gap_pct": 0.0,
+"top100": 100
+},
+{
+"code": 3480,
+"name": "Suzuki Swift Sport KATANA Edition Gr.4",
+"laps": 13,
+"best_ms": 88975,
+"pace_ms": 89219,
+"gap_pct": 0.93,
+"top100": 0
+}
+]
+}

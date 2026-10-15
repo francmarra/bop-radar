@@ -1,0 +1,96 @@
+{
+"date": "2026-07-06",
+"board": "p_rt_1014333_001",
+"race": "B",
+"track": "Circuit de Spa-Francorchamps",
+"course_id": "462",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 873,
+"best_ms": 136171,
+"pace_ms": 136494,
+"gap_pct": 0.0,
+"top100": 88
+},
+{
+"code": 3450,
+"name": "Nissan GT-R NISMO GT3 '18",
+"laps": 14,
+"best_ms": 136591,
+"pace_ms": 137328,
+"gap_pct": 0.611,
+"top100": 2
+},
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 42,
+"best_ms": 136683,
+"pace_ms": 137372,
+"gap_pct": 0.644,
+"top100": 3
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 5,
+"best_ms": 137192,
+"pace_ms": 137463,
+"gap_pct": 0.71,
+"top100": 0
+},
+{
+"code": 2182,
+"name": "McLaren 650S GT3 '15",
+"laps": 5,
+"best_ms": 137305,
+"pace_ms": 137468,
+"gap_pct": 0.714,
+"top100": 0
+},
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 7,
+"best_ms": 137178,
+"pace_ms": 137553,
+"gap_pct": 0.776,
+"top100": 0
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 8,
+"best_ms": 137424,
+"pace_ms": 137593,
+"gap_pct": 0.805,
+"top100": 0
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 12,
+"best_ms": 136585,
+"pace_ms": 137620,
+"gap_pct": 0.825,
+"top100": 2
+},
+{
+"code": 3419,
+"name": "MAZDA RX-VISION GT3 CONCEPT",
+"laps": 5,
+"best_ms": 137477,
+"pace_ms": 137721,
+"gap_pct": 0.899,
+"top100": 0
+}
+]
+}

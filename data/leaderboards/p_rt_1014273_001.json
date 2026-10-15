@@ -1,0 +1,96 @@
+{
+"date": "2026-06-15",
+"board": "p_rt_1014273_001",
+"race": "C",
+"track": "Sardegna - Road Track - B",
+"course_id": "841",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x2",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 728,
+"best_ms": 85850,
+"pace_ms": 86054,
+"gap_pct": 0.016,
+"top100": 81
+},
+{
+"code": 3310,
+"name": "Porsche Cayman GT4 Clubsport '16",
+"laps": 123,
+"best_ms": 86035,
+"pace_ms": 86314,
+"gap_pct": 0.32,
+"top100": 13
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 67,
+"best_ms": 86395,
+"pace_ms": 86578,
+"gap_pct": 0.626,
+"top100": 0
+},
+{
+"code": 3399,
+"name": "Toyota GR Supra Race Car '19",
+"laps": 13,
+"best_ms": 86064,
+"pace_ms": 86623,
+"gap_pct": 0.678,
+"top100": 4
+},
+{
+"code": 3477,
+"name": "Nissan Silvia spec-R Aero (S15) Touring Car",
+"laps": 5,
+"best_ms": 86373,
+"pace_ms": 86670,
+"gap_pct": 0.733,
+"top100": 1
+},
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 10,
+"best_ms": 86513,
+"pace_ms": 86781,
+"gap_pct": 0.862,
+"top100": 0
+},
+{
+"code": 3261,
+"name": "Subaru WRX Gr.4",
+"laps": 12,
+"best_ms": 86514,
+"pace_ms": 86925,
+"gap_pct": 1.029,
+"top100": 0
+},
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 6,
+"best_ms": 86496,
+"pace_ms": 86930,
+"gap_pct": 1.034,
+"top100": 0
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 15,
+"best_ms": 86379,
+"pace_ms": 86961,
+"gap_pct": 1.071,
+"top100": 1
+}
+]
+}

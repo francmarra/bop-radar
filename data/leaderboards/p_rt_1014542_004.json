@@ -1,0 +1,70 @@
+{
+"date": "2026-08-20",
+"board": "p_rt_1014542_004",
+"race": "C",
+"track": "Yas Marina Circuit",
+"course_id": "1333",
+"group": "gr3",
+"tyres": [
+"RM",
+"RS"
+],
+"fuel": "x3",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 2160,
+"name": "Hyundai Genesis Gr.3",
+"laps": 935,
+"best_ms": 110485,
+"pace_ms": 110817,
+"gap_pct": 0.0,
+"top100": 97
+},
+{
+"code": 2185,
+"name": "Mitsubishi Lancer Evolution Final Edition Gr.3",
+"laps": 6,
+"best_ms": 111400,
+"pace_ms": 112028,
+"gap_pct": 1.092,
+"top100": 1
+},
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 17,
+"best_ms": 111113,
+"pace_ms": 112290,
+"gap_pct": 1.329,
+"top100": 1
+},
+{
+"code": 2186,
+"name": "Subaru WRX Gr.3",
+"laps": 5,
+"best_ms": 111626,
+"pace_ms": 112339,
+"gap_pct": 1.373,
+"top100": 0
+},
+{
+"code": 3340,
+"name": "Lexus RC F GT3 '17",
+"laps": 7,
+"best_ms": 111177,
+"pace_ms": 112355,
+"gap_pct": 1.388,
+"top100": 1
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 7,
+"best_ms": 112179,
+"pace_ms": 112360,
+"gap_pct": 1.392,
+"top100": 0
+}
+]
+}

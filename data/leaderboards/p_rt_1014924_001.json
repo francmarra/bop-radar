@@ -1,0 +1,51 @@
+{
+"date": "2026-09-21",
+"board": "p_rt_1014924_001",
+"race": "B",
+"track": "Fuji International Speedway",
+"course_id": "16",
+"group": "gr4",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 885,
+"best_ms": 106531,
+"pace_ms": 106896,
+"gap_pct": 0.0,
+"top100": 93
+},
+{
+"code": 1563,
+"name": "Renault Sport Mégane Trophy '11",
+"laps": 48,
+"best_ms": 107096,
+"pace_ms": 107652,
+"gap_pct": 0.707,
+"top100": 5
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 52,
+"best_ms": 106982,
+"pace_ms": 107670,
+"gap_pct": 0.724,
+"top100": 2
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 13,
+"best_ms": 107498,
+"pace_ms": 107933,
+"gap_pct": 0.97,
+"top100": 0
+}
+]
+}

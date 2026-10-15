@@ -1,0 +1,123 @@
+{
+"date": "2026-04-13",
+"board": "p_rt_1013925_001",
+"race": "B",
+"track": "Deep Forest Raceway",
+"course_id": "51",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 444,
+"best_ms": 85810,
+"pace_ms": 85990,
+"gap_pct": 0.136,
+"top100": 42
+},
+{
+"code": 3436,
+"name": "Ford GT Race Car '18",
+"laps": 263,
+"best_ms": 85816,
+"pace_ms": 86007,
+"gap_pct": 0.157,
+"top100": 33
+},
+{
+"code": 3223,
+"name": "Dodge Viper SRT GT3-R '15",
+"laps": 147,
+"best_ms": 85813,
+"pace_ms": 86068,
+"gap_pct": 0.228,
+"top100": 17
+},
+{
+"code": 3235,
+"name": "Honda NSX Gr.3",
+"laps": 5,
+"best_ms": 86278,
+"pace_ms": 86303,
+"gap_pct": 0.501,
+"top100": 0
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 6,
+"best_ms": 86262,
+"pace_ms": 86419,
+"gap_pct": 0.636,
+"top100": 0
+},
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 32,
+"best_ms": 86156,
+"pace_ms": 86450,
+"gap_pct": 0.672,
+"top100": 1
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 12,
+"best_ms": 86228,
+"pace_ms": 86452,
+"gap_pct": 0.675,
+"top100": 0
+},
+{
+"code": 3238,
+"name": "Peugeot RCZ Gr.3",
+"laps": 19,
+"best_ms": 86127,
+"pace_ms": 86456,
+"gap_pct": 0.679,
+"top100": 1
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 13,
+"best_ms": 86140,
+"pace_ms": 86475,
+"gap_pct": 0.702,
+"top100": 1
+},
+{
+"code": 1902,
+"name": "BMW Z4 GT3 '11",
+"laps": 10,
+"best_ms": 86140,
+"pace_ms": 86512,
+"gap_pct": 0.745,
+"top100": 1
+},
+{
+"code": 3185,
+"name": "Alfa Romeo 4C Gr.3",
+"laps": 20,
+"best_ms": 86097,
+"pace_ms": 86556,
+"gap_pct": 0.796,
+"top100": 2
+},
+{
+"code": 2158,
+"name": "Ferrari 458 Italia GT3 '13",
+"laps": 5,
+"best_ms": 86314,
+"pace_ms": 86593,
+"gap_pct": 0.839,
+"top100": 0
+}
+]
+}

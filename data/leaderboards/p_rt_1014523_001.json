@@ -1,0 +1,133 @@
+{
+"date": "2026-08-10",
+"board": "p_rt_1014523_001",
+"race": "C",
+"track": "Grand Valley - Highway 1",
+"course_id": "1292",
+"group": "gr4",
+"tyres": [
+"RM",
+"RS"
+],
+"fuel": "x2",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 564,
+"best_ms": 114532,
+"pace_ms": 114842,
+"gap_pct": 0.072,
+"top100": 65
+},
+{
+"code": 2161,
+"name": "Nissan GT-R Gr.4",
+"laps": 83,
+"best_ms": 114679,
+"pace_ms": 115186,
+"gap_pct": 0.372,
+"top100": 14
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 35,
+"best_ms": 114533,
+"pace_ms": 115413,
+"gap_pct": 0.569,
+"top100": 6
+},
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 9,
+"best_ms": 115138,
+"pace_ms": 115483,
+"gap_pct": 0.63,
+"top100": 2
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 137,
+"best_ms": 115161,
+"pace_ms": 115542,
+"gap_pct": 0.681,
+"top100": 1
+},
+{
+"code": 3257,
+"name": "McLaren 650S Gr.4",
+"laps": 9,
+"best_ms": 114885,
+"pace_ms": 115649,
+"gap_pct": 0.775,
+"top100": 1
+},
+{
+"code": 3480,
+"name": "Suzuki Swift Sport KATANA Edition Gr.4",
+"laps": 44,
+"best_ms": 115191,
+"pace_ms": 115660,
+"gap_pct": 0.785,
+"top100": 2
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 31,
+"best_ms": 114754,
+"pace_ms": 115686,
+"gap_pct": 0.808,
+"top100": 3
+},
+{
+"code": 3298,
+"name": "Audi TT Cup '16",
+"laps": 11,
+"best_ms": 115470,
+"pace_ms": 115752,
+"gap_pct": 0.865,
+"top100": 0
+},
+{
+"code": 3310,
+"name": "Porsche Cayman GT4 Clubsport '16",
+"laps": 20,
+"best_ms": 114841,
+"pace_ms": 115784,
+"gap_pct": 0.893,
+"top100": 3
+},
+{
+"code": 3590,
+"name": "Hyundai ELANTRA N TC '24",
+"laps": 8,
+"best_ms": 115490,
+"pace_ms": 115812,
+"gap_pct": 0.917,
+"top100": 0
+},
+{
+"code": 3537,
+"name": "MAZDA3 Gr.4",
+"laps": 10,
+"best_ms": 115694,
+"pace_ms": 115888,
+"gap_pct": 0.984,
+"top100": 0
+},
+{
+"code": 3231,
+"name": "Volkswagen Scirocco Gr.4",
+"laps": 17,
+"best_ms": 115616,
+"pace_ms": 115918,
+"gap_pct": 1.01,
+"top100": 0
+}
+]
+}

@@ -1,0 +1,60 @@
+{
+"date": "2026-08-31",
+"board": "p_rt_1014578_001",
+"race": "B",
+"track": "Watkins Glen Long Course",
+"course_id": "1240",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 822,
+"best_ms": 104121,
+"pace_ms": 104329,
+"gap_pct": 0.02,
+"top100": 88
+},
+{
+"code": 3218,
+"name": "BMW M6 GT3 Endurance Model '16",
+"laps": 117,
+"best_ms": 104224,
+"pace_ms": 104828,
+"gap_pct": 0.499,
+"top100": 7
+},
+{
+"code": 2160,
+"name": "Hyundai Genesis Gr.3",
+"laps": 22,
+"best_ms": 104568,
+"pace_ms": 105267,
+"gap_pct": 0.919,
+"top100": 1
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 21,
+"best_ms": 104644,
+"pace_ms": 105284,
+"gap_pct": 0.936,
+"top100": 2
+},
+{
+"code": 3340,
+"name": "Lexus RC F GT3 '17",
+"laps": 5,
+"best_ms": 104597,
+"pace_ms": 105434,
+"gap_pct": 1.079,
+"top100": 1
+}
+]
+}

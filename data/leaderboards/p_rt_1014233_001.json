@@ -1,0 +1,60 @@
+{
+"date": "2026-06-08",
+"board": "p_rt_1014233_001",
+"race": "B",
+"track": "Brands Hatch Indy Circuit",
+"course_id": "346",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3261,
+"name": "Subaru WRX Gr.4",
+"laps": 854,
+"best_ms": 47288,
+"pace_ms": 47356,
+"gap_pct": 0.0,
+"top100": 98
+},
+{
+"code": 365,
+"name": "Alfa Romeo 155 2.5 V6 TI '93",
+"laps": 25,
+"best_ms": 47493,
+"pace_ms": 47690,
+"gap_pct": 0.704,
+"top100": 1
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 94,
+"best_ms": 47574,
+"pace_ms": 47708,
+"gap_pct": 0.743,
+"top100": 0
+},
+{
+"code": 3310,
+"name": "Porsche Cayman GT4 Clubsport '16",
+"laps": 7,
+"best_ms": 47669,
+"pace_ms": 47745,
+"gap_pct": 0.821,
+"top100": 0
+},
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 6,
+"best_ms": 47645,
+"pace_ms": 47798,
+"gap_pct": 0.934,
+"top100": 0
+}
+]
+}

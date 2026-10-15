@@ -1,0 +1,51 @@
+{
+"date": "2026-04-27",
+"board": "p_rt_1013990_001",
+"race": "B",
+"track": "Circuit Gilles-Villeneuve",
+"course_id": "1322",
+"group": "gr3",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 2131,
+"name": "Aston Martin V12 Vantage GT3 '12",
+"laps": 749,
+"best_ms": 94747,
+"pace_ms": 95100,
+"gap_pct": 0.0,
+"top100": 90
+},
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 165,
+"best_ms": 95380,
+"pace_ms": 95870,
+"gap_pct": 0.81,
+"top100": 5
+},
+{
+"code": 1902,
+"name": "BMW Z4 GT3 '11",
+"laps": 42,
+"best_ms": 95438,
+"pace_ms": 96138,
+"gap_pct": 1.092,
+"top100": 3
+},
+{
+"code": 3223,
+"name": "Dodge Viper SRT GT3-R '15",
+"laps": 17,
+"best_ms": 95708,
+"pace_ms": 96537,
+"gap_pct": 1.512,
+"top100": 1
+}
+]
+}

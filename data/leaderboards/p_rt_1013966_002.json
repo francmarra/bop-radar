@@ -1,0 +1,24 @@
+{
+"date": "2026-04-21",
+"board": "p_rt_1013966_002",
+"race": "B",
+"track": "High Speed Ring",
+"course_id": "11",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3590,
+"name": "Hyundai ELANTRA N TC '24",
+"laps": 999,
+"best_ms": 75900,
+"pace_ms": 76056,
+"gap_pct": 0.0,
+"top100": 100
+}
+]
+}

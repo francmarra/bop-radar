@@ -1,0 +1,34 @@
+{
+"date": "2026-07-06",
+"board": "p_rt_1014334_001",
+"race": "C",
+"track": "Watkins Glen Long Course",
+"course_id": "1240",
+"group": "gr1",
+"tyres": [
+"RM",
+"RS"
+],
+"fuel": "x2",
+"tyre_wear": "x2",
+"cars": [
+{
+"code": 3499,
+"name": "TOYOTA GR010 HYBRID '21",
+"laps": 984,
+"best_ms": 87783,
+"pace_ms": 87928,
+"gap_pct": 0.0,
+"top100": 99
+},
+{
+"code": 3607,
+"name": "Porsche 963 '24",
+"laps": 14,
+"best_ms": 87949,
+"pace_ms": 89197,
+"gap_pct": 1.443,
+"top100": 1
+}
+]
+}

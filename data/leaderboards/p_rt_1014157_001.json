@@ -1,0 +1,42 @@
+{
+"date": "2026-06-01",
+"board": "p_rt_1014157_001",
+"race": "C",
+"track": "Fuji International Speedway",
+"course_id": "16",
+"group": "gr2",
+"tyres": [
+"RM"
+],
+"fuel": "x2",
+"tyre_wear": "x6",
+"cars": [
+{
+"code": 216,
+"name": "BMW McLaren F1 GTR Race Car '97",
+"laps": 305,
+"best_ms": 91883,
+"pace_ms": 92312,
+"gap_pct": 0.273,
+"top100": 51
+},
+{
+"code": 3397,
+"name": "Mercedes-Benz CLK-LM '98",
+"laps": 508,
+"best_ms": 91988,
+"pace_ms": 92316,
+"gap_pct": 0.277,
+"top100": 27
+},
+{
+"code": 116,
+"name": "Toyota GT-One (TS020) '99",
+"laps": 186,
+"best_ms": 91900,
+"pace_ms": 92320,
+"gap_pct": 0.282,
+"top100": 22
+}
+]
+}

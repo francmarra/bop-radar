@@ -1,0 +1,69 @@
+{
+"date": "2026-06-15",
+"board": "p_rt_1014272_001",
+"race": "B",
+"track": "Tokyo Expressway - South Counterclockwise",
+"course_id": "915",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3352,
+"name": "Toyota GR Supra Racing Concept '18",
+"laps": 759,
+"best_ms": 115228,
+"pace_ms": 115546,
+"gap_pct": 0.016,
+"top100": 88
+},
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 149,
+"best_ms": 115447,
+"pace_ms": 115910,
+"gap_pct": 0.331,
+"top100": 10
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 5,
+"best_ms": 116321,
+"pace_ms": 116565,
+"gap_pct": 0.898,
+"top100": 0
+},
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 19,
+"best_ms": 115784,
+"pace_ms": 116567,
+"gap_pct": 0.9,
+"top100": 1
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 12,
+"best_ms": 116103,
+"pace_ms": 116644,
+"gap_pct": 0.966,
+"top100": 0
+},
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 19,
+"best_ms": 116173,
+"pace_ms": 116679,
+"gap_pct": 0.997,
+"top100": 0
+}
+]
+}

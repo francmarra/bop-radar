@@ -1,5 +1,6 @@
 /* Texts for the Daily Race guide. DOM-free: helpers return plain text, except carLink (escaped HTML). */
 import { esc, fold } from "./format.js";
+import { BASE } from "./router.js";
 
 const TYRES = ["RH", "RM", "RS", "IM", "W", "CH", "CM", "CS", "SH", "SM", "SS"];
 const mult = (s) => parseFloat(String(s ?? "").replace(/[^\d.]/g, "")) || 1;
@@ -33,7 +34,7 @@ export function carLink(index, car) {
   const name = typeof car === "string" ? car : car?.name ?? "";
   const all = index.groups.flatMap((g) => g.cars);
   const hit = all.find((c) => typeof car !== "string" && c.id === car?.id) || all.find((c) => fold(c.name) === fold(name));
-  return hit ? `<a href="#/car/${encodeURIComponent(hit.id)}">${esc(name)}</a>` : esc(name);
+  return hit ? `<a href="${BASE}car/${encodeURIComponent(hit.id)}/">${esc(name)}</a>` : esc(name);
 }
 
 // the Action runs twice a week; older than 7 days means scraping has been failing

@@ -1,9 +1,10 @@
-/* GT7 BoP Radar — static SPA (hash routes): #/ · #/tracks · #/track/<id>/<group> · #/car/<id> · #/updates · #/update/<v> · #/about */
+/* GT7 BoP Radar — static SPA with real paths: / · week/ · updates/ · update/<v>/ · car/<id>/ · help/ (tracks/, track/<id>/<g>/ unlinked) */
 import { t, lang, setLang } from "./i18n.js";
 import { esc } from "./format.js";
 import { getIndex, store } from "./data.js";
 import { app } from "./ui.js";
 import { initTheme, toggleTheme } from "./theme.js";
+import { BASE, pathOf, hashToPath, link, shouldIntercept } from "./router.js";
 import { homePage } from "./pages/home.js";
 import { tracksPage, trackPage } from "./pages/tracks.js";
 import { updatesPage, updatePage } from "./pages/updates.js";
@@ -29,7 +30,7 @@ document.querySelector(".lang").onclick = (e) => {
 
 let focusOnRoute = false; // not on first load, so the page starts at the top for everyone
 async function route() {
-  const [page, a, b] = location.hash.replace(/^#\/?/, "").split("/").map(decodeURIComponent);
+  const [page, a, b] = pathOf(location.pathname);
   chrome();
   const current = { "": "home", car: "home", week: "week", update: "updates", updates: "updates", help: "help", about: "help" }[page ?? ""];
   document.querySelectorAll("nav a").forEach((x) => {
@@ -57,7 +58,19 @@ async function route() {
   focusOnRoute = true;
 }
 
-window.addEventListener("hashchange", route);
+// links shared before the switch to paths (#/car/x) land on the real page
+const legacy = hashToPath(location.hash);
+if (legacy !== null) history.replaceState(null, "", link(legacy));
+// header links are relative in the HTML (for crawlers); make them absolute for in-app navigation
+document.querySelectorAll("header a[href]").forEach((a) => { const p = a.getAttribute("href").replace(/^\.\/?/, "").replace(/^(\.\.\/)+/, ""); a.href = link(p); });
+document.addEventListener("click", (e) => {
+  const a = e.target.closest("a[href]");
+  if (!a || !shouldIntercept(e, a, location.origin, BASE, location.pathname)) return;
+  e.preventDefault();
+  if (a.href !== location.href) history.pushState(null, "", a.href);
+  route();
+});
+window.addEventListener("popstate", route);
 route();
 
 /* ⓘ popovers: one open at a time; click/tap or Enter toggles, Esc or a click elsewhere closes */

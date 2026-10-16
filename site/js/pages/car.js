@@ -1,4 +1,5 @@
 import { t, I18N, lang, summary, cap } from "../i18n.js";
+import { BASE } from "../router.js";
 import { esc, num, signed, info, sourceBadge } from "../format.js";
 import { load, store, state, groupLabel as gl } from "../data.js";
 import { app, verdict, tierBadge, setBadge, deltaText, level, traits } from "../ui.js";
@@ -16,7 +17,7 @@ export async function carPage(id) {
         <span class="mono">${num(e.sets.m.pp, 2)}</span><span class="mono">${e.sets.m.rank}/${e.of} ${tierBadge(e.sets.m.tier)}</span></button>`).join("");
 
   app.innerHTML = `
-    <p><a href="#/" class="link-more">${t("back_rank", groupLabel(car.group))}</a></p>
+    <p><a href="${BASE}" class="link-more">${t("back_rank", groupLabel(car.group))}</a></p>
     <section class="panel">
       <div class="toolbar between"><div><h3>${groupLabel(car.group)} · ${esc(car.maker)} · ${esc(car.drivetrain)}</h3><h1>${esc(car.name)}</h1></div><div id="now" class="now"></div></div>
       <p id="summary" class="lead"></p>

@@ -1,5 +1,6 @@
 /* Car search: pure matching + an accessible combobox (ARIA 1.2 pattern). */
 import { esc, fold } from "./format.js";
+import { navigate } from "./router.js";
 
 export function searchCars(index, query, limit = 8) {
   const words = fold(query).split(/\s+/).filter(Boolean);
@@ -18,7 +19,7 @@ export function searchCars(index, query, limit = 8) {
 
 export function mountSearch(input, index, { listbox, empty }) {
   let items = [], active = -1;
-  const go = (c) => { location.hash = `#/car/${c.id}`; };
+  const go = (c) => navigate(`car/${encodeURIComponent(c.id)}/`);
   const paint = () => {
     input.setAttribute("aria-expanded", String(items.length > 0));
     input.setAttribute("aria-activedescendant", active >= 0 ? `opt-${active}` : "");

@@ -1,4 +1,5 @@
 import { t, lang } from "../i18n.js";
+import { BASE } from "../router.js";
 import { esc, info, sourceBadge } from "../format.js";
 import { load, store, state } from "../data.js";
 import { app, verdict, tierBadge, setBadge, deltaText, fmtDate } from "../ui.js";
@@ -15,7 +16,7 @@ export async function homePage() {
     const cars = mostAffected(detail.groups[g.id]);
     return `<div class="card cls"><h3>${esc(g.label)}</h3><p class="cls-sentence">${esc(classSentence(u.counts?.[g.id], g.label, t))}</p>
       ${cars.length ? `<p class="small muted">${t("most_affected")}</p><ul class="affected">${cars.map((c) => `
-        <li><a href="#/car/${encodeURIComponent(c.id)}">${esc(c.name)}</a> ${verdict(c.verdict)} <span class="mono small">${deltaText(c.delta)}</span></li>`).join("")}</ul>` : ""}</div>`;
+        <li><a href="${BASE}car/${encodeURIComponent(c.id)}/">${esc(c.name)}</a> ${verdict(c.verdict)} <span class="mono small">${deltaText(c.delta)}</span></li>`).join("")}</ul>` : ""}</div>`;
   }).join("");
 
   app.innerHTML = `
@@ -34,7 +35,7 @@ export async function homePage() {
       <h2>${t("latest")}: ${t("version")} ${esc(u.version)}</h2>
       <p class="muted">${t("date_fmt")} ${esc(fmtDate(u.date))}</p>
       <div class="cls-grid">${classCards}</div>
-      <a class="btn mt" href="#/update/${encodeURIComponent(u.version)}">${t("see_changes")} →</a>
+      <a class="btn mt" href="${BASE}update/${encodeURIComponent(u.version)}/">${t("see_changes")} →</a>
     </section>
     <section class="panel">
       <h2>${t("ranking_title")}</h2>
@@ -61,7 +62,7 @@ function renderRanking() {
     .slice().sort((a, b) => a.sets[state.set].rank - b.sets[state.set].rank)
     .map((c) => {
       const s = c.sets[state.set], lc = c.last_change;
-      return `<a class="row rk-row" href="#/car/${encodeURIComponent(c.id)}">
+      return `<a class="row rk-row" href="${BASE}car/${encodeURIComponent(c.id)}/">
         <span class="rk mono">${s.rank}</span><span class="lv">${tierBadge(s.tier)}</span>
         <span class="nm"><b>${esc(c.name)}</b><small>${esc(c.maker)} · ${esc(c.drivetrain)}</small>${sourceBadge(s, t)}</span>
         <span class="bs">${setBadge(c.best_set)}</span>

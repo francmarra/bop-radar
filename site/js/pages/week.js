@@ -1,11 +1,12 @@
 import { t } from "../i18n.js";
+import { BASE, link } from "../router.js";
 import { esc, info } from "../format.js";
 import { load, store } from "../data.js";
 import { app, tierBadge, fmtDate } from "../ui.js";
 import { rulesText, whyText, summaryText, carLink, isStale } from "../week.js";
 
 let shown = "this";
-const pageUrl = () => location.origin + location.pathname + "#/week";
+const pageUrl = () => location.origin + link("week/");
 const classLabel = (r) => (r.group ? "Gr." + r.group.slice(2) : r.kind === "one-make" ? t("one_make_label") : r.category);
 const isMult = (x) => (parseFloat(String(x ?? "").replace(/[^\d.]/g, "")) || 1) !== 1;
 
@@ -70,5 +71,5 @@ export async function weekStrip() {
     <div class="strip-grid">${races.map((r) => `<div class="card"><span class="letter sm" aria-hidden="true">${esc(r.race)}</span>
       <b>${esc(r.track)}</b><span class="muted small">${t("race_letter", esc(r.race))} · ${esc(classLabel(r) || "")}</span>
       ${r.kind === "bop" && r.cars[0] ? `<span class="small">${t("best_bet")}: ${carLink(store.index, r.cars[0])}</span>` : ""}</div>`).join("")}</div>
-    <a class="link-more" href="#/week">${t("see_guide")} →</a></section>`;
+    <a class="link-more" href="${BASE}week/">${t("see_guide")} →</a></section>`;
 }

@@ -29,8 +29,8 @@ test("copy summary", () => {
   assert.equal(summaryText({ race: "A", track: "Red Bull Ring", group: null, kind: "one-make", cars: [] }, "u", t), "GT7 Daily Race A · Red Bull Ring — bop-radar: u");
 });
 test("car links only for known cars, always escaped", () => {
-  assert.match(carLink(index, { id: "f-type", name: "F-type Gr.3" }), /^<a href="#\/car\/f-type">F-type Gr.3<\/a>$/);
-  assert.match(carLink(index, "F-type Gr.3"), /<a href="#\/car\/f-type">/);
+  assert.match(carLink(index, { id: "f-type", name: "F-type Gr.3" }), /^<a href="[^"]*\/car\/f-type\/">F-type Gr.3<\/a>$/);
+  assert.match(carLink(index, "F-type Gr.3"), /<a href="[^"]*\/car\/f-type\/">/);
   assert.equal(carLink(index, "Red Bull X2014 <b>"), "Red Bull X2014 &lt;b&gt;");
 });
 test("week strings exist in EN and PT", () => {

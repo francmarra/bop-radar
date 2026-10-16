@@ -28,12 +28,26 @@ py -m http.server -d site 8765  # open http://127.0.0.1:8765
 
 | Output | Method |
 |---|---|
-| Rank / tier | PP within the group under each BoP set; S top 10 %, A ≤35 %, B ≤70 %, C rest |
+| Rank / level | per class and BoP track type: **real pace** from Daily Race leaderboards on every layout of that type (needs ≥ 2 layouts; same 70/30 blend as the per-track rating), otherwise the model estimate; S top 10 %, A ≤35 %, B ≤70 %, C rest. PP rank is kept for reference |
 | Verdict | average power-to-weight change over the BoP sets that changed: > +0.25 % buff, < −0.25 % nerf |
 | Track fit | ½ PP rank + ½ the traits each track type rewards (PS/t, rotational G at 60/120/240 km/h, 100–150 km/h acceleration) |
 | Strengths | top / bottom quarter of the group |
 | Per-track rating | 70 % leaderboard pace on that layout (median of a car's best 20 laps vs. the event's 20 fastest, top 1000 laps; 6-month half-life, ×0.4 if the car's BoP changed since) + 30 % track-type fit; no data → fit × 0.85 |
 | Tyre wear, fuel | **heuristic estimates** from weight, torque, drivetrain and power relative to the group |
+
+### Does it work? (backtest)
+
+`uv run gt7bop evaluate` predicts each Daily Race using **only earlier races** and compares the predicted order
+with the real one (Spearman ρ, mean over events with ≥ 8 matched cars):
+
+| Ranking | ρ (40 events) |
+|---|---|
+| Real-pace ranking (this site) | **+0.21** |
+| PP under BoP (the usual proxy) | +0.14 |
+
+The real-pace ranking is consistently better (on cars with ≥ 20 laps: +0.26 vs +0.08), but both are modest: in the
+top 1000 laps of an event a few meta cars hold almost all laps, so most cars have little evidence. Deeper and older
+leaderboard data is the main lever for accuracy.
 
 ## Data & credits
 

@@ -54,7 +54,7 @@ def track_id(name: str) -> str:
 def load_events(folder: Path) -> list[dict]:
     if not folder.exists():
         return []
-    events = [json.loads(p.read_text(encoding="utf-8")) for p in folder.glob("*.json")]
+    events = [json.loads(p.read_text(encoding="utf-8")) for p in sorted(folder.glob("*.json"))]
     return sorted(events, key=lambda e: e["date"], reverse=True)
 
 

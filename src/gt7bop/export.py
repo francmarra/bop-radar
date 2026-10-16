@@ -32,6 +32,22 @@ def _brief(e: dict) -> dict:
             "tyre_wear": c["tyre_wear"], "fuel_use": c["fuel_use"]}
 
 
+def build_combo_input(histories: list[GroupHistory], assessments: dict[str, dict]) -> dict:
+    """rate_combos/rank_by_pace input: the cars still in each group's current BoP list."""
+    combo_input: dict[str, dict] = {}
+    for hist in histories:
+        latest = hist.versions[-1][0]
+        cars = []
+        for name, car in hist.cars.items():
+            last = assessments[hist.group][name][-1]
+            if last["v"] == latest:
+                cars.append({"id": slug(name), "name": name, "maker": car.maker, "fit": last["context"]["fit"],
+                             "changed_versions": sorted(car.changed, key=version_key),
+                             "pp_rank": {k: v["rank"] for k, v in last["sets"].items()}})
+        combo_input[hist.group] = {"versions": hist.versions, "cars": cars}
+    return combo_input
+
+
 def apply_ranking(groups: list[dict], car_files: dict[str, dict], ranking: dict) -> None:
     """Swap the PP-based class ranks for the real-pace ranking (keeping PP and its rank for reference)."""
     for g in groups:
@@ -55,9 +71,8 @@ def export(histories: list[GroupHistory], assessments: dict[str, dict], out: Pat
     index = {"generated": date.today().isoformat(), "groups": [], "updates": [], "events": len(events or [])}
     updates: dict[str, dict] = {}
     car_files: dict[str, dict] = {}
-    combo_input: dict[str, dict] = {}
+    combo_input = build_combo_input(histories, assessments)
     for hist in histories:
-        combo_input[hist.group] = {"versions": hist.versions, "cars": []}
         cars_meta = []
         latest = hist.versions[-1][0]
         for name, car in hist.cars.items():
@@ -71,9 +86,6 @@ def export(histories: list[GroupHistory], assessments: dict[str, dict], out: Pat
             }
             last = entries[-1]
             if last["v"] == latest:  # still in the current BoP list
-                combo_input[hist.group]["cars"].append({
-                    "id": s, "name": name, "maker": car.maker, "fit": last["context"]["fit"],
-                    "changed_versions": sorted(car.changed, key=version_key)})
                 cars_meta.append({
                     "id": s, "name": name, "maker": car.maker, "drivetrain": car.drivetrain,
                     "sets": {k: {"rank": v["rank"], "tier": v["tier"], "pp": v.get("pp")}
@@ -103,7 +115,7 @@ def export(histories: list[GroupHistory], assessments: dict[str, dict], out: Pat
                                                          "rank": rank, "of": len(g["cars"]), "tier": c["tier"],
                                                          **c["lb"]})
     for s, payload in car_files.items():
-        payload["tracks"].sort(key=lambda r: r["rank"] / r["of"])
+        payload["tracks"].sort(key=lambda r: (r["rank"] / r["of"], r["name"]))
         _dump(out / "cars" / f"{s}.json", payload)
     for v in sorted(updates, key=version_key, reverse=True):
         u = updates[v]

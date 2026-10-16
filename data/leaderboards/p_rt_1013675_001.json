@@ -1,0 +1,43 @@
+{
+"date": "2026-03-02",
+"board": "p_rt_1013675_001",
+"race": "C",
+"track": "Circuit de Sainte-Croix - B",
+"course_id": "827",
+"group": "gr4",
+"tyres": [
+"RH",
+"RM"
+],
+"fuel": "x3",
+"tyre_wear": "x5",
+"cars": [
+{
+"code": 3399,
+"name": "Toyota GR Supra Race Car '19",
+"laps": 943,
+"best_ms": 139312,
+"pace_ms": 139550,
+"gap_pct": 0.0,
+"top100": 99
+},
+{
+"code": 3192,
+"name": "Mercedes-Benz SLS AMG Gr.4",
+"laps": 37,
+"best_ms": 139998,
+"pace_ms": 140610,
+"gap_pct": 0.76,
+"top100": 0
+},
+{
+"code": 3252,
+"name": "Jaguar F-type Gr.4",
+"laps": 6,
+"best_ms": 140225,
+"pace_ms": 140738,
+"gap_pct": 0.852,
+"top100": 0
+}
+]
+}

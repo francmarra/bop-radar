@@ -1,0 +1,42 @@
+{
+"date": "2026-01-26",
+"board": "p_rt_1013525_001",
+"race": "C",
+"track": "Suzuka Circuit",
+"course_id": "10",
+"group": "gr2",
+"tyres": [
+"RM"
+],
+"fuel": "x2",
+"tyre_wear": "x6",
+"cars": [
+{
+"code": 1516,
+"name": "Lexus SC430 GT500 '08",
+"laps": 729,
+"best_ms": 108322,
+"pace_ms": 108580,
+"gap_pct": 0.023,
+"top100": 81
+},
+{
+"code": 1466,
+"name": "Nissan GT-R GT500 '08",
+"laps": 143,
+"best_ms": 108240,
+"pace_ms": 109246,
+"gap_pct": 0.637,
+"top100": 10
+},
+{
+"code": 1510,
+"name": "Honda NSX GT500 '08",
+"laps": 128,
+"best_ms": 108501,
+"pace_ms": 109300,
+"gap_pct": 0.687,
+"top100": 9
+}
+]
+}

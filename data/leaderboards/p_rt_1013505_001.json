@@ -1,0 +1,42 @@
+{
+"date": "2026-01-19",
+"board": "p_rt_1013505_001",
+"race": "C",
+"track": "Daytona Road Course",
+"course_id": "1163",
+"group": "gr1",
+"tyres": [
+"RM"
+],
+"fuel": "x3",
+"tyre_wear": "x6",
+"cars": [
+{
+"code": 3333,
+"name": "Peugeot L750R HYbrid Vision Gran Turismo, 2017",
+"laps": 967,
+"best_ms": 91433,
+"pace_ms": 91678,
+"gap_pct": 0.0,
+"top100": 99
+},
+{
+"code": 296,
+"name": "Mazda 787B '91",
+"laps": 12,
+"best_ms": 91798,
+"pace_ms": 92486,
+"gap_pct": 0.881,
+"top100": 1
+},
+{
+"code": 3544,
+"name": "Genesis X Gran Racer Vision Gran Turismo Concept",
+"laps": 19,
+"best_ms": 92300,
+"pace_ms": 92610,
+"gap_pct": 1.017,
+"top100": 0
+}
+]
+}

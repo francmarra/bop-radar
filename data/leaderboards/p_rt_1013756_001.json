@@ -1,0 +1,51 @@
+{
+"date": "2026-03-16",
+"board": "p_rt_1013756_001",
+"race": "C",
+"track": "Kyoto Driving Park - Yamagiwa Reverse",
+"course_id": "613",
+"group": "gr4",
+"tyres": [
+"RM"
+],
+"fuel": "x3",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 966,
+"best_ms": 100077,
+"pace_ms": 100344,
+"gap_pct": 0.0,
+"top100": 99
+},
+{
+"code": 2166,
+"name": "Alfa Romeo 4C Gr.4",
+"laps": 6,
+"best_ms": 100947,
+"pace_ms": 101401,
+"gap_pct": 1.053,
+"top100": 0
+},
+{
+"code": 1563,
+"name": "Renault Sport Mégane Trophy '11",
+"laps": 17,
+"best_ms": 100574,
+"pace_ms": 101577,
+"gap_pct": 1.228,
+"top100": 1
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 5,
+"best_ms": 101009,
+"pace_ms": 101591,
+"gap_pct": 1.242,
+"top100": 0
+}
+]
+}

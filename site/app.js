@@ -1,5 +1,5 @@
 "use strict";
-/* GT7 BoP Tracker — static SPA (hash routes): #/ · #/tracks · #/track/<id>/<group> · #/car/<id> · #/updates · #/update/<v> · #/about */
+/* GT7 BoP Radar — static SPA (hash routes): #/ · #/tracks · #/track/<id>/<group> · #/car/<id> · #/updates · #/update/<v> · #/about */
 const app = document.getElementById("app");
 const cache = {};
 let index = null, tracks = null;

@@ -1,0 +1,114 @@
+{
+"date": "2026-04-06",
+"board": "p_rt_1013868_001",
+"race": "C",
+"track": "Suzuka Circuit",
+"course_id": "10",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x2",
+"tyre_wear": "x5",
+"cars": [
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 844,
+"best_ms": 118524,
+"pace_ms": 118666,
+"gap_pct": 0.0,
+"top100": 88
+},
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 45,
+"best_ms": 118780,
+"pace_ms": 119119,
+"gap_pct": 0.381,
+"top100": 4
+},
+{
+"code": 2158,
+"name": "Ferrari 458 Italia GT3 '13",
+"laps": 5,
+"best_ms": 119404,
+"pace_ms": 119424,
+"gap_pct": 0.638,
+"top100": 0
+},
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 7,
+"best_ms": 119111,
+"pace_ms": 119459,
+"gap_pct": 0.668,
+"top100": 0
+},
+{
+"code": 3450,
+"name": "Nissan GT-R NISMO GT3 '18",
+"laps": 9,
+"best_ms": 118868,
+"pace_ms": 119479,
+"gap_pct": 0.685,
+"top100": 3
+},
+{
+"code": 3474,
+"name": "Subaru BRZ GT300 '21",
+"laps": 8,
+"best_ms": 119132,
+"pace_ms": 119530,
+"gap_pct": 0.728,
+"top100": 0
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 14,
+"best_ms": 118812,
+"pace_ms": 119531,
+"gap_pct": 0.729,
+"top100": 1
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 15,
+"best_ms": 119205,
+"pace_ms": 119620,
+"gap_pct": 0.804,
+"top100": 0
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 15,
+"best_ms": 118934,
+"pace_ms": 119635,
+"gap_pct": 0.816,
+"top100": 1
+},
+{
+"code": 3419,
+"name": "MAZDA RX-VISION GT3 CONCEPT",
+"laps": 6,
+"best_ms": 119174,
+"pace_ms": 119676,
+"gap_pct": 0.851,
+"top100": 0
+},
+{
+"code": 3340,
+"name": "Lexus RC F GT3 '17",
+"laps": 6,
+"best_ms": 119387,
+"pace_ms": 119740,
+"gap_pct": 0.905,
+"top100": 0
+}
+]
+}

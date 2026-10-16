@@ -1,0 +1,78 @@
+{
+"date": "2026-01-12",
+"board": "p_rt_1013403_001",
+"race": "C",
+"track": "Circuit Gilles-Villeneuve",
+"course_id": "1322",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 365,
+"name": "Alfa Romeo 155 2.5 V6 TI '93",
+"laps": 880,
+"best_ms": 102824,
+"pace_ms": 103060,
+"gap_pct": 0.0,
+"top100": 94
+},
+{
+"code": 2161,
+"name": "Nissan GT-R Gr.4",
+"laps": 6,
+"best_ms": 103501,
+"pace_ms": 103640,
+"gap_pct": 0.563,
+"top100": 0
+},
+{
+"code": 3261,
+"name": "Subaru WRX Gr.4",
+"laps": 61,
+"best_ms": 103138,
+"pace_ms": 103736,
+"gap_pct": 0.655,
+"top100": 3
+},
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 16,
+"best_ms": 103353,
+"pace_ms": 103902,
+"gap_pct": 0.817,
+"top100": 2
+},
+{
+"code": 3258,
+"name": "Mitsubishi Lancer Evolution Final Edition Gr.4",
+"laps": 7,
+"best_ms": 103873,
+"pace_ms": 103988,
+"gap_pct": 0.9,
+"top100": 0
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 15,
+"best_ms": 103891,
+"pace_ms": 104073,
+"gap_pct": 0.983,
+"top100": 0
+},
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 11,
+"best_ms": 103397,
+"pace_ms": 104118,
+"gap_pct": 1.027,
+"top100": 1
+}
+]
+}

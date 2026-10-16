@@ -1,0 +1,141 @@
+{
+"date": "2026-01-12",
+"board": "p_rt_1013402_001",
+"race": "B",
+"track": "Circuit de Barcelona-Catalunya GP Layout No Chicane",
+"course_id": "1249",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3474,
+"name": "Subaru BRZ GT300 '21",
+"laps": 175,
+"best_ms": 99721,
+"pace_ms": 100003,
+"gap_pct": 0.019,
+"top100": 42
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 304,
+"best_ms": 100026,
+"pace_ms": 100200,
+"gap_pct": 0.216,
+"top100": 26
+},
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 174,
+"best_ms": 100021,
+"pace_ms": 100417,
+"gap_pct": 0.433,
+"top100": 12
+},
+{
+"code": 2158,
+"name": "Ferrari 458 Italia GT3 '13",
+"laps": 85,
+"best_ms": 100339,
+"pace_ms": 100564,
+"gap_pct": 0.58,
+"top100": 4
+},
+{
+"code": 3311,
+"name": "Porsche 911 RSR (991) '17",
+"laps": 110,
+"best_ms": 100008,
+"pace_ms": 100676,
+"gap_pct": 0.692,
+"top100": 5
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 75,
+"best_ms": 100256,
+"pace_ms": 100691,
+"gap_pct": 0.707,
+"top100": 3
+},
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 9,
+"best_ms": 100195,
+"pace_ms": 100717,
+"gap_pct": 0.733,
+"top100": 1
+},
+{
+"code": 3235,
+"name": "Honda NSX Gr.3",
+"laps": 12,
+"best_ms": 99975,
+"pace_ms": 100740,
+"gap_pct": 0.756,
+"top100": 2
+},
+{
+"code": 3450,
+"name": "Nissan GT-R NISMO GT3 '18",
+"laps": 6,
+"best_ms": 100260,
+"pace_ms": 100748,
+"gap_pct": 0.764,
+"top100": 2
+},
+{
+"code": 2182,
+"name": "McLaren 650S GT3 '15",
+"laps": 5,
+"best_ms": 100340,
+"pace_ms": 100773,
+"gap_pct": 0.789,
+"top100": 1
+},
+{
+"code": 3238,
+"name": "Peugeot RCZ Gr.3",
+"laps": 6,
+"best_ms": 100456,
+"pace_ms": 100892,
+"gap_pct": 0.907,
+"top100": 0
+},
+{
+"code": 3340,
+"name": "Lexus RC F GT3 '17",
+"laps": 5,
+"best_ms": 100679,
+"pace_ms": 100934,
+"gap_pct": 0.95,
+"top100": 0
+},
+{
+"code": 3305,
+"name": "Volkswagen Beetle Gr.3",
+"laps": 5,
+"best_ms": 100408,
+"pace_ms": 101023,
+"gap_pct": 1.039,
+"top100": 1
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 6,
+"best_ms": 100539,
+"pace_ms": 101118,
+"gap_pct": 1.133,
+"top100": 0
+}
+]
+}

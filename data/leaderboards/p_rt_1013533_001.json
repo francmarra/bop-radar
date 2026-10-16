@@ -1,0 +1,115 @@
+{
+"date": "2026-02-02",
+"board": "p_rt_1013533_001",
+"race": "C",
+"track": "Yas Marina Circuit",
+"course_id": "1333",
+"group": "gr3",
+"tyres": [
+"RM",
+"RS"
+],
+"fuel": "x3",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 848,
+"best_ms": 111678,
+"pace_ms": 111966,
+"gap_pct": 0.015,
+"top100": 81
+},
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 15,
+"best_ms": 112068,
+"pace_ms": 112489,
+"gap_pct": 0.482,
+"top100": 6
+},
+{
+"code": 3235,
+"name": "Honda NSX Gr.3",
+"laps": 5,
+"best_ms": 112389,
+"pace_ms": 112591,
+"gap_pct": 0.573,
+"top100": 1
+},
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 41,
+"best_ms": 112020,
+"pace_ms": 112786,
+"gap_pct": 0.748,
+"top100": 2
+},
+{
+"code": 3305,
+"name": "Volkswagen Beetle Gr.3",
+"laps": 7,
+"best_ms": 112150,
+"pace_ms": 112810,
+"gap_pct": 0.769,
+"top100": 2
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 6,
+"best_ms": 112274,
+"pace_ms": 112870,
+"gap_pct": 0.822,
+"top100": 1
+},
+{
+"code": 3311,
+"name": "Porsche 911 RSR (991) '17",
+"laps": 6,
+"best_ms": 112086,
+"pace_ms": 112890,
+"gap_pct": 0.841,
+"top100": 1
+},
+{
+"code": 2190,
+"name": "GT by Citroën Race Car (Gr.3)",
+"laps": 7,
+"best_ms": 112389,
+"pace_ms": 112935,
+"gap_pct": 0.881,
+"top100": 1
+},
+{
+"code": 2158,
+"name": "Ferrari 458 Italia GT3 '13",
+"laps": 12,
+"best_ms": 112937,
+"pace_ms": 113047,
+"gap_pct": 0.981,
+"top100": 0
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 16,
+"best_ms": 112806,
+"pace_ms": 113060,
+"gap_pct": 0.992,
+"top100": 0
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 8,
+"best_ms": 112483,
+"pace_ms": 113092,
+"gap_pct": 1.021,
+"top100": 0
+}
+]
+}

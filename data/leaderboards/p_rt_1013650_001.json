@@ -1,0 +1,51 @@
+{
+"date": "2026-02-23",
+"board": "p_rt_1013650_001",
+"race": "B",
+"track": "Watkins Glen Long Course",
+"course_id": "1240",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 793,
+"best_ms": 114381,
+"pace_ms": 114520,
+"gap_pct": 0.058,
+"top100": 74
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 183,
+"best_ms": 114322,
+"pace_ms": 114606,
+"gap_pct": 0.133,
+"top100": 26
+},
+{
+"code": 1563,
+"name": "Renault Sport Mégane Trophy '11",
+"laps": 5,
+"best_ms": 114936,
+"pace_ms": 115160,
+"gap_pct": 0.617,
+"top100": 0
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 6,
+"best_ms": 115363,
+"pace_ms": 115504,
+"gap_pct": 0.918,
+"top100": 0
+}
+]
+}

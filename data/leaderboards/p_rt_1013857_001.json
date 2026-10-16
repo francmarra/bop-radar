@@ -1,0 +1,87 @@
+{
+"date": "2026-04-06",
+"board": "p_rt_1013857_001",
+"race": "B",
+"track": "Grand Valley - Highway 1 Reverse",
+"course_id": "1293",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 305,
+"best_ms": 116503,
+"pace_ms": 116818,
+"gap_pct": 0.033,
+"top100": 63
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 624,
+"best_ms": 116779,
+"pace_ms": 117118,
+"gap_pct": 0.289,
+"top100": 28
+},
+{
+"code": 2161,
+"name": "Nissan GT-R Gr.4",
+"laps": 17,
+"best_ms": 116696,
+"pace_ms": 117623,
+"gap_pct": 0.721,
+"top100": 5
+},
+{
+"code": 365,
+"name": "Alfa Romeo 155 2.5 V6 TI '93",
+"laps": 9,
+"best_ms": 117137,
+"pace_ms": 117632,
+"gap_pct": 0.729,
+"top100": 2
+},
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 6,
+"best_ms": 117636,
+"pace_ms": 117812,
+"gap_pct": 0.883,
+"top100": 0
+},
+{
+"code": 3261,
+"name": "Subaru WRX Gr.4",
+"laps": 10,
+"best_ms": 117636,
+"pace_ms": 117861,
+"gap_pct": 0.925,
+"top100": 0
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 7,
+"best_ms": 117409,
+"pace_ms": 117894,
+"gap_pct": 0.953,
+"top100": 0
+},
+{
+"code": 3480,
+"name": "Suzuki Swift Sport KATANA Edition Gr.4",
+"laps": 5,
+"best_ms": 117740,
+"pace_ms": 118044,
+"gap_pct": 1.082,
+"top100": 0
+}
+]
+}

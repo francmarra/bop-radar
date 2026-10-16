@@ -1,0 +1,34 @@
+{
+"date": "2025-12-29",
+"board": "p_rt_1013316_001",
+"race": "C",
+"track": "Red Bull Ring",
+"course_id": "470",
+"group": "gr4",
+"tyres": [
+"RM",
+"RS"
+],
+"fuel": "x2",
+"tyre_wear": "x6",
+"cars": [
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 487,
+"best_ms": 94989,
+"pace_ms": 95194,
+"gap_pct": 0.0,
+"top100": 85
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 505,
+"best_ms": 95368,
+"pace_ms": 95448,
+"gap_pct": 0.267,
+"top100": 15
+}
+]
+}

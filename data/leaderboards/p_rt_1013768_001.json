@@ -1,0 +1,133 @@
+{
+"date": "2026-03-23",
+"board": "p_rt_1013768_001",
+"race": "C",
+"track": "Michelin Raceway Road Atlanta",
+"course_id": "1007",
+"group": "gr3",
+"tyres": [
+"RM",
+"RS"
+],
+"fuel": "x2",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 306,
+"best_ms": 76572,
+"pace_ms": 76776,
+"gap_pct": 0.095,
+"top100": 40
+},
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 430,
+"best_ms": 76671,
+"pace_ms": 76875,
+"gap_pct": 0.224,
+"top100": 17
+},
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 112,
+"best_ms": 76593,
+"pace_ms": 76884,
+"gap_pct": 0.236,
+"top100": 16
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 28,
+"best_ms": 76690,
+"pace_ms": 77068,
+"gap_pct": 0.477,
+"top100": 6
+},
+{
+"code": 3352,
+"name": "Toyota GR Supra Racing Concept '18",
+"laps": 8,
+"best_ms": 76893,
+"pace_ms": 77080,
+"gap_pct": 0.492,
+"top100": 1
+},
+{
+"code": 2160,
+"name": "Hyundai Genesis Gr.3",
+"laps": 13,
+"best_ms": 76838,
+"pace_ms": 77124,
+"gap_pct": 0.549,
+"top100": 3
+},
+{
+"code": 2186,
+"name": "Subaru WRX Gr.3",
+"laps": 7,
+"best_ms": 76799,
+"pace_ms": 77236,
+"gap_pct": 0.695,
+"top100": 2
+},
+{
+"code": 3474,
+"name": "Subaru BRZ GT300 '21",
+"laps": 7,
+"best_ms": 76838,
+"pace_ms": 77240,
+"gap_pct": 0.7,
+"top100": 1
+},
+{
+"code": 3218,
+"name": "BMW M6 GT3 Endurance Model '16",
+"laps": 21,
+"best_ms": 76857,
+"pace_ms": 77250,
+"gap_pct": 0.714,
+"top100": 3
+},
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 17,
+"best_ms": 76735,
+"pace_ms": 77270,
+"gap_pct": 0.739,
+"top100": 3
+},
+{
+"code": 3305,
+"name": "Volkswagen Beetle Gr.3",
+"laps": 13,
+"best_ms": 76734,
+"pace_ms": 77310,
+"gap_pct": 0.791,
+"top100": 2
+},
+{
+"code": 3340,
+"name": "Lexus RC F GT3 '17",
+"laps": 15,
+"best_ms": 76702,
+"pace_ms": 77363,
+"gap_pct": 0.86,
+"top100": 2
+},
+{
+"code": 2182,
+"name": "McLaren 650S GT3 '15",
+"laps": 5,
+"best_ms": 76857,
+"pace_ms": 77410,
+"gap_pct": 0.922,
+"top100": 1
+}
+]
+}

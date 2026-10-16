@@ -1,0 +1,87 @@
+{
+"date": "2025-12-15",
+"board": "p_rt_1013286_001",
+"race": "B",
+"track": "Sardegna - Road Track - A",
+"course_id": "921",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3235,
+"name": "Honda NSX Gr.3",
+"laps": 847,
+"best_ms": 99986,
+"pace_ms": 100256,
+"gap_pct": 0.0,
+"top100": 91
+},
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 16,
+"best_ms": 100575,
+"pace_ms": 100918,
+"gap_pct": 0.659,
+"top100": 2
+},
+{
+"code": 3311,
+"name": "Porsche 911 RSR (991) '17",
+"laps": 37,
+"best_ms": 100759,
+"pace_ms": 100943,
+"gap_pct": 0.685,
+"top100": 0
+},
+{
+"code": 3352,
+"name": "Toyota GR Supra Racing Concept '18",
+"laps": 10,
+"best_ms": 100575,
+"pace_ms": 100972,
+"gap_pct": 0.714,
+"top100": 1
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 32,
+"best_ms": 100524,
+"pace_ms": 100979,
+"gap_pct": 0.721,
+"top100": 2
+},
+{
+"code": 3419,
+"name": "MAZDA RX-VISION GT3 CONCEPT",
+"laps": 7,
+"best_ms": 100668,
+"pace_ms": 101070,
+"gap_pct": 0.811,
+"top100": 0
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 22,
+"best_ms": 100625,
+"pace_ms": 101090,
+"gap_pct": 0.831,
+"top100": 1
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 18,
+"best_ms": 100520,
+"pace_ms": 101097,
+"gap_pct": 0.838,
+"top100": 1
+}
+]
+}

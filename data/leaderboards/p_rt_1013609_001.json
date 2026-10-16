@@ -1,0 +1,87 @@
+{
+"date": "2026-02-16",
+"board": "p_rt_1013609_001",
+"race": "B",
+"track": "Dragon Trail - Gardens",
+"course_id": "847",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 471,
+"best_ms": 98366,
+"pace_ms": 98622,
+"gap_pct": 0.0,
+"top100": 70
+},
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 279,
+"best_ms": 98768,
+"pace_ms": 98894,
+"gap_pct": 0.275,
+"top100": 17
+},
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 117,
+"best_ms": 98725,
+"pace_ms": 99030,
+"gap_pct": 0.414,
+"top100": 8
+},
+{
+"code": 1563,
+"name": "Renault Sport Mégane Trophy '11",
+"laps": 5,
+"best_ms": 98915,
+"pace_ms": 99198,
+"gap_pct": 0.584,
+"top100": 1
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 12,
+"best_ms": 98951,
+"pace_ms": 99358,
+"gap_pct": 0.746,
+"top100": 1
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 79,
+"best_ms": 99135,
+"pace_ms": 99382,
+"gap_pct": 0.77,
+"top100": 0
+},
+{
+"code": 365,
+"name": "Alfa Romeo 155 2.5 V6 TI '93",
+"laps": 10,
+"best_ms": 98774,
+"pace_ms": 99420,
+"gap_pct": 0.809,
+"top100": 1
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 5,
+"best_ms": 99119,
+"pace_ms": 99586,
+"gap_pct": 0.977,
+"top100": 0
+}
+]
+}

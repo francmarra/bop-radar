@@ -1,0 +1,60 @@
+{
+"date": "2026-01-19",
+"board": "p_rt_1013504_001",
+"race": "B",
+"track": "Blue Moon Bay Speedway - Infield A Reverse",
+"course_id": "822",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 937,
+"best_ms": 73059,
+"pace_ms": 73201,
+"gap_pct": 0.0,
+"top100": 99
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 18,
+"best_ms": 73614,
+"pace_ms": 73868,
+"gap_pct": 0.912,
+"top100": 0
+},
+{
+"code": 2161,
+"name": "Nissan GT-R Gr.4",
+"laps": 16,
+"best_ms": 73499,
+"pace_ms": 73935,
+"gap_pct": 1.003,
+"top100": 1
+},
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 5,
+"best_ms": 73845,
+"pace_ms": 73971,
+"gap_pct": 1.052,
+"top100": 0
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 8,
+"best_ms": 73901,
+"pace_ms": 74012,
+"gap_pct": 1.107,
+"top100": 0
+}
+]
+}

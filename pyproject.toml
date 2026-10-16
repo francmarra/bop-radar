@@ -1,5 +1,5 @@
 [project]
-name = "gt7-bop"
+name = "bop-radar"
 version = "0.1.0"
 description = "Gran Turismo 7 Balance of Performance tracker for Gr.1-4 cars"
 readme = "README.md"

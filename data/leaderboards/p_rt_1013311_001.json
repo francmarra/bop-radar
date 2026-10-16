@@ -1,0 +1,42 @@
+{
+"date": "2026-01-05",
+"board": "p_rt_1013311_001",
+"race": "B",
+"track": "Willow Springs International Raceway: Big Willow",
+"course_id": "122",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 2166,
+"name": "Alfa Romeo 4C Gr.4",
+"laps": 928,
+"best_ms": 77738,
+"pace_ms": 77910,
+"gap_pct": 0.0,
+"top100": 99
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 50,
+"best_ms": 78054,
+"pace_ms": 78428,
+"gap_pct": 0.665,
+"top100": 1
+},
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 13,
+"best_ms": 78311,
+"pace_ms": 78607,
+"gap_pct": 0.894,
+"top100": 0
+}
+]
+}

@@ -11,7 +11,7 @@ from collections import defaultdict
 from pathlib import Path
 
 BASE = "https://gtsh-rank.com"
-USER_AGENT = "Mozilla/5.0 (compatible; gt7-bop/0.1; +https://github.com/francmarra/gt7-bop)"
+USER_AGENT = "Mozilla/5.0 (compatible; bop-radar/0.1; +https://github.com/francmarra/bop-radar)"
 DELAY_S = 2.0
 GROUPS = {"Gr.1": "gr1", "Gr.2": "gr2", "Gr.3": "gr3", "Gr.4": "gr4"}
 TOP_K = 20  # a car's pace = median of its best K laps

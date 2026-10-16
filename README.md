@@ -1,6 +1,6 @@
-# gt7-bop
+# GT7 BoP Radar
 
-**Gran Turismo 7 Balance of Performance tracker** for Gr.1, Gr.2, Gr.3 and Gr.4 cars.
+**Gran Turismo 7 Balance of Performance radar** for Gr.1, Gr.2, Gr.3 and Gr.4 cars — live at **https://francmarra.github.io/bop-radar/**
 
 Every BoP update since version 1.15, with a verdict per car (buff / nerf / mixed) and a short
 performance context: which track type it suits (high-, mid- or low-speed BoP), strengths and

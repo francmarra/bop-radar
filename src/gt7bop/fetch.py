@@ -8,7 +8,7 @@ from gt7bop.parse import archive_links
 
 BASE = "https://gt-engine.com/gt7/cars"
 GROUPS = ("gr1", "gr2", "gr3", "gr4")
-USER_AGENT = "gt7-bop/0.1 (+https://github.com/francmarra/gt7-bop)"
+USER_AGENT = "bop-radar/0.1 (+https://github.com/francmarra/bop-radar)"
 DELAY_S = 1.5
 
 

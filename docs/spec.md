@@ -1,4 +1,4 @@
-# gt7-bop — design spec (2026-10-16)
+# GT7 BoP Radar — design spec (2026-10-16)
 
 A static website that tracks **Balance of Performance (BoP)** changes in Gran Turismo 7 for
 **Gr.1, Gr.2, Gr.3 and Gr.4** cars, and gives every car, in every update, a short performance context

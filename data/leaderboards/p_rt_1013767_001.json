@@ -1,0 +1,105 @@
+{
+"date": "2026-03-23",
+"board": "p_rt_1013767_001",
+"race": "B",
+"track": "Autodrome Lago Maggiore - Full Course Reverse",
+"course_id": "602",
+"group": "gr4",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 2166,
+"name": "Alfa Romeo 4C Gr.4",
+"laps": 170,
+"best_ms": 125244,
+"pace_ms": 125666,
+"gap_pct": 0.008,
+"top100": 40
+},
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 687,
+"best_ms": 125509,
+"pace_ms": 125943,
+"gap_pct": 0.228,
+"top100": 55
+},
+{
+"code": 1563,
+"name": "Renault Sport Mégane Trophy '11",
+"laps": 36,
+"best_ms": 125935,
+"pace_ms": 126751,
+"gap_pct": 0.871,
+"top100": 2
+},
+{
+"code": 3231,
+"name": "Volkswagen Scirocco Gr.4",
+"laps": 6,
+"best_ms": 126146,
+"pace_ms": 126774,
+"gap_pct": 0.89,
+"top100": 1
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 7,
+"best_ms": 125851,
+"pace_ms": 126942,
+"gap_pct": 1.023,
+"top100": 1
+},
+{
+"code": 3480,
+"name": "Suzuki Swift Sport KATANA Edition Gr.4",
+"laps": 34,
+"best_ms": 126240,
+"pace_ms": 126961,
+"gap_pct": 1.039,
+"top100": 1
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 7,
+"best_ms": 126847,
+"pace_ms": 127136,
+"gap_pct": 1.178,
+"top100": 0
+},
+{
+"code": 3310,
+"name": "Porsche Cayman GT4 Clubsport '16",
+"laps": 9,
+"best_ms": 126356,
+"pace_ms": 127198,
+"gap_pct": 1.227,
+"top100": 0
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 21,
+"best_ms": 126647,
+"pace_ms": 127224,
+"gap_pct": 1.248,
+"top100": 0
+},
+{
+"code": 3298,
+"name": "Audi TT Cup '16",
+"laps": 9,
+"best_ms": 126655,
+"pace_ms": 127357,
+"gap_pct": 1.354,
+"top100": 0
+}
+]
+}

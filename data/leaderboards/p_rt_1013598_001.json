@@ -1,0 +1,87 @@
+{
+"date": "2026-02-09",
+"board": "p_rt_1013598_001",
+"race": "B",
+"track": "Red Bull Ring",
+"course_id": "470",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 2186,
+"name": "Subaru WRX Gr.3",
+"laps": 828,
+"best_ms": 87975,
+"pace_ms": 88125,
+"gap_pct": 0.005,
+"top100": 89
+},
+{
+"code": 2185,
+"name": "Mitsubishi Lancer Evolution Final Edition Gr.3",
+"laps": 75,
+"best_ms": 88119,
+"pace_ms": 88590,
+"gap_pct": 0.533,
+"top100": 6
+},
+{
+"code": 3502,
+"name": "Genesis X GR3",
+"laps": 5,
+"best_ms": 88380,
+"pace_ms": 88670,
+"gap_pct": 0.624,
+"top100": 1
+},
+{
+"code": 3237,
+"name": "Mazda Atenza Gr.3",
+"laps": 5,
+"best_ms": 88530,
+"pace_ms": 88815,
+"gap_pct": 0.788,
+"top100": 0
+},
+{
+"code": 3305,
+"name": "Volkswagen Beetle Gr.3",
+"laps": 19,
+"best_ms": 88226,
+"pace_ms": 88926,
+"gap_pct": 0.914,
+"top100": 3
+},
+{
+"code": 3600,
+"name": "Porsche 911 GT3 R (992) '22",
+"laps": 18,
+"best_ms": 88428,
+"pace_ms": 89036,
+"gap_pct": 1.038,
+"top100": 1
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 7,
+"best_ms": 88850,
+"pace_ms": 89091,
+"gap_pct": 1.101,
+"top100": 0
+},
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 12,
+"best_ms": 88686,
+"pace_ms": 89106,
+"gap_pct": 1.118,
+"top100": 0
+}
+]
+}

@@ -1,0 +1,33 @@
+{
+"date": "2025-12-22",
+"board": "p_rt_1013308_001",
+"race": "B",
+"track": "Mount Panorama Motor Racing Circuit",
+"course_id": "116",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 963,
+"best_ms": 133095,
+"pace_ms": 133436,
+"gap_pct": 0.0,
+"top100": 97
+},
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 19,
+"best_ms": 133485,
+"pace_ms": 134265,
+"gap_pct": 0.621,
+"top100": 2
+}
+]
+}

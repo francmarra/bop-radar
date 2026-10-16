@@ -1,0 +1,132 @@
+{
+"date": "2025-12-15",
+"board": "p_rt_1013287_001",
+"race": "C",
+"track": "Nürburgring 24h",
+"course_id": "348",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 512,
+"best_ms": 528807,
+"pace_ms": 530414,
+"gap_pct": 0.083,
+"top100": 50
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 179,
+"best_ms": 530359,
+"pace_ms": 532998,
+"gap_pct": 0.57,
+"top100": 15
+},
+{
+"code": 3399,
+"name": "Toyota GR Supra Race Car '19",
+"laps": 86,
+"best_ms": 528840,
+"pace_ms": 533276,
+"gap_pct": 0.623,
+"top100": 12
+},
+{
+"code": 3310,
+"name": "Porsche Cayman GT4 Clubsport '16",
+"laps": 50,
+"best_ms": 530647,
+"pace_ms": 534148,
+"gap_pct": 0.787,
+"top100": 7
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 28,
+"best_ms": 529781,
+"pace_ms": 534858,
+"gap_pct": 0.921,
+"top100": 7
+},
+{
+"code": 3252,
+"name": "Jaguar F-type Gr.4",
+"laps": 35,
+"best_ms": 529350,
+"pace_ms": 535540,
+"gap_pct": 1.05,
+"top100": 3
+},
+{
+"code": 3245,
+"name": "BMW M4 Gr.4",
+"laps": 32,
+"best_ms": 529429,
+"pace_ms": 535798,
+"gap_pct": 1.099,
+"top100": 3
+},
+{
+"code": 3231,
+"name": "Volkswagen Scirocco Gr.4",
+"laps": 7,
+"best_ms": 533717,
+"pace_ms": 536656,
+"gap_pct": 1.261,
+"top100": 0
+},
+{
+"code": 3257,
+"name": "McLaren 650S Gr.4",
+"laps": 10,
+"best_ms": 533606,
+"pace_ms": 537052,
+"gap_pct": 1.335,
+"top100": 0
+},
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 9,
+"best_ms": 533986,
+"pace_ms": 537081,
+"gap_pct": 1.341,
+"top100": 0
+},
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 9,
+"best_ms": 532621,
+"pace_ms": 537228,
+"gap_pct": 1.369,
+"top100": 2
+},
+{
+"code": 3192,
+"name": "Mercedes-Benz SLS AMG Gr.4",
+"laps": 5,
+"best_ms": 536662,
+"pace_ms": 537303,
+"gap_pct": 1.383,
+"top100": 0
+},
+{
+"code": 3261,
+"name": "Subaru WRX Gr.4",
+"laps": 5,
+"best_ms": 536034,
+"pace_ms": 537686,
+"gap_pct": 1.455,
+"top100": 0
+}
+]
+}

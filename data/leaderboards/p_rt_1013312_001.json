@@ -1,0 +1,79 @@
+{
+"date": "2026-01-05",
+"board": "p_rt_1013312_001",
+"race": "C",
+"track": "Tokyo Expressway - South Counterclockwise",
+"course_id": "915",
+"group": "gr3",
+"tyres": [
+"RH",
+"RM"
+],
+"fuel": "x3",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3352,
+"name": "Toyota GR Supra Racing Concept '18",
+"laps": 872,
+"best_ms": 115185,
+"pace_ms": 115373,
+"gap_pct": 0.0,
+"top100": 95
+},
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 49,
+"best_ms": 115664,
+"pace_ms": 116202,
+"gap_pct": 0.718,
+"top100": 2
+},
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 7,
+"best_ms": 115862,
+"pace_ms": 116263,
+"gap_pct": 0.771,
+"top100": 0
+},
+{
+"code": 3419,
+"name": "MAZDA RX-VISION GT3 CONCEPT",
+"laps": 6,
+"best_ms": 115892,
+"pace_ms": 116284,
+"gap_pct": 0.789,
+"top100": 0
+},
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 24,
+"best_ms": 115590,
+"pace_ms": 116348,
+"gap_pct": 0.845,
+"top100": 1
+},
+{
+"code": 3311,
+"name": "Porsche 911 RSR (991) '17",
+"laps": 5,
+"best_ms": 115995,
+"pace_ms": 116425,
+"gap_pct": 0.912,
+"top100": 0
+},
+{
+"code": 2182,
+"name": "McLaren 650S GT3 '15",
+"laps": 5,
+"best_ms": 116235,
+"pace_ms": 116464,
+"gap_pct": 0.946,
+"top100": 0
+}
+]
+}

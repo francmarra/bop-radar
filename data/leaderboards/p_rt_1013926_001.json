@@ -1,0 +1,43 @@
+{
+"date": "2026-04-13",
+"board": "p_rt_1013926_001",
+"race": "C",
+"track": "Circuit de Barcelona-Catalunya GP Layout No Chicane",
+"course_id": "1249",
+"group": "gr4",
+"tyres": [
+"RH",
+"RM"
+],
+"fuel": "x2",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 936,
+"best_ms": 106932,
+"pace_ms": 107168,
+"gap_pct": 0.0,
+"top100": 96
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 28,
+"best_ms": 107288,
+"pace_ms": 107967,
+"gap_pct": 0.745,
+"top100": 3
+},
+{
+"code": 2166,
+"name": "Alfa Romeo 4C Gr.4",
+"laps": 15,
+"best_ms": 107520,
+"pace_ms": 108099,
+"gap_pct": 0.868,
+"top100": 1
+}
+]
+}

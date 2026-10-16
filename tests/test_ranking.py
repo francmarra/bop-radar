@@ -47,3 +47,35 @@ def test_no_data_orders_by_model_ties_by_name_and_keeps_every_car():
 
 def test_tiers():
     assert [tier_of(i, 10) for i in (1, 2, 4, 7, 8)] == ["S", "A", "B", "B", "C"]
+
+
+def _lbw(gap, weight=1.0, laps=100, fresh=True):
+    return {"gap_pct": gap, "laps": laps, "top100": 0, "events": 1, "weight": weight, "fresh": fresh}
+
+
+def test_stale_or_thin_layouts_do_not_count_as_real():
+    combos = [_combo("t1", "m", [{"id": "b", "lb": _lbw(0.1, fresh=False)}]),
+              _combo("t2", "m", [{"id": "b", "lb": _lbw(0.1)}]),
+              _combo("t3", "m", [{"id": "c", "lb": _lbw(0.1, laps=3)}]),
+              _combo("t4", "m", [{"id": "c", "lb": _lbw(0.1)}])]
+    r = rank_by_pace(combos, GROUPS)["gr3"]
+    assert r["b"]["m"]["source"] == "estimate" and r["b"]["m"]["tracks"] == 1  # only one fresh layout
+    assert r["c"]["m"]["source"] == "estimate" and r["c"]["m"]["tracks"] == 1  # 3 laps is not evidence
+
+
+def test_layouts_weighted_by_recency_weight_not_event_count():
+    combos = [_combo("t1", "m", [{"id": "b", "lb": _lbw(0.0, weight=3.0)}]), _combo("t2", "m", [{"id": "b", "lb": _lbw(3.0, weight=1.0)}])]
+    assert rank_by_pace(combos, GROUPS)["gr3"]["b"]["m"]["score"] == round(0.7 * (1 - 0.75 / 3) + 0.3 * 0.5, 3)
+
+
+def test_estimates_never_rank_above_the_median_real_car():
+    groups = {"gr3": {"versions": [], "cars": [
+        {"id": "fast", "name": "Fast", "fit": {s: .2 for s in "hml"}},
+        {"id": "mid", "name": "Mid", "fit": {s: .2 for s in "hml"}},
+        {"id": "slow", "name": "Slow", "fit": {s: .2 for s in "hml"}},
+        {"id": "ghost", "name": "Ghost", "fit": {s: 1.0 for s in "hml"}},  # great model fit, never raced
+    ]}}
+    combos = [_combo(f"t{i}", "m", [{"id": "fast", "lb": _lbw(0.0)}, {"id": "mid", "lb": _lbw(1.5)}, {"id": "slow", "lb": _lbw(2.7)}]) for i in (1, 2)]
+    r = rank_by_pace(combos, groups)["gr3"]
+    assert r["ghost"]["m"]["rank"] > r["fast"]["m"]["rank"]
+    assert r["ghost"]["m"]["score"] <= r["mid"]["m"]["score"]

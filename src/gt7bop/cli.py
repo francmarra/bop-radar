@@ -48,7 +48,8 @@ def main(argv: list[str] | None = None) -> None:
     events = load_events(ROOT / "data" / "leaderboards")
     if args.cmd == "evaluate":
         res = evaluate(events, build_combo_input(histories, assessments))
-        print(f"{res['events']} events · Spearman rho: real-pace ranking {res['rho_pace']:+.3f} · PP ranking {res['rho_pp']:+.3f}")
+        print(f"{res['events']} events · Spearman rho: real-pace ranking {res['rho_pace']:+.3f} · PP ranking {res['rho_pp']:+.3f}"
+              f" · real-pace better in {res['pace_wins']:.0%} of events")
         return
     export(histories, assessments, ROOT / "site" / "data", ROOT / "data" / "notes", events)
     print(f"{len(events)} leaderboard events")

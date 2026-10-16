@@ -28,7 +28,7 @@ py -m http.server -d site 8765  # open http://127.0.0.1:8765
 
 | Output | Method |
 |---|---|
-| Rank / level | per class and BoP track type: **real pace** from Daily Race leaderboards on every layout of that type (needs ≥ 2 layouts; same 70/30 blend as the per-track rating), otherwise the model estimate; S top 10 %, A ≤35 %, B ≤70 %, C rest. PP rank is kept for reference |
+| Rank / level | per class and BoP track type: **real pace** from Daily Race leaderboards on every layout of that type (≥ 2 layouts with ≥ 10 laps under the current BoP; same 70/30 blend as the per-track rating; unproven cars capped at the median), otherwise the model estimate; S top 10 %, A ≤35 %, B ≤70 %, C rest. PP rank is kept for reference |
 | Verdict | average power-to-weight change over the BoP sets that changed: > +0.25 % buff, < −0.25 % nerf |
 | Track fit | ½ PP rank + ½ the traits each track type rewards (PS/t, rotational G at 60/120/240 km/h, 100–150 km/h acceleration) |
 | Strengths | top / bottom quarter of the group |
@@ -37,17 +37,19 @@ py -m http.server -d site 8765  # open http://127.0.0.1:8765
 
 ### Does it work? (backtest)
 
-`uv run gt7bop evaluate` predicts each Daily Race using **only earlier races** and compares the predicted order
-with the real one (Spearman ρ, mean over events with ≥ 8 matched cars):
+`uv run gt7bop evaluate` predicts each Gr.3/Gr.4 Daily Race (≥ 8 matched cars) using **only earlier races** and BoP
+changes already released at the time, then compares the predicted order with the real one (Spearman ρ):
 
-| Ranking | ρ (40 events) |
-|---|---|
-| Real-pace ranking (this site) | **+0.21** |
-| PP under BoP (the usual proxy) | +0.14 |
+| Ranking | mean ρ (40 events) | better in |
+|---|---|---|
+| Real-pace ranking (this site) | **+0.25** | 65 % of events |
+| PP under BoP (the usual proxy) | +0.14 | 35 % |
 
-The real-pace ranking is consistently better (on cars with ≥ 20 laps: +0.26 vs +0.08), but both are modest: in the
-top 1000 laps of an event a few meta cars hold almost all laps, so most cars have little evidence. Deeper and older
-leaderboard data is the main lever for accuracy.
+Rules (chosen up front, then checked against 17 alternatives — none scored higher): a layout counts as evidence
+with ≥ 10 laps under the car's current BoP; "real pace" needs ≥ 2 layouts; cars with no evidence are capped at the
+median real-pace score. Caveats: 40 events is a small, noisy sample; car model fit and PP ranks in the backtest are
+today's values, not the historical ones; in the top 1000 laps a few meta cars hold most laps, so many cars have little
+evidence. Deeper and older leaderboard data is the main lever for accuracy.
 
 ## Data & credits
 

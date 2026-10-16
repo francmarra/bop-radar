@@ -51,7 +51,7 @@ export async function carPage(id) {
     app.querySelector("#now").innerHTML = `${tierBadge(head.tier)} <span class="mono">#${head.rank}/${e.of}</span> ${selected === latest ? sourceBadge(now?.m, t) : ""}`;
     app.querySelector("#ctx-title").textContent = t("ctx_title", e.v, e.date);
     app.querySelector("#summary").textContent = summary(brief(e, selected));
-    const fit = ["h", "m", "l"].map((s) => `<div class="fit">${setBadge(s)} <span class="muted mono">#${e.sets[s].rank}</span>
+    const fit = ["h", "m", "l"].map((s) => `<div class="fit">${setBadge(s)} <span class="muted mono">#${selected === latest && now ? now[s].rank : e.sets[s].rank}</span>
       <div class="bar"><i style="width:${Math.round(c.fit[s] * 100)}%;background:var(--${s})"></i></div></div>`).join("");
     const hand = (f) => t({ N: "neutral", U: "understeer", O: "oversteer" }[f] || "—");
     app.querySelector("#cards").innerHTML = `

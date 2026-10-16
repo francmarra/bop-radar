@@ -98,7 +98,7 @@ def rate_combos(events: list[dict], groups: dict, today: date | None = None) -> 
         for gid, g in groups.items():
             evs = by_layout.get((tid, gid), [])
             matcher = CarMatcher(g["cars"])
-            evidence: dict[str, list[tuple[float, dict]]] = {}
+            evidence: dict[str, list[tuple[float, dict, bool]]] = {}
             ev_meta = []
             for e in evs:
                 bop_v = version_at(e["date"], g["versions"])
@@ -111,7 +111,7 @@ def rate_combos(events: list[dict], groups: dict, today: date | None = None) -> 
                         continue
                     stale = any(version_key(v) > version_key(bop_v or "0.0") for v in car["changed_versions"])
                     w = 0.5 ** (age_weeks / 26) * (0.4 if stale else 1.0)  # half-life 6 months, BoP since then
-                    evidence.setdefault(car["id"], []).append((w, row))
+                    evidence.setdefault(car["id"], []).append((w, row, stale))
             if not evs and gid not in ("gr3", "gr4"):
                 continue  # Gr.1/Gr.2 rarely run dailies: only show them where we have data
             cars = []
@@ -120,10 +120,12 @@ def rate_combos(events: list[dict], groups: dict, today: date | None = None) -> 
                 rows = evidence.get(car["id"], [])
                 lb = None
                 if rows:
-                    tw = sum(w for w, _ in rows)
-                    gap = sum(w * r["gap_pct"] for w, r in rows) / tw
-                    lb = {"gap_pct": round(gap, 3), "laps": sum(r["laps"] for _, r in rows),
-                          "top100": sum(r["top100"] for _, r in rows), "events": len(rows)}
+                    tw = sum(w for w, _, _ in rows)
+                    gap = sum(w * r["gap_pct"] for w, r, _ in rows) / tw
+                    lb = {"gap_pct": round(gap, 3), "laps": sum(r["laps"] for _, r, _ in rows),
+                          "top100": sum(r["top100"] for _, r, _ in rows), "events": len(rows),
+                          "weight": round(tw, 3),  # recency/staleness weight, used to blend layouts
+                          "fresh": any(not st for _, _, st in rows)}  # some laps under the car's current BoP
                     lb_score = max(0.0, 1 - gap / 3)  # 0 % gap -> 1, 3 % or more -> 0
                     score = 0.7 * lb_score + 0.3 * model
                 else:

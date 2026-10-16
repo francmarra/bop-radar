@@ -2,6 +2,7 @@
 
 Time-respecting: every event is predicted only from events that happened before it."""
 
+from datetime import date
 from statistics import mean
 
 from gt7bop.ranking import rank_by_pace
@@ -30,12 +31,22 @@ def spearman(xs: list[float], ys: list[float]) -> float:
     return num / den if den else 0.0
 
 
+def _as_of(groups: dict, day: str) -> dict:
+    """Hide BoP changes released after `day`, so freshness is judged with what was known then.
+    (fit and PP ranks are still today's: a documented limitation.)"""
+    out = {}
+    for gid, g in groups.items():
+        released = {v for v, d in g["versions"] if d <= day}
+        out[gid] = {**g, "cars": [{**c, "changed_versions": [v for v in c["changed_versions"] if v in released]} for c in g["cars"]]}
+    return out
+
+
 def evaluate(events: list[dict], groups: dict, min_cars: int = 8) -> dict:
     """groups: the rate_combos input, each car also carrying "pp_rank": {set: rank}."""
     rho_pace, rho_pp = [], []
     for e in sorted(events, key=lambda e: e["date"]):
         g = groups.get(e["group"])
-        if not g:
+        if not g or e["group"] not in ("gr3", "gr4"):  # the classes Daily Races actually use
             continue
         matcher = CarMatcher(g["cars"])
         seen, rows = set(), []
@@ -47,10 +58,13 @@ def evaluate(events: list[dict], groups: dict, min_cars: int = 8) -> dict:
         if len(rows) < min_cars:
             continue
         past = [p for p in events if p["date"] < e["date"]]
-        ranking = rank_by_pace(rate_combos(past, groups), groups)[e["group"]]
+        at = _as_of(groups, e["date"])
+        ranking = rank_by_pace(rate_combos(past, at, today=date.fromisoformat(e["date"])), at)[e["group"]]
         s = track_set(e["track"])
         actual = [gap for _, gap in rows]
         rho_pace.append(spearman([ranking[c["id"]][s]["rank"] for c, _ in rows], actual))
         rho_pp.append(spearman([c["pp_rank"][s] for c, _ in rows], actual))
+    wins = sum(a > b for a, b in zip(rho_pace, rho_pp))
     return {"events": len(rho_pace), "rho_pace": round(mean(rho_pace), 3) if rho_pace else 0.0,
-            "rho_pp": round(mean(rho_pp), 3) if rho_pp else 0.0}
+            "rho_pp": round(mean(rho_pp), 3) if rho_pp else 0.0,
+            "pace_wins": round(wins / len(rho_pace), 3) if rho_pace else 0.0}

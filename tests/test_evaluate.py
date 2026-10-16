@@ -25,3 +25,21 @@ def test_evaluate_is_time_respecting_and_compares_with_pp():
     assert res["events"] == 3
     assert res["rho_pace"] > 0.9 and res["rho_pp"] < -0.9
     assert evaluate(events, groups, min_cars=9)["events"] == 0
+
+
+def test_evaluate_reports_win_rate_and_ignores_other_groups():
+    n = 8
+    cars = [{"id": f"c{i}", "name": f"Car{i}", "maker": "Maker", "fit": {s: 1 - i / 10 for s in "hml"},
+             "changed_versions": [], "pp_rank": {s: n - i for s in "hml"}} for i in range(n)]
+    groups = {g: {"versions": [("1.0", "2020-01-01")], "cars": cars} for g in ("gr1", "gr3")}
+    events = [_event("2026-01-05", "Suzuka Circuit", list(range(n)))]
+    events.append({**_event("2026-01-06", "Suzuka Circuit", list(range(n))), "group": "gr1"})
+    res = evaluate(events, groups, min_cars=8)
+    assert res["events"] == 1 and res["pace_wins"] == 1.0
+
+
+def test_as_of_hides_future_bop_changes():
+    from gt7bop.evaluate import _as_of
+    groups = {"gr3": {"versions": [("1.0", "2026-01-01"), ("1.1", "2026-06-01")], "cars": [{"id": "x", "changed_versions": ["1.0", "1.1"]}]}}
+    assert _as_of(groups, "2026-03-01")["gr3"]["cars"][0]["changed_versions"] == ["1.0"]
+    assert groups["gr3"]["cars"][0]["changed_versions"] == ["1.0", "1.1"]  # input untouched

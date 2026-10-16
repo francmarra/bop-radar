@@ -12,3 +12,12 @@ test("num formats numbers and dashes the rest", () => {
 test("fold lowercases and strips accents", () => {
   assert.equal(fold("Citroën GT"), "citroen gt");
 });
+
+import { load } from "../../site/js/data.js";
+test("load() retries after a failed fetch", async () => {
+  let calls = 0;
+  globalThis.fetch = async () => (++calls === 1 ? { ok: false } : { ok: true, json: async () => ({ fine: true }) });
+  await assert.rejects(load("retry.json"));
+  assert.deepEqual(await load("retry.json"), { fine: true });
+  assert.equal(calls, 2);
+});

@@ -2,7 +2,7 @@
 export const I18N = {
   en: {
     nav_rankings: "Rankings", nav_tracks: "Tracks", nav_updates: "BoP updates", nav_about: "About", nav_home: "Home", nav_help: "Help", skip: "Skip to content", theme_toggle: "Switch light/dark theme",
-    loading: "Loading…", load_error: "Could not load data", latest: "Latest BoP update", bop_explain: "BoP (Balance of Performance) is the power and weight adjustment Polyphony makes to keep race cars even.", version: "Version",
+    loading: "Loading…", load_error: "We couldn't load the data. Check your connection and try again.", retry: "Try again", latest: "Latest BoP update", bop_explain: "BoP (Balance of Performance) is the power and weight adjustment Polyphony makes to keep race cars even.", version: "Version",
     see_changes: "See all changes", no_change: "no change", search_car: "Search car or maker…", search_track: "Search track…",
     track_type: "Track type", set_h: "Fast tracks", set_m: "Medium tracks", set_l: "Slow tracks",
     set_h_long: "High-speed tracks", set_m_long: "Mid-speed tracks", set_l_long: "Low-speed tracks",
@@ -27,7 +27,7 @@ export const I18N = {
     top100: "in top 100", race_events: "Daily Race events", no_events: "No Daily Race with this class here yet — ranking is the model's estimate for this track type.",
     low: "low", medium: "medium", high: "high", neutral: "neutral", understeer: "understeer", oversteer: "oversteer",
     more_about: (x) => `More about ${x}`,
-    term_bop: "BoP", term_pp: "PP", term_ps_t: "PS/t", term_balance: "weight balance", term_track_types: "track types", term_level: "level", term_estimates: "these estimates",
+    term_bop: "BoP", term_pp: "PP", term_ps_t: "PS/t", term_balance: "weight balance", term_track_types: "track types", term_level: "level", term_estimates: "tyre wear and fuel estimates",
     help_bop: "BoP (Balance of Performance) is the power and weight adjustment Polyphony makes to keep race cars even.",
     help_pp: "Performance Points: Gran Turismo's single number for how fast a car is. Higher means faster. Within a class, BoP tries to bring every car close.",
     help_ps_t: "Horsepower per tonne of weight. Higher means stronger acceleration.",
@@ -40,6 +40,13 @@ export const I18N = {
     home_title: "How did BoP change your car?", find_label: "Find your car", find_ph: "e.g. Ferrari 296", find_empty: "No car found for «{q}». Try just the maker, e.g. «Ferrari».",
     most_affected: "Biggest changes", ranking_title: "Cars by class", date_fmt: "Released",
     chart_alt: (a, b, n) => `Performance level (PP) on medium tracks went from ${a} to ${b} over ${n} game versions.`, no_changes: (v) => `No BoP changes yet since version ${v}.`,
+    help_title: "Help", how_title: "How to use the site",
+    step1: "Find your car: type its name or maker in the big search box on the home page.",
+    step2: "Read what changed: the car page starts with a plain summary and its BoP history.",
+    step3: "Compare with its class: the ranking on the home page shows where each car sits.",
+    glossary_title: "Words used on this site", data_title: "Where the data comes from",
+    data_text: 'BoP values come from <a href="https://gt-engine.com/gt7/">GT ENG!NE</a>, which records every Gran Turismo 7 update since 1.15. This site checks for new updates every Monday.',
+    generated: "Last updated", not_official: "This is a fan-made site, not affiliated with Polyphony Digital or Sony.",
     footer_est: "tyre wear & fuel are estimates", unofficial: "not affiliated with Polyphony Digital",
     tr: { "straight-line speed": "straight-line speed", acceleration: "acceleration", "low-speed cornering": "low-speed cornering", "high-speed cornering": "high-speed cornering" },
     summary(b) {
@@ -55,18 +62,10 @@ export const I18N = {
       p.push(`Estimated tyre wear ${this[b.tyre_wear]}, fuel use ${this[b.fuel_use]}.`);
       return p.join(" ");
     },
-    about: `<h1>About</h1>
-      <p>Tracks Gran Turismo 7 <b>Balance of Performance</b> for Gr.1–Gr.4. Since 1.19 the game uses three BoP sets — high-, mid- and low-speed — picked by track.</p>
-      <h2>How cars are rated</h2><ul>
-      <li><b>Position / level</b>: PP within the class under each BoP set.</li>
-      <li><b>Verdict</b>: change in power-to-weight vs. the previous version.</li>
-      <li><b>Track fit</b>: half PP rank, half the traits each track type rewards (straight-line speed, cornering at 60/120/240 km/h, acceleration).</li>
-      <li><b>Per-track rating</b>: 70 % real pace from Daily Race leaderboards on that exact layout (top 1000 laps per event, newer events and events after the car's last BoP change weigh more) + 30 % model fit. Without leaderboard data the rating is the model's estimate.</li>
-      <li><b>Tyre wear &amp; fuel</b>: heuristic estimates — not measured yet. Real values will come from <a href="https://github.com/francmarra">gt7-telemetry</a>.</li></ul>`,
   },
   pt: {
     nav_rankings: "Rankings", nav_tracks: "Pistas", nav_updates: "Atualizações de BoP", nav_about: "Sobre", nav_home: "Início", nav_help: "Ajuda", skip: "Saltar para o conteúdo", theme_toggle: "Mudar tema claro/escuro",
-    loading: "A carregar…", load_error: "Não foi possível carregar os dados", latest: "Última atualização de BoP", bop_explain: "O BoP (Balance of Performance) é o ajuste de potência e peso que a Polyphony faz para equilibrar os carros de corrida.", version: "Versão",
+    loading: "A carregar…", load_error: "Não foi possível carregar os dados. Verifica a ligação e tenta outra vez.", retry: "Tentar outra vez", latest: "Última atualização de BoP", bop_explain: "O BoP (Balance of Performance) é o ajuste de potência e peso que a Polyphony faz para equilibrar os carros de corrida.", version: "Versão",
     see_changes: "Ver todas as alterações", no_change: "sem alterações", search_car: "Procurar carro ou marca…", search_track: "Procurar pista…",
     track_type: "Tipo de pista", set_h: "Pistas rápidas", set_m: "Pistas médias", set_l: "Pistas lentas",
     set_h_long: "Pistas rápidas", set_m_long: "Pistas médias", set_l_long: "Pistas lentas",
@@ -91,7 +90,7 @@ export const I18N = {
     top100: "no top 100", race_events: "Eventos Daily Race", no_events: "Ainda não houve Daily Race desta classe aqui — o ranking é a estimativa do modelo para este tipo de pista.",
     low: "baixo", medium: "médio", high: "alto", neutral: "neutro", understeer: "subviragem", oversteer: "sobreviragem",
     more_about: (x) => `Mais informação sobre ${x}`,
-    term_bop: "BoP", term_pp: "PP", term_ps_t: "PS/t", term_balance: "distribuição de peso", term_track_types: "tipos de pista", term_level: "nível", term_estimates: "estas estimativas",
+    term_bop: "BoP", term_pp: "PP", term_ps_t: "PS/t", term_balance: "distribuição de peso", term_track_types: "tipos de pista", term_level: "nível", term_estimates: "estimativas de pneus e combustível",
     help_bop: "O BoP (Balance of Performance) é o ajuste de potência e peso que a Polyphony faz para equilibrar os carros de corrida.",
     help_pp: "Pontos de Performance: o número do Gran Turismo que diz quão rápido é um carro. Mais alto significa mais rápido. Dentro de uma classe, o BoP tenta aproximar todos os carros.",
     help_ps_t: "Cavalos por tonelada de peso. Mais alto significa melhor aceleração.",
@@ -104,6 +103,13 @@ export const I18N = {
     home_title: "Como é que o BoP mudou o teu carro?", find_label: "Procura o teu carro", find_ph: "por ex. Ferrari 296", find_empty: "Nenhum carro encontrado para «{q}». Experimenta só a marca, por ex. «Ferrari».",
     most_affected: "Maiores alterações", ranking_title: "Carros por classe", date_fmt: "Publicada",
     chart_alt: (a, b, n) => `O nível de performance (PP) em pistas médias passou de ${a} para ${b} ao longo de ${n} versões do jogo.`, no_changes: (v) => `Ainda sem alterações de BoP desde a versão ${v}.`,
+    help_title: "Ajuda", how_title: "Como usar o site",
+    step1: "Procura o teu carro: escreve o nome ou a marca na caixa de pesquisa grande da página inicial.",
+    step2: "Lê o que mudou: a página do carro começa com um resumo simples e o histórico de BoP.",
+    step3: "Compara com a classe: o ranking da página inicial mostra onde fica cada carro.",
+    glossary_title: "Palavras usadas neste site", data_title: "De onde vêm os dados",
+    data_text: 'Os valores de BoP vêm do <a href="https://gt-engine.com/gt7/">GT ENG!NE</a>, que regista todas as atualizações do Gran Turismo 7 desde a 1.15. Este site procura novas atualizações todas as segundas-feiras.',
+    generated: "Última atualização", not_official: "Este é um site feito por fãs, sem ligação à Polyphony Digital ou à Sony.",
     footer_est: "desgaste de pneus e consumo são estimativas", unofficial: "sem ligação à Polyphony Digital",
     tr: { "straight-line speed": "velocidade em reta", acceleration: "aceleração", "low-speed cornering": "curvas lentas", "high-speed cornering": "curvas rápidas" },
     summary(b) {
@@ -119,14 +125,6 @@ export const I18N = {
       p.push(`Desgaste de pneus estimado ${this[b.tyre_wear]}, consumo ${this[b.fuel_use]}.`);
       return p.join(" ");
     },
-    about: `<h1>Sobre</h1>
-      <p>Acompanha o <b>Balance of Performance</b> do Gran Turismo 7 para Gr.1–Gr.4. Desde a 1.19 o jogo usa três conjuntos de BoP — pistas rápidas, médias e lentas — escolhidos pela pista.</p>
-      <h2>Como os carros são avaliados</h2><ul>
-      <li><b>Posição / nível</b>: PP dentro da classe em cada conjunto de BoP.</li>
-      <li><b>Veredito</b>: variação da relação potência/peso face à versão anterior.</li>
-      <li><b>Adequação à pista</b>: metade posição em PP, metade as características que cada tipo de pista premeia (reta, curvas a 60/120/240 km/h, aceleração).</li>
-      <li><b>Avaliação por pista</b>: 70 % ritmo real nas leaderboards das Daily Races nesse traçado (top 1000 voltas por evento; eventos recentes e posteriores à última alteração de BoP do carro pesam mais) + 30 % modelo. Sem dados de leaderboard, é a estimativa do modelo.</li>
-      <li><b>Pneus e combustível</b>: estimativas heurísticas — ainda não medidas. Os valores reais virão do <a href="https://github.com/francmarra">gt7-telemetry</a>.</li></ul>`,
   },
 };
 export let lang = "en";

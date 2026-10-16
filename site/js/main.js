@@ -47,7 +47,8 @@ async function route() {
     else if (page === "help" || page === "about") helpPage();
     else await homePage();
   } catch (e) {
-    app.innerHTML = `<div class="panel">${t("load_error")} (${esc(e.message)}).</div>`;
+    app.innerHTML = `<div class="panel" role="alert"><h1>${t("load_error")}</h1><p class="muted small">${esc(e.message)}</p><button type="button" class="btn" id="retry">${t("retry")}</button></div>`;
+    app.querySelector("#retry").onclick = () => route();
   }
   const h1 = app.querySelector("h1");
   if (focusOnRoute && h1) { h1.setAttribute("tabindex", "-1"); h1.focus({ preventScroll: true }); }

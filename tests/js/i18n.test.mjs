@@ -28,3 +28,20 @@ test("plain-language terms (PT)", () => {
   assert.equal(levelName("C", t), "C: mais fraco");
   setLang("en");
 });
+
+import { info } from "../../site/js/format.js";
+const GLOSSARY = ["bop", "pp", "ps_t", "balance", "track_types", "level", "estimates"];
+test("every glossary term has help text and a name in EN and PT", () => {
+  for (const l of ["en", "pt"]) for (const k of GLOSSARY) {
+    assert.ok(I18N[l]["help_" + k]?.length > 10, `${l} help_${k}`);
+    assert.ok(I18N[l]["term_" + k]?.length > 1, `${l} term_${k}`);
+  }
+});
+test("info() renders an accessible toggle", () => {
+  setLang("en");
+  const html = info("pp", t);
+  assert.match(html, /<button type="button" class="info" aria-expanded="false" aria-controls="tip-pp-\d+"/);
+  assert.match(html, /aria-label="More about PP"/);
+  assert.match(html, /role="tooltip" id="tip-pp-\d+" class="tip" hidden>Performance Points/);
+  assert.notEqual(info("pp", t).match(/id="(tip-pp-\d+)"/)[1], html.match(/id="(tip-pp-\d+)"/)[1]);
+});

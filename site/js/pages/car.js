@@ -1,5 +1,5 @@
 import { t, I18N, lang, summary, cap } from "../i18n.js";
-import { esc, num, signed } from "../format.js";
+import { esc, num, signed, info } from "../format.js";
 import { load, store, state, groupLabel as gl } from "../data.js";
 import { app, verdict, tierBadge, setBadge, deltaText, level, traits } from "../ui.js";
 const groupLabel = (id) => gl(store.index, id);
@@ -48,13 +48,13 @@ export async function carPage(id) {
       <div class="bar"><i style="width:${Math.round(c.fit[s] * 100)}%;background:var(--${s})"></i></div></div>`).join("");
     const hand = (f) => t({ N: "neutral", U: "understeer", O: "oversteer" }[f] || "—");
     app.querySelector("#cards").innerHTML = `
-      <div class="card"><h3>${t("track_fit")}</h3>${fit}<div class="note">${c.tracks.map(esc).join(", ")}</div></div>
+      <div class="card"><h3>${t("track_fit")} ${info("track_types", t)}</h3>${fit}<div class="note">${c.tracks.map(esc).join(", ")}</div></div>
       <div class="card"><h3>${t("strengths")}</h3><div class="chips">${c.strengths.map((s) => `<span>${esc(I18N[lang].tr[s])}</span>`).join("") || `<span class="soft">${t("none")}</span>`}</div>
         <h3 class="mt">${t("weaknesses")}</h3><div class="chips">${c.weaknesses.map((s) => `<span class="weak">${esc(I18N[lang].tr[s])}</span>`).join("") || `<span class="soft">${t("none")}</span>`}</div></div>
-      <div class="card"><h3>${t("tyre_wear")}</h3>${level(c.tyre_wear)}<h3 class="mt">${t("fuel_use")}</h3>${level(c.fuel_use)}<div class="note">${t("estimates")}</div></div>
+      <div class="card"><h3>${t("tyre_wear")} ${info("estimates", t)}</h3>${level(c.tyre_wear)}<h3 class="mt">${t("fuel_use")}</h3>${level(c.fuel_use)}<div class="note">${t("estimates")}</div></div>
       <div class="card"><h3>${t("specs")}</h3><dl class="specs">
         <dt>${t("power")}</dt><dd>${num(m.power_ps)} PS</dd><dt>${t("weight")}</dt><dd>${num(m.weight_kg)} kg</dd>
-        <dt>PS/t</dt><dd>${num(m.ps_per_t, 1)}</dd><dt>${t("balance")}</dt><dd>${esc(m.balance ?? "—")}</dd>
+        <dt>PS/t ${info("ps_t", t)}</dt><dd>${num(m.ps_per_t, 1)}</dd><dt>${t("balance")} ${info("balance", t)}</dt><dd>${esc(m.balance ?? "—")}</dd>
         <dt>${t("handling")}</dt><dd>${hand(c.handling.low)} / ${hand(c.handling.high)}</dd></dl></div>`;
     app.querySelectorAll("#changes [data-i]").forEach((r) => r.classList.toggle("sel", +r.dataset.i === selected));
   };

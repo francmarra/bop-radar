@@ -1,5 +1,5 @@
 import { t, I18N, lang, summary, cap } from "../i18n.js";
-import { esc, num, signed } from "../format.js";
+import { esc, num, signed, info } from "../format.js";
 import { load, store, state, groupLabel as gl } from "../data.js";
 import { app, verdict, tierBadge, setBadge, deltaText, level, traits } from "../ui.js";
 const groupLabel = (id) => gl(store.index, id);
@@ -59,5 +59,5 @@ function renderRanking() {
         <span class="tr">${traits(c.brief)}</span></a>`;
     }).join("");
   const el = app.querySelector("#ranking");
-  el.innerHTML = `<div class="rows"><div class="row head"><span class="rk">#</span><span>${t("col_tier")}</span><span class="nm">${t("col_car")}</span><span class="pp">${t("col_pp")}</span><span class="bs">${t("col_best")}</span><span class="lc">${t("col_last")}</span><span class="tr">${t("col_traits")}</span></div>${rows || `<p class="muted pad">${t("no_match")}</p>`}</div>`;
+  el.innerHTML = `<div class="rows"><div class="row head"><span class="rk">#</span><span>${t("col_tier")} ${info("level", t)}</span><span class="nm">${t("col_car")}</span><span class="pp">${t("col_pp")} ${info("pp", t)}</span><span class="bs">${t("col_best")} ${info("track_types", t)}</span><span class="lc">${t("col_last")}</span><span class="tr">${t("col_traits")}</span></div>${rows || `<p class="muted pad">${t("no_match")}</p>`}</div>`;
 }

@@ -56,3 +56,24 @@ async function route() {
 
 window.addEventListener("hashchange", route);
 route();
+
+/* ⓘ popovers: one open at a time; click/tap or Enter toggles, Esc or a click elsewhere closes */
+const closeTips = (except) => document.querySelectorAll('.info[aria-expanded="true"]').forEach((b) => {
+  if (b === except) return;
+  b.setAttribute("aria-expanded", "false");
+  document.getElementById(b.getAttribute("aria-controls")).hidden = true;
+});
+document.addEventListener("click", (e) => {
+  const b = e.target.closest(".info");
+  closeTips(b);
+  if (!b) return;
+  e.preventDefault(); e.stopPropagation(); // the button may sit inside a link row
+  const open = b.getAttribute("aria-expanded") !== "true";
+  b.setAttribute("aria-expanded", String(open));
+  document.getElementById(b.getAttribute("aria-controls")).hidden = !open;
+}, true);
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  const open = document.querySelector('.info[aria-expanded="true"]');
+  if (open) { closeTips(); open.focus(); }
+});

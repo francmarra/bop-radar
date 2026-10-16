@@ -10,3 +10,9 @@ export const fold = (s) => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, 
 const VERDICT_ICON = { buff: "▲", nerf: "▼", mixed: "◆", unchanged: "=" };
 export const verdictHtml = (v, t) => (v ? `<span class="v ${v}">${VERDICT_ICON[v] ?? ""} ${t(v)}</span>` : `<span class="muted">—</span>`);
 export const levelName = (tier, t) => t("level_" + tier);
+let tipSeq = 0;
+export const info = (key, t) => {
+  const id = `tip-${key}-${++tipSeq}`;
+  return `<span class="info-wrap"><button type="button" class="info" aria-expanded="false" aria-controls="${id}" aria-label="${esc(t("more_about", t("term_" + key)))}">ⓘ</button>`
+    + `<span role="tooltip" id="${id}" class="tip" hidden>${esc(t("help_" + key))}</span></span>`;
+};

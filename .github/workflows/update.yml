@@ -28,7 +28,14 @@ jobs:
           path: cache
           key: gt-engine-${{ github.run_id }}
           restore-keys: gt-engine-
-      - run: uv run pytest -q
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Lint and test
+        run: |
+          uv run ruff check src tests
+          uv run --extra render pytest -q
+          node --test "tests/js/*.test.mjs"
       - name: Fetch and rebuild
         if: github.event_name != 'push'
         run: |
@@ -42,9 +49,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add site/data data/leaderboards
           git diff --cached --quiet || git commit -m "data: BoP update $(date -u +%F)" && git push
+      - name: Build site (pre-rendered pages, sitemap, share images)
+        run: uv run --extra render gt7bop render --out dist
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: dist
 
   deploy:
     needs: build

@@ -96,7 +96,7 @@ def update_week(out: Path, fetch=_get, log=print) -> bool:
         tracks = json.loads((out / "tracks.json").read_text(encoding="utf-8"))
         index = json.loads((out / "index.json").read_text(encoding="utf-8"))
         week = build_week(schedule, tracks, index, date.today().isoformat())
-    except Exception as e:  # network, markup or data problems must not break the weekly job
+    except Exception as e:  # noqa: BLE001 — network, markup or data problems must not break the weekly job
         log(f"week: kept previous week.json ({e})")
         return False
     (out / "week.json").write_text(json.dumps(week, ensure_ascii=False, indent=1), encoding="utf-8")

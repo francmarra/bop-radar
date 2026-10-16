@@ -61,7 +61,7 @@ def page_html(shell: str, prefix: str, meta: dict, body: str) -> str:
     head += meta.get("jsonld", [])
     html = re.sub(r"<title>.*?</title>", f"<title>{e(meta['title'])}</title>", html, count=1)
     html = html.replace("</head>", "  " + "\n  ".join(head) + "\n</head>", 1)
-    return re.sub(r'(<main id="app"[^>]*>).*?(</main>)', lambda m: m[1] + body + m[2], html, count=1, flags=re.S)
+    return re.sub(r'(<main id="app"[^>]*>).*?(</main>)', lambda m: m[1] + body + m[2], html, count=1, flags=re.DOTALL)
 
 
 def _load(path: Path):
@@ -185,7 +185,7 @@ def render(site: Path, out: Path, site_url: str = SITE_URL, og: bool = True) -> 
     for p in pages:
         depth = p["path"].count("/")
         prefix = "../" * depth
-        body = re.sub(r'href="(?!https?:|#|/)([^"]*)"', lambda m: f'href="{prefix}{m[1]}"', p["body"]) if depth else p["body"]
+        body = re.sub(r'href="(?!https?:|#|/)([^"]*)"', lambda m, prefix=prefix: f'href="{prefix}{m[1]}"', p["body"]) if depth else p["body"]
         html = page_html(shell, prefix, {**p, "url": site_url + p["path"]}, body)
         target = out / p["path"] / "index.html"
         target.parent.mkdir(parents=True, exist_ok=True)

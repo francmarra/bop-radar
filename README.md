@@ -4,11 +4,12 @@
 
 Every BoP update since version 1.15, with a verdict per car (buff / nerf / mixed) and a short
 performance context: which track type it suits (high-, mid- or low-speed BoP), strengths and
-weaknesses, estimated tyre wear and fuel use. **Pick a track** to see the best cars for that
-layout, rated from real Daily Race leaderboard pace. English and Portuguese UI.
+weaknesses, estimated tyre wear and fuel use. Cars are **ranked by real Daily Race pace**, and a weekly
+**Daily Race guide** shows the best cars for each race. English and Portuguese UI.
 
 - `src/gt7bop/` — Python (stdlib only) pipeline: fetch → parse → build history → assess → JSON
-- `site/` — static site (vanilla JS, no build step) reading `site/data/`
+- `site/` — static SPA source (vanilla JS, no build step) reading `site/data/`
+- `dist/` — deploy build: `site/` + one pre-rendered page per URL (`car/<id>/`, `update/<v>/`, `week/`…), sitemap, share images
 - `data/leaderboards/<board>.json` — per-car pace aggregates of finished Daily Races (no player data)
 - `data/notes/<car-id>.toml` — optional hand-written notes shown on a car's page (`text = "..."`)
 
@@ -21,7 +22,10 @@ uv run gt7bop update --refresh  # re-download the live pages (new game version)
 uv run gt7bop update --offline  # rebuild from cache only
 uv run gt7bop leaderboards --pages 26  # aggregate the last ~52 weeks of Daily Races (incremental)
 uv run pytest
-py -m http.server -d site 8765  # open http://127.0.0.1:8765
+py -m http.server -d site 8765  # quick dev: http://127.0.0.1:8765 (SPA only)
+uv run --extra render gt7bop render --out dist --site-url http://127.0.0.1:8765/  # full build: pages, sitemap, share images
+py -m http.server -d dist 8765
+uv run gt7bop evaluate          # backtest the ranking on unseen Daily Races
 ```
 
 ## How cars are assessed

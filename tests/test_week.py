@@ -28,7 +28,7 @@ def test_player_names_never_parsed():
         assert "Player" not in repr(race)
 
 
-from gt7bop.week import build_week, update_week  # noqa: E402
+from gt7bop.week import build_week, update_week
 
 TRACKS = [
     {"id": "circuit-de-spa-francorchamps", "name": "Circuit de Spa-Francorchamps", "set": "m", "groups": {"gr3": {"events": [], "cars": [
@@ -105,8 +105,8 @@ def test_update_week_writes_file(tmp_path):
 
 
 def test_update_week_rejects_partial_markup_change(tmp_path):
-    import re
     import json
+    import re
     (tmp_path / "tracks.json").write_text(json.dumps(TRACKS), encoding="utf-8")
     (tmp_path / "index.json").write_text(json.dumps(INDEX), encoding="utf-8")
     old = tmp_path / "week.json"

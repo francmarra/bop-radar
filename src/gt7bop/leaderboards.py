@@ -19,6 +19,8 @@ MIN_LAPS = 5
 DEPTH = 1000  # laps read per event (top of the leaderboard = representative pace)
 PAGE = 200  # the paging API's maximum
 
+BOARD_RE = re.compile(r"p_rt_\d+_\d+")
+URL_RE = re.compile(r"/daily/leaderboard/\?event=[A-Za-z0-9_\-=]+")
 ARTICLE_RE = re.compile(r"<article class=\"daily-race-card[^\"]*\">(.*?)</article>", re.DOTALL)
 
 
@@ -57,7 +59,8 @@ def parse_week_page(html: str) -> list[dict]:
             "final": "Running" not in card,
             "url": _find(r'class="daily-card-link" href="([^"]+)"', card).replace("leaderboard?", "leaderboard/?"),
         })
-    return [e for e in events if e["board"] and e["url"]]
+    # both values come from a third-party page: board names a file, url is fetched
+    return [e for e in events if BOARD_RE.fullmatch(e["board"]) and URL_RE.fullmatch(e["url"])]
 
 
 def aggregate(ranking: list[dict], names: dict[str, str]) -> tuple[str, list[dict]]:

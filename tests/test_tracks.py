@@ -37,3 +37,14 @@ def test_leaderboard_beats_model():
     cars = spa["groups"]["gr3"]["cars"]
     assert cars[0]["id"] == "f-type" and cars[0]["lb"]["events"] == 1  # proven pace beats a better model fit
     assert cars[1]["lb"] is None
+
+
+def test_week_page_rejects_unsafe_values():
+    from gt7bop.leaderboards import parse_week_page
+    card = ('<article class="daily-race-card is-expired"><span class="daily-letter">B</span>'
+            '<span class="daily-category ">Gr.3</span><h2 title="Spa">Spa</h2>'
+            '<div><span>BoP</span><strong>On</strong></div><button data-board="{b}"></button>'
+            '<a class="daily-card-link" href="{u}"></a></article>')
+    ok = card.format(b="p_rt_1_001", u="/daily/leaderboard?event=AbC=")
+    bad = card.format(b="../../evil", u="//evil.com/x") + card.format(b="p_rt_2_001", u="https://evil.com/?event=a")
+    assert [e["board"] for e in parse_week_page(ok + bad)] == ["p_rt_1_001"]

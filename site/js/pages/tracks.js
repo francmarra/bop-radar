@@ -2,7 +2,7 @@ import { t, I18N, lang, summary, cap } from "../i18n.js";
 import { esc, num, signed } from "../format.js";
 import { load, store, state, groupLabel as gl } from "../data.js";
 import { app, verdict, tierBadge, setBadge, deltaText, level, traits } from "../ui.js";
-const groupLabel = (id) => gl(store.index, id);
+const groupLabel = (id) => esc(gl(store.index, id));
 import { carById as cb } from "../data.js";
 const carById = (id) => cb(store.index, id);
 
@@ -10,7 +10,7 @@ export function trackPicker(selected = "", group = state.group) {
   const opts = store.tracks.map((x) => `<option value="${x.id}" ${x.id === selected ? "selected" : ""}>${esc(x.name)}${x.groups[group]?.events.length ? " ★" : ""}</option>`).join("");
   return `<form class="picker" id="picker">
     <select id="pk-track" aria-label="${t("pick_track")}"><option value="">${t("pick_track")}</option>${opts}</select>
-    <div class="seg" id="pk-group">${store.index.groups.map((g) => `<button type="button" class="${g.id === group ? "on" : ""}" data-g="${g.id}">${g.label}</button>`).join("")}</div>
+    <div class="seg" id="pk-group">${store.index.groups.map((g) => `<button type="button" class="${g.id === group ? "on" : ""}" data-g="${esc(g.id)}">${esc(g.label)}</button>`).join("")}</div>
     <button class="btn" type="submit">${t("go")} →</button></form>`;
 }
 export function bindPicker(group = state.group) {
@@ -36,7 +36,7 @@ export async function tracksPage() {
       const list = store.tracks.filter((x) => x.set === s && (!q || x.name.toLowerCase().includes(q)));
       return `<div class="panel"><h2>${setBadge(s)} ${t("set_" + s + "_long")}</h2>${list.map((x) => {
         const n = Object.values(x.groups).reduce((a, g) => a + g.events.length, 0);
-        const groups = Object.keys(x.groups).map((g) => `<a class="pill ${x.groups[g].events.length ? "has" : ""}" href="#/track/${x.id}/${g}">${groupLabel(g)}</a>`).join("");
+        const groups = Object.keys(x.groups).map((g) => `<a class="pill ${x.groups[g].events.length ? "has" : ""}" href="#/track/${encodeURIComponent(x.id)}/${encodeURIComponent(g)}">${groupLabel(g)}</a>`).join("");
         return `<div class="trk"><a href="#/track/${x.id}/${Object.keys(x.groups).find((g) => x.groups[g].events.length) || "gr3"}"><b>${esc(x.name)}</b></a>
           <small class="muted">${n ? t("with_data", n) : t("no_data")}</small><div>${groups}</div></div>`;
       }).join("") || `<p class="muted">—</p>`}</div>`;
@@ -75,7 +75,7 @@ export async function trackPage(id, group) {
     <p><a href="#/tracks" class="muted">← ${t("tracks_title")}</a></p>
     <section class="panel">
       <div class="toolbar between"><div><h3>${setBadge(tr.set)} ${t("set_" + tr.set + "_long")}</h3><h1>${esc(tr.name)}</h1></div>
-      <div class="seg">${Object.keys(tr.groups).map((x) => `<a class="${x === group ? "on" : ""}" href="#/track/${tr.id}/${x}">${groupLabel(x)}</a>`).join("")}</div></div>
+      <div class="seg">${Object.keys(tr.groups).map((x) => `<a class="${x === group ? "on" : ""}" href="#/track/${encodeURIComponent(tr.id)}/${encodeURIComponent(x)}">${groupLabel(x)}</a>`).join("")}</div></div>
       <h3>${t("race_events")}</h3>${events || `<p class="muted">${t("no_events")}</p>`}
     </section>
     <section class="panel"><h2>${t("track_cars")} · ${groupLabel(group)}</h2>

@@ -8,7 +8,7 @@ export const signed = (n, unit = "", goodIfNegative = false) => {
 };
 export const fold = (s) => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const VERDICT_ICON = { buff: "▲", nerf: "▼", mixed: "◆", unchanged: "=" };
-export const verdictHtml = (v, t) => (v ? `<span class="v ${v}">${VERDICT_ICON[v] ?? ""} ${t(v)}</span>` : `<span class="muted">—</span>`);
+export const verdictHtml = (v, t) => (VERDICT_ICON[v] ? `<span class="v ${v}">${VERDICT_ICON[v]} ${esc(t(v))}</span>` : `<span class="muted">—</span>`);
 export const levelName = (tier, t) => t("level_" + tier);
 let tipSeq = 0;
 export const info = (key, t) => {

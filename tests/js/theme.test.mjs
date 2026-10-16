@@ -19,3 +19,10 @@ test("saved theme is applied", () => {
   assert.equal(toggleTheme(mem), "dark");
   assert.equal(mem.v, "dark");
 });
+test("theme works when merely reading localStorage throws (blocked site data)", () => {
+  Object.defineProperty(globalThis, "localStorage", { configurable: true, get() { throw new Error("SecurityError"); } });
+  try {
+    assert.doesNotThrow(() => initTheme());
+    assert.doesNotThrow(() => toggleTheme());
+  } finally { delete globalThis.localStorage; }
+});

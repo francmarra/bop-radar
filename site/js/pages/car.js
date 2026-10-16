@@ -2,7 +2,7 @@ import { t, I18N, lang, summary, cap } from "../i18n.js";
 import { esc, num, signed, info } from "../format.js";
 import { load, store, state, groupLabel as gl } from "../data.js";
 import { app, verdict, tierBadge, setBadge, deltaText, level, traits } from "../ui.js";
-const groupLabel = (id) => gl(store.index, id);
+const groupLabel = (id) => esc(gl(store.index, id));
 
 export async function carPage(id) {
   const car = await load(`cars/${id}.json`);

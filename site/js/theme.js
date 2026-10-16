@@ -2,16 +2,16 @@
 const root = () => document.documentElement;
 const systemTheme = () => (globalThis.matchMedia?.("(prefers-color-scheme: light)").matches ? "light" : "dark");
 
-export function initTheme(storage = globalThis.localStorage) {
+export function initTheme(storage) {
   let saved = null;
-  try { saved = storage?.getItem("theme"); } catch { /* storage blocked */ }
+  try { saved = (storage ?? globalThis.localStorage)?.getItem("theme"); } catch { /* storage blocked */ }
   if (saved === "light" || saved === "dark") { root().dataset.theme = saved; return saved; }
   return "system";
 }
 
-export function toggleTheme(storage = globalThis.localStorage) {
+export function toggleTheme(storage) {
   const next = (root().dataset.theme || systemTheme()) === "light" ? "dark" : "light";
   root().dataset.theme = next;
-  try { storage?.setItem("theme", next); } catch { /* storage blocked */ }
+  try { (storage ?? globalThis.localStorage)?.setItem("theme", next); } catch { /* storage blocked */ }
   return next;
 }

@@ -15,9 +15,9 @@ export async function homePage() {
   const detail = await load(`updates/${u.version}.json`);
   const classCards = ix.groups.map((g) => {
     const cars = mostAffected(detail.groups[g.id]);
-    return `<div class="card cls"><h3>${esc(g.label)}</h3><p class="cls-sentence">${esc(classSentence(u.counts[g.id], g.label, t))}</p>
+    return `<div class="card cls"><h3>${esc(g.label)}</h3><p class="cls-sentence">${esc(classSentence(u.counts?.[g.id], g.label, t))}</p>
       ${cars.length ? `<p class="small muted">${t("most_affected")}</p><ul class="affected">${cars.map((c) => `
-        <li><a href="#/car/${c.id}">${esc(c.name)}</a> ${verdict(c.verdict)} <span class="mono small">${deltaText(c.delta)}</span></li>`).join("")}</ul>` : ""}</div>`;
+        <li><a href="#/car/${encodeURIComponent(c.id)}">${esc(c.name)}</a> ${verdict(c.verdict)} <span class="mono small">${deltaText(c.delta)}</span></li>`).join("")}</ul>` : ""}</div>`;
   }).join("");
 
   app.innerHTML = `
@@ -35,12 +35,12 @@ export async function homePage() {
       <h2>${t("latest")}: ${t("version")} ${esc(u.version)}</h2>
       <p class="muted">${t("date_fmt")} ${esc(fmtDate(u.date))}</p>
       <div class="cls-grid">${classCards}</div>
-      <a class="btn mt" href="#/update/${u.version}">${t("see_changes")} →</a>
+      <a class="btn mt" href="#/update/${encodeURIComponent(u.version)}">${t("see_changes")} →</a>
     </section>
     <section class="panel">
       <h2>${t("ranking_title")}</h2>
       <div class="toolbar">
-        <div class="seg" id="groups" role="group" aria-label="${t("ranking_title")}">${ix.groups.map((g) => `<button type="button" class="${g.id === state.group ? "on" : ""}" aria-pressed="${g.id === state.group}" data-g="${g.id}">${g.label} <small>${g.cars.length}</small></button>`).join("")}</div>
+        <div class="seg" id="groups" role="group" aria-label="${t("ranking_title")}">${ix.groups.map((g) => `<button type="button" class="${g.id === state.group ? "on" : ""}" aria-pressed="${g.id === state.group}" data-g="${esc(g.id)}">${esc(g.label)} <small>${g.cars.length}</small></button>`).join("")}</div>
         <div class="seg" id="sets" role="group" aria-label="${t("track_type")}">${["h", "m", "l"].map((s) => `<button type="button" class="${s === state.set ? "on" : ""}" aria-pressed="${s === state.set}" data-s="${s}">${t("set_" + s)}</button>`).join("")}</div>
       </div>
       <div id="ranking"></div>
@@ -62,7 +62,7 @@ function renderRanking() {
     .slice().sort((a, b) => a.sets[state.set].rank - b.sets[state.set].rank)
     .map((c) => {
       const s = c.sets[state.set], lc = c.last_change;
-      return `<a class="row rk-row" href="#/car/${c.id}">
+      return `<a class="row rk-row" href="#/car/${encodeURIComponent(c.id)}">
         <span class="rk mono">${s.rank}</span><span class="lv">${tierBadge(s.tier)}</span>
         <span class="nm"><b>${esc(c.name)}</b><small>${esc(c.maker)} · ${esc(c.drivetrain)}</small></span>
         <span class="bs">${setBadge(c.best_set)}</span>

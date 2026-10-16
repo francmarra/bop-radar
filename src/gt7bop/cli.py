@@ -3,7 +3,7 @@
 import argparse
 from pathlib import Path
 
-from gt7bop import leaderboards
+from gt7bop import leaderboards, week
 from gt7bop.assess import assess_group
 from gt7bop.build import build_group
 from gt7bop.export import export
@@ -22,7 +22,12 @@ def main(argv: list[str] | None = None) -> None:
     up.add_argument("--offline", action="store_true", help="use only cached pages")
     lb = sub.add_parser("leaderboards", help="aggregate Daily Race leaderboards into data/leaderboards")
     lb.add_argument("--pages", type=int, default=2, help="archive pages to scan (2 weeks each)")
+    sub.add_parser("week", help="this/next week's Daily Races joined with track ratings -> site/data/week.json")
     args = ap.parse_args(argv)
+
+    if args.cmd == "week":
+        week.update_week(ROOT / "site" / "data")
+        return
 
     if args.cmd == "leaderboards":
         print(f"{leaderboards.update(ROOT / 'data' / 'leaderboards', args.pages)} new events")

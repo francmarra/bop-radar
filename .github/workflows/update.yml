@@ -3,6 +3,7 @@ name: Update BoP data and deploy
 on:
   schedule:
     - cron: "0 6 * * 1"  # Mondays 06:00 UTC
+    - cron: "0 6 * * 4"  # Thursdays 06:00 UTC: next week's Daily Races appear mid-week
   workflow_dispatch:
   push:
     branches: [main]
@@ -33,6 +34,7 @@ jobs:
         run: |
           uv run gt7bop leaderboards --pages 2
           uv run gt7bop update --refresh
+          uv run gt7bop week
       - name: Commit data
         if: github.event_name != 'push'
         run: |

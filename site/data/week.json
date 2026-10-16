@@ -1,0 +1,244 @@
+{
+ "generated": "2026-10-16",
+ "weeks": [
+  {
+   "label": "this",
+   "races": [
+    {
+     "race": "A",
+     "start": null,
+     "track": "Red Bull Ring",
+     "course_id": "470",
+     "kind": "one-make",
+     "car": "Gran Turismo Red Bull X2014 Junior",
+     "tyres": [
+      "RH"
+     ],
+     "fuel": "x1",
+     "tyre_wear": "x1",
+     "group": null,
+     "track_set": "m",
+     "cars": []
+    },
+    {
+     "race": "B",
+     "start": null,
+     "track": "Circuit de Spa-Francorchamps",
+     "course_id": "462",
+     "kind": "bop",
+     "car": null,
+     "tyres": [
+      "RM"
+     ],
+     "fuel": "x1",
+     "tyre_wear": "x1",
+     "group": "gr3",
+     "track_set": "m",
+     "cars": [
+      {
+       "id": "r8-lms-evo-19",
+       "name": "R8 LMS Evo '19",
+       "tier": "S",
+       "source": "real",
+       "laps": 1775,
+       "why": {
+        "strengths": [],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "f-type-gr-3",
+       "name": "F-type Gr.3",
+       "tier": "S",
+       "source": "real",
+       "laps": 7,
+       "why": {
+        "strengths": [
+         "acceleration"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "296-gt3-23",
+       "name": "296 GT3 '23",
+       "tier": "S",
+       "source": "real",
+       "laps": 26,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "viper-srt-gt3-r-15",
+       "name": "Viper SRT GT3-R '15",
+       "tier": "S",
+       "source": "estimate",
+       "laps": null,
+       "why": {
+        "strengths": [
+         "acceleration"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "lancer-evolution-final-edition-gr-3",
+       "name": "Lancer Evolution Final Edition Gr.3",
+       "tier": "S",
+       "source": "estimate",
+       "laps": null,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      }
+     ]
+    },
+    {
+     "race": "C",
+     "start": null,
+     "track": "Sardegna - Road Track - B",
+     "course_id": "841",
+     "kind": "bop",
+     "car": null,
+     "tyres": [
+      "RM",
+      "RS"
+     ],
+     "fuel": "x2",
+     "tyre_wear": "x5",
+     "group": "gr4",
+     "track_set": "l",
+     "cars": [
+      {
+       "id": "gt-by-citro-n-gr-4",
+       "name": "GT by Citroën Gr.4",
+       "tier": "S",
+       "source": "real",
+       "laps": 728,
+       "why": {
+        "strengths": [],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "elantra-n-tc-24",
+       "name": "ELANTRA N TC '24",
+       "tier": "S",
+       "source": "estimate",
+       "laps": null,
+       "why": {
+        "strengths": [
+         "acceleration",
+         "low-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "swift-sport-gr-4",
+       "name": "Swift Sport Gr.4",
+       "tier": "S",
+       "source": "estimate",
+       "laps": null,
+       "why": {
+        "strengths": [
+         "acceleration",
+         "low-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "tt-cup-16",
+       "name": "TT Cup '16",
+       "tier": "A",
+       "source": "estimate",
+       "laps": null,
+       "why": {
+        "strengths": [
+         "acceleration",
+         "low-speed cornering"
+        ],
+        "saves_tyres": true
+       }
+      },
+      {
+       "id": "mazda3-gr-4",
+       "name": "MAZDA3 Gr.4",
+       "tier": "A",
+       "source": "estimate",
+       "laps": null,
+       "why": {
+        "strengths": [
+         "acceleration",
+         "low-speed cornering"
+        ],
+        "saves_tyres": true
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "next",
+   "races": [
+    {
+     "race": "A",
+     "start": "2026-10-19",
+     "track": "Circuit Gilles-Villeneuve",
+     "course_id": "1322",
+     "kind": "tbd",
+     "car": null,
+     "tyres": [
+      "SS"
+     ],
+     "fuel": "x1",
+     "tyre_wear": "x1",
+     "group": null,
+     "track_set": "m",
+     "cars": []
+    },
+    {
+     "race": "B",
+     "start": "2026-10-19",
+     "track": "Autódromo de Interlagos",
+     "course_id": "152",
+     "kind": "tbd",
+     "car": null,
+     "tyres": [
+      "RH"
+     ],
+     "fuel": "x1",
+     "tyre_wear": "x1",
+     "group": null,
+     "track_set": "m",
+     "cars": []
+    },
+    {
+     "race": "C",
+     "start": "2026-10-19",
+     "track": "Suzuka Circuit",
+     "course_id": "10",
+     "kind": "tbd",
+     "car": null,
+     "tyres": [
+      "RM"
+     ],
+     "fuel": "x2",
+     "tyre_wear": "x4",
+     "group": null,
+     "track_set": "m",
+     "cars": []
+    }
+   ]
+  }
+ ]
+}

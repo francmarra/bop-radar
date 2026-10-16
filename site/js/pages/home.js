@@ -1,18 +1,16 @@
 import { t, lang } from "../i18n.js";
 import { esc, info } from "../format.js";
 import { load, store, state } from "../data.js";
-import { app, verdict, tierBadge, setBadge, deltaText } from "../ui.js";
+import { app, verdict, tierBadge, setBadge, deltaText, fmtDate } from "../ui.js";
 import { mountSearch } from "../search.js";
 import { mostAffected, classSentence } from "../bop.js";
+import { weekStrip } from "./week.js";
 
-const fmtDate = (d) => {
-  try { return new Intl.DateTimeFormat(lang === "pt" ? "pt-PT" : "en-GB", { dateStyle: "medium" }).format(new Date(d)); } catch { return d; }
-};
 
 export async function homePage() {
   const ix = store.index;
   const u = ix.updates[0];
-  const detail = await load(`updates/${u.version}.json`);
+  const [detail, strip] = await Promise.all([load(`updates/${u.version}.json`), weekStrip()]);
   const classCards = ix.groups.map((g) => {
     const cars = mostAffected(detail.groups[g.id]);
     return `<div class="card cls"><h3>${esc(g.label)}</h3><p class="cls-sentence">${esc(classSentence(u.counts?.[g.id], g.label, t))}</p>
@@ -31,6 +29,7 @@ export async function homePage() {
       </div>
       <p id="car-empty" class="muted" role="status" data-msg="${esc(t("find_empty"))}" hidden></p>
     </section>
+    ${strip}
     <section class="panel">
       <h2>${t("latest")}: ${t("version")} ${esc(u.version)}</h2>
       <p class="muted">${t("date_fmt")} ${esc(fmtDate(u.date))}</p>

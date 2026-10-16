@@ -64,7 +64,7 @@ def build_week(schedule: list[dict], tracks: list[dict], index: dict, generated:
     for r in schedule:
         group = GROUPS.get(r["category"]) if r["kind"] == "bop" else None
         combo = combos.get(track_id(r["track"]))
-        race = {k: v for k, v in r.items() if k not in ("bop", "category", "week")}
+        race = {k: v for k, v in r.items() if k not in ("bop", "week")}
         race["group"] = group
         race["track_set"] = combo["set"] if combo else track_set(r["track"])
         race["cars"] = []

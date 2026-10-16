@@ -59,7 +59,7 @@ def test_build_week_bop_race():
     week = build_week([_race()], TRACKS, INDEX, "2026-10-16")
     assert [w["label"] for w in week["weeks"]] == ["this", "next"]
     race = week["weeks"][0]["races"][0]
-    assert race["group"] == "gr3" and race["track_set"] == "m" and "bop" not in race and "category" not in race
+    assert race["group"] == "gr3" and race["track_set"] == "m" and "bop" not in race and race["category"] == "Gr.3"
     cars = race["cars"]
     assert [c["id"] for c in cars] == ["f-type", "genesis", "rsr"]
     assert cars[0] == {"id": "f-type", "name": "F-type Gr.3", "tier": "S", "source": "real", "laps": 968,

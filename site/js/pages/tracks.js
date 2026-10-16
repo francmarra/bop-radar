@@ -1,7 +1,7 @@
 import { t, I18N, lang, summary, cap } from "../i18n.js";
 import { esc, num, signed } from "../format.js";
 import { load, store, state, groupLabel as gl } from "../data.js";
-import { app, verdict, tierBadge, setBadge, deltaText, level, rowLinks, traits } from "../ui.js";
+import { app, verdict, tierBadge, setBadge, deltaText, level, traits } from "../ui.js";
 const groupLabel = (id) => gl(store.index, id);
 import { carById as cb } from "../data.js";
 const carById = (id) => cb(store.index, id);
@@ -64,12 +64,12 @@ export async function trackPage(id, group) {
   const rows = g.cars.map((c, i) => {
     const car = carById(c.id) || { name: c.id, maker: "", brief: null };
     const lb = c.lb;
-    return `<div class="row trow" data-href="#/car/${c.id}">
+    return `<a class="row trow" href="#/car/${c.id}">
       <span class="rk mono">${i + 1}</span>${tierBadge(c.tier)}
       <span class="nm"><b>${esc(car.name)}</b><small>${esc(car.maker)}</small></span>
       <span class="sc"><span class="bar"><i style="width:${Math.round((c.score / best) * 100)}%"></i></span><small class="mono">${num(c.score * 100)}</small></span>
       <span class="gp mono">${lb ? `+${num(lb.gap_pct, 2)} %` : "—"}</span>
-      <span class="ev2">${lb ? `<span class="badge lb">${t("ev_lb")}</span> <small class="muted">${lb.top100} ${t("top100")}</small>` : `<span class="badge est">${t("ev_model")}</span>`}</span></div>`;
+      <span class="ev2">${lb ? `<span class="badge lb">${t("ev_lb")}</span> <small class="muted">${lb.top100} ${t("top100")}</small>` : `<span class="badge est">${t("ev_model")}</span>`}</span></a>`;
   }).join("");
   app.innerHTML = `
     <p><a href="#/tracks" class="muted">← ${t("tracks_title")}</a></p>
@@ -81,5 +81,4 @@ export async function trackPage(id, group) {
     <section class="panel"><h2>${t("track_cars")} · ${groupLabel(group)}</h2>
       <div class="rows"><div class="row trow head"><span class="rk">#</span><span>${t("col_tier")}</span><span class="nm">${t("col_car")}</span><span class="sc">${t("score")}</span><span class="gp">${t("gap")}</span><span class="ev2">${t("evidence")}</span></div>${rows}</div>
       <p class="note">${t("gap_note")}</p></section>`;
-  rowLinks(app);
 }

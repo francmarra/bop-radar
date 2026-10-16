@@ -1,7 +1,7 @@
 import { t, I18N, lang, summary, cap } from "../i18n.js";
 import { esc, num, signed } from "../format.js";
 import { load, store, state, groupLabel as gl } from "../data.js";
-import { app, verdict, tierBadge, setBadge, deltaText, level, rowLinks, traits } from "../ui.js";
+import { app, verdict, tierBadge, setBadge, deltaText, level, traits } from "../ui.js";
 const groupLabel = (id) => gl(store.index, id);
 
 export async function carPage(id) {
@@ -9,9 +9,9 @@ export async function carPage(id) {
   const hist = car.history;
   const changes = hist.filter((e, i) => e.changed || i === 0);
   let selected = hist.length - 1;
-  const record = (car.tracks || []).map((r) => `<div class="row rrow" data-href="#/track/${r.id}/${car.group}">
+  const record = (car.tracks || []).map((r) => `<a class="row rrow" href="#/track/${r.id}/${car.group}">
     <span class="nm"><b>${esc(r.name)}</b></span>${setBadge(r.set)}<span class="mono">${r.rank}/${r.of}</span>${tierBadge(r.tier)}
-    <span class="mono">+${num(r.gap_pct, 2)} %</span><span class="mono muted">${r.events}</span></div>`).join("");
+    <span class="mono">+${num(r.gap_pct, 2)} %</span><span class="mono muted">${r.events}</span></a>`).join("");
 
   app.innerHTML = `
     <p><a href="#/" class="muted">${t("back_rank", groupLabel(car.group))}</a></p>
@@ -33,11 +33,10 @@ export async function carPage(id) {
     <section class="panel"><h2>${t("bop_changes")}</h2>
       <div class="rows" id="changes"><div class="row crow head"><span>${t("col_version")}</span><span>${t("col_date")}</span><span>${t("col_verdict")}</span><span>${t("col_pw")}</span><span>PP</span><span>${t("col_rank")}</span></div>
       ${changes.slice().reverse().map((e) => `
-        <div class="row crow" data-i="${hist.indexOf(e)}"><span class="mono">${esc(e.v)}</span><span class="muted mono">${esc(e.date)}</span>
+        <button type="button" class="row crow" data-i="${hist.indexOf(e)}"><span class="mono">${esc(e.v)}</span><span class="muted mono">${esc(e.date)}</span>
         <span>${e.verdict ? verdict(e.verdict) : `<span class="muted">${t("first_seen")}</span>`}</span><span class="mono">${e.delta ? deltaText(e.delta) : ""}</span>
-        <span class="mono">${num(e.sets.m.pp, 2)}</span><span class="mono">${e.sets.m.rank}/${e.of} ${tierBadge(e.sets.m.tier)}</span></div>`).join("")}
+        <span class="mono">${num(e.sets.m.pp, 2)}</span><span class="mono">${e.sets.m.rank}/${e.of} ${tierBadge(e.sets.m.tier)}</span></button>`).join("")}
       </div></section>`;
-  rowLinks(app);
 
   const brief = (e) => ({ verdict: e.verdict, changed: e.changed, delta: e.delta, of: e.of, rank: e.sets[e.context.best_set].rank, tier: e.sets[e.context.best_set].tier, ...e.context });
   const renderCtx = () => {

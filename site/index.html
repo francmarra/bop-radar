@@ -18,20 +18,20 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip" href="#app" data-t="skip">Skip to content</a>
   <header class="top">
     <a class="brand" href="#/"><span class="stripe"></span>GT7 <b>BoP</b> Radar</a>
-    <nav>
-      <a href="#/" data-page="rankings" data-t="nav_rankings">Rankings</a>
-      <a href="#/tracks" data-page="tracks" data-t="nav_tracks">Tracks</a>
-      <a href="#/updates" data-page="updates" data-t="nav_updates">Updates</a>
-      <a href="#/about" data-page="about" data-t="nav_about">About</a>
+    <nav aria-label="Main">
+      <a href="#/" data-page="home" data-t="nav_home">Home</a>
+      <a href="#/updates" data-page="updates" data-t="nav_updates">BoP updates</a>
+      <a href="#/help" data-page="help" data-t="nav_help">Help</a>
     </nav>
     <div class="tools">
       <button class="icon-btn" id="theme" type="button" aria-label="Switch light/dark theme">◐</button>
       <div class="lang" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="pt">PT</button></div>
     </div>
   </header>
-  <main id="app"><p class="muted">Loading…</p></main>
+  <main id="app" tabindex="-1"><p class="muted">Loading…</p></main>
   <footer>
     BoP: <a href="https://gt-engine.com/gt7/" target="_blank" rel="noopener">GT ENG!NE</a> ·
     leaderboards: <a href="https://gtsh-rank.com/daily/" target="_blank" rel="noopener">gtsh-rank</a> ·

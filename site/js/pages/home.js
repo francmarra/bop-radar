@@ -1,7 +1,7 @@
 import { t, I18N, lang, summary, cap } from "../i18n.js";
 import { esc, num, signed } from "../format.js";
 import { load, store, state, groupLabel as gl } from "../data.js";
-import { app, verdict, tierBadge, setBadge, deltaText, level, rowLinks, traits } from "../ui.js";
+import { app, verdict, tierBadge, setBadge, deltaText, level, traits } from "../ui.js";
 const groupLabel = (id) => gl(store.index, id);
 import { trackPicker, bindPicker } from "./tracks.js";
 
@@ -50,15 +50,14 @@ function renderRanking() {
     .sort((a, b) => a.sets[state.set].rank - b.sets[state.set].rank)
     .map((c) => {
       const s = c.sets[state.set], lc = c.last_change;
-      return `<div class="row" data-href="#/car/${c.id}">
+      return `<a class="row" href="#/car/${c.id}">
         <span class="rk mono">${s.rank}</span>${tierBadge(s.tier)}
         <span class="nm"><b>${esc(c.name)}</b><small>${esc(c.maker)} · ${esc(c.drivetrain)}</small></span>
         <span class="pp mono">${num(s.pp, 2)}</span>
         <span class="bs">${setBadge(c.best_set)}</span>
         <span class="lc">${lc ? `${verdict(lc.verdict)} <small class="mono">${lc.v}</small>` : "—"}</span>
-        <span class="tr">${traits(c.brief)}</span></div>`;
+        <span class="tr">${traits(c.brief)}</span></a>`;
     }).join("");
   const el = app.querySelector("#ranking");
   el.innerHTML = `<div class="rows"><div class="row head"><span class="rk">#</span><span>${t("col_tier")}</span><span class="nm">${t("col_car")}</span><span class="pp">${t("col_pp")}</span><span class="bs">${t("col_best")}</span><span class="lc">${t("col_last")}</span><span class="tr">${t("col_traits")}</span></div>${rows || `<p class="muted pad">${t("no_match")}</p>`}</div>`;
-  rowLinks(el);
 }

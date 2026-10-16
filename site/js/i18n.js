@@ -1,7 +1,7 @@
 /* Strings EN/PT and t(). DOM-free. */
 export const I18N = {
   en: {
-    nav_rankings: "Rankings", nav_tracks: "Tracks", nav_updates: "Updates", nav_about: "About", theme_toggle: "Switch light/dark theme",
+    nav_rankings: "Rankings", nav_tracks: "Tracks", nav_updates: "BoP updates", nav_about: "About", nav_home: "Home", nav_help: "Help", skip: "Skip to content", theme_toggle: "Switch light/dark theme",
     loading: "Loading…", load_error: "Could not load data", latest: "Latest BoP update", bop_explain: "BoP (Balance of Performance) is the power and weight adjustment Polyphony makes to keep race cars even.", version: "Version",
     see_changes: "See all changes", no_change: "no change", search_car: "Search car or maker…", search_track: "Search track…",
     track_type: "Track type", set_h: "Fast tracks", set_m: "Medium tracks", set_l: "Slow tracks",
@@ -51,7 +51,7 @@ export const I18N = {
       <li><b>Tyre wear &amp; fuel</b>: heuristic estimates — not measured yet. Real values will come from <a href="https://github.com/francmarra">gt7-telemetry</a>.</li></ul>`,
   },
   pt: {
-    nav_rankings: "Rankings", nav_tracks: "Pistas", nav_updates: "Atualizações", nav_about: "Sobre", theme_toggle: "Mudar tema claro/escuro",
+    nav_rankings: "Rankings", nav_tracks: "Pistas", nav_updates: "Atualizações de BoP", nav_about: "Sobre", nav_home: "Início", nav_help: "Ajuda", skip: "Saltar para o conteúdo", theme_toggle: "Mudar tema claro/escuro",
     loading: "A carregar…", load_error: "Não foi possível carregar os dados", latest: "Última atualização de BoP", bop_explain: "O BoP (Balance of Performance) é o ajuste de potência e peso que a Polyphony faz para equilibrar os carros de corrida.", version: "Versão",
     see_changes: "Ver todas as alterações", no_change: "sem alterações", search_car: "Procurar carro ou marca…", search_track: "Procurar pista…",
     track_type: "Tipo de pista", set_h: "Pistas rápidas", set_m: "Pistas médias", set_l: "Pistas lentas",

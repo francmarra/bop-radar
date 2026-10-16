@@ -1,5 +1,5 @@
 import { t, lang } from "../i18n.js";
-import { esc, info } from "../format.js";
+import { esc, info, sourceBadge } from "../format.js";
 import { load, store, state } from "../data.js";
 import { app, verdict, tierBadge, setBadge, deltaText, fmtDate } from "../ui.js";
 import { mountSearch } from "../search.js";
@@ -63,7 +63,7 @@ function renderRanking() {
       const s = c.sets[state.set], lc = c.last_change;
       return `<a class="row rk-row" href="#/car/${encodeURIComponent(c.id)}">
         <span class="rk mono">${s.rank}</span><span class="lv">${tierBadge(s.tier)}</span>
-        <span class="nm"><b>${esc(c.name)}</b><small>${esc(c.maker)} · ${esc(c.drivetrain)}</small></span>
+        <span class="nm"><b>${esc(c.name)}</b><small>${esc(c.maker)} · ${esc(c.drivetrain)}</small>${sourceBadge(s, t)}</span>
         <span class="bs">${setBadge(c.best_set)}</span>
         <span class="lc">${lc ? `${verdict(lc.verdict)} <small class="mono">${esc(lc.v)}</small>` : "—"}</span></a>`;
     }).join("");

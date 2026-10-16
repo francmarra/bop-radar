@@ -16,3 +16,7 @@ export const info = (key, t) => {
   return `<span class="info-wrap"><button type="button" class="info" aria-expanded="false" aria-controls="${id}" aria-label="${esc(t("more_about", t("term_" + key)))}">ⓘ</button>`
     + `<span role="tooltip" id="${id}" class="tip" hidden>${esc(t("help_" + key))}</span></span>`;
 };
+// where a class rank comes from: real Daily Race pace or the model
+export const sourceBadge = (set, t) => (!set ? "" : set.source === "real"
+  ? `<span class="badge lb">${esc(t("src_pace", set.tracks))}</span>`
+  : `<span class="badge est">${esc(t("src_est"))}</span>`);

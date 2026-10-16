@@ -225,3 +225,4 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .strip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 10px 0; }
 .strip .card { display: grid; gap: 4px; align-content: start; }
 .stale { border-color: var(--mixed); color: var(--text); }
+.row .nm .badge { display: inline-block; margin-top: 4px; }

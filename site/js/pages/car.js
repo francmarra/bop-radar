@@ -1,5 +1,5 @@
 import { t, I18N, lang, summary, cap } from "../i18n.js";
-import { esc, num, signed, info } from "../format.js";
+import { esc, num, signed, info, sourceBadge } from "../format.js";
 import { load, store, state, groupLabel as gl } from "../data.js";
 import { app, verdict, tierBadge, setBadge, deltaText, level, traits } from "../ui.js";
 const groupLabel = (id) => esc(gl(store.index, id));
@@ -28,7 +28,7 @@ export async function carPage(id) {
       <div class="legend">${["h", "m", "l"].map((s) => `<span><i style="background:var(--${s})"></i>${t("set_" + s + "_long")}</span>`).join("")}</div>
       <h2 class="mt">${t("bop_changes")}</h2>
       ${changes.length > 1 ? `<p class="muted small">${t("ctx_hint")}</p>
-      <div class="rows" id="changes"><div class="row crow head"><span>${t("col_version")}</span><span>${t("col_date")}</span><span>${t("col_verdict")}</span><span>${t("col_pw")}</span><span>PP</span><span>${t("col_rank")}</span></div>
+      <div class="rows" id="changes"><div class="row crow head"><span>${t("col_version")}</span><span>${t("col_date")}</span><span>${t("col_verdict")}</span><span>${t("col_pw")}</span><span>PP</span><span>${t("col_pp_rank")}</span></div>
       ${changeRows}
       </div>` : `<p id="changes">${t("no_changes", esc(hist[0].v))}</p>`}
     </section>
@@ -37,12 +37,20 @@ export async function carPage(id) {
       ${car.notes?.text ? `<div class="card" style="margin-top:12px"><h3>${t("notes")}</h3><p>${esc(car.notes.text)}</p></div>` : ""}
     </section>`;
 
-  const brief = (e) => ({ verdict: e.verdict, changed: e.changed, delta: e.delta, of: e.of, rank: e.sets[e.context.best_set].rank, tier: e.sets[e.context.best_set].tier, ...e.context });
+  // the current version uses the real-pace class ranking (car.now); older versions keep their PP ranks
+  const latest = hist.length - 1;
+  const now = car.now;
+  const nowBest = now ? Object.keys(now).reduce((a, b) => (now[b].rank < now[a].rank ? b : a), "m") : null;
+  const brief = (e, i) => {
+    const b = { verdict: e.verdict, changed: e.changed, delta: e.delta, of: e.of, rank: e.sets[e.context.best_set].rank, tier: e.sets[e.context.best_set].tier, ...e.context };
+    return i === latest && now ? { ...b, best_set: nowBest, rank: now[nowBest].rank, tier: now[nowBest].tier } : b;
+  };
   const renderCtx = () => {
     const e = hist[selected], c = e.context, m = e.sets.m;
-    app.querySelector("#now").innerHTML = `${tierBadge(m.tier)} <span class="mono">#${m.rank}/${e.of}</span>`;
+    const head = selected === latest && now ? now.m : m;
+    app.querySelector("#now").innerHTML = `${tierBadge(head.tier)} <span class="mono">#${head.rank}/${e.of}</span> ${selected === latest ? sourceBadge(now?.m, t) : ""}`;
     app.querySelector("#ctx-title").textContent = t("ctx_title", e.v, e.date);
-    app.querySelector("#summary").textContent = summary(brief(e));
+    app.querySelector("#summary").textContent = summary(brief(e, selected));
     const fit = ["h", "m", "l"].map((s) => `<div class="fit">${setBadge(s)} <span class="muted mono">#${e.sets[s].rank}</span>
       <div class="bar"><i style="width:${Math.round(c.fit[s] * 100)}%;background:var(--${s})"></i></div></div>`).join("");
     const hand = (f) => t({ N: "neutral", U: "understeer", O: "oversteer" }[f] || "—");

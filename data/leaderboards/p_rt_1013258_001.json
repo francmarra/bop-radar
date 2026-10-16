@@ -1,0 +1,87 @@
+{
+"date": "2025-12-08",
+"board": "p_rt_1013258_001",
+"race": "B",
+"track": "Yas Marina Circuit",
+"course_id": "1333",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 828,
+"best_ms": 122223,
+"pace_ms": 122491,
+"gap_pct": 0.0,
+"top100": 92
+},
+{
+"code": 3310,
+"name": "Porsche Cayman GT4 Clubsport '16",
+"laps": 7,
+"best_ms": 122720,
+"pace_ms": 123555,
+"gap_pct": 0.869,
+"top100": 2
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 87,
+"best_ms": 123175,
+"pace_ms": 123631,
+"gap_pct": 0.931,
+"top100": 2
+},
+{
+"code": 2161,
+"name": "Nissan GT-R Gr.4",
+"laps": 9,
+"best_ms": 122980,
+"pace_ms": 123857,
+"gap_pct": 1.115,
+"top100": 1
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 12,
+"best_ms": 122571,
+"pace_ms": 123858,
+"gap_pct": 1.116,
+"top100": 2
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 17,
+"best_ms": 122753,
+"pace_ms": 123881,
+"gap_pct": 1.135,
+"top100": 1
+},
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 6,
+"best_ms": 123583,
+"pace_ms": 123906,
+"gap_pct": 1.155,
+"top100": 0
+},
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 20,
+"best_ms": 123696,
+"pace_ms": 123980,
+"gap_pct": 1.216,
+"top100": 0
+}
+]
+}

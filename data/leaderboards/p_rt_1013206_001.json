@@ -1,0 +1,105 @@
+{
+"date": "2025-11-24",
+"board": "p_rt_1013206_001",
+"race": "B",
+"track": "Circuit de Spa-Francorchamps",
+"course_id": "462",
+"group": "gr4",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 285,
+"best_ms": 148548,
+"pace_ms": 148913,
+"gap_pct": 0.017,
+"top100": 41
+},
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 360,
+"best_ms": 148894,
+"pace_ms": 149158,
+"gap_pct": 0.182,
+"top100": 35
+},
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 87,
+"best_ms": 148972,
+"pace_ms": 149357,
+"gap_pct": 0.315,
+"top100": 12
+},
+{
+"code": 3399,
+"name": "Toyota GR Supra Race Car '19",
+"laps": 10,
+"best_ms": 148987,
+"pace_ms": 149726,
+"gap_pct": 0.563,
+"top100": 3
+},
+{
+"code": 3298,
+"name": "Audi TT Cup '16",
+"laps": 61,
+"best_ms": 149214,
+"pace_ms": 149745,
+"gap_pct": 0.576,
+"top100": 1
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 100,
+"best_ms": 149497,
+"pace_ms": 149751,
+"gap_pct": 0.58,
+"top100": 0
+},
+{
+"code": 3310,
+"name": "Porsche Cayman GT4 Clubsport '16",
+"laps": 32,
+"best_ms": 148815,
+"pace_ms": 149753,
+"gap_pct": 0.581,
+"top100": 6
+},
+{
+"code": 3246,
+"name": "Bugatti Veyron Gr.4",
+"laps": 6,
+"best_ms": 149480,
+"pace_ms": 149788,
+"gap_pct": 0.605,
+"top100": 0
+},
+{
+"code": 3537,
+"name": "MAZDA3 Gr.4",
+"laps": 27,
+"best_ms": 149693,
+"pace_ms": 149953,
+"gap_pct": 0.716,
+"top100": 0
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 13,
+"best_ms": 149188,
+"pace_ms": 150045,
+"gap_pct": 0.777,
+"top100": 1
+}
+]
+}

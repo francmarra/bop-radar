@@ -1,0 +1,105 @@
+{
+"date": "2025-11-17",
+"board": "p_rt_1013124_001",
+"race": "B",
+"track": "Deep Forest Raceway",
+"course_id": "51",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3223,
+"name": "Dodge Viper SRT GT3-R '15",
+"laps": 781,
+"best_ms": 85803,
+"pace_ms": 86076,
+"gap_pct": 0.021,
+"top100": 84
+},
+{
+"code": 3185,
+"name": "Alfa Romeo 4C Gr.3",
+"laps": 60,
+"best_ms": 86248,
+"pace_ms": 86514,
+"gap_pct": 0.531,
+"top100": 6
+},
+{
+"code": 3305,
+"name": "Volkswagen Beetle Gr.3",
+"laps": 5,
+"best_ms": 86410,
+"pace_ms": 86527,
+"gap_pct": 0.546,
+"top100": 0
+},
+{
+"code": 3238,
+"name": "Peugeot RCZ Gr.3",
+"laps": 36,
+"best_ms": 86217,
+"pace_ms": 86614,
+"gap_pct": 0.646,
+"top100": 1
+},
+{
+"code": 3436,
+"name": "Ford GT Race Car '18",
+"laps": 32,
+"best_ms": 86022,
+"pace_ms": 86655,
+"gap_pct": 0.694,
+"top100": 4
+},
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 12,
+"best_ms": 86336,
+"pace_ms": 86685,
+"gap_pct": 0.729,
+"top100": 1
+},
+{
+"code": 2182,
+"name": "McLaren 650S GT3 '15",
+"laps": 8,
+"best_ms": 86165,
+"pace_ms": 86686,
+"gap_pct": 0.731,
+"top100": 1
+},
+{
+"code": 2158,
+"name": "Ferrari 458 Italia GT3 '13",
+"laps": 12,
+"best_ms": 86467,
+"pace_ms": 86756,
+"gap_pct": 0.812,
+"top100": 0
+},
+{
+"code": 3311,
+"name": "Porsche 911 RSR (991) '17",
+"laps": 11,
+"best_ms": 86305,
+"pace_ms": 86809,
+"gap_pct": 0.873,
+"top100": 1
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 9,
+"best_ms": 86629,
+"pace_ms": 86830,
+"gap_pct": 0.898,
+"top100": 0
+}
+]
+}

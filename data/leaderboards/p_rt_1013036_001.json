@@ -1,0 +1,105 @@
+{
+"date": "2025-11-10",
+"board": "p_rt_1013036_001",
+"race": "B",
+"track": "Autódromo de Interlagos",
+"course_id": "152",
+"group": "gr4",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 805,
+"best_ms": 98218,
+"pace_ms": 98454,
+"gap_pct": 0.0,
+"top100": 97
+},
+{
+"code": 3192,
+"name": "Mercedes-Benz SLS AMG Gr.4",
+"laps": 13,
+"best_ms": 98534,
+"pace_ms": 99002,
+"gap_pct": 0.557,
+"top100": 1
+},
+{
+"code": 3310,
+"name": "Porsche Cayman GT4 Clubsport '16",
+"laps": 10,
+"best_ms": 98779,
+"pace_ms": 99053,
+"gap_pct": 0.608,
+"top100": 0
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 94,
+"best_ms": 98905,
+"pace_ms": 99071,
+"gap_pct": 0.627,
+"top100": 0
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 5,
+"best_ms": 98951,
+"pace_ms": 99117,
+"gap_pct": 0.673,
+"top100": 0
+},
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 9,
+"best_ms": 98914,
+"pace_ms": 99150,
+"gap_pct": 0.707,
+"top100": 0
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 21,
+"best_ms": 98600,
+"pace_ms": 99152,
+"gap_pct": 0.709,
+"top100": 1
+},
+{
+"code": 3480,
+"name": "Suzuki Swift Sport KATANA Edition Gr.4",
+"laps": 7,
+"best_ms": 99142,
+"pace_ms": 99187,
+"gap_pct": 0.745,
+"top100": 0
+},
+{
+"code": 2161,
+"name": "Nissan GT-R Gr.4",
+"laps": 6,
+"best_ms": 98852,
+"pace_ms": 99232,
+"gap_pct": 0.79,
+"top100": 0
+},
+{
+"code": 3537,
+"name": "MAZDA3 Gr.4",
+"laps": 9,
+"best_ms": 98770,
+"pace_ms": 99233,
+"gap_pct": 0.791,
+"top100": 0
+}
+]
+}

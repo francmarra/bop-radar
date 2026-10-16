@@ -1,0 +1,69 @@
+{
+"date": "2025-10-27",
+"board": "p_rt_1013027_001",
+"race": "B",
+"track": "Dragon Trail - Seaside",
+"course_id": "363",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3256,
+"name": "Mazda Atenza Gr.4",
+"laps": 571,
+"best_ms": 106482,
+"pace_ms": 106759,
+"gap_pct": 0.016,
+"top100": 78
+},
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 263,
+"best_ms": 106723,
+"pace_ms": 106916,
+"gap_pct": 0.164,
+"top100": 16
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 39,
+"best_ms": 106730,
+"pace_ms": 107362,
+"gap_pct": 0.581,
+"top100": 3
+},
+{
+"code": 3257,
+"name": "McLaren 650S Gr.4",
+"laps": 8,
+"best_ms": 106974,
+"pace_ms": 107380,
+"gap_pct": 0.599,
+"top100": 2
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 91,
+"best_ms": 107229,
+"pace_ms": 107434,
+"gap_pct": 0.649,
+"top100": 0
+},
+{
+"code": 3310,
+"name": "Porsche Cayman GT4 Clubsport '16",
+"laps": 9,
+"best_ms": 107219,
+"pace_ms": 107472,
+"gap_pct": 0.684,
+"top100": 0
+}
+]
+}

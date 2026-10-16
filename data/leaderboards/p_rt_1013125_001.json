@@ -1,0 +1,87 @@
+{
+"date": "2025-11-17",
+"board": "p_rt_1013125_001",
+"race": "C",
+"track": "Circuit de Barcelona-Catalunya GP Layout No Chicane",
+"course_id": "1249",
+"group": "gr4",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3248,
+"name": "GT by Citroën Gr.4",
+"laps": 919,
+"best_ms": 106877,
+"pace_ms": 107147,
+"gap_pct": 0.011,
+"top100": 92
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 27,
+"best_ms": 107228,
+"pace_ms": 108123,
+"gap_pct": 0.922,
+"top100": 1
+},
+{
+"code": 2166,
+"name": "Alfa Romeo 4C Gr.4",
+"laps": 19,
+"best_ms": 107042,
+"pace_ms": 108131,
+"gap_pct": 0.929,
+"top100": 6
+},
+{
+"code": 1563,
+"name": "Renault Sport Mégane Trophy '11",
+"laps": 6,
+"best_ms": 107495,
+"pace_ms": 108164,
+"gap_pct": 0.96,
+"top100": 1
+},
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 5,
+"best_ms": 108075,
+"pace_ms": 108174,
+"gap_pct": 0.969,
+"top100": 0
+},
+{
+"code": 3263,
+"name": "Ferrari 458 Italia Gr.4",
+"laps": 6,
+"best_ms": 107786,
+"pace_ms": 108258,
+"gap_pct": 1.047,
+"top100": 0
+},
+{
+"code": 3501,
+"name": "Genesis G70 GR4",
+"laps": 5,
+"best_ms": 108222,
+"pace_ms": 108312,
+"gap_pct": 1.098,
+"top100": 0
+},
+{
+"code": 2161,
+"name": "Nissan GT-R Gr.4",
+"laps": 5,
+"best_ms": 107784,
+"pace_ms": 108360,
+"gap_pct": 1.143,
+"top100": 0
+}
+]
+}

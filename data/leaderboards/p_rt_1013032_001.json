@@ -1,0 +1,105 @@
+{
+"date": "2025-11-03",
+"board": "p_rt_1013032_001",
+"race": "B",
+"track": "Michelin Raceway Road Atlanta",
+"course_id": "1007",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 643,
+"best_ms": 76995,
+"pace_ms": 77170,
+"gap_pct": 0.003,
+"top100": 73
+},
+{
+"code": 3450,
+"name": "Nissan GT-R NISMO GT3 '18",
+"laps": 174,
+"best_ms": 77190,
+"pace_ms": 77476,
+"gap_pct": 0.398,
+"top100": 11
+},
+{
+"code": 3340,
+"name": "Lexus RC F GT3 '17",
+"laps": 67,
+"best_ms": 77161,
+"pace_ms": 77621,
+"gap_pct": 0.587,
+"top100": 6
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 47,
+"best_ms": 77320,
+"pace_ms": 77736,
+"gap_pct": 0.735,
+"top100": 3
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 6,
+"best_ms": 77468,
+"pace_ms": 77856,
+"gap_pct": 0.891,
+"top100": 1
+},
+{
+"code": 2182,
+"name": "McLaren 650S GT3 '15",
+"laps": 11,
+"best_ms": 77326,
+"pace_ms": 77980,
+"gap_pct": 1.052,
+"top100": 1
+},
+{
+"code": 3474,
+"name": "Subaru BRZ GT300 '21",
+"laps": 7,
+"best_ms": 77451,
+"pace_ms": 77987,
+"gap_pct": 1.061,
+"top100": 1
+},
+{
+"code": 3352,
+"name": "Toyota GR Supra Racing Concept '18",
+"laps": 13,
+"best_ms": 77352,
+"pace_ms": 78000,
+"gap_pct": 1.078,
+"top100": 3
+},
+{
+"code": 3311,
+"name": "Porsche 911 RSR (991) '17",
+"laps": 21,
+"best_ms": 77392,
+"pace_ms": 78010,
+"gap_pct": 1.092,
+"top100": 1
+},
+{
+"code": 2158,
+"name": "Ferrari 458 Italia GT3 '13",
+"laps": 7,
+"best_ms": 77574,
+"pace_ms": 78027,
+"gap_pct": 1.113,
+"top100": 0
+}
+]
+}

@@ -1,0 +1,160 @@
+{
+"date": "2025-11-10",
+"board": "p_rt_1013037_001",
+"race": "C",
+"track": "Trial Mountain Circuit",
+"course_id": "1024",
+"group": "gr3",
+"tyres": [
+"RS",
+"RM"
+],
+"fuel": "x2",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 446,
+"best_ms": 108327,
+"pace_ms": 108550,
+"gap_pct": 0.192,
+"top100": 35
+},
+{
+"code": 3340,
+"name": "Lexus RC F GT3 '17",
+"laps": 193,
+"best_ms": 107967,
+"pace_ms": 108612,
+"gap_pct": 0.25,
+"top100": 32
+},
+{
+"code": 3218,
+"name": "BMW M6 GT3 Endurance Model '16",
+"laps": 110,
+"best_ms": 108144,
+"pace_ms": 108904,
+"gap_pct": 0.519,
+"top100": 9
+},
+{
+"code": 3311,
+"name": "Porsche 911 RSR (991) '17",
+"laps": 60,
+"best_ms": 108216,
+"pace_ms": 109140,
+"gap_pct": 0.737,
+"top100": 5
+},
+{
+"code": 3419,
+"name": "MAZDA RX-VISION GT3 CONCEPT",
+"laps": 6,
+"best_ms": 108769,
+"pace_ms": 109254,
+"gap_pct": 0.843,
+"top100": 1
+},
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 6,
+"best_ms": 109115,
+"pace_ms": 109353,
+"gap_pct": 0.934,
+"top100": 0
+},
+{
+"code": 2182,
+"name": "McLaren 650S GT3 '15",
+"laps": 8,
+"best_ms": 109022,
+"pace_ms": 109417,
+"gap_pct": 0.993,
+"top100": 0
+},
+{
+"code": 2186,
+"name": "Subaru WRX Gr.3",
+"laps": 5,
+"best_ms": 109214,
+"pace_ms": 109429,
+"gap_pct": 1.004,
+"top100": 0
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 31,
+"best_ms": 108583,
+"pace_ms": 109506,
+"gap_pct": 1.074,
+"top100": 3
+},
+{
+"code": 3474,
+"name": "Subaru BRZ GT300 '21",
+"laps": 21,
+"best_ms": 108534,
+"pace_ms": 109540,
+"gap_pct": 1.107,
+"top100": 4
+},
+{
+"code": 3450,
+"name": "Nissan GT-R NISMO GT3 '18",
+"laps": 26,
+"best_ms": 108692,
+"pace_ms": 109554,
+"gap_pct": 1.119,
+"top100": 2
+},
+{
+"code": 3502,
+"name": "Genesis X GR3",
+"laps": 6,
+"best_ms": 108570,
+"pace_ms": 109586,
+"gap_pct": 1.149,
+"top100": 1
+},
+{
+"code": 3305,
+"name": "Volkswagen Beetle Gr.3",
+"laps": 20,
+"best_ms": 108391,
+"pace_ms": 109641,
+"gap_pct": 1.199,
+"top100": 5
+},
+{
+"code": 2158,
+"name": "Ferrari 458 Italia GT3 '13",
+"laps": 8,
+"best_ms": 108939,
+"pace_ms": 109652,
+"gap_pct": 1.209,
+"top100": 0
+},
+{
+"code": 3352,
+"name": "Toyota GR Supra Racing Concept '18",
+"laps": 21,
+"best_ms": 108239,
+"pace_ms": 109728,
+"gap_pct": 1.28,
+"top100": 1
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 13,
+"best_ms": 108564,
+"pace_ms": 109784,
+"gap_pct": 1.331,
+"top100": 1
+}
+]
+}

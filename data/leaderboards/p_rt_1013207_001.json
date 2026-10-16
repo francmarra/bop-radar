@@ -1,0 +1,87 @@
+{
+"date": "2025-11-24",
+"board": "p_rt_1013207_001",
+"race": "C",
+"track": "Circuit de Sainte-Croix - B",
+"course_id": "827",
+"group": "gr3",
+"tyres": [
+"RS"
+],
+"fuel": "x2",
+"tyre_wear": "x3",
+"cars": [
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 617,
+"best_ms": 125781,
+"pace_ms": 126058,
+"gap_pct": 0.037,
+"top100": 59
+},
+{
+"code": 3340,
+"name": "Lexus RC F GT3 '17",
+"laps": 140,
+"best_ms": 125893,
+"pace_ms": 126286,
+"gap_pct": 0.217,
+"top100": 19
+},
+{
+"code": 3218,
+"name": "BMW M6 GT3 Endurance Model '16",
+"laps": 173,
+"best_ms": 125955,
+"pace_ms": 126367,
+"gap_pct": 0.282,
+"top100": 17
+},
+{
+"code": 2182,
+"name": "McLaren 650S GT3 '15",
+"laps": 5,
+"best_ms": 126534,
+"pace_ms": 126848,
+"gap_pct": 0.663,
+"top100": 1
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 8,
+"best_ms": 126487,
+"pace_ms": 127054,
+"gap_pct": 0.827,
+"top100": 1
+},
+{
+"code": 3352,
+"name": "Toyota GR Supra Racing Concept '18",
+"laps": 25,
+"best_ms": 126415,
+"pace_ms": 127180,
+"gap_pct": 0.926,
+"top100": 2
+},
+{
+"code": 3305,
+"name": "Volkswagen Beetle Gr.3",
+"laps": 5,
+"best_ms": 126266,
+"pace_ms": 127181,
+"gap_pct": 0.928,
+"top100": 1
+},
+{
+"code": 3450,
+"name": "Nissan GT-R NISMO GT3 '18",
+"laps": 6,
+"best_ms": 126613,
+"pace_ms": 127565,
+"gap_pct": 1.232,
+"top100": 0
+}
+]
+}

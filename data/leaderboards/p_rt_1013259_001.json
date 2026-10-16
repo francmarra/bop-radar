@@ -1,0 +1,96 @@
+{
+"date": "2025-12-08",
+"board": "p_rt_1013259_001",
+"race": "C",
+"track": "Fuji International Speedway",
+"course_id": "16",
+"group": "gr3",
+"tyres": [
+"RH"
+],
+"fuel": "x3",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 403,
+"best_ms": 96938,
+"pace_ms": 97232,
+"gap_pct": 0.012,
+"top100": 56
+},
+{
+"code": 2158,
+"name": "Ferrari 458 Italia GT3 '13",
+"laps": 314,
+"best_ms": 97128,
+"pace_ms": 97511,
+"gap_pct": 0.299,
+"top100": 16
+},
+{
+"code": 3238,
+"name": "Peugeot RCZ Gr.3",
+"laps": 5,
+"best_ms": 97544,
+"pace_ms": 97612,
+"gap_pct": 0.403,
+"top100": 1
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 55,
+"best_ms": 97328,
+"pace_ms": 97727,
+"gap_pct": 0.521,
+"top100": 8
+},
+{
+"code": 2177,
+"name": "Lamborghini Huracán GT3 '15",
+"laps": 57,
+"best_ms": 97472,
+"pace_ms": 97753,
+"gap_pct": 0.548,
+"top100": 2
+},
+{
+"code": 2190,
+"name": "GT by Citroën Race Car (Gr.3)",
+"laps": 61,
+"best_ms": 97362,
+"pace_ms": 97779,
+"gap_pct": 0.575,
+"top100": 4
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 34,
+"best_ms": 97316,
+"pace_ms": 97794,
+"gap_pct": 0.59,
+"top100": 3
+},
+{
+"code": 3311,
+"name": "Porsche 911 RSR (991) '17",
+"laps": 35,
+"best_ms": 97353,
+"pace_ms": 97812,
+"gap_pct": 0.609,
+"top100": 5
+},
+{
+"code": 3235,
+"name": "Honda NSX Gr.3",
+"laps": 8,
+"best_ms": 97485,
+"pace_ms": 97892,
+"gap_pct": 0.691,
+"top100": 1
+}
+]
+}

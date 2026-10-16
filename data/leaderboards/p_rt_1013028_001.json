@@ -1,0 +1,42 @@
+{
+"date": "2025-10-27",
+"board": "p_rt_1013028_001",
+"race": "C",
+"track": "Daytona Road Course",
+"course_id": "1163",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x2",
+"tyre_wear": "x6",
+"cars": [
+{
+"code": 3223,
+"name": "Dodge Viper SRT GT3-R '15",
+"laps": 980,
+"best_ms": 104217,
+"pace_ms": 104539,
+"gap_pct": 0.0,
+"top100": 99
+},
+{
+"code": 3436,
+"name": "Ford GT Race Car '18",
+"laps": 5,
+"best_ms": 105490,
+"pace_ms": 105596,
+"gap_pct": 1.011,
+"top100": 0
+},
+{
+"code": 3183,
+"name": "PEUGEOT Vision Gran Turismo (Gr.3)",
+"laps": 7,
+"best_ms": 104824,
+"pace_ms": 105615,
+"gap_pct": 1.029,
+"top100": 1
+}
+]
+}

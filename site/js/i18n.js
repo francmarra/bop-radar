@@ -16,7 +16,7 @@ export const I18N = {
     updates_title: "BoP updates", updates_sub: "Every game version that changed power or weight of a Gr.1–4 car.",
     cars_changed: (n) => `${n} cars changed`, update_note: "Effect = average change in power-to-weight across the BoP sets that changed: faster above +0.25 %, slower below −0.25 %, otherwise mixed.",
     col_verdict: "Effect", col_pw: "Power / weight", col_dpp: "ΔPP", col_rank: "Rank", col_context: "Context after update",
-    back_rank: (g) => `← ${g} rankings`, ctx_title: (v, d) => `Performance at ${v} (${d})`, ctx_hint: "Pick a row in “BoP changes” to see an older update",
+    back_rank: (g) => `← ${g} rankings`, ctx_title: (v, d) => `Performance at ${v} (${d})`, ctx_hint: "Pick a version to see how the car was at that time.",
     track_fit: "Track fit", strengths: "Strengths", weaknesses: "Weaknesses", none: "nothing stands out", estimates: "Estimates relative to the class (weight, torque, drivetrain, power).",
     specs: "Specs (medium-track BoP)", power: "Power", weight: "Weight", balance: "Balance F:R", handling: "Handling", notes: "Notes",
     history: "History", bop_changes: "BoP changes", col_version: "Version", col_date: "Date",
@@ -39,6 +39,7 @@ export const I18N = {
     cls_short_buff: (n) => `${n} faster`, cls_short_nerf: (n) => `${n} slower`, cls_short_mixed: (n) => `${n} mixed`, cls_none: (g) => `No changes for ${g}`,
     home_title: "How did BoP change your car?", find_label: "Find your car", find_ph: "e.g. Ferrari 296", find_empty: "No car found for «{q}». Try just the maker, e.g. «Ferrari».",
     most_affected: "Biggest changes", ranking_title: "Cars by class", date_fmt: "Released",
+    chart_alt: (a, b, n) => `Performance level (PP) on medium tracks went from ${a} to ${b} over ${n} game versions.`, no_changes: (v) => `No BoP changes yet since version ${v}.`,
     footer_est: "tyre wear & fuel are estimates", unofficial: "not affiliated with Polyphony Digital",
     tr: { "straight-line speed": "straight-line speed", acceleration: "acceleration", "low-speed cornering": "low-speed cornering", "high-speed cornering": "high-speed cornering" },
     summary(b) {
@@ -79,7 +80,7 @@ export const I18N = {
     updates_title: "Atualizações de BoP", updates_sub: "Todas as versões do jogo que mudaram potência ou peso de um carro Gr.1–4.",
     cars_changed: (n) => `${n} carros alterados`, update_note: "Efeito = variação média da relação potência/peso nos conjuntos de BoP alterados: mais rápido acima de +0,25 %, mais lento abaixo de −0,25 %, senão misto.",
     col_verdict: "Efeito", col_pw: "Potência / peso", col_dpp: "ΔPP", col_rank: "Posição", col_context: "Contexto após a atualização",
-    back_rank: (g) => `← Rankings ${g}`, ctx_title: (v, d) => `Performance na ${v} (${d})`, ctx_hint: "Escolhe uma linha em “Alterações de BoP” para ver uma versão anterior",
+    back_rank: (g) => `← Rankings ${g}`, ctx_title: (v, d) => `Performance na ${v} (${d})`, ctx_hint: "Escolhe uma versão para ver como o carro estava nessa altura.",
     track_fit: "Adequação à pista", strengths: "Pontos fortes", weaknesses: "Pontos fracos", none: "nada se destaca", estimates: "Estimativas relativas à classe (peso, binário, tração, potência).",
     specs: "Especificações (BoP de pista média)", power: "Potência", weight: "Peso", balance: "Distribuição F:T", handling: "Comportamento", notes: "Notas",
     history: "Histórico", bop_changes: "Alterações de BoP", col_version: "Versão", col_date: "Data",
@@ -102,6 +103,7 @@ export const I18N = {
     cls_short_buff: (n) => n === 1 ? "1 mais rápido" : `${n} mais rápidos`, cls_short_nerf: (n) => n === 1 ? "1 mais lento" : `${n} mais lentos`, cls_short_mixed: (n) => n === 1 ? "1 misto" : `${n} mistos`, cls_none: (g) => `Sem alterações no ${g}`,
     home_title: "Como é que o BoP mudou o teu carro?", find_label: "Procura o teu carro", find_ph: "por ex. Ferrari 296", find_empty: "Nenhum carro encontrado para «{q}». Experimenta só a marca, por ex. «Ferrari».",
     most_affected: "Maiores alterações", ranking_title: "Carros por classe", date_fmt: "Publicada",
+    chart_alt: (a, b, n) => `O nível de performance (PP) em pistas médias passou de ${a} para ${b} ao longo de ${n} versões do jogo.`, no_changes: (v) => `Ainda sem alterações de BoP desde a versão ${v}.`,
     footer_est: "desgaste de pneus e consumo são estimativas", unofficial: "sem ligação à Polyphony Digital",
     tr: { "straight-line speed": "velocidade em reta", acceleration: "aceleração", "low-speed cornering": "curvas lentas", "high-speed cornering": "curvas rápidas" },
     summary(b) {

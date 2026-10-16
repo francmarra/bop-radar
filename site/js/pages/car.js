@@ -9,34 +9,33 @@ export async function carPage(id) {
   const hist = car.history;
   const changes = hist.filter((e, i) => e.changed || i === 0);
   let selected = hist.length - 1;
-  const record = (car.tracks || []).map((r) => `<a class="row rrow" href="#/track/${r.id}/${car.group}">
-    <span class="nm"><b>${esc(r.name)}</b></span>${setBadge(r.set)}<span class="mono">${r.rank}/${r.of}</span>${tierBadge(r.tier)}
-    <span class="mono">+${num(r.gap_pct, 2)} %</span><span class="mono muted">${r.events}</span></a>`).join("");
+  const first = hist[0].sets.m.pp, last = hist[hist.length - 1].sets.m.pp;
+  const changeRows = changes.slice().reverse().map((e) => `
+        <button type="button" class="row crow" data-i="${hist.indexOf(e)}"><span class="mono">${esc(e.v)}</span><span class="muted mono">${esc(e.date)}</span>
+        <span>${e.verdict ? verdict(e.verdict) : `<span class="muted">${t("first_seen")}</span>`}</span><span class="mono">${e.delta ? deltaText(e.delta) : ""}</span>
+        <span class="mono">${num(e.sets.m.pp, 2)}</span><span class="mono">${e.sets.m.rank}/${e.of} ${tierBadge(e.sets.m.tier)}</span></button>`).join("");
 
   app.innerHTML = `
-    <p><a href="#/" class="muted">${t("back_rank", groupLabel(car.group))}</a></p>
+    <p><a href="#/" class="link-more">${t("back_rank", groupLabel(car.group))}</a></p>
     <section class="panel">
       <div class="toolbar between"><div><h3>${groupLabel(car.group)} · ${esc(car.maker)} · ${esc(car.drivetrain)}</h3><h1>${esc(car.name)}</h1></div><div id="now" class="now"></div></div>
       <p id="summary" class="lead"></p>
     </section>
-    <section class="panel"><div class="toolbar between"><h2 id="ctx-title"></h2><span class="muted small">${t("ctx_hint")}</span></div>
+    <section class="panel"><div class="toolbar between"><h2>${t("history")}</h2>
+      <div class="seg" id="metric" role="group" aria-label="${t("history")}">${[["pp", "PP"], ["ps_per_t", "PS/t"], ["power_ps", t("power")], ["weight_kg", t("weight")]].map(([k, l], i) => `<button type="button" class="${i ? "" : "on"}" aria-pressed="${!i}" data-k="${k}">${l}</button>`).join("")}</div></div>
+      <div id="chart"></div>
+      <p class="muted small">${t("chart_alt", num(first, 2), num(last, 2), hist.length)}</p>
+      <div class="legend">${["h", "m", "l"].map((s) => `<span><i style="background:var(--${s})"></i>${t("set_" + s + "_long")}</span>`).join("")}</div>
+      <h2 class="mt">${t("bop_changes")}</h2>
+      ${changes.length > 1 ? `<p class="muted small">${t("ctx_hint")}</p>
+      <div class="rows" id="changes"><div class="row crow head"><span>${t("col_version")}</span><span>${t("col_date")}</span><span>${t("col_verdict")}</span><span>${t("col_pw")}</span><span>PP</span><span>${t("col_rank")}</span></div>
+      ${changeRows}
+      </div>` : `<p id="changes">${t("no_changes", esc(hist[0].v))}</p>`}
+    </section>
+    <section class="panel" id="details"><h2 id="ctx-title"></h2>
       <div class="grid" id="cards"></div>
       ${car.notes?.text ? `<div class="card" style="margin-top:12px"><h3>${t("notes")}</h3><p>${esc(car.notes.text)}</p></div>` : ""}
-    </section>
-    ${record ? `<section class="panel"><h2>${t("track_record")}</h2><p class="muted small">${t("track_record_sub")}</p>
-      <div class="rows"><div class="row rrow head"><span class="nm">${t("nav_tracks")}</span><span>${t("track_type")}</span><span>${t("col_rank")}</span><span>${t("col_tier")}</span><span>${t("gap")}</span><span>${t("events")}</span></div>${record}</div></section>` : ""}
-    <section class="panel"><div class="toolbar between"><h2>${t("history")}</h2>
-      <div class="seg" id="metric">${[["pp", "PP"], ["ps_per_t", "PS/t"], ["power_ps", t("power")], ["weight_kg", t("weight")]].map(([k, l], i) => `<button class="${i ? "" : "on"}" data-k="${k}">${l}</button>`).join("")}</div></div>
-      <div id="chart"></div>
-      <div class="legend">${["h", "m", "l"].map((s) => `<span><i style="background:var(--${s})"></i>${t("set_" + s + "_long")}</span>`).join("")}</div>
-    </section>
-    <section class="panel"><h2>${t("bop_changes")}</h2>
-      <div class="rows" id="changes"><div class="row crow head"><span>${t("col_version")}</span><span>${t("col_date")}</span><span>${t("col_verdict")}</span><span>${t("col_pw")}</span><span>PP</span><span>${t("col_rank")}</span></div>
-      ${changes.slice().reverse().map((e) => `
-        <button type="button" class="row crow" data-i="${hist.indexOf(e)}"><span class="mono">${esc(e.v)}</span><span class="muted mono">${esc(e.date)}</span>
-        <span>${e.verdict ? verdict(e.verdict) : `<span class="muted">${t("first_seen")}</span>`}</span><span class="mono">${e.delta ? deltaText(e.delta) : ""}</span>
-        <span class="mono">${num(e.sets.m.pp, 2)}</span><span class="mono">${e.sets.m.rank}/${e.of} ${tierBadge(e.sets.m.tier)}</span></button>`).join("")}
-      </div></section>`;
+    </section>`;
 
   const brief = (e) => ({ verdict: e.verdict, changed: e.changed, delta: e.delta, of: e.of, rank: e.sets[e.context.best_set].rank, tier: e.sets[e.context.best_set].tier, ...e.context });
   const renderCtx = () => {
@@ -58,10 +57,10 @@ export async function carPage(id) {
         <dt>${t("handling")}</dt><dd>${hand(c.handling.low)} / ${hand(c.handling.high)}</dd></dl></div>`;
     app.querySelectorAll("#changes [data-i]").forEach((r) => r.classList.toggle("sel", +r.dataset.i === selected));
   };
-  app.querySelector("#changes").onclick = (ev) => { const r = ev.target.closest("[data-i]"); if (r) { selected = +r.dataset.i; renderCtx(); window.scrollTo({ top: 0, behavior: "smooth" }); } };
+  app.querySelector("#changes").onclick = (ev) => { const r = ev.target.closest("[data-i]"); if (r) { selected = +r.dataset.i; renderCtx(); app.querySelector("#details").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); } };
   app.querySelector("#metric").onclick = (ev) => {
     const k = ev.target.dataset.k; if (!k) return;
-    app.querySelectorAll("#metric button").forEach((b) => b.classList.toggle("on", b === ev.target));
+    app.querySelectorAll("#metric button").forEach((b) => { b.classList.toggle("on", b === ev.target); b.setAttribute("aria-pressed", String(b === ev.target)); });
     app.querySelector("#chart").innerHTML = chart(hist, k);
   };
   app.querySelector("#chart").innerHTML = chart(hist, "pp");

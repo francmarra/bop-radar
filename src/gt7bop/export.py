@@ -8,6 +8,7 @@ from datetime import date
 from pathlib import Path
 
 from gt7bop.build import GroupHistory, version_key
+from gt7bop.ranking import rank_by_pace
 from gt7bop.tracks import rate_combos
 
 GROUP_LABELS = {"gr1": "Gr.1", "gr2": "Gr.2", "gr3": "Gr.3", "gr4": "Gr.4"}
@@ -29,6 +30,22 @@ def _brief(e: dict) -> dict:
             "rank": e["sets"][c["best_set"]]["rank"], "tier": e["sets"][c["best_set"]]["tier"],
             "best_set": c["best_set"], "all_rounder": c["all_rounder"], "strengths": c["strengths"],
             "tyre_wear": c["tyre_wear"], "fuel_use": c["fuel_use"]}
+
+
+def apply_ranking(groups: list[dict], car_files: dict[str, dict], ranking: dict) -> None:
+    """Swap the PP-based class ranks for the real-pace ranking (keeping PP and its rank for reference)."""
+    for g in groups:
+        by_car = ranking.get(g["id"], {})
+        for c in g["cars"]:
+            now = by_car.get(c["id"])
+            if not now:
+                continue
+            c["sets"] = {s: {**now[s], "pp": c["sets"][s].get("pp"), "pp_rank": c["sets"][s]["rank"]} for s in now}
+            best = min(now, key=lambda s: (now[s]["rank"], s != "m"))
+            c["best_set"] = best
+            c["brief"] = {**c["brief"], "rank": now[best]["rank"], "tier": now[best]["tier"], "best_set": best}
+            car_files[c["id"]]["now"] = c["sets"]
+        g["cars"].sort(key=lambda c: c["sets"]["m"]["rank"])
 
 
 def export(histories: list[GroupHistory], assessments: dict[str, dict], out: Path, notes_dir: Path,
@@ -77,6 +94,7 @@ def export(histories: list[GroupHistory], assessments: dict[str, dict], out: Pat
                                 "latest": latest, "cars": cars_meta})
     combos = rate_combos(events or [], combo_input)
     _dump(out / "tracks.json", combos)
+    apply_ranking(index["groups"], car_files, rank_by_pace(combos, combo_input))
     for t in combos:
         for g in t["groups"].values():
             for rank, c in enumerate(g["cars"], 1):

@@ -1,7 +1,7 @@
 /* Strings EN/PT and t(). DOM-free. */
 export const I18N = {
   en: {
-    nav_rankings: "Rankings", nav_tracks: "Tracks", nav_updates: "Updates", nav_about: "About",
+    nav_rankings: "Rankings", nav_tracks: "Tracks", nav_updates: "Updates", nav_about: "About", theme_toggle: "Switch light/dark theme",
     loading: "Loading…", load_error: "Could not load data", latest: "Latest BoP update", version: "Version",
     see_changes: "See all changes", no_change: "no change", search_car: "Search car or maker…", search_track: "Search track…",
     track_type: "Track type", set_h: "Fast", set_m: "Medium", set_l: "Twisty",
@@ -50,7 +50,7 @@ export const I18N = {
       <li><b>Tyre wear &amp; fuel</b>: heuristic estimates — not measured yet. Real values will come from <a href="https://github.com/francmarra">gt7-telemetry</a>.</li></ul>`,
   },
   pt: {
-    nav_rankings: "Rankings", nav_tracks: "Pistas", nav_updates: "Atualizações", nav_about: "Sobre",
+    nav_rankings: "Rankings", nav_tracks: "Pistas", nav_updates: "Atualizações", nav_about: "Sobre", theme_toggle: "Mudar tema claro/escuro",
     loading: "A carregar…", load_error: "Não foi possível carregar os dados", latest: "Última atualização de BoP", version: "Versão",
     see_changes: "Ver todas as alterações", no_change: "sem alterações", search_car: "Procurar carro ou marca…", search_track: "Procurar pista…",
     track_type: "Tipo de pista", set_h: "Rápida", set_m: "Média", set_l: "Lenta",

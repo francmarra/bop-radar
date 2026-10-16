@@ -3,6 +3,7 @@ import { t, lang, setLang } from "./i18n.js";
 import { esc } from "./format.js";
 import { getIndex, store } from "./data.js";
 import { app } from "./ui.js";
+import { initTheme, toggleTheme } from "./theme.js";
 import { homePage } from "./pages/home.js";
 import { tracksPage, trackPage } from "./pages/tracks.js";
 import { updatesPage, updatePage } from "./pages/updates.js";
@@ -12,7 +13,10 @@ function chrome() {
   document.documentElement.lang = lang;
   document.querySelectorAll("[data-t]").forEach((el) => (el.textContent = t(el.dataset.t)));
   document.querySelectorAll(".lang button").forEach((b) => b.classList.toggle("on", b.dataset.lang === lang));
+  document.getElementById("theme").setAttribute("aria-label", t("theme_toggle"));
 }
+initTheme();
+document.getElementById("theme").onclick = () => toggleTheme();
 document.querySelector(".lang").onclick = (e) => {
   const l = e.target.dataset.lang;
   if (!l || l === lang) return;

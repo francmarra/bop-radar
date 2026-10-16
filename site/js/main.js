@@ -54,6 +54,7 @@ async function route() {
     app.querySelector("#retry").onclick = () => route();
   }
   const h1 = app.querySelector("h1");
+  document.title = page && h1 ? `${h1.textContent.trim()} — GT7 BoP Radar` : "GT7 BoP Radar";
   if (focusOnRoute && h1) { h1.setAttribute("tabindex", "-1"); h1.focus({ preventScroll: true }); }
   focusOnRoute = true;
 }

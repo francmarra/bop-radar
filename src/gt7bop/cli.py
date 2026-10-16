@@ -3,7 +3,7 @@
 import argparse
 from pathlib import Path
 
-from gt7bop import leaderboards, week
+from gt7bop import leaderboards, render, week
 from gt7bop.assess import assess_group
 from gt7bop.build import build_group
 from gt7bop.evaluate import evaluate
@@ -24,8 +24,17 @@ def main(argv: list[str] | None = None) -> None:
     lb = sub.add_parser("leaderboards", help="aggregate Daily Race leaderboards into data/leaderboards")
     lb.add_argument("--pages", type=int, default=2, help="archive pages to scan (2 weeks each)")
     sub.add_parser("evaluate", help="backtest: real-pace vs PP ranking on unseen Daily Races (offline)")
+    rp = sub.add_parser("render", help="build dist/: pre-rendered pages, sitemap, share images")
+    rp.add_argument("--out", default="dist")
+    rp.add_argument("--site-url", default=render.SITE_URL)
+    rp.add_argument("--no-og", action="store_true", help="skip share images")
     sub.add_parser("week", help="this/next week's Daily Races joined with track ratings -> site/data/week.json")
     args = ap.parse_args(argv)
+
+    if args.cmd == "render":
+        pages = render.render(ROOT / "site", ROOT / args.out, args.site_url, og=not args.no_og)
+        print(f"render: {len(pages)} pages -> {args.out}/")
+        return
 
     if args.cmd == "week":
         week.update_week(ROOT / "site" / "data")

@@ -4,7 +4,7 @@ import { esc } from "./format.js";
 import { getIndex, store } from "./data.js";
 import { app } from "./ui.js";
 import { initTheme, toggleTheme } from "./theme.js";
-import { BASE, pathOf, hashToPath, link, shouldIntercept } from "./router.js";
+import { BASE, pathOf, hashToPath, link, rootPath, shouldIntercept } from "./router.js";
 import { homePage } from "./pages/home.js";
 import { tracksPage, trackPage } from "./pages/tracks.js";
 import { updatesPage, updatePage } from "./pages/updates.js";
@@ -54,7 +54,8 @@ async function route() {
     app.querySelector("#retry").onclick = () => route();
   }
   const h1 = app.querySelector("h1");
-  document.title = page && h1 ? `${h1.textContent.trim()} — GT7 BoP Radar` : "GT7 BoP Radar";
+  // first load keeps the pre-rendered, search-friendly <title>; in-app navigation updates it
+  if (focusOnRoute) document.title = page && h1 ? `${h1.textContent.trim()} — GT7 BoP Radar` : "GT7 BoP Radar";
   if (focusOnRoute && h1) { h1.setAttribute("tabindex", "-1"); h1.focus({ preventScroll: true }); }
   focusOnRoute = true;
 }
@@ -63,7 +64,7 @@ async function route() {
 const legacy = hashToPath(location.hash);
 if (legacy !== null) history.replaceState(null, "", link(legacy));
 // header links are relative in the HTML (for crawlers); make them absolute for in-app navigation
-document.querySelectorAll("header a[href]").forEach((a) => { const p = a.getAttribute("href").replace(/^\.\/?/, "").replace(/^(\.\.\/)+/, ""); a.href = link(p); });
+document.querySelectorAll("header a[href]").forEach((a) => { a.href = link(rootPath(a.getAttribute("href"))); });
 document.addEventListener("click", (e) => {
   const a = e.target.closest("a[href]");
   if (!a || !shouldIntercept(e, a, location.origin, BASE, location.pathname)) return;

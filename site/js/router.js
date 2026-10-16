@@ -4,8 +4,13 @@
 export const basePath = (moduleUrl) => new URL("../", moduleUrl).pathname;
 export const BASE = basePath(import.meta.url);
 
+const decode = (s) => { try { return decodeURIComponent(s); } catch { return s; } }; // a stray % must not break routing
 export const pathOf = (pathname, base = BASE) =>
-  (pathname.startsWith(base) ? pathname.slice(base.length) : pathname).split("/").filter(Boolean).map(decodeURIComponent);
+  (pathname.startsWith(base) ? pathname.slice(base.length) : pathname).split("/").filter(Boolean).map(decode);
+
+// an href as written in the HTML ("./", "week/", "../../week/" or "/bop-radar/week/" in 404.html) -> path under the root
+export const rootPath = (href, base = BASE) =>
+  href.startsWith(base) ? href.slice(base.length) : href.replace(/^(\.\.?\/)+/, "").replace(/^\.$/, "");
 
 // links shared before the switch to paths looked like #/car/x
 export function hashToPath(hash) {

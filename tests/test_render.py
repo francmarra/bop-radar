@@ -91,3 +91,18 @@ def test_font_fallback():
     __import__("pytest").importorskip("PIL")
     from gt7bop.og import load_font
     assert load_font(40, bold=True, candidates=["/nope/missing.ttf"]) is not None
+
+
+def test_backslash_in_name_does_not_break_build(tmp_path):
+    s = _site(tmp_path)
+    p = s / "data" / "cars" / "odd-car.json"
+    car = json.loads(p.read_text(encoding="utf-8"))
+    car["name"] = r"Back\1slash \g<0>"
+    p.write_text(json.dumps(car), encoding="utf-8")
+    out = tmp_path / "dist"
+    render(s, out, URL, og=False)
+    assert r"<title>Back\1slash \g&lt;0&gt; BoP history" in (out / "car" / "odd-car" / "index.html").read_text(encoding="utf-8")
+
+
+def test_default_share_image_ships_with_the_site():
+    assert (SITE / "og" / "default.png").exists()

@@ -59,7 +59,7 @@ def page_html(shell: str, prefix: str, meta: dict, body: str) -> str:
                  f'<meta property="og:image" content="{e(meta["image"])}">', '<meta property="og:image:width" content="1200">',
                  '<meta property="og:image:height" content="630">', '<meta name="twitter:card" content="summary_large_image">']
     head += meta.get("jsonld", [])
-    html = re.sub(r"<title>.*?</title>", f"<title>{e(meta['title'])}</title>", html, count=1)
+    html = re.sub(r"<title>.*?</title>", lambda _: f"<title>{e(meta['title'])}</title>", html, count=1)
     html = html.replace("</head>", "  " + "\n  ".join(head) + "\n</head>", 1)
     return re.sub(r'(<main id="app"[^>]*>).*?(</main>)', lambda m: m[1] + body + m[2], html, count=1, flags=re.DOTALL)
 

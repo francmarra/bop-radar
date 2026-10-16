@@ -37,3 +37,16 @@ test("only plain clicks on internal page links are intercepted", () => {
   assert.equal(shouldIntercept(ev(), a(o + "/bop-radar/data/index.json"), o, b, here), false);
   assert.equal(shouldIntercept(ev(), a(o + "/bop-radar/#app"), o, b, here), false);
 });
+
+import { rootPath } from "../../site/js/router.js";
+test("header hrefs normalise to root-relative paths from any page, including 404.html", () => {
+  assert.equal(rootPath("./", "/bop-radar/"), "");
+  assert.equal(rootPath("week/", "/bop-radar/"), "week/");
+  assert.equal(rootPath("../../week/", "/bop-radar/"), "week/");
+  assert.equal(rootPath("/bop-radar/week/", "/bop-radar/"), "week/");
+  assert.equal(rootPath("/week/", "/"), "week/");
+  assert.equal(rootPath("/bop-radar/", "/bop-radar/"), "");
+});
+test("malformed percent-encoding does not throw", () => {
+  assert.deepEqual(pathOf("/bop-radar/car/100%/", "/bop-radar/"), ["car", "100%"]);
+});

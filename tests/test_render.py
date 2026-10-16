@@ -73,3 +73,21 @@ def test_sitemap_404_robots(tmp_path):
     assert 'href="/bop-radar/style.css"' in nf and 'src="/bop-radar/js/main.js"' in nf and "noindex" in nf
     assert f"Sitemap: {URL}sitemap.xml" in (out / "robots.txt").read_text(encoding="utf-8")
     assert (out / "data" / "index.json").exists()
+
+
+def test_share_images(tmp_path):
+    pytest = __import__("pytest")
+    PIL = pytest.importorskip("PIL.Image")
+    out = tmp_path / "dist"
+    render(_site(tmp_path), out, URL, og=True)
+    for name in ("default", "update-1.71", "car-genesis-gr-3", "car-odd-car"):
+        with PIL.open(out / "og" / f"{name}.png") as im:
+            assert im.size == (1200, 630) and im.format == "PNG"
+    car = (out / "car" / "genesis-gr-3" / "index.html").read_text(encoding="utf-8")
+    assert f'content="{URL}og/car-genesis-gr-3.png"' in car
+
+
+def test_font_fallback():
+    __import__("pytest").importorskip("PIL")
+    from gt7bop.og import load_font
+    assert load_font(40, bold=True, candidates=["/nope/missing.ttf"]) is not None

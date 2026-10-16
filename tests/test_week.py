@@ -102,3 +102,19 @@ def test_update_week_writes_file(tmp_path):
     assert [len(w["races"]) for w in data["weeks"]] == [3, 3]
     spa = data["weeks"][0]["races"][1]
     assert spa["group"] == "gr3" and spa["cars"][0]["id"] == "f-type"
+
+
+def test_update_week_rejects_partial_markup_change(tmp_path):
+    import re
+    import json
+    (tmp_path / "tracks.json").write_text(json.dumps(TRACKS), encoding="utf-8")
+    (tmp_path / "index.json").write_text(json.dumps(INDEX), encoding="utf-8")
+    old = tmp_path / "week.json"
+    old.write_text('{"old": true}', encoding="utf-8")
+    assert update_week(tmp_path, fetch=lambda url: FIXTURE, log=lambda *a: None) is True  # sanity: intact page works
+    old.write_text('{"old": true}', encoding="utf-8")
+    broken = re.sub(r'class="daily-category[^"]*">[^<]+<', "<", FIXTURE)  # class labels vanish
+    assert update_week(tmp_path, fetch=lambda url: broken, log=lambda *a: None) is False
+    assert old.read_text(encoding="utf-8") == '{"old": true}'
+    no_tracks = re.sub(r'<h2 title="[^"]+"', "<h2", FIXTURE)
+    assert update_week(tmp_path, fetch=lambda url: no_tracks, log=lambda *a: None) is False

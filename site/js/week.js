@@ -35,3 +35,9 @@ export function carLink(index, car) {
   const hit = all.find((c) => typeof car !== "string" && c.id === car?.id) || all.find((c) => fold(c.name) === fold(name));
   return hit ? `<a href="#/car/${encodeURIComponent(hit.id)}">${esc(name)}</a>` : esc(name);
 }
+
+// the Action runs twice a week; older than 7 days means scraping has been failing
+export function isStale(generated, now = new Date()) {
+  const t0 = Date.parse(generated);
+  return !Number.isFinite(t0) || now - t0 > 7 * 24 * 3600 * 1000;
+}

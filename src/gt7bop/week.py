@@ -90,6 +90,9 @@ def update_week(out: Path, fetch=_get, log=print) -> bool:
         schedule = parse_schedule(fetch(f"{BASE}/daily/"))
         if not schedule:
             raise ValueError("no race cards found (page layout changed?)")
+        for r in schedule:  # a partial markup change must not publish wrong guidance
+            if not r["race"] or not r["track"] or (r["week"] == "this" and not r["category"]):
+                raise ValueError(f"incomplete race card {r['race'] or '?'} (page layout changed?)")
         tracks = json.loads((out / "tracks.json").read_text(encoding="utf-8"))
         index = json.loads((out / "index.json").read_text(encoding="utf-8"))
         week = build_week(schedule, tracks, index, date.today().isoformat())

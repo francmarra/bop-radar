@@ -2,7 +2,7 @@ import { t } from "../i18n.js";
 import { esc, info } from "../format.js";
 import { load, store } from "../data.js";
 import { app, tierBadge, fmtDate } from "../ui.js";
-import { rulesText, whyText, summaryText, carLink } from "../week.js";
+import { rulesText, whyText, summaryText, carLink, isStale } from "../week.js";
 
 let shown = "this";
 const pageUrl = () => location.origin + location.pathname + "#/week";
@@ -39,6 +39,7 @@ export async function weekPage() {
     const races = data.weeks.find((w) => w.label === shown)?.races ?? [];
     app.innerHTML = `
       <h1>${t("week_title")}</h1>
+      ${isStale(data.generated) ? `<p class="panel stale" role="note">${esc(t("stale_note", fmtDate(data.generated)))}</p>` : ""}
       <div class="seg" id="wk" role="group" aria-label="${t("week_title")}">${["this", "next"].map((w) => `<button type="button" class="${w === shown ? "on" : ""}" aria-pressed="${w === shown}" data-w="${w}">${t(w + "_week")}</button>`).join("")}</div>
       <div class="races">${races.length ? races.map(card).join("") : `<p class="panel">${t("next_empty")}</p>`}</div>
       <p class="note">${t("generated")}: ${esc(fmtDate(data.generated))}</p>`;
@@ -64,7 +65,7 @@ export async function weekStrip() {
   let data;
   try { data = await load("week.json"); } catch { return ""; }
   const races = data.weeks?.find((w) => w.label === "this")?.races ?? [];
-  if (!races.length) return "";
+  if (!races.length || isStale(data.generated)) return ""; // never present old races as "this week"
   return `<section class="panel strip" aria-labelledby="strip-h"><h2 id="strip-h">${t("week_strip")}</h2>
     <div class="strip-grid">${races.map((r) => `<div class="card"><span class="letter sm" aria-hidden="true">${esc(r.race)}</span>
       <b>${esc(r.track)}</b><span class="muted small">${t("race_letter", esc(r.race))} · ${esc(classLabel(r) || "")}</span>

@@ -37,3 +37,10 @@ test("week strings exist in EN and PT", () => {
   for (const k of ["nav_week", "week_title", "this_week", "next_week", "top5", "best_bet", "see_guide", "src_real", "src_est", "one_make", "other_race", "tbd_race", "next_empty", "no_track_data", "copy", "copied", "saves_tyres", "help_fuel_x", "help_wear_x", "term_fuel_x", "term_wear_x", "week_strip"])
     for (const l of ["en", "pt"]) assert.ok(I18N[l][k], `${l}.${k}`);
 });
+
+import { isStale } from "../../site/js/week.js";
+test("guide older than a week is stale", () => {
+  assert.equal(isStale("2026-10-01", new Date("2026-10-16")), true);
+  assert.equal(isStale("2026-10-12", new Date("2026-10-16")), false);
+  assert.equal(isStale("garbage", new Date("2026-10-16")), true);
+});

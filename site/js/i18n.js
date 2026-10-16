@@ -35,6 +35,10 @@ export const I18N = {
     help_track_types: "Since update 1.19 each car has three BoP settings: one for fast tracks (long straights, e.g. Monza), one for medium tracks and one for slow, twisty tracks (e.g. Tsukuba).",
     help_level: "Where the car sits in its class: S = top 10 %, A = top 35 %, B = top 70 %, C = the rest.",
     help_estimates: "Tyre wear and fuel use are estimated from weight, torque, drivetrain and power. They are not measured yet.",
+    cls_full_buff: (n) => `${n} ${n === 1 ? "car" : "cars"} got faster`, cls_full_nerf: (n) => `${n} ${n === 1 ? "car" : "cars"} got slower`, cls_full_mixed: (n) => `${n} ${n === 1 ? "car" : "cars"} had mixed changes`,
+    cls_short_buff: (n) => `${n} faster`, cls_short_nerf: (n) => `${n} slower`, cls_short_mixed: (n) => `${n} mixed`, cls_none: (g) => `No changes for ${g}`,
+    home_title: "How did BoP change your car?", find_label: "Find your car", find_ph: "e.g. Ferrari 296", find_empty: "No car found for «{q}». Try just the maker, e.g. «Ferrari».",
+    most_affected: "Biggest changes", ranking_title: "Cars by class", date_fmt: "Released",
     footer_est: "tyre wear & fuel are estimates", unofficial: "not affiliated with Polyphony Digital",
     tr: { "straight-line speed": "straight-line speed", acceleration: "acceleration", "low-speed cornering": "low-speed cornering", "high-speed cornering": "high-speed cornering" },
     summary(b) {
@@ -94,6 +98,10 @@ export const I18N = {
     help_track_types: "Desde a atualização 1.19, cada carro tem três afinações de BoP: uma para pistas rápidas (retas longas, por ex. Monza), uma para pistas médias e uma para pistas lentas e sinuosas (por ex. Tsukuba).",
     help_level: "Onde o carro fica na sua classe: S = 10 % melhores, A = 35 % melhores, B = 70 % melhores, C = restantes.",
     help_estimates: "O desgaste de pneus e o consumo são estimados a partir do peso, binário, tração e potência. Ainda não são medidos.",
+    cls_full_buff: (n) => n === 1 ? "1 carro ficou mais rápido" : `${n} carros ficaram mais rápidos`, cls_full_nerf: (n) => n === 1 ? "1 carro ficou mais lento" : `${n} carros ficaram mais lentos`, cls_full_mixed: (n) => n === 1 ? "1 carro com alterações mistas" : `${n} carros com alterações mistas`,
+    cls_short_buff: (n) => n === 1 ? "1 mais rápido" : `${n} mais rápidos`, cls_short_nerf: (n) => n === 1 ? "1 mais lento" : `${n} mais lentos`, cls_short_mixed: (n) => n === 1 ? "1 misto" : `${n} mistos`, cls_none: (g) => `Sem alterações no ${g}`,
+    home_title: "Como é que o BoP mudou o teu carro?", find_label: "Procura o teu carro", find_ph: "por ex. Ferrari 296", find_empty: "Nenhum carro encontrado para «{q}». Experimenta só a marca, por ex. «Ferrari».",
+    most_affected: "Maiores alterações", ranking_title: "Carros por classe", date_fmt: "Publicada",
     footer_est: "desgaste de pneus e consumo são estimativas", unofficial: "sem ligação à Polyphony Digital",
     tr: { "straight-line speed": "velocidade em reta", acceleration: "aceleração", "low-speed cornering": "curvas lentas", "high-speed cornering": "curvas rápidas" },
     summary(b) {

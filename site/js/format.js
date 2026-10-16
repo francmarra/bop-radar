@@ -7,3 +7,6 @@ export const signed = (n, unit = "", goodIfNegative = false) => {
   return `<span class="${good ? "pos" : "neg"}">${n > 0 ? "+" : ""}${n}${unit}</span>`;
 };
 export const fold = (s) => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const VERDICT_ICON = { buff: "▲", nerf: "▼", mixed: "◆", unchanged: "=" };
+export const verdictHtml = (v, t) => (v ? `<span class="v ${v}">${VERDICT_ICON[v] ?? ""} ${t(v)}</span>` : `<span class="muted">—</span>`);
+export const levelName = (tier, t) => t("level_" + tier);

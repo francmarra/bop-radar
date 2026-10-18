@@ -209,14 +209,16 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .badge.est { background: var(--panel-2); color: var(--muted); }
 .sc { display: flex; align-items: center; gap: 8px; } .sc .bar { flex: 1; margin: 0; }
 @media (max-width: 900px) {
-  .hero-grid, .cols3 { grid-template-columns: 1fr; }
+  .hero-grid { grid-template-columns: 1fr; } .cols3 { grid-template-columns: minmax(0, 1fr); }
+  .cols3 .panel h2 { flex-wrap: wrap; } .cols3 .panel h2::after { flex: 1 1 0; min-width: 0; }
   .row { grid-template-columns: 34px 34px 1fr 80px; }
   .row .bs, .row .lc { display: none; }
   .row .tr { grid-column: 3 / -1; }
   .trow { grid-template-columns: 48px 72px 40px 1fr 100px; } .trow .sc { grid-column: 4 / 5; } .trow .ev2 { display: none; }
   .urow { grid-template-columns: 130px 72px 1fr auto; } .urow .dp, .urow .rkn { display: none; } .urow .sm { grid-column: 1 / -1; }
   .rrow { grid-template-columns: 1fr auto auto auto; } .rrow > :nth-child(2), .rrow > :nth-child(6) { display: none; }
-  .crow { grid-template-columns: 70px 1fr auto; } .crow > :nth-child(2), .crow > :nth-child(5) { display: none; }
+  .crow { grid-template-columns: 70px minmax(0, 1fr) minmax(0, 1fr); } .crow > :nth-child(2), .crow > :nth-child(5) { display: none; }
+  .crow > :nth-child(4) { display: flex; flex-wrap: wrap; gap: 4px; min-width: 0; }
   .row.head .tr, .row.head .sm { display: none; }
 }
 @media (max-width: 640px) {
@@ -231,6 +233,7 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
   .updates a { grid-template-columns: 70px 1fr; } .updates a > .muted { display: none; }
   input[type=search], select { min-width: 0; width: 100%; }
   .panel { padding: 16px; }
+  .set { white-space: normal; }
 }
 @media (prefers-reduced-motion: reduce) {
   .row, .car-hero { animation: none; }
@@ -263,7 +266,7 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .affected a { font-weight: 600; display: block; }
 .rk-row { grid-template-columns: 56px 72px 64px minmax(180px, 2fr) 190px 190px; }
 @media (max-width: 700px) {
-  .rk-row { grid-template-columns: 40px 72px 1fr; grid-template-areas: "pos im nm" "pos lv bs" "pos lv lc"; row-gap: 4px; }
+  .rk-row { grid-template-columns: 40px 72px minmax(0, 1fr); grid-template-areas: "pos im nm" "pos lv bs" "pos lv lc"; row-gap: 4px; }
   .trow { grid-template-columns: 40px 72px 1fr; grid-template-areas: "pos im nm" "pos lv sc" "pos lv gp"; row-gap: 4px; }
   :is(.rk-row, .trow) .pos { grid-area: pos; } :is(.rk-row, .trow) .im { grid-area: im; } :is(.rk-row, .trow) .nm { grid-area: nm; }
   :is(.rk-row, .trow) .lv { grid-area: lv; justify-self: center; align-self: start; }

@@ -38,20 +38,6 @@
      "track_set": "m",
      "cars": [
       {
-       "id": "gr-supra-racing-concept-18",
-       "name": "GR Supra Racing Concept '18",
-       "tier": "A",
-       "source": "live",
-       "laps": 17,
-       "share": 17,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
        "id": "650s-gt3-15",
        "name": "650S GT3 '15",
        "tier": "A",
@@ -64,12 +50,26 @@
        }
       },
       {
+       "id": "gr-supra-racing-concept-18",
+       "name": "GR Supra Racing Concept '18",
+       "tier": "A",
+       "source": "live",
+       "laps": 18,
+       "share": 18,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
        "id": "f-type-gr-3",
        "name": "F-type Gr.3",
        "tier": "S",
        "source": "live",
-       "laps": 30,
-       "share": 30,
+       "laps": 29,
+       "share": 29,
        "why": {
         "strengths": [
          "acceleration"
@@ -105,7 +105,8 @@
         "saves_tyres": false
        }
       }
-     ]
+     ],
+     "balance": 6.2
     },
     {
      "race": "C",
@@ -139,7 +140,8 @@
         "saves_tyres": false
        }
       }
-     ]
+     ],
+     "balance": 1.0
     }
    ]
   },

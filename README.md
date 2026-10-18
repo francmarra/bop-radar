@@ -4,8 +4,8 @@
 
 Every BoP update since version 1.15, with a verdict per car (buff / nerf / mixed) and a short
 performance context: which track type it suits (high-, mid- or low-speed BoP), strengths and
-weaknesses, estimated tyre wear and fuel use. Cars are **ranked by real Daily Race pace**, and a weekly
-**Daily Race guide** shows the best cars for each race. English and Portuguese UI.
+weaknesses, estimated tyre wear and fuel use. Cars are **ranked by real Daily Race pace**, and a
+**Daily Race guide** shows the best cars for each race, from this week's live leaderboards when available. English and Portuguese UI.
 
 - `src/gt7bop/` — Python (stdlib only) pipeline: fetch → parse → build history → assess → JSON
 - `site/` — static SPA source (vanilla JS, no build step) reading `site/data/`
@@ -66,7 +66,7 @@ evidence. Deeper and older leaderboard data is the main lever for accuracy.
 ## Data & credits
 
 - BoP values: [GT ENG!NE](https://gt-engine.com/gt7/) car-spec pages and archives (cached locally,
-  fetched politely, at most weekly). Where the source's "Old" values disagree with its previous "New"
+  fetched politely, at most daily). Where the source's "Old" values disagree with its previous "New"
   values, the change shows up as *mixed*.
 - Leaderboards: official Daily Race rankings via [gtsh-rank.com](https://gtsh-rank.com/daily/) — only
   car/lap-time aggregates are stored.

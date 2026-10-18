@@ -1,6 +1,6 @@
 """Sanity checks on site/data before it is committed and deployed.
 
-The scrapers run unattended twice a week; a layout change upstream can produce data that is valid JSON but wrong.
+The scrapers run unattended every day; a layout change upstream can produce data that is valid JSON but wrong.
 Errors (broken, missing, shrinking or regressing data) stop the job so the live site keeps its last good data.
 Warnings (stale data: a scraper fell back to its previous file) still deploy, but raise an alert."""
 

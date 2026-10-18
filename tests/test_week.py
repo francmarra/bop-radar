@@ -28,7 +28,7 @@ def test_player_names_never_parsed():
         assert "Player" not in repr(race)
 
 
-from gt7bop.week import build_week, update_week
+from gt7bop.week import build_week, live_rankings, update_week
 
 TRACKS = [
     {"id": "circuit-de-spa-francorchamps", "name": "Circuit de Spa-Francorchamps", "set": "m", "groups": {"gr3": {"events": [], "cars": [
@@ -41,11 +41,11 @@ TRACKS = [
     ]}}},
 ]
 INDEX = {"groups": [{"id": "gr3", "label": "Gr.3", "cars": [
-    {"id": "f-type", "name": "F-type Gr.3", "brief": {"strengths": ["high-speed cornering", "low-speed cornering"], "tyre_wear": "low"}},
-    {"id": "genesis", "name": "Genesis Gr.3", "brief": {"strengths": ["acceleration"], "tyre_wear": "high"}},
-    {"id": "rsr", "name": "911 RSR", "brief": {"strengths": [], "tyre_wear": "low"}},
+    {"id": "f-type", "name": "F-type Gr.3", "maker": "Jaguar", "brief": {"strengths": ["high-speed cornering", "low-speed cornering"], "tyre_wear": "low"}},
+    {"id": "genesis", "name": "Genesis Gr.3", "maker": "Genesis", "brief": {"strengths": ["acceleration"], "tyre_wear": "high"}},
+    {"id": "rsr", "name": "911 RSR", "maker": "Porsche", "brief": {"strengths": [], "tyre_wear": "low"}},
 ]}, {"id": "gr4", "label": "Gr.4", "cars": [
-    {"id": "genesis", "name": "Genesis Gr.3", "brief": {"strengths": [], "tyre_wear": "medium"}},
+    {"id": "genesis", "name": "Genesis Gr.3", "maker": "Genesis", "brief": {"strengths": [], "tyre_wear": "medium"}},
 ]}]}
 
 
@@ -97,7 +97,7 @@ def test_update_week_writes_file(tmp_path):
     import json
     (tmp_path / "tracks.json").write_text(json.dumps(TRACKS), encoding="utf-8")
     (tmp_path / "index.json").write_text(json.dumps(INDEX), encoding="utf-8")
-    assert update_week(tmp_path, fetch=lambda url: FIXTURE, log=lambda *a: None) is True
+    assert update_week(tmp_path, fetch=lambda url: FIXTURE, log=lambda *a: None, ranking=NO_LIVE) is True
     data = json.loads((tmp_path / "week.json").read_text(encoding="utf-8"))
     assert [len(w["races"]) for w in data["weeks"]] == [3, 3]
     spa = data["weeks"][0]["races"][1]
@@ -111,10 +111,83 @@ def test_update_week_rejects_partial_markup_change(tmp_path):
     (tmp_path / "index.json").write_text(json.dumps(INDEX), encoding="utf-8")
     old = tmp_path / "week.json"
     old.write_text('{"old": true}', encoding="utf-8")
-    assert update_week(tmp_path, fetch=lambda url: FIXTURE, log=lambda *a: None) is True  # sanity: intact page works
+    assert update_week(tmp_path, fetch=lambda url: FIXTURE, log=lambda *a: None, ranking=NO_LIVE) is True  # sanity: intact page works
     old.write_text('{"old": true}', encoding="utf-8")
     broken = re.sub(r'class="daily-category[^"]*">[^<]+<', "<", FIXTURE)  # class labels vanish
-    assert update_week(tmp_path, fetch=lambda url: broken, log=lambda *a: None) is False
+    assert update_week(tmp_path, fetch=lambda url: broken, log=lambda *a: None, ranking=NO_LIVE) is False
     assert old.read_text(encoding="utf-8") == '{"old": true}'
     no_tracks = re.sub(r'<h2 title="[^"]+"', "<h2", FIXTURE)
-    assert update_week(tmp_path, fetch=lambda url: no_tracks, log=lambda *a: None) is False
+    assert update_week(tmp_path, fetch=lambda url: no_tracks, log=lambda *a: None, ranking=NO_LIVE) is False
+
+
+NO_LIVE = lambda url: ([], {})
+NAMES = {"#CAR1": "Genesis Genesis Gr.3", "#CAR2": "Jaguar F-type Gr.3", "#CAR3": "Unknown Car Gr.3"}
+
+
+def _rows(spec):
+    """spec: [(car code, laps, base ms)] -> fake top-of-board rows (fastest first)."""
+    rows = [{"ranking_stats": {"car_code": code}, "score": ms + i, "update_time": "2026-10-13T10:00:00"}
+            for code, n, ms in spec for i in range(n)]
+    return sorted(rows, key=lambda r: r["score"])
+
+
+def test_build_week_prefers_live_pace():
+    live = {"B": (_rows([(1, 150, 137000), (2, 100, 137500), (3, 50, 136000)]), NAMES)}
+    race = build_week([_race()], TRACKS, INDEX, "d", live)["weeks"][0]["races"][0]
+    # Genesis is the faster known car this week even though the history ranks the F-type first; unknown cars are dropped
+    assert [c["id"] for c in race["cars"]] == ["genesis", "f-type"]
+    g = race["cars"][0]
+    assert (g["source"], g["laps"], g["share"], g["tier"], g["name"]) == ("live", 150, 50, "A", "Genesis Gr.3")
+    assert g["why"] == {"strengths": ["acceleration"], "saves_tyres": False}
+
+
+def test_build_week_live_works_without_track_history():
+    live = {"B": (_rows([(1, 250, 137000)]), NAMES)}
+    race = build_week([_race(track="Nowhere Ring")], TRACKS, INDEX, "d", live)["weeks"][0]["races"][0]
+    assert [(c["id"], c["source"], c["tier"]) for c in race["cars"]] == [("genesis", "live", None)]
+
+
+def test_build_week_thin_or_missing_live_falls_back_to_history():
+    thin = {"B": (_rows([(1, 100, 137000)]), NAMES)}
+    for live in (thin, {}, {"C": (_rows([(1, 300, 137000)]), NAMES)}):
+        race = build_week([_race()], TRACKS, INDEX, "d", live)["weeks"][0]["races"][0]
+        assert [c["source"] for c in race["cars"]] == ["real", "estimate", "estimate"]
+        assert "share" not in race["cars"][0]
+
+
+def test_build_week_live_ignored_for_next_week():
+    live = {"B": (_rows([(1, 300, 137000)]), NAMES)}
+    race = build_week([_race(week="next")], TRACKS, INDEX, "d", live)["weeks"][1]["races"][0]
+    assert race["cars"][0]["source"] == "real"
+
+
+def test_live_rankings_reads_only_running_boards_and_skips_failures():
+    calls = []
+    def ranking(url):
+        calls.append(url)
+        if "1014979" in url or len(calls) == 2:
+            raise OSError("timeout")
+        return ["rows"], {"#CAR1": "x"}
+    logs = []
+    out = live_rankings(FIXTURE, ranking, log=logs.append)
+    assert out == {"B": (["rows"], {"#CAR1": "x"})}
+    assert len(calls) == 2 and any("race C" in m for m in logs)
+
+
+def test_update_week_uses_live_data(tmp_path):
+    import json
+    (tmp_path / "tracks.json").write_text(json.dumps(TRACKS), encoding="utf-8")
+    (tmp_path / "index.json").write_text(json.dumps(INDEX), encoding="utf-8")
+    rows = _rows([(2, 120, 137000), (1, 120, 137200)])
+    assert update_week(tmp_path, fetch=lambda url: FIXTURE, log=lambda *a: None, ranking=lambda url: (rows, NAMES)) is True
+    spa = json.loads((tmp_path / "week.json").read_text(encoding="utf-8"))["weeks"][0]["races"][1]
+    assert [(c["id"], c["source"], c["share"]) for c in spa["cars"]] == [("f-type", "live", 50), ("genesis", "live", 50)]
+
+
+def test_running_boards_never_enter_history(tmp_path, monkeypatch):
+    from gt7bop import leaderboards
+    monkeypatch.setattr(leaderboards, "_get", lambda url: FIXTURE)
+    monkeypatch.setattr(leaderboards, "time", type("T", (), {"sleep": staticmethod(lambda s: None)}))
+    monkeypatch.setattr(leaderboards, "fetch_ranking", lambda url: (_ for _ in ()).throw(AssertionError("fetched " + url)))
+    assert leaderboards.update(tmp_path, pages=1, log=lambda *a: None) == 0
+    assert list(tmp_path.iterdir()) == []

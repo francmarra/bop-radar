@@ -2,8 +2,7 @@ name: Update BoP data and deploy
 
 on:
   schedule:
-    - cron: "0 6 * * 1"  # Mondays 06:00 UTC
-    - cron: "0 6 * * 4"  # Thursdays 06:00 UTC: next week's Daily Races appear mid-week
+    - cron: "0 6 * * *"  # daily 06:00 UTC: the guide follows the running Daily Races
   workflow_dispatch:
   push:
     branches: [main]

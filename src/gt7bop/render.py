@@ -84,7 +84,7 @@ def _load(path: Path):
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
 
 
-def build_pages(site: Path, site_url: str, image) -> list[dict]:
+def build_pages(site: Path, site_url: str, image, pics: dict[str, list[int]] | None = None) -> list[dict]:
     """Each page: {path, title, description, body (html, links relative to the site root), jsonld, lastmod}."""
     data = site / "data"
     index = _load(data / "index.json")
@@ -149,12 +149,16 @@ def build_pages(site: Path, site_url: str, image) -> list[dict]:
                             + (f" — {e(_delta(h.get('delta') or {}))}" if _delta(h.get("delta") or {}) else "") + "</li>"
                             for h in reversed(changes))
             path = f"car/{meta['id']}/"
+            pic = ""
+            if meta["id"] in (pics or {}):  # src is made depth-relative in render()
+                w, h = pics[meta["id"]]
+                pic = f'<img src="img/cars/{e(meta["id"])}-l.webp" width="{w}" height="{h}" alt="{e(car["name"])}">'
             level = f", level {now[best]['tier']} (#{now[best]['rank']}/{n})" if best in now else ""
             pages.append({
                 "path": path, "title": f"{car['name']} BoP history — {NAME}",
                 "description": (f"{car['name']} ({g['label']}, {car['maker']}) in Gran Turismo 7: every BoP change since "
                                 f"{hist[0]['v']}{level}, best on {SET_NAMES[best]} tracks."),
-                "body": (f"<h1>{e(car['name'])}</h1><p>{e(g['label'])} · {e(car['maker'])} · {e(car['drivetrain'])}</p>{standing}"
+                "body": (f"{pic}<h1>{e(car['name'])}</h1><p>{e(g['label'])} · {e(car['maker'])} · {e(car['drivetrain'])}</p>{standing}"
                          f"<h2>BoP history</h2>" + (f"<ol>{items}</ol>" if items else f"<p>No BoP changes since version {e(hist[0]['v'])}.</p>")),
                 "jsonld": [_crumbs(site_url, [(g["label"], ""), (car["name"], path)])],
                 "lastmod": hist[-1]["date"], "image": image(f"car-{meta['id']}")})
@@ -186,7 +190,8 @@ def analytics_tag(code: str) -> str:
     return f'<script data-goatcounter="https://{code}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>'
 
 
-def render(site: Path, out: Path, site_url: str = SITE_URL, og: bool = True, goatcounter: str | None = None) -> list[str]:
+def render(site: Path, out: Path, site_url: str = SITE_URL, og: bool = True, goatcounter: str | None = None,
+           car_images: dict[str, int] | None = None, image_cache: Path | None = None, fetch=None) -> list[str]:
     site_url = site_url.rstrip("/") + "/"
     if out.exists():
         shutil.rmtree(out)
@@ -207,11 +212,23 @@ def render(site: Path, out: Path, site_url: str = SITE_URL, og: bool = True, goa
     def image(name: str) -> str:
         return f"{site_url}og/{name if name in images else 'default'}.png"
 
-    pages = build_pages(site, site_url, image)
+    pics: dict[str, list[int]] = {}
+    if car_images is not None:
+        from gt7bop.carimages import _get, build_images  # Pillow is only needed on this path
+
+        pics = build_images(car_images, out / "img" / "cars", image_cache or Path("cache") / "car-images", fetch or _get)
+        index = json.loads((site / "data" / "index.json").read_text(encoding="utf-8"))
+        missing = sum(1 for g in index["groups"] for c in g["cars"] if c["id"] not in car_images)
+        print(f"images: {missing} cars unmapped")
+    (out / "data").mkdir(parents=True, exist_ok=True)
+    (out / "data" / "images.json").write_text(json.dumps(pics, separators=(",", ":")), encoding="utf-8")
+
+    pages = build_pages(site, site_url, image, pics)
     for p in pages:
         depth = p["path"].count("/")
         prefix = "../" * depth
         body = re.sub(r'href="(?!https?:|#|/)([^"]*)"', lambda m, prefix=prefix: f'href="{prefix}{m[1]}"', p["body"]) if depth else p["body"]
+        body = body.replace('<img src="img/', f'<img src="{prefix}img/')
         html = page_html(shell, prefix, {**p, "url": site_url + p["path"]}, body)
         target = out / p["path"] / "index.html"
         target.parent.mkdir(parents=True, exist_ok=True)

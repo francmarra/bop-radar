@@ -153,3 +153,37 @@ def test_assets_are_versioned_by_content(tmp_path):
     assert after["/bop-radar/js/format.js"] != imports["/bop-radar/js/format.js"]
     assert after["/bop-radar/js/main.js"] == imports["/bop-radar/js/main.js"]
     assert re.search(r'href="style.css\?v=(\w+)"', home2)[1] != css
+
+
+def _fake_png(url):
+    import io
+
+    from PIL import Image
+    buf = io.BytesIO()
+    Image.new("RGBA", (960, 540)).save(buf, "PNG")
+    return buf.getvalue()
+
+
+def test_render_without_images(tmp_path):
+    out = tmp_path / "dist"
+    site = _site(tmp_path)
+    render(site, out, URL, og=False)
+    assert not (out / "img").exists()
+    assert json.loads((out / "data" / "images.json").read_text(encoding="utf-8")) == {}
+    assert not [p for p in site.rglob("*") if p.suffix in (".webp", ".png")]
+    assert "<img" not in (out / "car" / "genesis-gr-3" / "index.html").read_text(encoding="utf-8").split("<h1>")[1]
+
+
+def test_render_with_images(tmp_path):
+    out = tmp_path / "dist"
+    render(_site(tmp_path), out, URL, og=False, car_images={"genesis-gr-3": 2160}, image_cache=tmp_path / "cache", fetch=_fake_png)
+    assert (out / "img" / "cars" / "genesis-gr-3-l.webp").exists()
+    assert json.loads((out / "data" / "images.json").read_text(encoding="utf-8")) == {"genesis-gr-3": [480, 270]}
+    car = (out / "car" / "genesis-gr-3" / "index.html").read_text(encoding="utf-8")
+    assert '../../img/cars/genesis-gr-3-l.webp" width="480" height="270"' in car
+    assert 'alt="Genesis Gr.3"' in car
+
+
+def test_unmapped_car_is_logged(tmp_path, capsys):
+    render(_site(tmp_path), tmp_path / "dist", URL, og=False, car_images={"genesis-gr-3": 2160}, image_cache=tmp_path / "cache", fetch=_fake_png)
+    assert "images: 1 cars unmapped" in capsys.readouterr().out

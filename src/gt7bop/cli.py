@@ -31,6 +31,7 @@ def main(argv: list[str] | None = None) -> None:
     rp.add_argument("--out", default="dist")
     rp.add_argument("--site-url", default=render.SITE_URL)
     rp.add_argument("--no-og", action="store_true", help="skip share images")
+    rp.add_argument("--images", action="store_true", help="download/convert official car pictures (needs the render extra)")
     rp.add_argument("--goatcounter", help="GoatCounter site code: adds cookie-free visit counting (deploy builds only)")
     sub.add_parser("week", help="this/next week's Daily Races joined with track ratings -> site/data/week.json")
     sub.add_parser("images", help="map cars to GT7 ids -> data/car_images.toml")
@@ -40,7 +41,11 @@ def main(argv: list[str] | None = None) -> None:
     args = ap.parse_args(argv)
 
     if args.cmd == "render":
-        pages = render.render(ROOT / "site", ROOT / args.out, args.site_url, og=not args.no_og, goatcounter=args.goatcounter)
+        extra = {}
+        if args.images:
+            extra = {"car_images": carimages.read_mapping(ROOT / "data" / "car_images.toml"),
+                     "image_cache": ROOT / "cache" / "car-images"}
+        pages = render.render(ROOT / "site", ROOT / args.out, args.site_url, og=not args.no_og, goatcounter=args.goatcounter, **extra)
         print(f"render: {len(pages)} pages -> {args.out}/")
         return
 

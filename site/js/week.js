@@ -1,5 +1,5 @@
-/* Texts for the Daily Race guide. DOM-free: helpers return plain text, except carLink (escaped HTML). */
-import { esc, fold } from "./format.js";
+/* Texts for the Daily Race guide. DOM-free: helpers return plain text, except carLink (Html). */
+import { fold, html } from "./format.js";
 import { BASE } from "./router.js";
 
 const TYRES = ["RH", "RM", "RS", "IM", "W", "CH", "CM", "CS", "SH", "SM", "SS"];
@@ -39,7 +39,7 @@ export function findCar(index, car) {
 export function carLink(index, car) {
   const name = typeof car === "string" ? car : car?.name ?? "";
   const hit = findCar(index, car);
-  return hit ? `<a href="${BASE}car/${encodeURIComponent(hit.id)}/">${esc(name)}</a>` : esc(name);
+  return hit ? html`<a href="${BASE}car/${encodeURIComponent(hit.id)}/">${name}</a>` : html`${name}`;
 }
 
 // the Action runs daily; older than 7 days means scraping has been failing

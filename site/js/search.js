@@ -1,5 +1,5 @@
 /* Car search: pure matching + an accessible combobox (ARIA 1.2 pattern). */
-import { esc, fold } from "./format.js";
+import { fold, html } from "./format.js";
 import { navigate } from "./router.js";
 import { carImg } from "./carimg.js";
 
@@ -25,8 +25,8 @@ export function mountSearch(input, index, { listbox, empty }) {
     input.setAttribute("aria-expanded", String(items.length > 0));
     input.setAttribute("aria-activedescendant", active >= 0 ? `opt-${active}` : "");
     listbox.hidden = !items.length;
-    listbox.innerHTML = items.map((c, i) => `<li role="option" id="opt-${i}" aria-selected="${i === active}" data-i="${i}">
-      ${carImg(c.id, "s")}<span><b>${esc(c.name)}</b> <span class="muted">${esc(c.maker)} · ${esc(c.label)}</span></span></li>`).join("");
+    listbox.innerHTML = html`${items.map((c, i) => html`<li role="option" id="opt-${i}" aria-selected="${i === active}" data-i="${i}">
+      ${carImg(c.id, "s")}<span><b>${c.name}</b> <span class="muted">${c.maker} · ${c.label}</span></span></li>`)}`;
     const q = input.value.trim();
     empty.hidden = !(q && !items.length);
     empty.textContent = q ? empty.dataset.msg.replace("{q}", q) : "";

@@ -5,12 +5,12 @@ import { sourceBadge } from "../../site/js/format.js";
 
 test("source badge EN/PT", () => {
   setLang("en");
-  assert.equal(sourceBadge({ source: "real", tracks: 6 }, t), '<span class="badge lb">Real pace · 6 tracks</span>');
-  assert.equal(sourceBadge({ source: "estimate", tracks: 1 }, t), '<span class="badge est">Estimate</span>');
-  assert.equal(sourceBadge({ source: '"><img>' }, t), '<span class="badge est">Estimate</span>');
-  assert.equal(sourceBadge(undefined, t), "");
+  assert.equal(String(sourceBadge({ source: "real", tracks: 6 }, t)), '<span class="badge lb">Real pace · 6 tracks</span>');
+  assert.equal(String(sourceBadge({ source: "estimate", tracks: 1 }, t)), '<span class="badge est">Estimate</span>');
+  assert.equal(String(sourceBadge({ source: '"><img>' }, t)), '<span class="badge est">Estimate</span>');
+  assert.equal(String(sourceBadge(undefined, t)), "");
   setLang("pt");
-  assert.equal(sourceBadge({ source: "real", tracks: 1 }, t), '<span class="badge lb">Ritmo real · 1 pista</span>');
+  assert.equal(String(sourceBadge({ source: "real", tracks: 1 }, t)), '<span class="badge lb">Ritmo real · 1 pista</span>');
   setLang("en");
 });
 test("method copy mentions real pace in both languages", () => {

@@ -1,9 +1,10 @@
 """gt7bop update [--refresh] — fetch, parse, assess and write site/data."""
 
 import argparse
+import sys
 from pathlib import Path
 
-from gt7bop import leaderboards, render, week
+from gt7bop import check, leaderboards, render, week
 from gt7bop.assess import assess_group
 from gt7bop.build import build_group
 from gt7bop.evaluate import evaluate
@@ -29,12 +30,25 @@ def main(argv: list[str] | None = None) -> None:
     rp.add_argument("--site-url", default=render.SITE_URL)
     rp.add_argument("--no-og", action="store_true", help="skip share images")
     sub.add_parser("week", help="this/next week's Daily Races joined with track ratings -> site/data/week.json")
+    ck = sub.add_parser("check", help="sanity-check site/data before committing/deploying (exit 1 on errors)")
+    ck.add_argument("--baseline", type=Path, help="previous site/data to compare against")
+    ck.add_argument("--max-age", type=int, help="warn if the data is older than this many days (refreshing runs only)")
     args = ap.parse_args(argv)
 
     if args.cmd == "render":
         pages = render.render(ROOT / "site", ROOT / args.out, args.site_url, og=not args.no_og)
         print(f"render: {len(pages)} pages -> {args.out}/")
         return
+
+    if args.cmd == "check":
+        errors, warnings = check.check(ROOT / "site" / "data", args.baseline, args.max_age)
+        for msg in errors:
+            print(f"error: {msg}")
+        for msg in warnings:
+            print(f"warning: {msg}")
+        if not errors and not warnings:
+            print("check: data OK")
+        sys.exit(1 if errors else 0)
 
     if args.cmd == "week":
         week.update_week(ROOT / "site" / "data")

@@ -20,6 +20,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      report: ${{ steps.check.outputs.report }}
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
@@ -39,9 +41,21 @@ jobs:
       - name: Fetch and rebuild
         if: github.event_name != 'push'
         run: |
+          cp -r site/data "$RUNNER_TEMP/prev-data"
           uv run gt7bop leaderboards --pages 2
           uv run gt7bop update --refresh
           uv run gt7bop week
+      # errors stop here, before bad data is committed or deployed; warnings deploy and raise an alert
+      - name: Check data
+        id: check
+        run: |
+          args=()
+          if [ "${{ github.event_name }}" != push ]; then args=(--baseline "$RUNNER_TEMP/prev-data" --max-age 2); fi
+          status=0
+          uv run gt7bop check "${args[@]}" > "$RUNNER_TEMP/check.txt" || status=$?
+          cat "$RUNNER_TEMP/check.txt"
+          { echo "report<<CHECK_EOF"; grep -E '^(error|warning):' "$RUNNER_TEMP/check.txt" || true; echo CHECK_EOF; } >> "$GITHUB_OUTPUT"
+          exit $status
       - name: Commit data
         if: github.event_name != 'push'
         run: |
@@ -64,3 +78,32 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # one open issue while something is wrong (GitHub emails the owner), closed by the next healthy run
+  alert:
+    needs: [build, deploy]
+    if: always() && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      FAILED: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
+      REPORT: ${{ needs.build.outputs.report }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - run: |
+          open=$(gh issue list --label action-alert --state open --json number --jq '.[0].number // empty')
+          if [ "$FAILED" = true ] || [ -n "$REPORT" ]; then
+            if [ "$FAILED" = true ]; then what="failed: the live site was not updated"; else what="deployed with warnings"; fi
+            body=$(printf 'Run %s (%s) %s.\n\n```\n%s\n```\n' "$RUN_URL" "${{ github.event_name }}" "$what" "${REPORT:-see the run log}")
+            if [ -n "$open" ]; then
+              gh issue comment "$open" --body "$body"
+            else
+              gh label create action-alert --color d73a4a --description "Scheduled update problem" --force
+              gh issue create --title "Data update needs attention" --label action-alert --body "$body"
+            fi
+          elif [ -n "$open" ]; then
+            gh issue close "$open" --comment "Healthy again: $RUN_URL"
+          fi

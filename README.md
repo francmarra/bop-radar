@@ -26,7 +26,12 @@ py -m http.server -d site 8765  # quick dev: http://127.0.0.1:8765 (SPA only)
 uv run --extra render gt7bop render --out dist --site-url http://127.0.0.1:8765/  # full build: pages, sitemap, share images
 py -m http.server -d dist 8765
 uv run gt7bop evaluate          # backtest the ranking on unseen Daily Races
+uv run gt7bop check --baseline <old site/data> --max-age 2  # sanity checks the Action runs before committing data
 ```
+
+The scheduled Action stops before committing or deploying when `check` finds broken, missing, shrinking or regressing
+data (the live site keeps its last good data), and opens an `action-alert` issue on any failure or stale-data warning;
+the next healthy run closes it.
 
 ## How cars are assessed
 

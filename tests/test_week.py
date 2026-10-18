@@ -202,3 +202,10 @@ def test_fetch_ranking_stops_at_depth(monkeypatch):
     monkeypatch.setattr(leaderboards, "_get", lambda url: page if "page_data" in url else "const carNames = {};")
     monkeypatch.setattr(leaderboards, "time", type("T", (), {"sleep": staticmethod(lambda s: None)}))
     assert len(leaderboards.fetch_ranking("/daily/leaderboard/?event=x", 100)[0]) == 100
+
+
+def test_build_week_live_race_has_balance():
+    live = {"B": (_rows([(1, 50, 137000), (2, 50, 137500)]) * 2, NAMES)}
+    race = build_week([_race()], TRACKS, INDEX, "d", live)["weeks"][0]["races"][0]
+    assert race["balance"] == 2.0
+    assert "balance" not in build_week([_race()], TRACKS, INDEX, "d", {})["weeks"][0]["races"][0]

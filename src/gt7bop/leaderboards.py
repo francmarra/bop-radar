@@ -63,6 +63,12 @@ def parse_week_page(html: str) -> list[dict]:
     return [e for e in events if BOARD_RE.fullmatch(e["board"]) and URL_RE.fullmatch(e["url"])]
 
 
+def effective_cars(counts: list[int]) -> float:
+    """1 / sum of squared lap shares: 1.0 = one car sets every lap, 5.0 = as varied as five equally used cars."""
+    total = sum(counts)
+    return round(total * total / sum(c * c for c in counts), 1) if total else 0.0
+
+
 def aggregate(ranking: list[dict], names: dict[str, str]) -> tuple[str, list[dict]]:
     """(event date, per-car pace) from the top of a leaderboard."""
     laps: dict[int, list[int]] = defaultdict(list)

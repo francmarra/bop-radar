@@ -3,7 +3,7 @@ import { html, raw } from "../format.js";
 import { store } from "../data.js";
 import { app } from "../ui.js";
 
-const GLOSSARY = ["bop", "pp", "ps_t", "balance", "track_types", "level", "estimates"];
+const GLOSSARY = ["bop", "pp", "ps_t", "balance", "balance_idx", "track_types", "level", "estimates"];
 
 export function helpPage() {
   app.innerHTML = html`

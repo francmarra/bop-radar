@@ -5,7 +5,8 @@
 Every BoP update since version 1.15, with a verdict per car (buff / nerf / mixed) and a short
 performance context: which track type it suits (high-, mid- or low-speed BoP), strengths and
 weaknesses, estimated tyre wear and fuel use. Cars are **ranked by real Daily Race pace**, and a
-**Daily Race guide** shows the best cars for each race, from this week's live leaderboards when available. English and Portuguese UI.
+**Daily Race guide** shows the best cars for each race, from this week's live leaderboards when available. A **balance
+index** (how many cars really share the Daily Race top 100) rates each BoP update. English and Portuguese UI.
 
 - `src/gt7bop/` — Python (stdlib only) pipeline: fetch → parse → build history → assess → JSON
 - `site/` — static SPA source (vanilla JS, no build step) reading `site/data/`

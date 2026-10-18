@@ -89,7 +89,7 @@ input[type=search], select { background: var(--panel-2); border: 1px solid var(-
 .row { display: grid; grid-template-columns: 40px 40px minmax(180px, 2fr) 90px 110px 150px minmax(200px, 2fr); gap: 12px;
   align-items: center; padding: 12px 8px; min-height: var(--tap); border-bottom: 1px solid var(--line); cursor: pointer; transition: background .12s;
   text-decoration: none; color: inherit; width: 100%; background: none; border-left: 0; border-right: 0; border-top: 0; text-align: left;
-  animation: rise 220ms ease-out both; }
+  animation: rise 220ms ease-out backwards; }
 @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 /* timing-tower position: big mono number on a bar coloured by tier */
 .pos { align-self: stretch; display: grid; place-items: center; border-left: 4px solid var(--line); font: 600 var(--fs-lg)/1 var(--mono); }
@@ -106,9 +106,10 @@ input[type=search], select { background: var(--panel-2); border: 1px solid var(-
 .delta { display: inline-block; padding: 0 8px; border-radius: 4px; font: 600 var(--fs-sm) var(--mono); white-space: nowrap; }
 .delta.up { color: var(--buff); background: color-mix(in srgb, var(--buff) 12%, var(--panel)); }
 .delta.down { color: var(--nerf); background: color-mix(in srgb, var(--nerf) 12%, var(--panel)); }
-.delta.up::before { content: "▲ " / ""; } .delta.down::before { content: "▼ " / ""; }
+.delta.flat { color: var(--muted); background: var(--panel-2); } /* PP: direction only, neutral colour */
+.delta.up::before, .delta.rise::before { content: "▲ " / ""; } .delta.down::before, .delta.fall::before { content: "▼ " / ""; }
 .row:hover { background: var(--hover); }
-.row.head { cursor: default; font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 600; padding-block: 10px; }
+.row.head { animation: none; cursor: default; font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 600; padding-block: 10px; }
 .row.head:hover { background: none; }
 .row .nm b { display: block; } .row .nm small { color: var(--muted); font-size: var(--fs-sm); }
 .row .rk { color: var(--muted); text-align: right; } .row .pp { text-align: right; }
@@ -231,7 +232,7 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 }
 /* car page hero: picture over diagonal red stripes, timing-tower position */
 .car-hero { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "txt pic" "sum sum"; gap: 8px 28px; align-items: center;
-  overflow: hidden; animation: rise 220ms ease-out both; }
+  overflow: hidden; animation: rise 220ms ease-out backwards; }
 .hero-txt { grid-area: txt; min-width: 0; } .hero-pic { grid-area: pic; } .car-hero .lead { grid-area: sum; }
 .hero-meta { margin: 0 0 4px; font: 700 var(--fs-base) var(--head); text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-text); }
 .car-hero h1 { font-size: calc(var(--fs-h1) * 1.4); line-height: 1.05; margin: 0 0 14px; overflow-wrap: anywhere; }

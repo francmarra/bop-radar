@@ -1,6 +1,15 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { esc, num, fold, signed } from "../../site/js/format.js";
+import { esc, num, fold, signed, signedNeutral } from "../../site/js/format.js";
+
+test("signedNeutral shows direction without good/bad colour (PP)", () => {
+  const up = signedNeutral(12.99), down = signedNeutral(-1.25);
+  for (const h of [up, down]) assert.ok(!/\b(up|down)\b/.test(h), h);
+  assert.equal(up, '<span class="delta flat rise">+12.99</span>');
+  assert.equal(down, '<span class="delta flat fall">-1.25</span>');
+  assert.equal(signedNeutral(0), '<span class="delta flat">0</span>');
+  assert.equal(signedNeutral(undefined), "");
+});
 
 test("signed renders delta chips (up = faster)", () => {
   assert.equal(signed(10, " PS"), '<span class="delta up">+10 PS</span>');

@@ -6,6 +6,11 @@ export const signed = (n, unit = "", goodIfNegative = false) => {
   const good = goodIfNegative ? n < 0 : n > 0;
   return `<span class="delta ${good ? "up" : "down"}">${n > 0 ? "+" : ""}${n}${unit}</span>`; // broadcast delta chip: up = faster
 };
+// direction only, no good/bad colour: PP often rises on nerfed cars, so it must not look like a buff
+export const signedNeutral = (n, unit = "") => {
+  if (typeof n !== "number") return "";
+  return `<span class="delta flat${n > 0 ? " rise" : n < 0 ? " fall" : ""}">${n > 0 ? "+" : ""}${n}${unit}</span>`;
+};
 export const fold = (s) => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const VERDICT_ICON = { buff: "▲", nerf: "▼", mixed: "◆", unchanged: "=" };
 export const verdictHtml = (v, t) => (VERDICT_ICON[v] ? `<span class="v ${v}">${VERDICT_ICON[v]} ${esc(t(v))}</span>` : `<span class="muted">—</span>`);

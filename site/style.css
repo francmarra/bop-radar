@@ -230,7 +230,8 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
     padding-left: 6px; margin-left: -6px; } .stripe { flex: none; } /* room for the skewed stripe inside the clip */
   h1 { font-size: 1.8rem; }
   .counts { grid-template-columns: repeat(2, 1fr); }
-  .updates a { grid-template-columns: 70px 1fr; } .updates a > .muted { display: none; }
+  .updates a { grid-template-columns: 70px minmax(0, 1fr); } .updates a > .muted { display: none; }
+  .updates a > span:last-child { display: flex; flex-wrap: wrap; gap: 4px 12px; min-width: 0; } .ug { margin-right: 0; }
   input[type=search], select { min-width: 0; width: 100%; }
   .panel { padding: 16px; }
   .set { white-space: normal; }

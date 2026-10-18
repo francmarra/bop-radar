@@ -1,15 +1,17 @@
 """gt7bop update [--refresh] — fetch, parse, assess and write site/data."""
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
-from gt7bop import check, leaderboards, render, week
+from gt7bop import carimages, check, leaderboards, render, week
 from gt7bop.assess import assess_group
 from gt7bop.build import build_group
 from gt7bop.evaluate import evaluate
 from gt7bop.export import build_combo_input, export
 from gt7bop.fetch import GROUPS, fetch_group
+from gt7bop.leaderboards import _get
 from gt7bop.parse import parse_page
 from gt7bop.tracks import load_events
 
@@ -31,6 +33,7 @@ def main(argv: list[str] | None = None) -> None:
     rp.add_argument("--no-og", action="store_true", help="skip share images")
     rp.add_argument("--goatcounter", help="GoatCounter site code: adds cookie-free visit counting (deploy builds only)")
     sub.add_parser("week", help="this/next week's Daily Races joined with track ratings -> site/data/week.json")
+    sub.add_parser("images", help="map cars to GT7 ids -> data/car_images.toml")
     ck = sub.add_parser("check", help="sanity-check site/data before committing/deploying (exit 1 on errors)")
     ck.add_argument("--baseline", type=Path, help="previous site/data to compare against")
     ck.add_argument("--max-age", type=int, help="warn if the data is older than this many days (refreshing runs only)")
@@ -50,6 +53,15 @@ def main(argv: list[str] | None = None) -> None:
         if not errors and not warnings:
             print("check: data OK")
         sys.exit(1 if errors else 0)
+
+    if args.cmd == "images":
+        index = json.loads((ROOT / "site" / "data" / "index.json").read_text(encoding="utf-8"))
+        cars = [c for g in index["groups"] for c in g["cars"]]
+        path = ROOT / "data" / "car_images.toml"
+        unmapped, ambiguous = carimages.update_mapping(path, cars, _get(carimages.CSV_URL))
+        print(f"images: {len(carimages.read_mapping(path))} mapped, unmapped: {', '.join(unmapped) or 'none'}, "
+              f"ambiguous: {', '.join(ambiguous) or 'none'}")
+        return
 
     if args.cmd == "week":
         week.update_week(ROOT / "site" / "data")

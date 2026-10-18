@@ -42,39 +42,11 @@
        "name": "GR Supra Racing Concept '18",
        "tier": "A",
        "source": "live",
-       "laps": 136,
-       "share": 14,
+       "laps": 17,
+       "share": 17,
        "why": {
         "strengths": [
          "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "f-type-gr-3",
-       "name": "F-type Gr.3",
-       "tier": "S",
-       "source": "live",
-       "laps": 411,
-       "share": 41,
-       "why": {
-        "strengths": [
-         "acceleration"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "genesis-gr-3",
-       "name": "Genesis Gr.3",
-       "tier": "A",
-       "source": "live",
-       "laps": 253,
-       "share": 25,
-       "why": {
-        "strengths": [
-         "acceleration"
         ],
         "saves_tyres": false
        }
@@ -84,10 +56,24 @@
        "name": "650S GT3 '15",
        "tier": "A",
        "source": "live",
-       "laps": 41,
-       "share": 4,
+       "laps": 10,
+       "share": 10,
        "why": {
         "strengths": [],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "f-type-gr-3",
+       "name": "F-type Gr.3",
+       "tier": "S",
+       "source": "live",
+       "laps": 30,
+       "share": 30,
+       "why": {
+        "strengths": [
+         "acceleration"
+        ],
         "saves_tyres": false
        }
       },
@@ -96,11 +82,25 @@
        "name": "M6 GT3 Sprint Model '16",
        "tier": "A",
        "source": "live",
-       "laps": 47,
+       "laps": 5,
        "share": 5,
        "why": {
         "strengths": [
          "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "genesis-gr-3",
+       "name": "Genesis Gr.3",
+       "tier": "A",
+       "source": "live",
+       "laps": 16,
+       "share": 16,
+       "why": {
+        "strengths": [
+         "acceleration"
         ],
         "saves_tyres": false
        }
@@ -129,7 +129,7 @@
        "name": "ELANTRA N TC '24",
        "tier": "S",
        "source": "live",
-       "laps": 999,
+       "laps": 100,
        "share": 100,
        "why": {
         "strengths": [

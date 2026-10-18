@@ -101,7 +101,7 @@ def fetch_ranking(url: str, depth: int = DEPTH) -> tuple[list[dict], dict[str, s
         rows += data.get("board", [])
         if not data.get("has_more"):
             break
-    return rows, names
+    return rows[:depth], names  # pages come in PAGE-sized chunks
 
 
 def update(out_dir: Path, pages: int = 13, log=print) -> int:

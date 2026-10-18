@@ -72,8 +72,8 @@ one neutral GT-car side profile in `currentColor`, so it follows the theme.
 - Pictures are transparent PNG→WebP, so they sit on the panel colour in both themes.
 
 ## 5. Pre-rendered pages
-`render.py` uses the same markup for the car hero and list pictures in the pre-rendered bodies (from
-`images.json`), so crawlers and the first paint show pictures and the SPA swap causes no layout shift.
+The pre-rendered car page body starts with the car's large picture (`<img>` with width/height, alt = car name)
+so crawlers and link previews see it. Pre-rendered list pages stay text-only (the SPA replaces them on boot).
 
 ## 6. Testing
 - pytest: name normalisation and matching (incl. manual entries kept, ambiguous reported); render without

@@ -8,8 +8,9 @@ from datetime import date
 from pathlib import Path
 
 from gt7bop.build import GroupHistory, version_key
+from gt7bop.leaderboards import effective_cars
 from gt7bop.ranking import rank_by_pace
-from gt7bop.tracks import rate_combos
+from gt7bop.tracks import rate_combos, version_at
 
 GROUP_LABELS = {"gr1": "Gr.1", "gr2": "Gr.2", "gr3": "Gr.3", "gr4": "Gr.4"}
 
@@ -117,12 +118,30 @@ def export(histories: list[GroupHistory], assessments: dict[str, dict], out: Pat
     for s, payload in car_files.items():
         payload["tracks"].sort(key=lambda r: (r["rank"] / r["of"], r["name"]))
         _dump(out / "cars" / f"{s}.json", payload)
+    balance = _balance(events or [], updates)
     for v in sorted(updates, key=version_key, reverse=True):
         u = updates[v]
+        u["balance"] = balance.get(v, {})
         _dump(out / "updates" / f"{v}.json", u)
-        index["updates"].append({"version": v, "date": u["date"],
+        index["updates"].append({"version": v, "date": u["date"], "balance": u["balance"],
                                  "counts": {g: _counts(lst) for g, lst in u["groups"].items()}})
     _dump(out / "index.json", index)
+
+
+def _balance(events: list[dict], updates: dict[str, dict]) -> dict[str, dict]:
+    """version -> group -> mean effective cars in the top 100 of the Daily Races run under that class's BoP,
+    from that change until the class's next one."""
+    per: dict[tuple[str, str], list[float]] = {}
+    for e in events:
+        changes = [(v, u["date"]) for v, u in updates.items() if e["group"] in u["groups"]]
+        v = version_at(e["date"], changes)
+        counts = [c["top100"] for c in e["cars"] if c.get("top100")]
+        if v and counts:
+            per.setdefault((v, e["group"]), []).append(effective_cars(counts))
+    out: dict[str, dict] = {}
+    for (v, g), vals in per.items():
+        out.setdefault(v, {})[g] = {"cars": round(sum(vals) / len(vals), 1), "events": len(vals)}
+    return out
 
 
 def _counts(entries: list[dict]) -> dict:

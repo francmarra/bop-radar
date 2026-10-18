@@ -5,10 +5,20 @@ Leaderboard leaders are shown on the cards; only the car is read, never the play
 import html
 import json
 import re
+from collections import Counter
 from datetime import date
 from pathlib import Path
 
-from gt7bop.leaderboards import BASE, GROUPS, _find, _get, aggregate, fetch_ranking, parse_week_page
+from gt7bop.leaderboards import (
+    BASE,
+    GROUPS,
+    _find,
+    _get,
+    aggregate,
+    effective_cars,
+    fetch_ranking,
+    parse_week_page,
+)
 from gt7bop.tracks import CarMatcher, track_id, track_set
 
 CARD_RE = re.compile(r"<article class=\"daily-race-card([^\"]*)\">(.*?)</article>", re.DOTALL)
@@ -102,6 +112,7 @@ def build_week(schedule: list[dict], tracks: list[dict], index: dict, generated:
             group_cars = next((g["cars"] for g in index["groups"] if g["id"] == group), [])
             picks = [(cid, tiers.get(cid), {"source": "live", "laps": laps, "share": share})
                      for cid, laps, share in _live_cars(rows, names, group_cars)]
+            race["balance"] = effective_cars(list(Counter(r["ranking_stats"]["car_code"] for r in rows).values()))
         else:
             picks = [(c["id"], c["tier"], {"source": "real" if c.get("lb") else "estimate",
                                            "laps": c["lb"]["laps"] if c.get("lb") else None}) for c in history[:TOP_N]]

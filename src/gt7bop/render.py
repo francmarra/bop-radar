@@ -220,6 +220,8 @@ def render(site: Path, out: Path, site_url: str = SITE_URL, og: bool = True, goa
         index = json.loads((site / "data" / "index.json").read_text(encoding="utf-8"))
         missing = sum(1 for g in index["groups"] for c in g["cars"] if c["id"] not in car_images)
         print(f"images: {missing} cars unmapped")
+        if car_images and len(pics) < 0.9 * len(car_images):
+            print(f"warning: images: {len(pics)}/{len(car_images)} pictures")
     (out / "data").mkdir(parents=True, exist_ok=True)
     (out / "data" / "images.json").write_text(json.dumps(pics, separators=(",", ":")), encoding="utf-8")
 

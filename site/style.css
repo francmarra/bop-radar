@@ -48,7 +48,7 @@ nav a.on { color: var(--text); background: var(--panel-2); box-shadow: inset 0 -
 .lang button.on { background: var(--accent); color: #fff; }
 .skip { position: absolute; left: 8px; top: -100px; z-index: 10; background: var(--panel); color: var(--text); padding: 10px 16px; border-radius: 8px; border: 2px solid var(--focus); }
 .skip:focus { top: 8px; }
-main { max-width: 1160px; margin: 0 auto; padding: 24px 16px 56px; min-height: 100vh; } /* footer starts below the fold: the JS render can't push it (CLS) */
+main { max-width: 1160px; margin: 0 auto; padding: 24px 16px 56px; min-height: 100vh; min-height: 100svh; } /* footer starts below the fold: the JS render can't push it (CLS) */
 main:focus { outline: none; }
 footer { text-align: center; color: var(--muted); font-size: var(--fs-sm); padding: 24px 16px; border-top: 1px solid var(--line); line-height: 2; }
 h1, h2, h3 { font-family: var(--head); letter-spacing: .3px; margin: 0 0 8px; }

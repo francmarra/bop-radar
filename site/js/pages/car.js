@@ -21,7 +21,7 @@ export async function carPage(id) {
     <p><a href="${BASE}" class="link-more">${t("back_rank", groupLabel(car.group))}</a></p>
     <section class="panel car-hero">
       <div class="hero-txt"><p class="hero-meta">${groupLabel(car.group)} · ${esc(car.maker)} · ${esc(car.drivetrain)}</p><h1>${esc(car.name)}</h1><div id="now" class="now"></div></div>
-      <div class="hero-pic">${carImg(id, "l", car.name)}</div>
+      <div class="hero-pic">${carImg(id, "l", "", true)}</div>
       <p id="summary" class="lead"></p>
     </section>
     <section class="panel"><div class="toolbar between"><h2>${t("history")}</h2>

@@ -94,3 +94,43 @@ def test_corrupt_cache_is_discarded(tmp_path):
 
     res = build_images({"a": 5}, tmp_path / "o", cache, fetch=fetch, log=lambda *a: None, pause=0)
     assert res == {} and not (cache / "5.png").exists()
+
+
+def test_circuit_breaker_stops_after_5_failures(tmp_path):
+    from gt7bop.carimages import build_images
+    calls, logs = [], []
+
+    def fetch(url):
+        calls.append(url)
+        raise OSError("down")
+
+    mapping = {f"c{i}": i for i in range(8)}
+    assert build_images(mapping, tmp_path / "o", tmp_path / "c", fetch=fetch, log=logs.append, pause=0) == {}
+    assert len(calls) == 5
+    assert logs.count("images: stopped downloading after 5 consecutive failures") == 1
+
+
+def test_breaker_resets_on_success_and_cached_still_convert(tmp_path):
+    from gt7bop.carimages import build_images
+    cache = tmp_path / "c"
+    cache.mkdir()
+    (cache / "7.png").write_bytes(_png())  # cached: converts even after the breaker trips
+    calls = []
+
+    def fetch(url):
+        calls.append(url)
+        raise OSError("down")
+
+    mapping = {"a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "f": 6, "z": 7}
+    res = build_images(mapping, tmp_path / "o", cache, fetch=fetch, log=lambda *a: None, pause=0)
+    assert len(calls) == 5 and list(res) == ["z"]
+
+
+def test_missing_pillow_skips(tmp_path, monkeypatch):
+    import sys
+
+    from gt7bop.carimages import build_images
+    monkeypatch.setitem(sys.modules, "PIL", None)
+    logs = []
+    assert build_images({"a": 1}, tmp_path / "o", tmp_path / "c", fetch=_boom, log=logs.append, pause=0) == {}
+    assert logs == ["render: Pillow not installed, car pictures skipped"]

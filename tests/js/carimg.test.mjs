@@ -38,3 +38,17 @@ test("getImages falls back to empty", async () => {
     globalThis.fetch = orig;
   }
 });
+
+test("carImg eager hero", () => {
+  store.images = { a: [320, 180] };
+  const h = carImg("a", "l", "", true);
+  assert.match(h, /loading="eager" fetchpriority="high"/);
+  assert.ok(!h.includes('loading="lazy"'));
+});
+
+test("carImg ignores prototype keys and encodes ids", () => {
+  store.images = { "a b": [320, 180] };
+  assert.ok(carImg("__proto__", "l").includes("car-sil"));
+  assert.ok(carImg("constructor", "l").includes("car-sil"));
+  assert.match(carImg("a b", "l"), /img\/cars\/a%20b-l\.webp/);
+});

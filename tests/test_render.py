@@ -171,7 +171,7 @@ def test_render_without_images(tmp_path):
     assert not (out / "img").exists()
     assert json.loads((out / "data" / "images.json").read_text(encoding="utf-8")) == {}
     assert not [p for p in site.rglob("*") if p.suffix in (".webp", ".png")]
-    assert "<img" not in (out / "car" / "genesis-gr-3" / "index.html").read_text(encoding="utf-8").split("<h1>")[1]
+    assert "img/cars/" not in (out / "car" / "genesis-gr-3" / "index.html").read_text(encoding="utf-8")
 
 
 def test_render_with_images(tmp_path):
@@ -187,3 +187,17 @@ def test_render_with_images(tmp_path):
 def test_unmapped_car_is_logged(tmp_path, capsys):
     render(_site(tmp_path), tmp_path / "dist", URL, og=False, car_images={"genesis-gr-3": 2160}, image_cache=tmp_path / "cache", fetch=_fake_png)
     assert "images: 1 cars unmapped" in capsys.readouterr().out
+
+
+def test_low_image_coverage_warns(tmp_path, capsys):
+    def bad(url):
+        raise OSError("down")
+    render(_site(tmp_path), tmp_path / "dist", URL, og=False, car_images={"genesis-gr-3": 2160}, image_cache=tmp_path / "cache", fetch=bad)
+    out = capsys.readouterr().out
+    assert "warning: images: 0/1 pictures" in out
+    assert (tmp_path / "dist" / "index.html").exists()
+
+
+def test_full_image_coverage_no_warning(tmp_path, capsys):
+    render(_site(tmp_path), tmp_path / "dist", URL, og=False, car_images={"genesis-gr-3": 2160}, image_cache=tmp_path / "cache", fetch=_fake_png)
+    assert "warning:" not in capsys.readouterr().out

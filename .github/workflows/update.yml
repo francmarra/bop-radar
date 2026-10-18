@@ -21,7 +21,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      report: ${{ steps.check.outputs.report }}
+      report: ${{ steps.collect.outputs.report }}
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
@@ -64,7 +64,17 @@ jobs:
           git add site/data data/leaderboards
           git diff --cached --quiet || git commit -m "data: BoP update $(date -u +%F)" && git push
       - name: Build site (pre-rendered pages, sitemap, share images)
-        run: uv run --extra render gt7bop render --out dist --images --goatcounter "${{ vars.GOATCOUNTER }}"  # repo variable; empty = no analytics
+        id: render
+        run: |
+          set -o pipefail
+          uv run --extra render gt7bop render --out dist --images --goatcounter "${{ vars.GOATCOUNTER }}" 2>&1 | tee "$RUNNER_TEMP/render.txt"  # repo variable; empty = no analytics
+      - name: Collect report (check + render warnings)
+        id: collect
+        if: always()
+        env:
+          CHECK_REPORT: ${{ steps.check.outputs.report }}
+        run: |
+          { echo "report<<REPORT_EOF"; [ -n "$CHECK_REPORT" ] && echo "$CHECK_REPORT"; grep -E '^warning:' "$RUNNER_TEMP/render.txt" 2>/dev/null || true; echo REPORT_EOF; } >> "$GITHUB_OUTPUT"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

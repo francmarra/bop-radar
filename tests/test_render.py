@@ -1,4 +1,5 @@
 import json
+import re
 import shutil
 from pathlib import Path
 
@@ -46,11 +47,11 @@ def test_pages_meta_and_paths(tmp_path):
     assert "<title>Genesis Gr.3 BoP history — GT7 BoP Radar</title>" in car
     assert f'<link rel="canonical" href="{URL}car/genesis-gr-3/">' in car
     assert f'<meta property="og:image" content="{URL}og/default.png">' in car
-    assert 'href="../../style.css"' in car and 'src="../../js/main.js"' in car and 'href="../../week/"' in car
+    assert 'href="../../style.css?v=' in car and 'src="../../js/main.js?v=' in car and 'href="../../week/"' in car
     assert "BreadcrumbList" in car and "1.71" in car and "Faster" in car
     assert car.count('<meta name="description"') == 1 and car.count('rel="canonical"') == 1
     home = (out / "index.html").read_text(encoding="utf-8")
-    assert 'href="style.css"' in home and '"@type": "WebSite"' in home and 'href="car/genesis-gr-3/"' in home
+    assert 'href="style.css?v=' in home and '"@type": "WebSite"' in home and 'href="car/genesis-gr-3/"' in home
 
 
 def test_escaping_week_and_update_content(tmp_path):
@@ -70,7 +71,7 @@ def test_sitemap_404_robots(tmp_path):
     sm = (out / "sitemap.xml").read_text(encoding="utf-8")
     assert sm.count("<url>") == len(pages) and f"<loc>{URL}car/odd-car/</loc>" in sm and "<lastmod>2026-08-20</lastmod>" in sm
     nf = (out / "404.html").read_text(encoding="utf-8")
-    assert 'href="/bop-radar/style.css"' in nf and 'src="/bop-radar/js/main.js"' in nf and "noindex" in nf
+    assert 'href="/bop-radar/style.css?v=' in nf and 'src="/bop-radar/js/main.js?v=' in nf and "noindex" in nf
     assert f"Sitemap: {URL}sitemap.xml" in (out / "robots.txt").read_text(encoding="utf-8")
     assert (out / "data" / "index.json").exists()
 
@@ -106,3 +107,34 @@ def test_backslash_in_name_does_not_break_build(tmp_path):
 
 def test_default_share_image_ships_with_the_site():
     assert (SITE / "og" / "default.png").exists()
+
+
+def _importmap(html: str) -> dict:
+    m = re.search(r'<script type="importmap">(.*?)</script>', html, re.DOTALL)
+    assert m, "no import map"
+    return json.loads(m[1])["imports"]
+
+
+def test_assets_are_versioned_by_content(tmp_path):
+    """A deploy must never mix cached and fresh modules: every module URL carries a hash of its content."""
+    site = _site(tmp_path)
+    out = tmp_path / "dist"
+    render(site, out, URL, og=False)
+    home, car = ((out / p / "index.html").read_text(encoding="utf-8") for p in ("", "car/genesis-gr-3"))
+    imports = _importmap(home)
+    modules = {"/bop-radar/" + f.relative_to(site).as_posix() for f in (site / "js").rglob("*.js")}
+    assert set(imports) == modules
+    assert all(re.fullmatch(re.escape(k) + r"\?v=[0-9a-f]{10}", v) for k, v in imports.items())
+    assert _importmap(car) == imports and _importmap((out / "404.html").read_text(encoding="utf-8")) == imports
+    assert home.index('type="importmap"') < home.index('type="module"')  # the map must precede the first module
+    v_main = imports["/bop-radar/js/main.js"].split("?v=")[1]
+    assert f'src="js/main.js?v={v_main}"' in home and f'src="../../js/main.js?v={v_main}"' in car
+    for f, extra in ((site / "js" / "format.js", "\n// changed\n"), (site / "style.css", "\n/* changed */\n")):
+        f.write_text(f.read_text(encoding="utf-8") + extra, encoding="utf-8")
+    css = re.search(r'href="style.css\?v=(\w+)"', home)[1]
+    render(site, out, URL, og=False)
+    home2 = (out / "index.html").read_text(encoding="utf-8")
+    after = _importmap(home2)
+    assert after["/bop-radar/js/format.js"] != imports["/bop-radar/js/format.js"]
+    assert after["/bop-radar/js/main.js"] == imports["/bop-radar/js/main.js"]
+    assert re.search(r'href="style.css\?v=(\w+)"', home2)[1] != css

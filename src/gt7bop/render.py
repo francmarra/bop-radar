@@ -3,6 +3,7 @@
 Search engines and link previews get a real URL, title, description and readable content for every car,
 update and the weekly guide; the SPA takes over on boot and renders the same page in the visitor's language."""
 
+import hashlib
 import json
 import re
 import shutil
@@ -62,6 +63,21 @@ def page_html(shell: str, prefix: str, meta: dict, body: str) -> str:
     html = re.sub(r"<title>.*?</title>", lambda _: f"<title>{e(meta['title'])}</title>", html, count=1)
     html = html.replace("</head>", "  " + "\n  ".join(head) + "\n</head>", 1)
     return re.sub(r'(<main id="app"[^>]*>).*?(</main>)', lambda m: m[1] + body + m[2], html, count=1, flags=re.DOTALL)
+
+
+def _hash(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()[:10]
+
+
+def versioned_shell(shell: str, site: Path, root: str) -> str:
+    """Cache-bust assets by content: GitHub Pages caches files for 10 minutes, and a visitor who mixes cached and
+    freshly deployed modules gets a broken site. The import map pins every module, including those reached through
+    relative imports, to its hash; the entry script and the stylesheet carry the hash in their own URL."""
+    modules = sorted(f.relative_to(site).as_posix() for f in (site / "js").rglob("*.js"))
+    imports = {root + m: f"{root}{m}?v={_hash(site / m)}" for m in modules}
+    shell = re.sub(r'\b(href|src)="([\w/.-]+\.(?:css|js))"',
+                   lambda m: f'{m[1]}="{m[2]}?v={_hash(site / m[2])}"' if (site / m[2]).is_file() else m[0], shell)
+    return shell.replace("</head>", f'  <script type="importmap">{json.dumps({"imports": imports})}</script>\n</head>', 1)
 
 
 def _load(path: Path):
@@ -168,7 +184,8 @@ def render(site: Path, out: Path, site_url: str = SITE_URL, og: bool = True) -> 
     if out.exists():
         shutil.rmtree(out)
     shutil.copytree(site, out)
-    shell = (site / "index.html").read_text(encoding="utf-8")
+    root = urlparse(site_url).path
+    shell = versioned_shell((site / "index.html").read_text(encoding="utf-8"), site, root)
     images: set[str] = set()
     if og:
         try:
@@ -190,7 +207,7 @@ def render(site: Path, out: Path, site_url: str = SITE_URL, og: bool = True) -> 
         target = out / p["path"] / "index.html"
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(html, encoding="utf-8")
-    root = urlparse(site_url).path  # 404.html is served at any depth: absolute paths
+    # 404.html is served at any depth: absolute paths
     (out / "404.html").write_text(page_html(shell, root, {"title": f"Page not found — {NAME}", "description": HOME_DESC, "noindex": True},
                                             '<p class="muted">Loading…</p>'), encoding="utf-8")
     urls = "".join(f"  <url><loc>{e(site_url + p['path'])}</loc><lastmod>{e(p['lastmod'])}</lastmod></url>\n" for p in pages)

@@ -13,7 +13,7 @@
 ## Global Constraints
 - Thumbnail URL: `https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car<GT7 ID>.png`. No `referrerpolicy` / hotlink workaround anywhere.
 - No image from Sony/Polyphony under `site/`, `data/` or in git; downloads go to `cache/car-images/` (gitignored), output only to `dist/`.
-- Output files: `dist/img/cars/<id>-s.webp` (width 160) and `dist/img/cars/<id>-l.webp` (width 480); `dist/data/images.json` = `{"<id>": [w, h]}` of the large file.
+- Output files: `dist/img/cars/<id>-s.webp` (width 160) and `dist/img/cars/<id>-l.webp` (width min(480, source width) — never upscale; official sources are 320×180); `dist/data/images.json` = `{"<id>": [w, h]}` of the large file.
 - Credit copy (EN): `Car images © Polyphony Digital Inc. / Sony Interactive Entertainment`; (PT): `Imagens dos carros © Polyphony Digital Inc. / Sony Interactive Entertainment`.
 - Downloads: 1 request per uncached car, `User-Agent: gt7-bop-radar (+https://github.com/francmarra/bop-radar)`, 0.5 s pause between requests.
 - An image problem never fails the build or the page: fall back to the silhouette.
@@ -70,15 +70,15 @@
 - Produces: `build_images(mapping: dict[str, int], out: Path, cache: Path, fetch: Callable[[str], bytes] = _get, log=print, pause: float = 0.5) -> dict[str, list[int]]` writing `out/<id>-s.webp`, `out/<id>-l.webp`, returning `{id: [w, h]}` of the large file. `render(site, out, site_url=SITE_URL, og=True, goatcounter=None, car_images: dict[str, int] | None = None, image_cache: Path | None = None, fetch=None) -> list[str]`: when `car_images` is given, calls `build_images` into `out/img/cars` and logs `images: <n> cars unmapped` for index cars missing from the mapping; always writes `out/data/images.json` (`{}` without images).
 - Pre-rendered car page body starts with `<img src="{prefix}img/cars/<id>-l.webp" width=W height=H alt="<car name>">` when the car has a picture.
 
-- [ ] **Step 1: Failing tests** (fake `fetch` returns PNG bytes made with Pillow `Image.new("RGBA", (330, 180))`, `pause=0`):
-  - `test_build_images_sizes`: both files exist; large width 480, small width 160, aspect kept; return value `{"a": [480, 262]}`; second call with a fetch that raises downloads nothing (cache hit).
+- [ ] **Step 1: Failing tests** (fake `fetch` returns PNG bytes made with Pillow `Image.new("RGBA", (960, 540))`, `pause=0`):
+  - `test_build_images_sizes`: both files exist; large 480×270, small 160×90; return value `{"a": [480, 270]}`; a 320×180 source gives large 320×180 (no upscaling); second call with a fetch that raises downloads nothing (cache hit).
   - `test_failed_download_falls_back`: fetch raises `HTTPError` for one id → that id absent from the result, others present, no exception.
   - `test_corrupt_cache_is_discarded`: `cache/<gt7id>.png` contains `b"junk"` and fetch raises → id absent, junk file deleted.
   - `test_render_without_images` (test_render.py): no `dist/img/`, `json.loads(dist/data/images.json) == {}`, and no `*.webp`/`*.png` under the test `site/` after render.
-  - `test_render_with_images`: `render(..., car_images={"genesis-gr-3": 2160}, image_cache=tmp, fetch=fake)` → `dist/img/cars/genesis-gr-3-l.webp` exists, `images.json` has it, car page HTML contains `img/cars/genesis-gr-3-l.webp" width="480"`.
+  - `test_render_with_images`: `render(..., car_images={"genesis-gr-3": 2160}, image_cache=tmp, fetch=fake)` → `dist/img/cars/genesis-gr-3-l.webp` exists, `images.json` has it, car page HTML contains `img/cars/genesis-gr-3-l.webp" width="480" height="270"`.
   - `test_unmapped_car_is_logged`: same render with `capsys` → output contains `images: 1 cars unmapped` (odd-car).
 - [ ] **Step 2:** Run → FAIL.
-- [ ] **Step 3:** Implement. Large/small via `Image.thumbnail` on width (keep ratio), `save(..., "WEBP", quality=82, method=6)`. Corrupt cache = `PIL.UnidentifiedImageError`/`OSError` on open → unlink, log, skip. CLI `render --images` reads `ROOT/data/car_images.toml` and passes `image_cache=ROOT/"cache"/"car-images"`. Workflow render step gets `--images`.
+- [ ] **Step 3:** Implement. Large/small via `Image.thumbnail` (never upscales; keep ratio), `save(..., "WEBP", quality=82, method=6)`. Corrupt cache = `PIL.UnidentifiedImageError`/`OSError` on open → unlink, log, skip. CLI `render --images` reads `ROOT/data/car_images.toml` and passes `image_cache=ROOT/"cache"/"car-images"`. Workflow render step gets `--images`.
 - [ ] **Step 4:** All pytest + ruff green.
 - [ ] **Step 5:** Real run: `uv run --extra render gt7bop render --out dist --site-url http://127.0.0.1:8765/ --no-og --images` → `ls dist/img/cars | wc -l` = 244, `git status --short` shows no image files.
 - [ ] **Step 6:** Commit `feat(images): download and convert car pictures at build time`.
@@ -93,7 +93,7 @@
 - Produces: `getImages(): Promise<Record<string, [number, number]>>` in data.js (`store.images`, failures → `{}`); `carImg(id: string, size: "s" | "l", alt = ""): string` in carimg.js — `<img class="car-img car-img-{size}" src="${BASE}img/cars/${id}-${size}.webp" width height loading="lazy" decoding="async" alt="…">` with dimensions from `store.images` (small = scaled to width 160, rounded), or `<span class="car-img car-img-{size} car-sil" aria-hidden="true"><svg …></svg></span>` when absent. Exported `SILHOUETTE` (inline SVG string, `fill="currentColor"`, viewBox `0 0 160 64`).
 
 - [ ] **Step 1: Failing JS tests** (`tests/js/carimg.test.mjs`, set `store.images` directly; follow the import style of existing tests):
-  - with `{"a": [480, 262]}`: `carImg("a","l","A")` contains `width="480" height="262"`, `loading="lazy"`, `alt="A"`, `img/cars/a-l.webp`; `carImg("a","s")` contains `width="160" height="87"` and `alt=""`.
+  - with `{"a": [320, 180]}`: `carImg("a","l","A")` contains `width="320" height="180"`, `loading="lazy"`, `alt="A"`, `img/cars/a-l.webp`; `carImg("a","s")` contains `width="160" height="90"` and `alt=""`.
   - without the id: returns a string containing `car-sil` and `aria-hidden="true"` and no `<img`.
   - alt is escaped: `carImg("a","l",'<b>"x"')` contains `&lt;b&gt;&quot;x&quot;`.
   - `getImages falls back to empty`: with `globalThis.fetch` stubbed to reject → resolves `{}`.

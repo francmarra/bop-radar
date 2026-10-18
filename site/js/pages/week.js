@@ -10,6 +10,7 @@ let shown = "this";
 const pageUrl = () => location.origin + link("week/");
 const classLabel = (r) => (r.group ? "Gr." + r.group.slice(2) : r.kind === "one-make" ? t("one_make_label") : r.category);
 const carId = (c) => findCar(store.index, c)?.id ?? c?.id ?? "";
+const srcText = (c) => (c.source === "live" ? t("src_live", c.share, c.laps) : c.source === "real" ? t("src_real", c.laps) : t("src_est"));
 const isMult = (x) => (parseFloat(String(x ?? "").replace(/[^\d.]/g, "")) || 1) !== 1;
 
 function body(r) {
@@ -18,7 +19,7 @@ function body(r) {
     return `<h3>${t("top5")}</h3><ol class="race-cars">${r.cars.map((c) => `
       <li>${carImg(carId(c), "s")}<div class="rc-body">${tierBadge(c.tier)} <span class="rc-name">${carLink(store.index, c)}</span>
         ${whyText(c.why, t) ? `<span class="why">${esc(whyText(c.why, t))}</span>` : ""}
-        <span class="badge ${c.source === "real" ? "lb" : "est"}">${c.source === "real" ? esc(t("src_real", c.laps)) : t("src_est")}</span></div></li>`).join("")}</ol>`;
+        <span class="badge ${c.source === "estimate" ? "est" : "lb"}">${esc(srcText(c))}</span></div></li>`).join("")}</ol>`;
   }
   if (r.kind === "one-make") return `<p>${t("one_make", carLink(store.index, r.car ?? ""))}</p>`;
   if (r.kind === "tbd") return `<p class="muted">${esc(t("tbd_race", r.start ? fmtDate(r.start) : ""))}</p>`;

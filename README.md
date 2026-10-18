@@ -12,6 +12,7 @@ weaknesses, estimated tyre wear and fuel use. Cars are **ranked by real Daily Ra
 - `dist/` — deploy build: `site/` + one pre-rendered page per URL (`car/<id>/`, `update/<v>/`, `week/`…), sitemap, share images
 - `data/leaderboards/<board>.json` — per-car pace aggregates of finished Daily Races (no player data)
 - `data/notes/<car-id>.toml` — optional hand-written notes shown on a car's page (`text = "..."`)
+- `data/car_images.toml` — car id → GT7 car id, used to fetch the official car pictures at build time
 
 ## Usage
 
@@ -24,7 +25,9 @@ uv run gt7bop leaderboards --pages 26  # aggregate the last ~52 weeks of Daily R
 uv run pytest
 py -m http.server -d site 8765  # quick dev: http://127.0.0.1:8765 (SPA only)
 uv run --extra render gt7bop render --out dist --site-url http://127.0.0.1:8765/  # full build: pages, sitemap, share images
+uv run --extra render gt7bop render --out dist --images  # same, plus the official car pictures (see below)
 py -m http.server -d dist 8765
+uv run gt7bop images            # map new cars to GT7 ids -> data/car_images.toml (prints the ones still unmapped)
 uv run gt7bop evaluate          # backtest the ranking on unseen Daily Races
 uv run gt7bop check --baseline <old site/data> --max-age 2  # sanity checks the Action runs before committing data
 ```
@@ -67,7 +70,11 @@ evidence. Deeper and older leaderboard data is the main lever for accuracy.
   values, the change shows up as *mixed*.
 - Leaderboards: official Daily Race rankings via [gtsh-rank.com](https://gtsh-rank.com/daily/) — only
   car/lap-time aggregates are stored.
-- Track → BoP set: [ddm999/gt7info](https://github.com/ddm999/gt7info) (MIT-0).
+- Track → BoP set and car ids: [ddm999/gt7info](https://github.com/ddm999/gt7info) (MIT-0).
+- Car images © Polyphony Digital Inc. / Sony Interactive Entertainment. They are **downloaded at build time only**
+  (`render --images`, into the git-ignored `cache/car-images/`), converted to WebP inside `dist/` and **never
+  committed** to this repository. Building without `--images` removes every picture (cars fall back to a neutral
+  silhouette) — that is the kill switch if the rights holder asks: drop the flag from the workflow.
 - Unofficial fan project, not affiliated with Polyphony Digital or Sony Interactive Entertainment.
 
 ## Roadmap

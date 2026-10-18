@@ -17,8 +17,14 @@ function chrome() {
   document.querySelectorAll("[data-t]").forEach((el) => (el.textContent = t(el.dataset.t)));
   document.querySelectorAll(".lang button").forEach((b) => { b.classList.toggle("on", b.dataset.lang === lang); b.setAttribute("aria-pressed", String(b.dataset.lang === lang)); });
   document.getElementById("theme").setAttribute("aria-label", t("theme_toggle"));
+  navFade(); // labels change width with the language
 }
 initTheme();
+// fade the end of the tab bar while tabs are hidden past the right edge (narrow phones)
+const nav = document.querySelector("nav");
+const navFade = () => nav.classList.toggle("more", nav.scrollLeft + nav.clientWidth < nav.scrollWidth - 1);
+nav.addEventListener("scroll", navFade, { passive: true });
+addEventListener("resize", navFade);
 document.getElementById("theme").onclick = () => toggleTheme();
 document.querySelector(".skip").onclick = (e) => { e.preventDefault(); app.focus(); };
 document.querySelector(".lang").onclick = (e) => {

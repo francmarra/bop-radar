@@ -38,35 +38,12 @@
      "track_set": "m",
      "cars": [
       {
-       "id": "r8-lms-evo-19",
-       "name": "R8 LMS Evo '19",
-       "tier": "S",
-       "source": "real",
-       "laps": 1775,
-       "why": {
-        "strengths": [],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "f-type-gr-3",
-       "name": "F-type Gr.3",
-       "tier": "S",
-       "source": "real",
-       "laps": 7,
-       "why": {
-        "strengths": [
-         "acceleration"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "296-gt3-23",
-       "name": "296 GT3 '23",
-       "tier": "S",
-       "source": "real",
-       "laps": 26,
+       "id": "gr-supra-racing-concept-18",
+       "name": "GR Supra Racing Concept '18",
+       "tier": "A",
+       "source": "live",
+       "laps": 136,
+       "share": 14,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -75,11 +52,12 @@
        }
       },
       {
-       "id": "viper-srt-gt3-r-15",
-       "name": "Viper SRT GT3-R '15",
+       "id": "f-type-gr-3",
+       "name": "F-type Gr.3",
        "tier": "S",
-       "source": "estimate",
-       "laps": null,
+       "source": "live",
+       "laps": 411,
+       "share": 41,
        "why": {
         "strengths": [
          "acceleration"
@@ -88,11 +66,38 @@
        }
       },
       {
-       "id": "lancer-evolution-final-edition-gr-3",
-       "name": "Lancer Evolution Final Edition Gr.3",
-       "tier": "S",
-       "source": "estimate",
-       "laps": null,
+       "id": "genesis-gr-3",
+       "name": "Genesis Gr.3",
+       "tier": "A",
+       "source": "live",
+       "laps": 253,
+       "share": 25,
+       "why": {
+        "strengths": [
+         "acceleration"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "650s-gt3-15",
+       "name": "650S GT3 '15",
+       "tier": "A",
+       "source": "live",
+       "laps": 41,
+       "share": 4,
+       "why": {
+        "strengths": [],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "m6-gt3-sprint-model-16",
+       "name": "M6 GT3 Sprint Model '16",
+       "tier": "A",
+       "source": "live",
+       "laps": 47,
+       "share": 5,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -120,70 +125,18 @@
      "track_set": "l",
      "cars": [
       {
-       "id": "gt-by-citro-n-gr-4",
-       "name": "GT by Citroën Gr.4",
-       "tier": "S",
-       "source": "real",
-       "laps": 728,
-       "why": {
-        "strengths": [],
-        "saves_tyres": false
-       }
-      },
-      {
        "id": "elantra-n-tc-24",
        "name": "ELANTRA N TC '24",
        "tier": "S",
-       "source": "estimate",
-       "laps": null,
+       "source": "live",
+       "laps": 999,
+       "share": 100,
        "why": {
         "strengths": [
          "acceleration",
          "low-speed cornering"
         ],
         "saves_tyres": false
-       }
-      },
-      {
-       "id": "swift-sport-gr-4",
-       "name": "Swift Sport Gr.4",
-       "tier": "S",
-       "source": "estimate",
-       "laps": null,
-       "why": {
-        "strengths": [
-         "acceleration",
-         "low-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "tt-cup-16",
-       "name": "TT Cup '16",
-       "tier": "A",
-       "source": "estimate",
-       "laps": null,
-       "why": {
-        "strengths": [
-         "acceleration",
-         "low-speed cornering"
-        ],
-        "saves_tyres": true
-       }
-      },
-      {
-       "id": "mazda3-gr-4",
-       "name": "MAZDA3 Gr.4",
-       "tier": "A",
-       "source": "estimate",
-       "laps": null,
-       "why": {
-        "strengths": [
-         "acceleration",
-         "low-speed cornering"
-        ],
-        "saves_tyres": true
        }
       }
      ]

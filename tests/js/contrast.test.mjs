@@ -18,13 +18,18 @@ const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
 const dark = block(":root");
 const light = { ...dark, ...block(':root[data-theme="light"]') };
 for (const [name, theme] of [["dark", dark], ["light", light]]) {
+  const check = (fg, bg, min) => test(`${name}: --${fg} on --${bg} >= ${min}`, () => {
+    assert.ok(ratio(theme[fg], theme[bg]) >= min, `${theme[fg]} on ${theme[bg]} = ${ratio(theme[fg], theme[bg]).toFixed(2)}`);
+  });
   for (const fg of ["text", "muted", "buff", "nerf", "mixed", "accent-text"]) {
-    for (const bg of ["bg", "panel", "panel-2"]) {
-      test(`${name}: --${fg} on --${bg} >= 4.5`, () => {
-        assert.ok(ratio(theme[fg], theme[bg]) >= 4.5, `${theme[fg]} on ${theme[bg]} = ${ratio(theme[fg], theme[bg]).toFixed(2)}`);
-      });
-    }
+    for (const bg of ["bg", "panel", "panel-2"]) check(fg, bg, 4.5);
   }
+  // tier/set colours are used as text on panels
+  for (const fg of ["s", "a", "b", "c", "h", "m", "l"]) {
+    for (const bg of ["panel", "panel-2"]) check(fg, bg, 4.5);
+  }
+  for (const bg of ["bg", "panel", "panel-2", "hover"]) check("focus", bg, 3);
+  for (const bg of ["panel", "panel-2"]) check("control-line", bg, 3);
 }
 
 test("no font size below 15px / .8333rem", () => {
@@ -32,4 +37,15 @@ test("no font size below 15px / .8333rem", () => {
     const px = m[2] === "px" ? +m[1] : +m[1] * 18;
     assert.ok(px >= 15 - 0.01, `too small: ${m[0]}`);
   }
+});
+
+test("prefers-color-scheme light block mirrors [data-theme=light]", () => {
+  const m = css.indexOf("@media (prefers-color-scheme: light)");
+  assert.ok(m >= 0, "missing media block");
+  const sel = ':root:not([data-theme="dark"]) {';
+  const i = css.indexOf(sel, m);
+  assert.ok(i >= 0, "missing media :root block");
+  const body = css.slice(i, css.indexOf("}", i));
+  const tokens = Object.fromEntries([...body.matchAll(/--([\w-]+):\s*(#[0-9a-f]{6})/gi)].map((x) => [x[1], x[2]]));
+  assert.deepEqual(tokens, block(':root[data-theme="light"]'));
 });

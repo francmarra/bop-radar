@@ -1,0 +1,438 @@
+<!doctype html>
+<!--
+  GT7 BoP Radar — "Chrome" redesign mockup (throwaway).
+  WCAG contrast of key text pairs (computed, sRGB relative luminance):
+  DARK  (bg #07080a / panel #101216 / panel-2 #181b20 / stage #000)
+    text   #e8ebef  16.75 / 15.68 / 14.44 / 17.56
+    muted  #9ba4ae   7.93 /  7.42 /  6.84 /  8.32
+    accent-text #ff6a60 7.14 / 6.68 / 6.15
+    buff #86c9a4 9.73 · nerf #ec938e 8.15 · mixed #d9b676 9.73 (on panel)
+    tier S #e3c56a 11.12 · A #8fb6e0 8.87 · B #aab2bb 8.74 · C #8f98a2 6.41 (on panel)
+    set  H #e3a284 8.72 · M #86bcd9 9.11 · L #bba6df 8.60 (on panel)
+    focus ring #e10600 (non-text, needs 3:1): 4.03 bg / 3.77 panel / 3.48 panel-2
+    wordmark chrome gradient darkest stop #8d959e on bg: 6.6 (large text)
+  LIGHT (bg #dde0e4 / panel #ffffff / panel-2 #eef0f3)
+    text   #15181c  13.45 / 17.81 / 15.60
+    muted  #4c545e   5.79 /  7.67 /  6.72
+    accent-text #b30500 5.40 / 7.15 / 6.26
+    buff #1d6b44 6.48 · nerf #a5302a 6.87 · mixed #7a5500 6.72 (on panel)
+    tier S #7a5d00 6.19 · A #285d93 6.82 · B #545e69 6.60 · C #5f6872 5.66 (on panel; C is 4.27 on bare bg, so data stays in panels)
+    set  H #984722 6.44 · M #245f90 6.74 · L #6a479f 6.97 (on panel)
+    focus ring #e10600: 3.75 bg / 4.97 panel / 4.35 panel-2
+  Car stage stays black in both themes and re-declares the dark tokens locally.
+  Chip tints are 10–12% colour-mix over the panel, which moves the ratios by < 0.6.
+-->
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BoP Radar Chrome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ===== tokens: lift this block into site/style.css ===== */
+:root {
+  --bg: #07080a; --panel: #101216; --panel-2: #181b20; --hover: #1d2127;
+  --line: #2a2f36; --line-hi: #4a525c; /* hairline + its lit top edge */
+  --tick: #6b737d; /* editorial corner marks */
+  --text: #e8ebef; --muted: #9ba4ae;
+  --accent: #e10600; --accent-text: #ff6a60; --focus: #e10600;
+  --buff: #86c9a4; --nerf: #ec938e; --mixed: #d9b676;
+  --s: #e3c56a; --a: #8fb6e0; --b: #aab2bb; --c: #8f98a2;
+  --h: #e3a284; --m: #86bcd9; --l: #bba6df;
+  --chrome: linear-gradient(180deg, #ffffff 0%, #d4d8dd 36%, #8d959e 50%, #eef0f2 64%, #a7aeb6 100%);
+  --chrome-bar: linear-gradient(180deg, #ffffff 0%, #c3c8ce 40%, #5d656e 52%, #e3e6e9 70%, #8f969e 100%);
+  --btn-bg: linear-gradient(180deg, #f4f6f8, #b9c0c7); --btn-text: #0b0c0e;
+  --glow: rgba(255, 255, 255, .22);
+  --panel-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
+  --grain-opacity: .03; --grain-blend: screen;
+  --page: #07080a;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --head: "Barlow Condensed", "Inter", sans-serif;
+  --jp: "Yu Gothic", "Hiragino Sans", "Noto Sans JP", "Meiryo", sans-serif;
+  --fs-xs: .72rem; --fs-sm: .834rem; --fs-base: 1rem; --fs-lg: 1.25rem; --fs-h2: 1.6rem; --fs-h1: 2.25rem;
+  --track-wide: .14em; --tap: 44px; --radius: 6px;
+  color-scheme: dark;
+}
+:root[data-theme="light"] {
+  --bg: #dde0e4; --panel: #ffffff; --panel-2: #eef0f3; --hover: #e7eaee;
+  --line: #c6ccd3; --line-hi: #ffffff; --tick: #8a929c;
+  --text: #15181c; --muted: #4c545e;
+  --accent-text: #b30500;
+  --buff: #1d6b44; --nerf: #a5302a; --mixed: #7a5500;
+  --s: #7a5d00; --a: #285d93; --b: #545e69; --c: #5f6872;
+  --h: #984722; --m: #245f90; --l: #6a479f;
+  --chrome: linear-gradient(180deg, #5a626b 0%, #2a2f35 44%, #0f1114 52%, #4b535c 74%, #23272c 100%);
+  --chrome-bar: linear-gradient(180deg, #7d858e 0%, #3a4047 44%, #101215 52%, #5d656e 74%, #2a2f35 100%);
+  --btn-bg: linear-gradient(180deg, #3a4047, #15181c); --btn-text: #ffffff;
+  --panel-shadow: inset 0 1px 0 #fff, 0 10px 28px -14px rgba(38, 50, 66, .35), 0 1px 2px rgba(38, 50, 66, .08);
+  --grain-opacity: .05; --grain-blend: multiply;
+  --page: linear-gradient(180deg, #e9ebee 0%, #d6dadf 100%) fixed;
+  color-scheme: light;
+}
+
+/* ===== base ===== */
+* { box-sizing: border-box; }
+html { font-size: 112.5%; scrollbar-gutter: stable; }
+body { margin: 0; background: var(--bg); background: var(--page); color: var(--text); font-family: Inter, system-ui, sans-serif; font-size: var(--fs-base); line-height: 1.6; overflow-x: hidden; }
+/* static film grain: fixed SVG noise, no animation */
+body::after { content: ""; position: fixed; inset: 0; z-index: 50; pointer-events: none; opacity: var(--grain-opacity); mix-blend-mode: var(--grain-blend);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+a { color: inherit; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.muted { color: var(--muted); } .small { font-size: var(--fs-sm); } .mono { font-family: var(--mono); }
+p { margin: 0 0 12px; }
+
+/* tiny uppercase spec-sheet caption, e.g. "01 / RANKING · GR.3" */
+.cap { margin: 0 0 6px; font: 600 var(--fs-xs)/1.4 var(--mono); text-transform: uppercase; letter-spacing: var(--track-wide); color: var(--muted); }
+.cap b { color: var(--text); font-weight: 600; }
+/* bracket label: [GR.3] */
+.br { display: inline-flex; align-items: center; font: 600 var(--fs-sm)/1.5 var(--mono); text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; color: var(--text); }
+.br::before { content: "[" / ""; color: var(--muted); margin-right: .15em; } .br::after { content: "]" / ""; color: var(--muted); margin-left: .15em; }
+
+h1, h2, h3 { font-family: var(--head); margin: 0 0 8px; font-weight: 700; }
+h1 { font-size: var(--fs-h1); line-height: 1.05; text-transform: uppercase; letter-spacing: .02em; }
+h2 { font-size: var(--fs-h2); line-height: 1.15; text-transform: uppercase; letter-spacing: var(--track-wide); }
+h3 { font-size: var(--fs-sm); font-family: var(--mono); font-weight: 600; text-transform: uppercase; letter-spacing: var(--track-wide); color: var(--muted); }
+/* section head: caption, title, hairline running to the edge */
+.sec-head { margin-bottom: 16px; }
+.sec-head h2 { display: flex; align-items: center; gap: 16px; }
+.sec-head h2::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line-hi), transparent); }
+:root[data-theme="light"] .sec-head h2::after { background: linear-gradient(90deg, var(--tick), transparent); }
+
+/* ===== header ===== */
+.skip { position: absolute; left: 8px; top: -100px; z-index: 60; background: var(--panel); padding: 10px 16px; border: 2px solid var(--focus); }
+.skip:focus { top: 8px; }
+.top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 8px 16px; position: sticky; top: 0; z-index: 5;
+  border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); }
+.brand { font: 700 1.5rem var(--head); text-decoration: none; letter-spacing: .06em; text-transform: uppercase; display: flex; align-items: center; gap: 12px; min-height: var(--tap); }
+.brand b { background: var(--chrome); -webkit-background-clip: text; background-clip: text; color: transparent; }
+/* logo: two chrome bars + one thin red stroke, prism fringe via coloured drop-shadows */
+.stripe { position: relative; width: 28px; height: 24px; transform: skew(-20deg); flex: none; }
+.stripe i { position: absolute; top: 0; bottom: 0; background: var(--chrome-bar); filter: drop-shadow(-1px 0 0 rgba(255, 50, 110, .45)) drop-shadow(1px 0 0 rgba(60, 200, 255, .45)); }
+.stripe i:nth-child(1) { left: 0; width: 7px; } .stripe i:nth-child(2) { left: 11px; width: 7px; }
+.stripe i:nth-child(3) { left: 22px; width: 3px; background: var(--accent); filter: none; }
+nav { display: flex; gap: 4px; flex: 1; }
+nav a { text-decoration: none; color: var(--muted); font: 600 var(--fs-sm) Inter, sans-serif; text-transform: uppercase; letter-spacing: .08em;
+  padding: 8px 14px; min-height: var(--tap); display: inline-flex; align-items: center; }
+nav a:hover { color: var(--text); background: var(--hover); }
+nav a.on { color: var(--text); box-shadow: inset 0 -2px 0 var(--accent); }
+.tools { display: flex; gap: 8px; align-items: center; }
+.lang { display: flex; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.lang button, .icon-btn { background: none; border: 0; padding: 0 12px; min-width: var(--tap); min-height: var(--tap); cursor: pointer; font: 600 var(--fs-sm) var(--mono); color: var(--muted); }
+.icon-btn { border: 1px solid var(--line); border-radius: var(--radius); }
+.lang button.on { background: var(--panel-2); color: var(--text); box-shadow: inset 0 -2px 0 var(--text); }
+
+main { max-width: 1160px; margin: 0 auto; padding: 24px 16px 56px; }
+.mock-note { border: 1px dashed var(--line); padding: 8px 14px; margin-bottom: 20px; }
+
+/* ===== panels: graphite + hairline + lit top edge + corner ticks ===== */
+.panel { position: relative; background: var(--panel); border: 1px solid var(--line); border-top-color: var(--line-hi); border-radius: var(--radius);
+  padding: 24px; margin-bottom: 20px; box-shadow: var(--panel-shadow); }
+:root:not([data-theme="light"]) .panel { border-top-color: color-mix(in srgb, var(--line-hi) 70%, var(--line)); }
+.panel::after { content: ""; position: absolute; inset: 5px; pointer-events: none;
+  background:
+    linear-gradient(var(--tick), var(--tick)) 0 0 / 9px 1px, linear-gradient(var(--tick), var(--tick)) 0 0 / 1px 9px,
+    linear-gradient(var(--tick), var(--tick)) 100% 0 / 9px 1px, linear-gradient(var(--tick), var(--tick)) 100% 0 / 1px 9px,
+    linear-gradient(var(--tick), var(--tick)) 0 100% / 9px 1px, linear-gradient(var(--tick), var(--tick)) 0 100% / 1px 9px,
+    linear-gradient(var(--tick), var(--tick)) 100% 100% / 9px 1px, linear-gradient(var(--tick), var(--tick)) 100% 100% / 1px 9px;
+  background-repeat: no-repeat; opacity: .7; }
+
+/* ===== home hero ===== */
+.hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 24px; align-items: center; overflow: hidden; }
+.hero h1 { font-size: 2.6rem; }
+.lead { font-size: var(--fs-lg); max-width: 60ch; margin: 8px 0 0; }
+.find-label { display: block; margin: 20px 0 8px; }
+.search input { width: 100%; max-width: 640px; min-height: 56px; font-size: var(--fs-lg); padding: 8px 16px; background: var(--panel-2);
+  border: 1px solid var(--line); border-top-color: var(--line-hi); border-radius: var(--radius); }
+.search input::placeholder { color: var(--muted); opacity: 1; }
+.spec-line { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 16px; }
+/* the one glowing hero object */
+.hero-mark { position: relative; display: grid; place-items: center; min-height: 220px; isolation: isolate; }
+.hero-mark::before { content: ""; position: absolute; inset: 10% 0; z-index: -1; background: radial-gradient(closest-side, var(--glow), transparent); }
+:root[data-theme="light"] .hero-mark::before { background: radial-gradient(closest-side, rgba(255, 255, 255, .9), transparent); }
+.hero-mark .stripe { width: 150px; height: 128px; }
+.hero-mark .stripe i:nth-child(1) { width: 38px; } .hero-mark .stripe i:nth-child(2) { left: 58px; width: 38px; }
+.hero-mark .stripe i:nth-child(3) { left: 116px; width: 14px; }
+.hero-mark .stripe i { filter: drop-shadow(-2px 0 0 rgba(255, 50, 110, .5)) drop-shadow(2px 0 0 rgba(60, 200, 255, .5)) drop-shadow(0 0 18px rgba(255, 255, 255, .35)); }
+.hero-mark .cap { position: absolute; bottom: 0; right: 0; margin: 0; }
+
+/* ===== segmented controls ===== */
+.toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+.seg { display: inline-flex; background: var(--panel-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 3px; gap: 3px; flex-wrap: wrap; }
+.seg button { border: 0; background: none; padding: 0 14px; min-height: var(--tap); min-width: var(--tap); border-radius: 4px; cursor: pointer;
+  font: 600 var(--fs-sm) var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+.seg button:hover { color: var(--text); }
+.seg .on { background: var(--panel); color: var(--text); box-shadow: inset 0 0 0 1px var(--line-hi), 0 1px 0 rgba(0, 0, 0, .3); }
+:root[data-theme="light"] .seg .on { box-shadow: inset 0 0 0 1px var(--tick), 0 1px 2px rgba(38, 50, 66, .15); }
+.seg small { font-weight: 400; color: var(--muted); }
+
+/* ===== ranking rows (same classes as home.js) ===== */
+.rows { border-top: 1px solid var(--line); }
+.row { display: grid; gap: 12px; align-items: center; padding: 10px 8px; min-height: var(--tap); border-bottom: 1px solid var(--line);
+  text-decoration: none; color: inherit; width: 100%; background: none; border-left: 0; border-right: 0; border-top: 0; text-align: left; font: inherit; cursor: pointer; }
+.row:hover { background: var(--hover); }
+.row.head { cursor: default; padding-block: 8px; }
+.row.head:hover { background: none; }
+.row.head > span { font: 600 var(--fs-xs) var(--mono); text-transform: uppercase; letter-spacing: var(--track-wide); color: var(--muted); }
+.rk-row { grid-template-columns: 56px 72px 56px minmax(180px, 2fr) 150px 170px; }
+/* timing-tower position: mono number, thin tier bar */
+.pos { align-self: stretch; display: grid; place-items: center; border-left: 2px solid var(--line); font: 600 var(--fs-lg)/1 var(--mono); }
+.pos.S { border-left-color: var(--s); } .pos.A { border-left-color: var(--a); } .pos.B { border-left-color: var(--b); } .pos.C { border-left-color: var(--c); }
+.row.head .pos { border-left-color: transparent; }
+.im { display: block; line-height: 0; }
+.car-img { display: block; height: auto; max-width: 100%; object-fit: contain; }
+.car-img-s { width: 72px; aspect-ratio: 16 / 9; }
+.nm b { display: block; font-weight: 600; } .nm small { color: var(--muted); font-size: var(--fs-sm); margin-right: 8px; }
+/* tier as bracket label in tier colour: [S] */
+.tier { display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 28px; font: 600 var(--fs-base) var(--mono); }
+.tier::before { content: "[" / ""; color: var(--muted); } .tier::after { content: "]" / ""; color: var(--muted); }
+.tier.S { color: var(--s); } .tier.A { color: var(--a); } .tier.B { color: var(--b); } .tier.C { color: var(--c); }
+/* track set */
+.set { display: inline-block; font: 600 var(--fs-xs)/1.9 var(--mono); text-transform: uppercase; letter-spacing: .08em; padding: 0 8px; border: 1px solid currentColor;
+  border-radius: 2px; white-space: nowrap; background: color-mix(in srgb, currentColor 8%, transparent); }
+.set.h { color: var(--h); } .set.m { color: var(--m); } .set.l { color: var(--l); }
+/* verdict: glyph + word, never colour alone */
+.v { font-weight: 600; white-space: nowrap; font-size: var(--fs-sm); }
+.v.buff { color: var(--buff); } .v.nerf { color: var(--nerf); } .v.mixed { color: var(--mixed); }
+.v.buff::before { content: "▲ " / ""; } .v.nerf::before { content: "▼ " / ""; } .v.mixed::before { content: "◆ " / ""; }
+.lc small { color: var(--muted); margin-left: 6px; }
+.badge { display: inline-block; font: 500 var(--fs-xs)/1.5 var(--mono); letter-spacing: .02em; padding: 2px 8px; border-radius: 2px; margin-top: 4px; }
+.badge.lb { color: var(--buff); background: color-mix(in srgb, var(--buff) 11%, var(--panel)); }
+.badge.est { color: var(--muted); background: var(--panel-2); }
+.note { font-size: var(--fs-sm); color: var(--muted); margin: 12px 0 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; }
+
+/* ===== Daily Race card (same classes as week.js) ===== */
+.race-head { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-bottom: 10px; }
+.race-head h2 { margin: 0; letter-spacing: .06em; }
+.letter { display: inline-grid; place-items: center; min-width: 52px; height: 52px; border: 1px solid var(--line-hi); border-radius: var(--radius);
+  font: 700 1.8rem var(--head); background: var(--chrome); -webkit-background-clip: text; background-clip: text; color: transparent; }
+:root[data-theme="light"] .letter { border-color: var(--tick); }
+.race-feat { position: relative; isolation: isolate; margin-left: auto; width: min(240px, 100%); }
+.race-feat::before { content: ""; position: absolute; z-index: -1; inset: 30% 0 0; background: radial-gradient(closest-side, var(--glow), transparent); }
+:root[data-theme="light"] .race-feat::before { background: radial-gradient(closest-side, rgba(255, 255, 255, .95), transparent); }
+.race-feat .car-img { width: 100%; aspect-ratio: 16 / 9; }
+.feat-tag { position: absolute; left: 0; top: 4px; }
+.rules { font-weight: 600; }
+.balance { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.balance b { font: 600 var(--fs-lg) var(--mono); }
+.race-cars { list-style: none; margin: 8px 0 0; padding: 0; counter-reset: rc; }
+.race-cars li { display: grid; grid-template-columns: 1.6em 72px minmax(0, 1fr); align-items: center; gap: 6px 12px; padding: 10px 0; border-top: 1px solid var(--line); counter-increment: rc; }
+.race-cars li::before { content: counter(rc, decimal-leading-zero); font: 600 var(--fs-sm) var(--mono); color: var(--muted); text-align: center; }
+.rc-body { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.rc-name { font-weight: 600; }
+.why { color: var(--muted); font-size: var(--fs-sm); flex-basis: 100%; }
+.btn { display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 20px; border-radius: var(--radius); cursor: pointer; text-decoration: none;
+  font: 600 var(--fs-sm) var(--mono); text-transform: uppercase; letter-spacing: .1em; border: 0; background: var(--btn-bg); color: var(--btn-text); }
+.btn.ghost { background: none; color: var(--text); border: 1px solid var(--line-hi); }
+:root[data-theme="light"] .btn.ghost { border-color: var(--tick); }
+
+/* ===== car hero (phase 2 + 3): black stage in both themes ===== */
+.stage { --text: #e8ebef; --muted: #9ba4ae; --line: #2a2f36; --line-hi: #4a525c; --tick: #6b737d; --panel: #000; --panel-2: #121418;
+  --s: #e3c56a; --a: #8fb6e0; --b: #aab2bb; --c: #8f98a2; --buff: #86c9a4;
+  --chrome: linear-gradient(180deg, #ffffff 0%, #d4d8dd 36%, #8d959e 50%, #eef0f2 64%, #a7aeb6 100%);
+  color: var(--text); background: #000; border-color: #1f2328; border-top-color: #3a4048; box-shadow: none;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); grid-template-areas: "txt pic" "spec pic"; gap: 8px 32px; overflow: hidden; color-scheme: dark; }
+.hero-txt { grid-area: txt; min-width: 0; align-self: end; }
+.labels { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 10px; }
+.stage h1 { font-size: calc(var(--fs-h1) * 1.6); line-height: .95; margin: 0 0 14px; overflow-wrap: anywhere;
+  background: var(--chrome); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tower { display: inline-flex; align-items: center; gap: 10px; padding: 4px 14px 4px 10px; background: var(--panel-2); border-left: 2px solid var(--s); }
+.tower b { font: 600 2rem/1.1 var(--mono); }
+.tower > span:last-child { color: var(--muted); font-family: var(--mono); }
+.now { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.hero-pic { grid-area: pic; position: relative; isolation: isolate; align-self: center; padding: 24px 0 0; }
+/* soft white glow + floor line under the car */
+.hero-pic::before { content: ""; position: absolute; z-index: -1; left: -10%; right: -10%; top: 30%; bottom: 0; background: radial-gradient(50% 42% at 50% 62%, rgba(255, 255, 255, .26), transparent 70%); }
+.hero-pic::after { content: ""; position: absolute; left: 6%; right: 6%; top: calc(24px + 52%); height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .45), transparent); }
+.hero-pic .car-img { width: 100%; aspect-ratio: 16 / 9; position: relative;
+  filter: drop-shadow(-1px 0 0 rgba(255, 50, 110, .35)) drop-shadow(1px 0 0 rgba(60, 200, 255, .35)); }
+.hero-pic .refl { transform: scaleY(-1); margin-top: -12%; opacity: .22; filter: blur(1px);
+  -webkit-mask-image: linear-gradient(to top, #000, transparent 45%); mask-image: linear-gradient(to top, #000, transparent 45%); }
+.spec-sheet { grid-area: spec; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 12px 0 0; border-top: 1px solid var(--line); align-self: start; }
+.spec-sheet div { padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); }
+.spec-sheet dt { font: 600 var(--fs-xs)/1.4 var(--mono); text-transform: uppercase; letter-spacing: var(--track-wide); color: var(--muted); }
+.spec-sheet dd { margin: 0; font: 600 var(--fs-lg)/1.3 var(--mono); }
+.spec-sheet dd small { font-size: var(--fs-sm); color: var(--muted); font-weight: 400; margin-left: 4px; }
+/* phase 3: decorative vertical katakana */
+.jp { position: absolute; right: 14px; top: 16px; margin: 0; writing-mode: vertical-rl; font: 700 1.1rem/1 var(--jp); letter-spacing: .5em; color: var(--muted); opacity: .75; }
+.jp span { display: block; margin-top: 1em; font-size: 4.2rem; letter-spacing: .08em; color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, .18); }
+.stage .cap.corner { position: absolute; left: 24px; bottom: 10px; margin: 0; }
+
+/* ===== BoP history rows (same classes as car.js) ===== */
+.crow { grid-template-columns: 70px 120px 110px minmax(160px, 1.6fr) 100px 120px; }
+.delta { display: inline-block; padding: 0 6px; margin: 2px 4px 2px 0; border-radius: 2px; font: 600 var(--fs-sm) var(--mono); white-space: nowrap; }
+.delta.up { color: var(--buff); background: color-mix(in srgb, var(--buff) 11%, var(--panel)); }
+.delta.down { color: var(--nerf); background: color-mix(in srgb, var(--nerf) 11%, var(--panel)); }
+.delta.up::before { content: "▲ " / ""; } .delta.down::before { content: "▼ " / ""; }
+.row.sel { background: var(--hover); box-shadow: inset 2px 0 0 var(--text); }
+
+footer { text-align: center; color: var(--muted); font-size: var(--fs-sm); padding: 24px 16px; border-top: 1px solid var(--line); }
+
+/* ===== responsive (mirrors the live breakpoints) ===== */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; } .hero-mark { display: none; }
+  .jp { display: none; }
+  .crow { grid-template-columns: 70px 1fr auto; } .crow > :nth-child(2), .crow > :nth-child(5) { display: none; }
+  .stage { grid-template-columns: minmax(0, 1fr); grid-template-areas: "pic" "txt" "spec"; }
+}
+@media (min-width: 701px) and (max-width: 900px) {
+  .rk-row { grid-template-columns: 48px 72px 52px 1fr 160px; grid-template-areas: "pos im lv nm bs" "pos im lv nm lc"; row-gap: 4px; }
+  .rk-row .pos { grid-area: pos; } .rk-row .im { grid-area: im; } .rk-row .lv { grid-area: lv; } .rk-row .nm { grid-area: nm; } .rk-row .bs { grid-area: bs; } .rk-row .lc { grid-area: lc; }
+}
+@media (max-width: 700px) {
+  .rk-row { grid-template-columns: 40px 72px 1fr; grid-template-areas: "pos im nm" "pos lv bs" "pos lv lc"; row-gap: 4px; }
+  .rk-row .pos { grid-area: pos; } .rk-row .im { grid-area: im; } .rk-row .nm { grid-area: nm; }
+  .rk-row .lv { grid-area: lv; justify-self: center; align-self: start; } .rk-row .bs { grid-area: bs; } .rk-row .lc { grid-area: lc; }
+  .rk-row.head { display: none; }
+  .hero h1 { font-size: 1.9rem; } .stage h1 { font-size: 2.6rem; }
+  .race-feat { flex-basis: 100%; max-width: 280px; margin: 0 auto; }
+  .spec-sheet { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .top { gap: 8px; position: static; } .tools { margin-left: auto; }
+  nav { order: 3; flex: 0 0 100%; overflow-x: auto; gap: 0; }
+  nav a { white-space: nowrap; padding: 8px 8px; font-size: .78rem; letter-spacing: .05em; }
+  .brand { flex: 1 1 0; min-width: 0; overflow: hidden; white-space: nowrap; font-size: 1.25rem; padding-left: 6px; margin-left: -6px; }
+  .panel { padding: 18px 16px; }
+  .seg button { padding: 0 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#app">Skip to content</a>
+<header class="top">
+  <a class="brand" href="#"><span class="stripe" aria-hidden="true"><i></i><i></i><i></i></span>GT7 <b>BoP</b> Radar</a>
+  <nav aria-label="Main">
+    <a href="#" class="on" aria-current="page">Home</a>
+    <a href="#race">This week</a>
+    <a href="#hist">BoP updates</a>
+    <a href="#">Help</a>
+  </nav>
+  <div class="tools">
+    <button class="icon-btn" id="theme" type="button" aria-label="Switch to light theme">◐</button>
+    <div class="lang" role="group" aria-label="Language"><button class="on" aria-pressed="true">EN</button><button aria-pressed="false">PT</button></div>
+  </div>
+</header>
+
+<main id="app" tabindex="-1">
+  <p class="mock-note cap">Design mockup · chrome v0 · real data from 2026-10-18 · toggle ◐ for the silver theme</p>
+
+  <!-- 00 home hero -->
+  <section class="panel hero" aria-labelledby="h-home">
+    <div>
+      <p class="cap">00 / Radar · update <b>1.72</b> · 15 Oct 2026</p>
+      <h1 id="h-home">How did BoP change your car?</h1>
+      <p class="lead">Polyphony re-balances power and weight every few weeks. See what changed for your car, and which cars are fastest right now.</p>
+      <label class="find-label cap" for="car-q">Find your car</label>
+      <div class="search"><input id="car-q" type="search" autocomplete="off" placeholder="e.g. Ferrari 296"></div>
+      <div class="spec-line"><span class="br">Gr.1 · 26</span><span class="br">Gr.2 · 10</span><span class="br">Gr.3 · 52</span><span class="br">Gr.4 · 34</span></div>
+    </div>
+    <div class="hero-mark" aria-hidden="true"><span class="stripe"><i></i><i></i><i></i></span><p class="cap">Fig. 01 · BoP mark</p></div>
+  </section>
+
+  <!-- 01 ranking -->
+  <section class="panel" aria-labelledby="h-rank">
+    <header class="sec-head"><p class="cap">01 / Ranking · <b>Gr.3</b> · medium tracks</p><h2 id="h-rank">Cars by class</h2></header>
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="Class">
+        <button type="button" aria-pressed="false">Gr.1 <small>26</small></button><button type="button" aria-pressed="false">Gr.2 <small>10</small></button>
+        <button type="button" class="on" aria-pressed="true">Gr.3 <small>52</small></button><button type="button" aria-pressed="false">Gr.4 <small>34</small></button>
+      </div>
+      <div class="seg" role="group" aria-label="Track type">
+        <button type="button" aria-pressed="false">Fast</button><button type="button" class="on" aria-pressed="true">Medium</button><button type="button" aria-pressed="false">Slow</button>
+      </div>
+    </div>
+    <div class="rows">
+      <div class="row rk-row head"><span class="pos">#</span><span class="im"></span><span class="lv">Tier</span><span class="nm">Car</span><span class="bs">Best on</span><span class="lc">Last change</span></div>
+      <a class="row rk-row" href="#car"><span class="pos S">1</span><span class="im"><img class="car-img car-img-s" src="https://francmarra.github.io/bop-radar/img/cars/genesis-gr-3-s.webp" alt="" width="72" height="41" loading="lazy"></span><span class="lv"><span class="tier S" aria-label="Tier S">S</span></span>
+        <span class="nm"><b>Genesis Gr.3</b><small>Hyundai · FR</small><span class="badge lb">Earlier races (3,538 laps)</span></span><span class="bs"><span class="set m">Medium</span></span><span class="lc"><span class="v buff">Faster</span><small class="mono">1.71</small></span></a>
+      <a class="row rk-row" href="#car"><span class="pos S">2</span><span class="im"><img class="car-img car-img-s" src="https://francmarra.github.io/bop-radar/img/cars/wrx-gr-3-s.webp" alt="" width="72" height="41" loading="lazy"></span><span class="lv"><span class="tier S" aria-label="Tier S">S</span></span>
+        <span class="nm"><b>WRX Gr.3</b><small>Subaru · FR</small><span class="badge lb">Earlier races (1,575 laps)</span></span><span class="bs"><span class="set m">Medium</span></span><span class="lc"><span class="v buff">Faster</span><small class="mono">1.66</small></span></a>
+      <a class="row rk-row" href="#car"><span class="pos S">3</span><span class="im"><img class="car-img car-img-s" src="https://francmarra.github.io/bop-radar/img/cars/brz-gt300-21-s.webp" alt="" width="72" height="41" loading="lazy"></span><span class="lv"><span class="tier S" aria-label="Tier S">S</span></span>
+        <span class="nm"><b>BRZ GT300 '21</b><small>Subaru · FR</small><span class="badge lb">Earlier races (2,109 laps)</span></span><span class="bs"><span class="set m">Medium</span></span><span class="lc"><span class="v buff">Faster</span><small class="mono">1.66</small></span></a>
+      <a class="row rk-row" href="#car"><span class="pos S">4</span><span class="im"><img class="car-img car-img-s" src="https://francmarra.github.io/bop-radar/img/cars/f-type-gr-3-s.webp" alt="" width="72" height="41" loading="lazy"></span><span class="lv"><span class="tier S" aria-label="Tier S">S</span></span>
+        <span class="nm"><b>F-type Gr.3</b><small>Jaguar · FR</small><span class="badge lb">Earlier races (255 laps)</span></span><span class="bs"><span class="set h">Fast</span></span><span class="lc"><span class="v buff">Faster</span><small class="mono">1.71</small></span></a>
+      <a class="row rk-row" href="#car"><span class="pos S">5</span><span class="im"><img class="car-img car-img-s" src="https://francmarra.github.io/bop-radar/img/cars/lancer-evolution-final-edition-gr-3-s.webp" alt="" width="72" height="41" loading="lazy"></span><span class="lv"><span class="tier S" aria-label="Tier S">S</span></span>
+        <span class="nm"><b>Lancer Evolution Final Edition Gr.3</b><small>Mitsubishi · FR</small><span class="badge est">Estimate</span></span><span class="bs"><span class="set h">Fast</span></span><span class="lc"><span class="v buff">Faster</span><small class="mono">1.66</small></span></a>
+      <a class="row rk-row" href="#car"><span class="pos A">6</span><span class="im"><img class="car-img car-img-s" src="https://francmarra.github.io/bop-radar/img/cars/viper-srt-gt3-r-15-s.webp" alt="" width="72" height="41" loading="lazy"></span><span class="lv"><span class="tier A" aria-label="Tier A">A</span></span>
+        <span class="nm"><b>Viper SRT GT3-R '15</b><small>Dodge · FR</small><span class="badge est">Estimate</span></span><span class="bs"><span class="set l">Slow</span></span><span class="lc"><span class="v nerf">Slower</span><small class="mono">1.71</small></span></a>
+    </div>
+    <div class="legend small"><span class="v buff">Faster</span><span class="v nerf">Slower</span><span class="v mixed">Mixed</span>
+      <span><span class="tier S">S</span> <span class="tier A">A</span> <span class="tier B">B</span> <span class="tier C">C</span></span>
+      <span><span class="set h">Fast</span> <span class="set m">Medium</span> <span class="set l">Slow</span></span></div>
+    <p class="note">Ranked by real lap times from Daily Race leaderboards; estimated from PP when there are none.</p>
+  </section>
+
+  <!-- 02 daily race -->
+  <article class="panel race" id="race" aria-labelledby="h-race">
+    <p class="cap">02 / Daily Race · this week · <b>Race B</b></p>
+    <div class="race-head"><span class="letter" aria-hidden="true">B</span>
+      <div><h2 id="h-race">Circuit de Spa-Francorchamps</h2><p class="muted small" style="margin:0"><span class="br">Gr.3</span> <span class="set m">Medium</span></p></div>
+      <div class="race-feat" aria-hidden="true"><img class="car-img" src="https://francmarra.github.io/bop-radar/img/cars/650s-gt3-15-l.webp" alt="" width="240" height="135" loading="lazy"><span class="feat-tag br">P1</span></div>
+    </div>
+    <p class="rules">Tyres: Racing Medium</p>
+    <p class="balance muted small"><span class="cap" style="margin:0">Balance this week</span><b class="mono" style="color:var(--text)">6.2</b> effective cars</p>
+    <h3>Top 5 cars</h3>
+    <ol class="race-cars">
+      <li><img class="car-img car-img-s" src="https://francmarra.github.io/bop-radar/img/cars/650s-gt3-15-s.webp" alt="" width="72" height="41" loading="lazy"><div class="rc-body"><span class="tier A" aria-label="Tier A">A</span> <a class="rc-name" href="#car">650S GT3 '15</a> <span class="badge lb">This week: 10% of the top 100</span></div></li>
+      <li><img class="car-img car-img-s" src="https://francmarra.github.io/bop-radar/img/cars/gr-supra-racing-concept-18-s.webp" alt="" width="72" height="41" loading="lazy"><div class="rc-body"><span class="tier A" aria-label="Tier A">A</span> <a class="rc-name" href="#car">GR Supra Racing Concept '18</a><span class="why">Strong in high-speed corners</span> <span class="badge lb">This week: 18% of the top 100</span></div></li>
+      <li><img class="car-img car-img-s" src="https://francmarra.github.io/bop-radar/img/cars/f-type-gr-3-s.webp" alt="" width="72" height="41" loading="lazy"><div class="rc-body"><span class="tier S" aria-label="Tier S">S</span> <a class="rc-name" href="#car">F-type Gr.3</a><span class="why">Strong acceleration</span> <span class="badge lb">This week: 29% of the top 100</span></div></li>
+      <li><img class="car-img car-img-s" src="https://francmarra.github.io/bop-radar/img/cars/m6-gt3-sprint-model-16-s.webp" alt="" width="72" height="41" loading="lazy"><div class="rc-body"><span class="tier A" aria-label="Tier A">A</span> <a class="rc-name" href="#car">M6 GT3 Sprint Model '16</a><span class="why">Strong in high-speed corners</span> <span class="badge lb">This week: 5% of the top 100</span></div></li>
+      <li><img class="car-img car-img-s" src="https://francmarra.github.io/bop-radar/img/cars/genesis-gr-3-s.webp" alt="" width="72" height="41" loading="lazy"><div class="rc-body"><span class="tier A" aria-label="Tier A">A</span> <a class="rc-name" href="#car">Genesis Gr.3</a><span class="why">Strong acceleration</span> <span class="badge lb">This week: 16% of the top 100</span></div></li>
+    </ol>
+    <div style="margin-top:14px"><button type="button" class="btn ghost">Copy summary</button></div>
+  </article>
+
+  <!-- 03 car hero: phase 2 (stage + spec sheet) + phase 3 (vertical katakana) -->
+  <section class="panel stage" id="car" aria-labelledby="h-car">
+    <div class="hero-txt">
+      <p class="cap">03 / Car · phase 2 preview</p>
+      <div class="labels"><span class="br">Gr.3</span><span class="br">Jaguar</span><span class="br">FR</span><span class="br" style="color:var(--s)">Tier S</span></div>
+      <h1 id="h-car">F-type Gr.3</h1>
+      <div class="now"><span class="tower"><span class="tier S" aria-label="Tier S">S</span><b>P4</b><span>/ 52</span></span><span class="badge lb">Earlier races (255 laps)</span></div>
+    </div>
+    <div class="hero-pic">
+      <img class="car-img" src="https://francmarra.github.io/bop-radar/img/cars/f-type-gr-3-l.webp" alt="Jaguar F-type Gr.3" width="640" height="360" onerror="this.style.visibility='hidden'">
+      <img class="car-img refl" src="https://francmarra.github.io/bop-radar/img/cars/f-type-gr-3-l.webp" alt="" width="640" height="360" aria-hidden="true" onerror="this.style.display='none'">
+    </div>
+    <dl class="spec-sheet">
+      <div><dt>Power</dt><dd>476<small>PS</small></dd></div>
+      <div><dt>Weight</dt><dd>1,260<small>kg</small></dd></div>
+      <div><dt>PS / t</dt><dd>377.8</dd></div>
+      <div><dt>PP</dt><dd>687.78</dd></div>
+      <div><dt>Balance F:R</dt><dd>52:48</dd></div>
+      <div><dt>Handling</dt><dd>Neutral</dd></div>
+    </dl>
+    <p class="jp" aria-hidden="true">グループ3<span>バランス</span></p>
+    <p class="cap corner" aria-hidden="true">Spec sheet · v1.72</p>
+  </section>
+
+  <!-- 04 BoP history -->
+  <section class="panel" id="hist" aria-labelledby="h-hist">
+    <header class="sec-head"><p class="cap">04 / History · F-type Gr.3 · medium tracks</p><h2 id="h-hist">BoP changes</h2></header>
+    <div class="rows">
+      <div class="row crow head"><span>Version</span><span>Date</span><span>Verdict</span><span>Power / weight</span><span>PP</span><span>PP rank</span></div>
+      <button type="button" class="row crow sel"><span class="mono">1.71</span><span class="muted mono">2026-08-20</span><span><span class="v buff">Faster</span></span>
+        <span><span class="delta up">−5 kg</span><span class="delta up">+1.5 PS/t</span></span><span class="mono">687.78</span><span class="mono">12/52 <span class="tier A" aria-label="Tier A">A</span></span></button>
+      <button type="button" class="row crow"><span class="mono">1.66</span><span class="muted mono">2025-12-11</span><span><span class="v buff">Faster</span></span>
+        <span><span class="delta up">+5 PS</span><span class="delta down">+11 kg</span><span class="delta up">+0.7 PS/t</span></span><span class="mono">695.60</span><span class="mono">10/52 <span class="tier A" aria-label="Tier A">A</span></span></button>
+      <button type="button" class="row crow"><span class="mono">1.60</span><span class="muted mono">2025-06-26</span><span><span class="v buff">Faster</span></span>
+        <span><span class="delta up">−11 kg</span><span class="delta up">+3.3 PS/t</span></span><span class="mono">694.77</span><span class="mono">11/50 <span class="tier A" aria-label="Tier A">A</span></span></button>
+    </div>
+  </section>
+</main>
+<footer>BoP: GT ENG!NE · leaderboards: gtsh-rank · not affiliated with Polyphony Digital · Car images © Polyphony Digital Inc. / Sony Interactive Entertainment</footer>
+<script>
+  // mockup only: flip data-theme on <html>
+  const b = document.getElementById("theme"), r = document.documentElement;
+  b.onclick = () => { const light = r.dataset.theme !== "light"; r.dataset.theme = light ? "light" : "dark"; b.setAttribute("aria-label", light ? "Switch to dark theme" : "Switch to light theme"); };
+</script>
+</body>
+</html>

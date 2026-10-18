@@ -3,19 +3,19 @@ import assert from "node:assert/strict";
 import { esc, num, fold, signed, signedNeutral } from "../../site/js/format.js";
 
 test("signedNeutral shows direction without good/bad colour (PP)", () => {
-  const up = signedNeutral(12.99), down = signedNeutral(-1.25);
+  const up = String(signedNeutral(12.99)), down = String(signedNeutral(-1.25));
   for (const h of [up, down]) assert.ok(!/\b(up|down)\b/.test(h), h);
   assert.equal(up, '<span class="delta flat rise">+12.99</span>');
   assert.equal(down, '<span class="delta flat fall">-1.25</span>');
-  assert.equal(signedNeutral(0), '<span class="delta flat">0</span>');
-  assert.equal(signedNeutral(undefined), "");
+  assert.equal(String(signedNeutral(0)), '<span class="delta flat">0</span>');
+  assert.equal(String(signedNeutral(undefined)), "");
 });
 
 test("signed renders delta chips (up = faster)", () => {
-  assert.equal(signed(10, " PS"), '<span class="delta up">+10 PS</span>');
-  assert.equal(signed(20, " kg", true), '<span class="delta down">+20 kg</span>');
-  assert.equal(signed(-20, " kg", true), '<span class="delta up">-20 kg</span>');
-  assert.equal(signed(null), "");
+  assert.equal(String(signed(10, " PS")), '<span class="delta up">+10 PS</span>');
+  assert.equal(String(signed(20, " kg", true)), '<span class="delta down">+20 kg</span>');
+  assert.equal(String(signed(-20, " kg", true)), '<span class="delta up">-20 kg</span>');
+  assert.equal(String(signed(null)), "");
 });
 
 test("esc escapes HTML special characters", () => {

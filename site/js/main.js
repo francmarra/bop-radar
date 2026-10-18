@@ -1,6 +1,6 @@
 /* GT7 BoP Radar — static SPA with real paths: / · week/ · updates/ · update/<v>/ · car/<id>/ · help/ (tracks/, track/<id>/<g>/ unlinked) */
 import { t, lang, setLang } from "./i18n.js";
-import { esc } from "./format.js";
+import { html } from "./format.js";
 import { getIndex, getImages, store } from "./data.js";
 import { app } from "./ui.js";
 import { initTheme, toggleTheme } from "./theme.js";
@@ -50,7 +50,7 @@ async function route() {
     else if (page === "help" || page === "about") helpPage();
     else await homePage();
   } catch (e) {
-    app.innerHTML = `<div class="panel" role="alert"><h1>${t("load_error")}</h1><p class="muted small">${esc(e.message)}</p><button type="button" class="btn" id="retry">${t("retry")}</button></div>`;
+    app.innerHTML = html`<div class="panel" role="alert"><h1>${t("load_error")}</h1><p class="muted small">${e.message}</p><button type="button" class="btn" id="retry">${t("retry")}</button></div>`;
     app.querySelector("#retry").onclick = () => route();
   }
   const h1 = app.querySelector("h1");

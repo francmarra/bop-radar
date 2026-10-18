@@ -39,7 +39,7 @@ test("every glossary term has help text and a name in EN and PT", () => {
 });
 test("info() renders an accessible toggle", () => {
   setLang("en");
-  const html = info("pp", t);
+  const html = String(info("pp", t));
   assert.match(html, /<button type="button" class="info" aria-expanded="false" aria-controls="tip-pp-\d+"/);
   assert.match(html, /aria-label="More about PP"/);
   assert.match(html, /role="tooltip" id="tip-pp-\d+" class="tip" hidden>Performance Points/);

@@ -6,19 +6,19 @@ const { carImg } = await import("../../site/js/carimg.js");
 
 test("carImg renders sized lazy image", () => {
   store.images = { a: [320, 180] };
-  const l = carImg("a", "l", "A");
+  const l = String(carImg("a", "l", "A"));
   assert.match(l, /width="320" height="180"/);
   assert.match(l, /loading="lazy"/);
   assert.match(l, /alt="A"/);
   assert.match(l, /img\/cars\/a-l\.webp/);
-  const s = carImg("a", "s");
+  const s = String(carImg("a", "s"));
   assert.match(s, /width="160" height="90"/);
   assert.match(s, /alt=""/);
 });
 
 test("carImg falls back to silhouette", () => {
   store.images = {};
-  const h = carImg("zz", "l", "x");
+  const h = String(carImg("zz", "l", "x"));
   assert.ok(h.includes("car-sil") && h.includes('aria-hidden="true"'));
   assert.ok(!h.includes("<img"));
 });
@@ -41,7 +41,7 @@ test("getImages falls back to empty", async () => {
 
 test("carImg eager hero", () => {
   store.images = { a: [320, 180] };
-  const h = carImg("a", "l", "", true);
+  const h = String(carImg("a", "l", "", true));
   assert.match(h, /loading="eager" fetchpriority="high"/);
   assert.ok(!h.includes('loading="lazy"'));
 });
@@ -50,5 +50,5 @@ test("carImg ignores prototype keys and encodes ids", () => {
   store.images = { "a b": [320, 180] };
   assert.ok(carImg("__proto__", "l").includes("car-sil"));
   assert.ok(carImg("constructor", "l").includes("car-sil"));
-  assert.match(carImg("a b", "l"), /img\/cars\/a%20b-l\.webp/);
+  assert.match(String(carImg("a b", "l")), /img\/cars\/a%20b-l\.webp/);
 });

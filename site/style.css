@@ -176,8 +176,9 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
   .row.head .tr, .row.head .sm { display: none; }
 }
 @media (max-width: 640px) {
-  .top { gap: 8px; } .tools { margin-left: auto; flex: none; } nav { order: 3; flex: 0 0 100%; overflow-x: auto; gap: 2px; scrollbar-width: thin; }
-  nav a { white-space: nowrap; padding: 8px; font-size: .9rem; } /* one line per tab; fits 375 px in EN, scrolls inside nav otherwise */
+  .top { gap: 8px; position: static; } /* a sticky 2-row header would take ~15 % of a phone screen */ .tools { margin-left: auto; flex: none; } nav { order: 3; flex: 0 0 100%; overflow-x: auto; gap: 2px; scrollbar-width: thin; }
+  nav a { white-space: nowrap; padding: 8px 6px; font-size: .9rem; } /* one line per tab; fits 375 px, scrolls inside nav otherwise */
+  nav.more { mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); } /* hints at hidden tabs */
   /* brand shrinks instead of wrapping the tools onto a new row while the web font loads (CLS) */
   .brand { flex: 1 1 0; min-width: 0; overflow: hidden; white-space: nowrap; font-size: 1.3rem;
     padding-left: 6px; margin-left: -6px; } .stripe { flex: none; } /* room for the skewed stripe inside the clip */

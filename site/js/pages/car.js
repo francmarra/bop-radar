@@ -94,6 +94,7 @@ function chart(hist, key) {
   }).join("");
   const ticks = [0, 0.5, 1].map((f) => { const v = lo + f * (hi - lo); return `<text x="${P.l - 6}" y="${y(v) + 4}" text-anchor="end">${v.toFixed(key === "pp" ? 1 : 0)}</text><line x1="${P.l}" x2="${W - P.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/>`; }).join("");
   const step = Math.ceil(hist.length / 8);
-  const xl = hist.map((e, i) => (i % step === 0 || i === hist.length - 1 ? `<text x="${x(i)}" y="${H - 8}" text-anchor="middle">${esc(e.v)}</text>` : "")).join("");
+  const last = hist.length - 1; // last label ends at the edge so it isn't clipped; skip a step label that would collide with it
+  const xl = hist.map((e, i) => (i === last || (i % step === 0 && last - i >= step / 2) ? `<text x="${x(i)}" y="${H - 8}" text-anchor="${i === last && i ? "end" : "middle"}">${esc(e.v)}</text>` : "")).join("");
   return `<svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${esc(key)}">${ticks}${lines}${xl}</svg>`;
 }

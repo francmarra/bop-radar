@@ -120,7 +120,7 @@ def test_update_week_rejects_partial_markup_change(tmp_path):
     assert update_week(tmp_path, fetch=lambda url: no_tracks, log=lambda *a: None, ranking=NO_LIVE) is False
 
 
-NO_LIVE = lambda url: ([], {})
+NO_LIVE = lambda url, depth: ([], {})
 NAMES = {"#CAR1": "Genesis Genesis Gr.3", "#CAR2": "Jaguar F-type Gr.3", "#CAR3": "Unknown Car Gr.3"}
 
 
@@ -148,7 +148,7 @@ def test_build_week_live_works_without_track_history():
 
 
 def test_build_week_thin_or_missing_live_falls_back_to_history():
-    thin = {"B": (_rows([(1, 100, 137000)]), NAMES)}
+    thin = {"B": (_rows([(1, 60, 137000)]), NAMES)}
     for live in (thin, {}, {"C": (_rows([(1, 300, 137000)]), NAMES)}):
         race = build_week([_race()], TRACKS, INDEX, "d", live)["weeks"][0]["races"][0]
         assert [c["source"] for c in race["cars"]] == ["real", "estimate", "estimate"]
@@ -163,7 +163,8 @@ def test_build_week_live_ignored_for_next_week():
 
 def test_live_rankings_reads_only_running_boards_and_skips_failures():
     calls = []
-    def ranking(url):
+    def ranking(url, depth):
+        assert depth == 100
         calls.append(url)
         if "1014979" in url or len(calls) == 2:
             raise OSError("timeout")
@@ -179,7 +180,7 @@ def test_update_week_uses_live_data(tmp_path):
     (tmp_path / "tracks.json").write_text(json.dumps(TRACKS), encoding="utf-8")
     (tmp_path / "index.json").write_text(json.dumps(INDEX), encoding="utf-8")
     rows = _rows([(2, 120, 137000), (1, 120, 137200)])
-    assert update_week(tmp_path, fetch=lambda url: FIXTURE, log=lambda *a: None, ranking=lambda url: (rows, NAMES)) is True
+    assert update_week(tmp_path, fetch=lambda url: FIXTURE, log=lambda *a: None, ranking=lambda url, depth: (rows, NAMES)) is True
     spa = json.loads((tmp_path / "week.json").read_text(encoding="utf-8"))["weeks"][0]["races"][1]
     assert [(c["id"], c["source"], c["share"]) for c in spa["cars"]] == [("f-type", "live", 50), ("genesis", "live", 50)]
 
@@ -191,3 +192,12 @@ def test_running_boards_never_enter_history(tmp_path, monkeypatch):
     monkeypatch.setattr(leaderboards, "fetch_ranking", lambda url: (_ for _ in ()).throw(AssertionError("fetched " + url)))
     assert leaderboards.update(tmp_path, pages=1, log=lambda *a: None) == 0
     assert list(tmp_path.iterdir()) == []
+
+
+def test_fetch_ranking_stops_at_depth(monkeypatch):
+    import json
+    from gt7bop import leaderboards
+    page = json.dumps({"board": [{"score": i} for i in range(200)], "has_more": True})
+    monkeypatch.setattr(leaderboards, "_get", lambda url: page if "page_data" in url else "const carNames = {};")
+    monkeypatch.setattr(leaderboards, "time", type("T", (), {"sleep": staticmethod(lambda s: None)}))
+    assert len(leaderboards.fetch_ranking("/daily/leaderboard/?event=x", 100)[0]) == 100

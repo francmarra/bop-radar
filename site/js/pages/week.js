@@ -10,7 +10,7 @@ let shown = "this";
 const pageUrl = () => location.origin + link("week/");
 const classLabel = (r) => (r.group ? "Gr." + r.group.slice(2) : r.kind === "one-make" ? t("one_make_label") : r.category);
 const carId = (c) => findCar(store.index, c)?.id ?? c?.id ?? "";
-const srcText = (c) => (c.source === "live" ? t("src_live", c.share, c.laps) : c.source === "real" ? t("src_real", c.laps) : t("src_est"));
+const srcText = (c) => (c.source === "live" ? t("src_live", c.share) : c.source === "real" ? t("src_real", c.laps) : t("src_est"));
 const isMult = (x) => (parseFloat(String(x ?? "").replace(/[^\d.]/g, "")) || 1) !== 1;
 
 function body(r) {

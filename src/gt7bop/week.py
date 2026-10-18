@@ -15,7 +15,8 @@ CARD_RE = re.compile(r"<article class=\"daily-race-card([^\"]*)\">(.*?)</article
 SET_STRENGTHS = {"h": ["straight-line speed", "high-speed cornering"], "m": ["high-speed cornering", "acceleration"],
                  "l": ["low-speed cornering", "acceleration"]}
 TOP_N = 5
-LIVE_MIN_LAPS = 200  # early in the week a running board is too thin to beat the history
+LIVE_DEPTH = 100  # this week's guide reads the elite: the top 100 laps of each running board
+LIVE_MIN_LAPS = LIVE_DEPTH  # early in the week a board that is not full yet is too thin to beat the history
 TYRE_RE = re.compile(r'class="tire-ring tire-[a-z]+ ?[^"]*"[^>]*>([A-Z]{1,2})<')
 
 
@@ -65,7 +66,7 @@ def live_rankings(page: str, ranking=fetch_ranking, log=print) -> dict[str, tupl
         if ev["final"]:
             continue
         try:
-            out[ev["race"]] = ranking(ev["url"])
+            out[ev["race"]] = ranking(ev["url"], LIVE_DEPTH)
         except Exception as e:  # noqa: BLE001 — the race falls back to the history
             log(f"week: no live data for race {ev['race']} ({e})")
     return out

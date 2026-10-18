@@ -6,6 +6,7 @@ import { app, verdict, tierBadge, setBadge, deltaText, fmtDate } from "../ui.js"
 import { mountSearch } from "../search.js";
 import { mostAffected, classSentence } from "../bop.js";
 import { weekStrip } from "./week.js";
+import { carImg } from "../carimg.js";
 
 
 export async function homePage() {
@@ -16,7 +17,7 @@ export async function homePage() {
     const cars = mostAffected(detail.groups[g.id]);
     return `<div class="card cls"><h3>${esc(g.label)}</h3><p class="cls-sentence">${esc(classSentence(u.counts?.[g.id], g.label, t))}</p>
       ${cars.length ? `<p class="small muted">${t("most_affected")}</p><ul class="affected">${cars.map((c) => `
-        <li><a href="${BASE}car/${encodeURIComponent(c.id)}/">${esc(c.name)}</a> ${verdict(c.verdict)} <span class="mono small">${deltaText(c.delta)}</span></li>`).join("")}</ul>` : ""}</div>`;
+        <li>${carImg(c.id, "s")}<div><a href="${BASE}car/${encodeURIComponent(c.id)}/">${esc(c.name)}</a> ${verdict(c.verdict)} <span class="mono small">${deltaText(c.delta)}</span></div></li>`).join("")}</ul>` : ""}</div>`;
   }).join("");
 
   app.innerHTML = `
@@ -63,10 +64,10 @@ function renderRanking() {
     .map((c) => {
       const s = c.sets[state.set], lc = c.last_change;
       return `<a class="row rk-row" href="${BASE}car/${encodeURIComponent(c.id)}/">
-        <span class="rk mono">${s.rank}</span><span class="lv">${tierBadge(s.tier)}</span>
+        <span class="pos ${esc(s.tier)}">${s.rank}</span><span class="im">${carImg(c.id, "s")}</span><span class="lv">${tierBadge(s.tier)}</span>
         <span class="nm"><b>${esc(c.name)}</b><small>${esc(c.maker)} · ${esc(c.drivetrain)}</small>${sourceBadge(s, t)}</span>
         <span class="bs">${setBadge(c.best_set)}</span>
         <span class="lc">${lc ? `${verdict(lc.verdict)} <small class="mono">${esc(lc.v)}</small>` : "—"}</span></a>`;
     }).join("");
-  app.querySelector("#ranking").innerHTML = `<div class="rows"><div class="row rk-row head"><span class="rk">#</span><span>${t("col_tier")} ${info("level", t)}</span><span class="nm">${t("col_car")}</span><span class="bs">${t("col_best")} ${info("track_types", t)}</span><span class="lc">${t("col_last")}</span></div>${rows}</div>`;
+  app.querySelector("#ranking").innerHTML = `<div class="rows"><div class="row rk-row head"><span class="pos">#</span><span class="im"></span><span class="lv">${t("col_tier")} ${info("level", t)}</span><span class="nm">${t("col_car")}</span><span class="bs">${t("col_best")} ${info("track_types", t)}</span><span class="lc">${t("col_last")}</span></div>${rows}</div>`;
 }

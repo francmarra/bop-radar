@@ -3,20 +3,22 @@ import { BASE, link } from "../router.js";
 import { esc, info } from "../format.js";
 import { load, store } from "../data.js";
 import { app, tierBadge, fmtDate } from "../ui.js";
-import { rulesText, whyText, summaryText, carLink, isStale } from "../week.js";
+import { rulesText, whyText, summaryText, carLink, findCar, isStale } from "../week.js";
+import { carImg } from "../carimg.js";
 
 let shown = "this";
 const pageUrl = () => location.origin + link("week/");
 const classLabel = (r) => (r.group ? "Gr." + r.group.slice(2) : r.kind === "one-make" ? t("one_make_label") : r.category);
+const carId = (c) => findCar(store.index, c)?.id ?? c?.id ?? "";
 const isMult = (x) => (parseFloat(String(x ?? "").replace(/[^\d.]/g, "")) || 1) !== 1;
 
 function body(r) {
   if (r.kind === "bop") {
     if (!r.cars.length) return `<p class="muted">${t("no_track_data")}</p>`;
     return `<h3>${t("top5")}</h3><ol class="race-cars">${r.cars.map((c) => `
-      <li>${tierBadge(c.tier)} <span class="rc-name">${carLink(store.index, c)}</span>
+      <li>${carImg(carId(c), "s")}<div class="rc-body">${tierBadge(c.tier)} <span class="rc-name">${carLink(store.index, c)}</span>
         ${whyText(c.why, t) ? `<span class="why">${esc(whyText(c.why, t))}</span>` : ""}
-        <span class="badge ${c.source === "real" ? "lb" : "est"}">${c.source === "real" ? esc(t("src_real", c.laps)) : t("src_est")}</span></li>`).join("")}</ol>`;
+        <span class="badge ${c.source === "real" ? "lb" : "est"}">${c.source === "real" ? esc(t("src_real", c.laps)) : t("src_est")}</span></div></li>`).join("")}</ol>`;
   }
   if (r.kind === "one-make") return `<p>${t("one_make", carLink(store.index, r.car ?? ""))}</p>`;
   if (r.kind === "tbd") return `<p class="muted">${esc(t("tbd_race", r.start ? fmtDate(r.start) : ""))}</p>`;
@@ -27,7 +29,8 @@ function card(r, i) {
   const meta = [t("race_letter", esc(r.race)), esc(classLabel(r) || ""), r.start ? esc(fmtDate(r.start)) : ""].filter(Boolean).join(" · ");
   return `<article class="panel race">
     <div class="race-head"><span class="letter" aria-hidden="true">${esc(r.race)}</span>
-      <div><h2>${esc(r.track)}</h2><p class="muted">${meta}</p></div></div>
+      <div><h2>${esc(r.track)}</h2><p class="muted">${meta}</p></div>
+      ${r.kind === "bop" && r.cars[0] ? `<div class="race-feat" aria-hidden="true">${carImg(carId(r.cars[0]), "l")}<span class="feat-tag">P1</span></div>` : ""}</div>
     <p class="rules">${esc(rulesText(r, t))} ${isMult(r.fuel) ? info("fuel_x", t) : ""} ${isMult(r.tyre_wear) ? info("wear_x", t) : ""}</p>
     ${body(r)}
     <div class="copy-wrap"><button type="button" class="btn ghost copy" data-i="${i}">${t("copy")}</button></div>

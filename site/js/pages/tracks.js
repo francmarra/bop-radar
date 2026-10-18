@@ -5,6 +5,7 @@ import { load, store, state, groupLabel as gl } from "../data.js";
 import { app, verdict, tierBadge, setBadge, deltaText, level, traits } from "../ui.js";
 const groupLabel = (id) => esc(gl(store.index, id));
 import { carById as cb } from "../data.js";
+import { carImg } from "../carimg.js";
 const carById = (id) => cb(store.index, id);
 
 export function trackPicker(selected = "", group = state.group) {
@@ -66,7 +67,7 @@ export async function trackPage(id, group) {
     const car = carById(c.id) || { name: c.id, maker: "", brief: null };
     const lb = c.lb;
     return `<a class="row trow" href="${BASE}car/${c.id}/">
-      <span class="rk mono">${i + 1}</span>${tierBadge(c.tier)}
+      <span class="pos ${esc(c.tier)}">${i + 1}</span><span class="im">${carImg(c.id, "s")}</span><span class="lv">${tierBadge(c.tier)}</span>
       <span class="nm"><b>${esc(car.name)}</b><small>${esc(car.maker)}</small></span>
       <span class="sc"><span class="bar"><i style="width:${Math.round((c.score / best) * 100)}%"></i></span><small class="mono">${num(c.score * 100)}</small></span>
       <span class="gp mono">${lb ? `+${num(lb.gap_pct, 2)} %` : "—"}</span>
@@ -80,6 +81,6 @@ export async function trackPage(id, group) {
       <h3>${t("race_events")}</h3>${events || `<p class="muted">${t("no_events")}</p>`}
     </section>
     <section class="panel"><h2>${t("track_cars")} · ${groupLabel(group)}</h2>
-      <div class="rows"><div class="row trow head"><span class="rk">#</span><span>${t("col_tier")}</span><span class="nm">${t("col_car")}</span><span class="sc">${t("score")}</span><span class="gp">${t("gap")}</span><span class="ev2">${t("evidence")}</span></div>${rows}</div>
+      <div class="rows"><div class="row trow head"><span class="pos">#</span><span class="im"></span><span class="lv">${t("col_tier")}</span><span class="nm">${t("col_car")}</span><span class="sc">${t("score")}</span><span class="gp">${t("gap")}</span><span class="ev2">${t("evidence")}</span></div>${rows}</div>
       <p class="note">${t("gap_note")}</p></section>`;
 }

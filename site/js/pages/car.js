@@ -3,6 +3,7 @@ import { BASE } from "../router.js";
 import { esc, num, signed, info, sourceBadge } from "../format.js";
 import { load, store, state, groupLabel as gl } from "../data.js";
 import { app, verdict, tierBadge, setBadge, deltaText, level, traits } from "../ui.js";
+import { carImg } from "../carimg.js";
 const groupLabel = (id) => esc(gl(store.index, id));
 
 export async function carPage(id) {
@@ -18,8 +19,9 @@ export async function carPage(id) {
 
   app.innerHTML = `
     <p><a href="${BASE}" class="link-more">${t("back_rank", groupLabel(car.group))}</a></p>
-    <section class="panel">
-      <div class="toolbar between"><div><h3>${groupLabel(car.group)} · ${esc(car.maker)} · ${esc(car.drivetrain)}</h3><h1>${esc(car.name)}</h1></div><div id="now" class="now"></div></div>
+    <section class="panel car-hero">
+      <div class="hero-txt"><p class="hero-meta">${groupLabel(car.group)} · ${esc(car.maker)} · ${esc(car.drivetrain)}</p><h1>${esc(car.name)}</h1><div id="now" class="now"></div></div>
+      <div class="hero-pic">${carImg(id, "l", car.name)}</div>
       <p id="summary" class="lead"></p>
     </section>
     <section class="panel"><div class="toolbar between"><h2>${t("history")}</h2>
@@ -49,7 +51,7 @@ export async function carPage(id) {
   const renderCtx = () => {
     const e = hist[selected], c = e.context, m = e.sets.m;
     const head = selected === latest && now ? now.m : m;
-    app.querySelector("#now").innerHTML = `${tierBadge(head.tier)} <span class="mono">#${head.rank}/${e.of}</span> ${selected === latest ? sourceBadge(now?.m, t) : ""}`;
+    app.querySelector("#now").innerHTML = `<span class="tower ${esc(head.tier)}">${tierBadge(head.tier)}<b>P${head.rank}</b><span>/ ${e.of}</span></span> ${selected === latest ? sourceBadge(now?.m, t) : ""}`;
     app.querySelector("#ctx-title").textContent = t("ctx_title", e.v, e.date);
     app.querySelector("#summary").textContent = summary(brief(e, selected));
     const fit = ["h", "m", "l"].map((s) => `<div class="fit">${setBadge(s)} <span class="muted mono">#${selected === latest && now ? now[s].rank : e.sets[s].rank}</span>

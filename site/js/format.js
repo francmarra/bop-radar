@@ -4,7 +4,7 @@ export const num = (v, d = 0) => (typeof v === "number" ? v.toFixed(d) : "—");
 export const signed = (n, unit = "", goodIfNegative = false) => {
   if (typeof n !== "number") return "";
   const good = goodIfNegative ? n < 0 : n > 0;
-  return `<span class="${good ? "pos" : "neg"}">${n > 0 ? "+" : ""}${n}${unit}</span>`;
+  return `<span class="delta ${good ? "up" : "down"}">${n > 0 ? "+" : ""}${n}${unit}</span>`; // broadcast delta chip: up = faster
 };
 export const fold = (s) => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const VERDICT_ICON = { buff: "▲", nerf: "▼", mixed: "◆", unchanged: "=" };

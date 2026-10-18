@@ -30,10 +30,15 @@ export function summaryText(race, url, t) {
 }
 
 // car: {id, name} from week.json, or a plain name (one-make races)
-export function carLink(index, car) {
+export function findCar(index, car) {
   const name = typeof car === "string" ? car : car?.name ?? "";
   const all = index.groups.flatMap((g) => g.cars);
-  const hit = all.find((c) => typeof car !== "string" && c.id === car?.id) || all.find((c) => fold(c.name) === fold(name));
+  return all.find((c) => typeof car !== "string" && c.id === car?.id) || all.find((c) => fold(c.name) === fold(name));
+}
+
+export function carLink(index, car) {
+  const name = typeof car === "string" ? car : car?.name ?? "";
+  const hit = findCar(index, car);
   return hit ? `<a href="${BASE}car/${encodeURIComponent(hit.id)}/">${esc(name)}</a>` : esc(name);
 }
 

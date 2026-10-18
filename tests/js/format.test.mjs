@@ -1,6 +1,13 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { esc, num, fold } from "../../site/js/format.js";
+import { esc, num, fold, signed } from "../../site/js/format.js";
+
+test("signed renders delta chips (up = faster)", () => {
+  assert.equal(signed(10, " PS"), '<span class="delta up">+10 PS</span>');
+  assert.equal(signed(20, " kg", true), '<span class="delta down">+20 kg</span>');
+  assert.equal(signed(-20, " kg", true), '<span class="delta up">-20 kg</span>');
+  assert.equal(signed(null), "");
+});
 
 test("esc escapes HTML special characters", () => {
   assert.equal(esc(`<a href="x">&'`), "&lt;a href=&quot;x&quot;&gt;&amp;&#39;");

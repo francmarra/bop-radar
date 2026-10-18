@@ -57,6 +57,8 @@ async function route() {
   // first load keeps the pre-rendered, search-friendly <title>; in-app navigation updates it
   if (focusOnRoute) document.title = page && h1 ? `${h1.textContent.trim()} — GT7 BoP Radar` : "GT7 BoP Radar";
   if (focusOnRoute && h1) { h1.setAttribute("tabindex", "-1"); h1.focus({ preventScroll: true }); }
+  // GoatCounter (production builds only) counts the first load itself; in-app navigation is counted here
+  if (focusOnRoute) window.goatcounter?.count?.({ path: location.pathname, title: document.title });
   focusOnRoute = true;
 }
 

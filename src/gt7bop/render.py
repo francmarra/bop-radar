@@ -179,13 +179,22 @@ def build_pages(site: Path, site_url: str, image) -> list[dict]:
     return pages
 
 
-def render(site: Path, out: Path, site_url: str = SITE_URL, og: bool = True) -> list[str]:
+def analytics_tag(code: str) -> str:
+    """GoatCounter: cookie-free, no personal data, so no consent banner. It skips localhost by itself."""
+    if not re.fullmatch(r"[a-z0-9-]+", code):
+        raise ValueError(f"invalid GoatCounter code: {code!r}")
+    return f'<script data-goatcounter="https://{code}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>'
+
+
+def render(site: Path, out: Path, site_url: str = SITE_URL, og: bool = True, goatcounter: str | None = None) -> list[str]:
     site_url = site_url.rstrip("/") + "/"
     if out.exists():
         shutil.rmtree(out)
     shutil.copytree(site, out)
     root = urlparse(site_url).path
     shell = versioned_shell((site / "index.html").read_text(encoding="utf-8"), site, root)
+    if goatcounter:
+        shell = shell.replace("</head>", f"  {analytics_tag(goatcounter)}\n</head>", 1)
     images: set[str] = set()
     if og:
         try:

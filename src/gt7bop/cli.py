@@ -29,6 +29,7 @@ def main(argv: list[str] | None = None) -> None:
     rp.add_argument("--out", default="dist")
     rp.add_argument("--site-url", default=render.SITE_URL)
     rp.add_argument("--no-og", action="store_true", help="skip share images")
+    rp.add_argument("--goatcounter", help="GoatCounter site code: adds cookie-free visit counting (deploy builds only)")
     sub.add_parser("week", help="this/next week's Daily Races joined with track ratings -> site/data/week.json")
     ck = sub.add_parser("check", help="sanity-check site/data before committing/deploying (exit 1 on errors)")
     ck.add_argument("--baseline", type=Path, help="previous site/data to compare against")
@@ -36,7 +37,7 @@ def main(argv: list[str] | None = None) -> None:
     args = ap.parse_args(argv)
 
     if args.cmd == "render":
-        pages = render.render(ROOT / "site", ROOT / args.out, args.site_url, og=not args.no_og)
+        pages = render.render(ROOT / "site", ROOT / args.out, args.site_url, og=not args.no_og, goatcounter=args.goatcounter)
         print(f"render: {len(pages)} pages -> {args.out}/")
         return
 

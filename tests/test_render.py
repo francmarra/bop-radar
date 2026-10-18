@@ -3,6 +3,8 @@ import re
 import shutil
 from pathlib import Path
 
+import pytest
+
 from gt7bop.render import render
 
 SITE = Path(__file__).resolve().parents[1] / "site"
@@ -107,6 +109,19 @@ def test_backslash_in_name_does_not_break_build(tmp_path):
 
 def test_default_share_image_ships_with_the_site():
     assert (SITE / "og" / "default.png").exists()
+
+
+def test_analytics_only_when_configured(tmp_path):
+    site = _site(tmp_path)
+    render(site, tmp_path / "plain", URL, og=False)
+    assert "goatcounter" not in (tmp_path / "plain" / "index.html").read_text(encoding="utf-8")
+    out = tmp_path / "dist"
+    render(site, out, URL, og=False, goatcounter="bop-radar")
+    tag = 'data-goatcounter="https://bop-radar.goatcounter.com/count" async src="https://gc.zgo.at/count.js"'
+    for page in (out / "index.html", out / "car" / "genesis-gr-3" / "index.html", out / "404.html"):
+        assert page.read_text(encoding="utf-8").count(tag) == 1
+    with pytest.raises(ValueError):
+        render(site, out, URL, og=False, goatcounter='x" onload="alert(1)')
 
 
 def _importmap(html: str) -> dict:

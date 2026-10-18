@@ -196,6 +196,7 @@ def test_running_boards_never_enter_history(tmp_path, monkeypatch):
 
 def test_fetch_ranking_stops_at_depth(monkeypatch):
     import json
+
     from gt7bop import leaderboards
     page = json.dumps({"board": [{"score": i} for i in range(200)], "has_more": True})
     monkeypatch.setattr(leaderboards, "_get", lambda url: page if "page_data" in url else "const carNames = {};")

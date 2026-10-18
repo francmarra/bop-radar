@@ -1,8 +1,8 @@
-import { t, I18N, lang, summary, cap } from "../i18n.js";
+import { t, I18N, lang, summary } from "../i18n.js";
 import { BASE } from "../router.js";
-import { html, num, signed, info, sourceBadge } from "../format.js";
-import { load, store, state, groupLabel as gl } from "../data.js";
-import { app, verdict, tierBadge, setBadge, deltaText, level, traits } from "../ui.js";
+import { html, num, info, sourceBadge } from "../format.js";
+import { load, store, groupLabel as gl } from "../data.js";
+import { app, verdict, tierBadge, setBadge, deltaText, level } from "../ui.js";
 import { carImg } from "../carimg.js";
 const groupLabel = (id) => gl(store.index, id);
 

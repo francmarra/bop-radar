@@ -29,3 +29,13 @@ test("car names from scraped pages cannot inject HTML", () => {
   const index = { groups: [{ cars: [{ id: "x", name: evil }] }] };
   for (const h of [carLink(index, { id: "x", name: evil }), carLink(index, evil + "?")]) assert.ok(!h.includes("<img"), String(h));
 });
+
+import { readdirSync, readFileSync } from "node:fs";
+test("every HTML template goes through html`` (plain template literals skip escaping)", () => {
+  const dir = new URL("../../site/js/", import.meta.url);
+  const files = [...readdirSync(dir).map((f) => [dir, f]), ...readdirSync(new URL("pages/", dir)).map((f) => [new URL("pages/", dir), f])];
+  for (const [d, f] of files.filter(([, f]) => f.endsWith(".js"))) {
+    const src = readFileSync(new URL(f, d), "utf8");
+    assert.doesNotMatch(src, /innerHTML\s*=\s*`|(return|=>|[?:(,])\s*`\s*</, f);
+  }
+});

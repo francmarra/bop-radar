@@ -1,34 +1,12 @@
-import { t, I18N, lang, summary, cap } from "../i18n.js";
-import { BASE, navigate } from "../router.js";
-import { html, num, signed } from "../format.js";
+import { t } from "../i18n.js";
+import { BASE } from "../router.js";
+import { html, num } from "../format.js";
 import { load, store, state, groupLabel as gl } from "../data.js";
-import { app, verdict, tierBadge, setBadge, deltaText, level, traits } from "../ui.js";
+import { app, tierBadge, setBadge } from "../ui.js";
 const groupLabel = (id) => gl(store.index, id);
 import { carById as cb } from "../data.js";
 import { carImg } from "../carimg.js";
 const carById = (id) => cb(store.index, id);
-
-export function trackPicker(selected = "", group = state.group) {
-  const opts = store.tracks.map((x) => html`<option value="${x.id}" ${x.id === selected ? "selected" : ""}>${x.name}${x.groups[group]?.events.length ? " ★" : ""}</option>`);
-  return html`<form class="picker" id="picker">
-    <select id="pk-track" aria-label="${t("pick_track")}"><option value="">${t("pick_track")}</option>${opts}</select>
-    <div class="seg" id="pk-group">${store.index.groups.map((g) => html`<button type="button" class="${g.id === group ? "on" : ""}" data-g="${g.id}">${g.label}</button>`)}</div>
-    <button class="btn" type="submit">${t("go")} →</button></form>`;
-}
-export function bindPicker(group = state.group) {
-  let g = group;
-  const form = app.querySelector("#picker");
-  form.querySelector("#pk-group").onclick = (e) => {
-    if (!e.target.dataset.g) return;
-    g = e.target.dataset.g;
-    form.querySelectorAll("#pk-group button").forEach((b) => b.classList.toggle("on", b.dataset.g === g));
-  };
-  form.onsubmit = (e) => {
-    e.preventDefault();
-    const id = form.querySelector("#pk-track").value;
-    if (id) navigate(`track/${encodeURIComponent(id)}/${encodeURIComponent(g)}/`);
-  };
-}
 
 export async function tracksPage() {
   store.tracks ??= await load("tracks.json");

@@ -1,4 +1,4 @@
-import { t, lang } from "../i18n.js";
+import { t } from "../i18n.js";
 import { BASE } from "../router.js";
 import { html, info, sourceBadge } from "../format.js";
 import { load, store, state } from "../data.js";

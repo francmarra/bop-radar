@@ -1,7 +1,7 @@
 /* GT7 BoP Radar — static SPA with real paths: / · week/ · updates/ · update/<v>/ · car/<id>/ · help/ (tracks/, track/<id>/<g>/ unlinked) */
 import { t, lang, setLang } from "./i18n.js";
 import { esc } from "./format.js";
-import { getIndex, store } from "./data.js";
+import { getIndex, getImages, store } from "./data.js";
 import { app } from "./ui.js";
 import { initTheme, toggleTheme } from "./theme.js";
 import { BASE, pathOf, hashToPath, link, rootPath, shouldIntercept } from "./router.js";
@@ -40,7 +40,7 @@ async function route() {
   });
   window.scrollTo(0, 0);
   try {
-    await getIndex();
+    await Promise.all([getIndex(), getImages()]);
     if (page === "car") await carPage(a);
     else if (page === "tracks") await tracksPage();
     else if (page === "track") await trackPage(a, b);

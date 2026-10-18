@@ -21,6 +21,7 @@ export function helpPage() {
       <p>${t("data_text")}</p>
       <p>${esc(t("help_estimates"))}</p>
       <p>${esc(t("privacy_text"))}</p>
+      <p>${esc(t("img_credit"))}</p>
       <p class="muted">${t("generated")}: ${esc(store.index.generated)} · ${t("not_official")}</p>
     </section>`;
 }

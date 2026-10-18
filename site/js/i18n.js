@@ -61,6 +61,7 @@ export const I18N = {
     help_wear_x: "How much faster than normal the tyres wear out in this race. ×5 means five times faster, so cars that are gentle on tyres do better.",
     tyre_RH: "Racing Hard", tyre_RM: "Racing Medium", tyre_RS: "Racing Soft", tyre_IM: "Intermediate", tyre_W: "Heavy Wet",
     tyre_CH: "Comfort Hard", tyre_CM: "Comfort Medium", tyre_CS: "Comfort Soft", tyre_SH: "Sports Hard", tyre_SM: "Sports Medium", tyre_SS: "Sports Soft",
+    img_credit: "Car images © Polyphony Digital Inc. / Sony Interactive Entertainment",
     footer_est: "tyre wear & fuel are estimates", unofficial: "not affiliated with Polyphony Digital",
     tr: { "straight-line speed": "straight-line speed", acceleration: "acceleration", "low-speed cornering": "low-speed cornering", "high-speed cornering": "high-speed cornering" },
     summary(b) {
@@ -138,6 +139,7 @@ export const I18N = {
     help_wear_x: "Quanto mais depressa que o normal os pneus se gastam nesta corrida. ×5 significa cinco vezes mais, por isso os carros que poupam pneus ganham vantagem.",
     tyre_RH: "Corrida Duros", tyre_RM: "Corrida Médios", tyre_RS: "Corrida Macios", tyre_IM: "Intermédios", tyre_W: "Chuva",
     tyre_CH: "Conforto Duros", tyre_CM: "Conforto Médios", tyre_CS: "Conforto Macios", tyre_SH: "Desportivos Duros", tyre_SM: "Desportivos Médios", tyre_SS: "Desportivos Macios",
+    img_credit: "Imagens dos carros © Polyphony Digital Inc. / Sony Interactive Entertainment",
     footer_est: "desgaste de pneus e consumo são estimativas", unofficial: "sem ligação à Polyphony Digital",
     tr: { "straight-line speed": "velocidade em reta", acceleration: "aceleração", "low-speed cornering": "curvas lentas", "high-speed cornering": "curvas rápidas" },
     summary(b) {

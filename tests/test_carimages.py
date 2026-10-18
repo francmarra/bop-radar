@@ -13,6 +13,16 @@ def test_match_exact_and_ambiguous():
     assert match_ids(CARS, CSV) == ({"genesis-gr-3": 2160}, ["x"], ["twin"])
 
 
+def test_update_idempotent(tmp_path):
+    p = tmp_path / "car_images.toml"
+    p.write_text('# manual\n"x" = 99\n', encoding="utf-8")
+    update_mapping(p, CARS, CSV)
+    first, mapping = p.read_bytes(), read_mapping(p)
+    update_mapping(p, CARS, CSV)
+    assert p.read_bytes() == first
+    assert read_mapping(p) == mapping == {"genesis-gr-3": 2160, "x": 99}
+
+
 def test_update_keeps_manual(tmp_path):
     p = tmp_path / "car_images.toml"
     p.write_text('# header\n"old" = 5\n# manual\n"x" = 99\n', encoding="utf-8")

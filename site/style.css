@@ -238,6 +238,11 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
   .updates a { grid-template-columns: 70px minmax(0, 1fr); } .updates a > .muted { display: none; }
   .updates a > span:last-child { display: flex; flex-wrap: wrap; gap: 4px 12px; min-width: 0; } .ug { margin-right: 0; }
   input[type=search], select { min-width: 0; width: 100%; }
+  /* equal columns instead of a lone button wrapping onto a 2nd row; labels wrap inside their button */
+  .seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); width: 100%; }
+  .seg button, .seg a { flex-wrap: wrap; text-align: center; padding: 4px 6px; line-height: 1.2; }
+  .seg small { flex-basis: 100%; } /* count always under the label, so every button wraps the same way */
+  .lead { font-size: var(--fs-base); } /* keeps the car search above the fold */
   .panel { padding: 16px; }
   .set { white-space: normal; }
 }

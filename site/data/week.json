@@ -38,50 +38,8 @@
      "track_set": "m",
      "cars": [
       {
-       "id": "911-gt3-r-992-22",
-       "name": "911 GT3 R (992) '22",
-       "tier": "S",
-       "source": "live",
-       "laps": 7,
-       "share": 7,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
        "id": "911-rsr-991-17",
        "name": "911 RSR (991) '17",
-       "tier": "A",
-       "source": "live",
-       "laps": 6,
-       "share": 6,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "f-type-gr-3",
-       "name": "F-type Gr.3",
-       "tier": "A",
-       "source": "live",
-       "laps": 15,
-       "share": 15,
-       "why": {
-        "strengths": [
-         "acceleration"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "beetle-gr-3",
-       "name": "Beetle Gr.3",
        "tier": "A",
        "source": "live",
        "laps": 17,
@@ -94,12 +52,54 @@
        }
       },
       {
-       "id": "296-gt3-23",
-       "name": "296 GT3 '23",
-       "tier": "S",
+       "id": "wrx-gr-3",
+       "name": "WRX Gr.3",
+       "tier": "A",
        "source": "live",
-       "laps": 16,
-       "share": 16,
+       "laps": 5,
+       "share": 5,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "beetle-gr-3",
+       "name": "Beetle Gr.3",
+       "tier": "A",
+       "source": "live",
+       "laps": 29,
+       "share": 29,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "f-type-gr-3",
+       "name": "F-type Gr.3",
+       "tier": "A",
+       "source": "live",
+       "laps": 6,
+       "share": 6,
+       "why": {
+        "strengths": [
+         "acceleration"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "gr-supra-racing-concept-18",
+       "name": "GR Supra Racing Concept '18",
+       "tier": "B",
+       "source": "live",
+       "laps": 14,
+       "share": 14,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -108,7 +108,7 @@
        }
       }
      ],
-     "balance": 8.8
+     "balance": 6.7
     },
     {
      "race": "C",
@@ -131,8 +131,8 @@
        "name": "NSX CONCEPT-GT '16",
        "tier": "A",
        "source": "live",
-       "laps": 52,
-       "share": 52,
+       "laps": 53,
+       "share": 53,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -145,8 +145,8 @@
        "name": "GT-R NISMO GT500 '16",
        "tier": "A",
        "source": "live",
-       "laps": 41,
-       "share": 41,
+       "laps": 42,
+       "share": 42,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -159,8 +159,8 @@
        "name": "RC F GT500 '16",
        "tier": "B",
        "source": "live",
-       "laps": 7,
-       "share": 7,
+       "laps": 5,
+       "share": 5,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -169,132 +169,7 @@
        }
       }
      ],
-     "balance": 2.3
-    },
-    {
-     "race": "A",
-     "start": null,
-     "track": "Red Bull Ring",
-     "course_id": "470",
-     "category": "Specified Car",
-     "kind": "one-make",
-     "car": "Gran Turismo Red Bull X2014 Junior",
-     "tyres": [
-      "RH"
-     ],
-     "fuel": "x1",
-     "tyre_wear": "x1",
-     "group": null,
-     "track_set": "m",
-     "cars": []
-    },
-    {
-     "race": "B",
-     "start": null,
-     "track": "Circuit de Spa-Francorchamps",
-     "course_id": "462",
-     "category": "Gr.3",
-     "kind": "bop",
-     "car": null,
-     "tyres": [
-      "RM"
-     ],
-     "fuel": "x1",
-     "tyre_wear": "x1",
-     "group": "gr3",
-     "track_set": "m",
-     "cars": [
-      {
-       "id": "911-gt3-r-992-22",
-       "name": "911 GT3 R (992) '22",
-       "tier": "A",
-       "source": "live",
-       "laps": 7,
-       "share": 7,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "911-rsr-991-17",
-       "name": "911 RSR (991) '17",
-       "tier": "A",
-       "source": "live",
-       "laps": 6,
-       "share": 6,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "f-type-gr-3",
-       "name": "F-type Gr.3",
-       "tier": "S",
-       "source": "live",
-       "laps": 15,
-       "share": 15,
-       "why": {
-        "strengths": [
-         "acceleration"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "beetle-gr-3",
-       "name": "Beetle Gr.3",
-       "tier": "A",
-       "source": "live",
-       "laps": 17,
-       "share": 17,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "296-gt3-23",
-       "name": "296 GT3 '23",
-       "tier": "A",
-       "source": "live",
-       "laps": 16,
-       "share": 16,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      }
-     ],
-     "balance": 8.8
-    },
-    {
-     "race": "C",
-     "start": null,
-     "track": "Sardegna - Road Track - B",
-     "course_id": "841",
-     "category": "Gr.4",
-     "kind": "bop",
-     "car": null,
-     "tyres": [
-      "RM",
-      "RS"
-     ],
-     "fuel": "x2",
-     "tyre_wear": "x5",
-     "group": "gr4",
-     "track_set": "l",
-     "cars": [],
-     "balance": 2.3
+     "balance": 2.2
     }
    ]
   },

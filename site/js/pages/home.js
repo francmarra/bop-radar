@@ -12,6 +12,7 @@ import { carImg } from "../carimg.js";
 export async function homePage() {
   const ix = store.index;
   const u = ix.updates[0];
+  showAll = false;
   const [detail, strip] = await Promise.all([load(`updates/${u.version}.json`), weekStrip()]);
   const classCards = ix.groups.map((g) => {
     const cars = mostAffected(detail.groups[g.id]);
@@ -57,17 +58,23 @@ function pressed(sel, key, value) {
   app.querySelectorAll(`${sel} button`).forEach((b) => { const on = b.dataset[key] === value; b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on)); });
 }
 
+const TOP = 10;
+let showAll = false; // the full class list made the phone page ~13 000 px tall
+
 function renderRanking() {
   const g = store.index.groups.find((x) => x.id === state.group);
-  const rows = g.cars
-    .slice().sort((a, b) => a.sets[state.set].rank - b.sets[state.set].rank)
+  const sorted = g.cars.slice().sort((a, b) => a.sets[state.set].rank - b.sets[state.set].rank);
+  const rows = (showAll ? sorted : sorted.slice(0, TOP))
     .map((c) => {
       const s = c.sets[state.set], lc = c.last_change;
       return html`<a class="row rk-row" href="${BASE}car/${encodeURIComponent(c.id)}/">
         <span class="pos ${s.tier}">${s.rank}</span><span class="im">${carImg(c.id, "s")}</span><span class="lv">${tierBadge(s.tier)}</span>
         <span class="nm"><b>${c.name}</b><small>${c.maker} · ${c.drivetrain}</small>${sourceBadge(s, t)}</span>
-        <span class="bs">${setBadge(c.best_set)}</span>
+        <span class="bs${c.best_set === state.set ? " same" : ""}">${setBadge(c.best_set)}</span>
         <span class="lc">${lc ? html`${verdict(lc.verdict)} <small class="mono">${lc.v}</small>` : "—"}</span></a>`;
     });
-  app.querySelector("#ranking").innerHTML = html`<div class="rows"><div class="row rk-row head"><span class="pos">#</span><span class="im"></span><span class="lv">${t("col_tier")} ${info("level", t)}</span><span class="nm">${t("col_car")}</span><span class="bs">${t("col_best")} ${info("track_types", t)}</span><span class="lc">${t("col_last")}</span></div>${rows}</div>`;
+  app.querySelector("#ranking").innerHTML = html`<div class="rows"><div class="row rk-row head"><span class="pos">#</span><span class="im"></span><span class="lv">${t("col_tier")} ${info("level", t)}</span><span class="nm">${t("col_car")}</span><span class="bs">${t("col_best")} ${info("track_types", t)}</span><span class="lc">${t("col_last")}</span></div>${rows}</div>
+    ${sorted.length > rows.length ? html`<button type="button" class="btn ghost mt" id="more">${t("show_all", sorted.length)}</button>` : ""}`;
+  const more = app.querySelector("#more");
+  if (more) more.onclick = () => { showAll = true; renderRanking(); app.querySelectorAll("#ranking a.row")[TOP]?.focus(); };
 }

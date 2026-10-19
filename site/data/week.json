@@ -38,34 +38,6 @@
      "track_set": "m",
      "cars": [
       {
-       "id": "911-rsr-991-17",
-       "name": "911 RSR (991) '17",
-       "tier": "A",
-       "source": "live",
-       "laps": 17,
-       "share": 17,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "wrx-gr-3",
-       "name": "WRX Gr.3",
-       "tier": "A",
-       "source": "live",
-       "laps": 5,
-       "share": 5,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
        "id": "beetle-gr-3",
        "name": "Beetle Gr.3",
        "tier": "A",
@@ -80,16 +52,42 @@
        }
       },
       {
-       "id": "f-type-gr-3",
-       "name": "F-type Gr.3",
+       "id": "911-rsr-991-17",
+       "name": "911 RSR (991) '17",
        "tier": "A",
        "source": "live",
-       "laps": 6,
-       "share": 6,
+       "laps": 22,
+       "share": 22,
        "why": {
         "strengths": [
-         "acceleration"
+         "high-speed cornering"
         ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "wrx-gr-3",
+       "name": "WRX Gr.3",
+       "tier": "A",
+       "source": "live",
+       "laps": 11,
+       "share": 11,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "gt-r-nismo-gt3-18",
+       "name": "GT-R NISMO GT3 '18",
+       "tier": "A",
+       "source": "live",
+       "laps": 8,
+       "share": 8,
+       "why": {
+        "strengths": [],
         "saves_tyres": false
        }
       },
@@ -98,8 +96,8 @@
        "name": "GR Supra Racing Concept '18",
        "tier": "B",
        "source": "live",
-       "laps": 14,
-       "share": 14,
+       "laps": 9,
+       "share": 9,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -108,7 +106,7 @@
        }
       }
      ],
-     "balance": 6.7
+     "balance": 6.1
     },
     {
      "race": "C",
@@ -131,8 +129,8 @@
        "name": "NSX CONCEPT-GT '16",
        "tier": "A",
        "source": "live",
-       "laps": 53,
-       "share": 53,
+       "laps": 81,
+       "share": 81,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -145,22 +143,8 @@
        "name": "GT-R NISMO GT500 '16",
        "tier": "A",
        "source": "live",
-       "laps": 42,
-       "share": 42,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": true
-       }
-      },
-      {
-       "id": "rc-f-gt500-16",
-       "name": "RC F GT500 '16",
-       "tier": "B",
-       "source": "live",
-       "laps": 5,
-       "share": 5,
+       "laps": 17,
+       "share": 17,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -169,7 +153,7 @@
        }
       }
      ],
-     "balance": 2.2
+     "balance": 1.5
     }
    ]
   },

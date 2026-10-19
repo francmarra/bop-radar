@@ -72,14 +72,17 @@ export async function carPage(id) {
   app.querySelector("#metric").onclick = (ev) => {
     const k = ev.target.dataset.k; if (!k) return;
     app.querySelectorAll("#metric button").forEach((b) => { b.classList.toggle("on", b === ev.target); b.setAttribute("aria-pressed", String(b === ev.target)); });
-    app.querySelector("#chart").innerHTML = chart(hist, k);
+    box.innerHTML = chart(hist, k, box.clientWidth || undefined);
   };
-  app.querySelector("#chart").innerHTML = chart(hist, "pp");
+  const box = app.querySelector("#chart");
+  box.innerHTML = chart(hist, "pp", box.clientWidth || undefined);
   renderCtx();
 }
 
-function chart(hist, key) {
-  const W = 1000, H = 240, P = { l: 56, r: 12, t: 12, b: 28 };
+// drawn at the box's real width so axis text keeps its size (a stretched viewBox squashed it on phones)
+// shortcut: not redrawn on resize/rotation (it then scales uniformly), add a ResizeObserver if that matters
+function chart(hist, key, W = 1000) {
+  const H = 260, P = { l: 56, r: 12, t: 12, b: 28 };
   const vals = hist.flatMap((e) => ["h", "m", "l"].map((s) => e.sets[s][key])).filter((v) => typeof v === "number");
   if (!vals.length) return html`<p class="muted">—</p>`;
   let lo = Math.min(...vals), hi = Math.max(...vals);
@@ -93,8 +96,8 @@ function chart(hist, key) {
     return html`<path d="${d}" fill="none" stroke="var(--${s})" stroke-width="2" vector-effect="non-scaling-stroke"/>`;
   });
   const ticks = [0, 0.5, 1].map((f) => { const v = lo + f * (hi - lo); return html`<text x="${P.l - 6}" y="${y(v) + 4}" text-anchor="end">${v.toFixed(key === "pp" ? 1 : 0)}</text><line x1="${P.l}" x2="${W - P.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/>`; });
-  const step = Math.ceil(hist.length / 8);
+  const step = Math.ceil(hist.length / Math.max(2, Math.min(8, Math.floor((W - P.l) / 64)))); // ≥64 px per version label
   const last = hist.length - 1; // last label ends at the edge so it isn't clipped; skip a step label that would collide with it
   const xl = hist.map((e, i) => (i === last || (i % step === 0 && last - i >= step / 2) ? html`<text x="${x(i)}" y="${H - 8}" text-anchor="${i === last && i ? "end" : "middle"}">${e.v}</text>` : ""));
-  return html`<svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${key}">${ticks}${lines}${xl}</svg>`;
+  return html`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${key}">${ticks}${lines}${xl}</svg>`;
 }

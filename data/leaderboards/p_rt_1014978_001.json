@@ -1,0 +1,141 @@
+{
+"date": "2026-10-12",
+"board": "p_rt_1014978_001",
+"race": "B",
+"track": "Circuit de Spa-Francorchamps",
+"course_id": "462",
+"group": "gr3",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 409,
+"best_ms": 136627,
+"pace_ms": 136940,
+"gap_pct": 0.16,
+"top100": 28
+},
+{
+"code": 3352,
+"name": "Toyota GR Supra Racing Concept '18",
+"laps": 149,
+"best_ms": 136510,
+"pace_ms": 136952,
+"gap_pct": 0.168,
+"top100": 19
+},
+{
+"code": 3502,
+"name": "Genesis X GR3",
+"laps": 5,
+"best_ms": 136759,
+"pace_ms": 137008,
+"gap_pct": 0.21,
+"top100": 3
+},
+{
+"code": 2160,
+"name": "Hyundai Genesis Gr.3",
+"laps": 243,
+"best_ms": 136774,
+"pace_ms": 137168,
+"gap_pct": 0.326,
+"top100": 15
+},
+{
+"code": 2182,
+"name": "McLaren 650S GT3 '15",
+"laps": 43,
+"best_ms": 136635,
+"pace_ms": 137203,
+"gap_pct": 0.352,
+"top100": 10
+},
+{
+"code": 3436,
+"name": "Ford GT Race Car '18",
+"laps": 9,
+"best_ms": 136782,
+"pace_ms": 137203,
+"gap_pct": 0.352,
+"top100": 5
+},
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 43,
+"best_ms": 136727,
+"pace_ms": 137310,
+"gap_pct": 0.43,
+"top100": 5
+},
+{
+"code": 3235,
+"name": "Honda NSX Gr.3",
+"laps": 7,
+"best_ms": 136785,
+"pace_ms": 137444,
+"gap_pct": 0.528,
+"top100": 3
+},
+{
+"code": 3609,
+"name": "MAZDA RX-VISION GT3 EVO '26",
+"laps": 9,
+"best_ms": 137065,
+"pace_ms": 137485,
+"gap_pct": 0.558,
+"top100": 2
+},
+{
+"code": 3588,
+"name": "Ferrari 296 GT3 '23",
+"laps": 30,
+"best_ms": 137025,
+"pace_ms": 137582,
+"gap_pct": 0.629,
+"top100": 3
+},
+{
+"code": 3405,
+"name": "Audi R8 LMS Evo '19",
+"laps": 7,
+"best_ms": 136920,
+"pace_ms": 137810,
+"gap_pct": 0.796,
+"top100": 2
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 7,
+"best_ms": 137434,
+"pace_ms": 137830,
+"gap_pct": 0.811,
+"top100": 0
+},
+{
+"code": 3218,
+"name": "BMW M6 GT3 Endurance Model '16",
+"laps": 6,
+"best_ms": 137820,
+"pace_ms": 137942,
+"gap_pct": 0.892,
+"top100": 0
+},
+{
+"code": 3311,
+"name": "Porsche 911 RSR (991) '17",
+"laps": 7,
+"best_ms": 137455,
+"pace_ms": 138003,
+"gap_pct": 0.937,
+"top100": 0
+}
+]
+}

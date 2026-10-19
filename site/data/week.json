@@ -1,9 +1,176 @@
 {
- "generated": "2026-10-18",
+ "generated": "2026-10-19",
  "weeks": [
   {
    "label": "this",
    "races": [
+    {
+     "race": "A",
+     "start": null,
+     "track": "Circuit Gilles-Villeneuve",
+     "course_id": "1322",
+     "category": "Specified Car",
+     "kind": "one-make",
+     "car": "Enzo Ferrari '02",
+     "tyres": [
+      "SS"
+     ],
+     "fuel": "x1",
+     "tyre_wear": "x1",
+     "group": null,
+     "track_set": "m",
+     "cars": []
+    },
+    {
+     "race": "B",
+     "start": null,
+     "track": "Autódromo de Interlagos",
+     "course_id": "152",
+     "category": "Gr.3",
+     "kind": "bop",
+     "car": null,
+     "tyres": [
+      "RH"
+     ],
+     "fuel": "x1",
+     "tyre_wear": "x1",
+     "group": "gr3",
+     "track_set": "m",
+     "cars": [
+      {
+       "id": "911-gt3-r-992-22",
+       "name": "911 GT3 R (992) '22",
+       "tier": "S",
+       "source": "live",
+       "laps": 7,
+       "share": 7,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "911-rsr-991-17",
+       "name": "911 RSR (991) '17",
+       "tier": "A",
+       "source": "live",
+       "laps": 6,
+       "share": 6,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "f-type-gr-3",
+       "name": "F-type Gr.3",
+       "tier": "A",
+       "source": "live",
+       "laps": 15,
+       "share": 15,
+       "why": {
+        "strengths": [
+         "acceleration"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "beetle-gr-3",
+       "name": "Beetle Gr.3",
+       "tier": "A",
+       "source": "live",
+       "laps": 17,
+       "share": 17,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "296-gt3-23",
+       "name": "296 GT3 '23",
+       "tier": "S",
+       "source": "live",
+       "laps": 16,
+       "share": 16,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      }
+     ],
+     "balance": 8.8
+    },
+    {
+     "race": "C",
+     "start": null,
+     "track": "Suzuka Circuit",
+     "course_id": "10",
+     "category": "Gr.2",
+     "kind": "bop",
+     "car": null,
+     "tyres": [
+      "RM"
+     ],
+     "fuel": "x2",
+     "tyre_wear": "x4",
+     "group": "gr2",
+     "track_set": "m",
+     "cars": [
+      {
+       "id": "nsx-concept-gt-16",
+       "name": "NSX CONCEPT-GT '16",
+       "tier": "A",
+       "source": "live",
+       "laps": 52,
+       "share": 52,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "gt-r-nismo-gt500-16",
+       "name": "GT-R NISMO GT500 '16",
+       "tier": "A",
+       "source": "live",
+       "laps": 41,
+       "share": 41,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": true
+       }
+      },
+      {
+       "id": "rc-f-gt500-16",
+       "name": "RC F GT500 '16",
+       "tier": "B",
+       "source": "live",
+       "laps": 7,
+       "share": 7,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": true
+       }
+      }
+     ],
+     "balance": 2.3
+    },
     {
      "race": "A",
      "start": null,
@@ -38,24 +205,26 @@
      "track_set": "m",
      "cars": [
       {
-       "id": "650s-gt3-15",
-       "name": "650S GT3 '15",
+       "id": "911-gt3-r-992-22",
+       "name": "911 GT3 R (992) '22",
        "tier": "A",
        "source": "live",
-       "laps": 10,
-       "share": 10,
+       "laps": 7,
+       "share": 7,
        "why": {
-        "strengths": [],
+        "strengths": [
+         "high-speed cornering"
+        ],
         "saves_tyres": false
        }
       },
       {
-       "id": "gr-supra-racing-concept-18",
-       "name": "GR Supra Racing Concept '18",
+       "id": "911-rsr-991-17",
+       "name": "911 RSR (991) '17",
        "tier": "A",
        "source": "live",
-       "laps": 18,
-       "share": 18,
+       "laps": 6,
+       "share": 6,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -68,8 +237,8 @@
        "name": "F-type Gr.3",
        "tier": "S",
        "source": "live",
-       "laps": 29,
-       "share": 29,
+       "laps": 15,
+       "share": 15,
        "why": {
         "strengths": [
          "acceleration"
@@ -78,12 +247,12 @@
        }
       },
       {
-       "id": "m6-gt3-sprint-model-16",
-       "name": "M6 GT3 Sprint Model '16",
+       "id": "beetle-gr-3",
+       "name": "Beetle Gr.3",
        "tier": "A",
        "source": "live",
-       "laps": 5,
-       "share": 5,
+       "laps": 17,
+       "share": 17,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -92,21 +261,21 @@
        }
       },
       {
-       "id": "genesis-gr-3",
-       "name": "Genesis Gr.3",
+       "id": "296-gt3-23",
+       "name": "296 GT3 '23",
        "tier": "A",
        "source": "live",
        "laps": 16,
        "share": 16,
        "why": {
         "strengths": [
-         "acceleration"
+         "high-speed cornering"
         ],
         "saves_tyres": false
        }
       }
      ],
-     "balance": 6.2
+     "balance": 8.8
     },
     {
      "race": "C",
@@ -124,82 +293,14 @@
      "tyre_wear": "x5",
      "group": "gr4",
      "track_set": "l",
-     "cars": [
-      {
-       "id": "elantra-n-tc-24",
-       "name": "ELANTRA N TC '24",
-       "tier": "S",
-       "source": "live",
-       "laps": 100,
-       "share": 100,
-       "why": {
-        "strengths": [
-         "acceleration",
-         "low-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      }
-     ],
-     "balance": 1.0
+     "cars": [],
+     "balance": 2.3
     }
    ]
   },
   {
    "label": "next",
-   "races": [
-    {
-     "race": "A",
-     "start": "2026-10-19",
-     "track": "Circuit Gilles-Villeneuve",
-     "course_id": "1322",
-     "category": "",
-     "kind": "tbd",
-     "car": null,
-     "tyres": [
-      "SS"
-     ],
-     "fuel": "x1",
-     "tyre_wear": "x1",
-     "group": null,
-     "track_set": "m",
-     "cars": []
-    },
-    {
-     "race": "B",
-     "start": "2026-10-19",
-     "track": "Autódromo de Interlagos",
-     "course_id": "152",
-     "category": "",
-     "kind": "tbd",
-     "car": null,
-     "tyres": [
-      "RH"
-     ],
-     "fuel": "x1",
-     "tyre_wear": "x1",
-     "group": null,
-     "track_set": "m",
-     "cars": []
-    },
-    {
-     "race": "C",
-     "start": "2026-10-19",
-     "track": "Suzuka Circuit",
-     "course_id": "10",
-     "category": "",
-     "kind": "tbd",
-     "car": null,
-     "tyres": [
-      "RM"
-     ],
-     "fuel": "x2",
-     "tyre_wear": "x4",
-     "group": null,
-     "track_set": "m",
-     "cars": []
-    }
-   ]
+   "races": []
   }
  ]
 }

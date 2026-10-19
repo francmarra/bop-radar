@@ -1,0 +1,25 @@
+{
+"date": "2026-10-12",
+"board": "p_rt_1014979_001",
+"race": "C",
+"track": "Sardegna - Road Track - B",
+"course_id": "841",
+"group": "gr4",
+"tyres": [
+"RM",
+"RS"
+],
+"fuel": "x2",
+"tyre_wear": "x5",
+"cars": [
+{
+"code": 3590,
+"name": "Hyundai ELANTRA N TC '24",
+"laps": 999,
+"best_ms": 82955,
+"pace_ms": 83096,
+"gap_pct": 0.0,
+"top100": 100
+}
+]
+}

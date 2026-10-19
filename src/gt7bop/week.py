@@ -34,6 +34,8 @@ def parse_schedule(page: str) -> list[dict]:
     """Every race card on /daily/ page 1: the running week plus the "next week" preview."""
     races = []
     for cls, card in CARD_RE.findall(page):
+        if "is-expired" in cls:  # Mondays: last week's finished races are still listed
+            continue
         cats = re.findall(r'class="daily-category([^"]*)">([^<]+)<', card)
         category = cats[0][1].strip() if cats else ""
         one_make = any("is-specified" in c for c, _ in cats)

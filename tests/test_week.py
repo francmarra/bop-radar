@@ -23,6 +23,13 @@ def test_parse_schedule_current_week():
     assert (c["category"], c["tyres"], c["bop"]) == ("Gr.4", ["RM", "RS"], True)
 
 
+def test_parse_schedule_skips_expired_week():
+    # on Mondays the finished week stays on the page as is-expired cards; they once doubled the guide
+    page = FIXTURE.replace('<article class="daily-race-card ">', '<article class="daily-race-card is-expired">')
+    races = parse_schedule(page)
+    assert [r["week"] for r in races] == ["next"] * 3
+
+
 def test_player_names_never_parsed():
     for race in parse_schedule(FIXTURE):
         assert "Player" not in repr(race)

@@ -1,7 +1,7 @@
 import { t, I18N, lang, summary } from "../i18n.js";
 import { BASE } from "../router.js";
 import { html, num, info, sourceBadge, vtext } from "../format.js";
-import { load, store, groupLabel as gl } from "../data.js";
+import { load, store, state, groupLabel as gl } from "../data.js";
 import { app, verdict, tierBadge, setBadge, deltaText, level } from "../ui.js";
 import { carImg } from "../carimg.js";
 const groupLabel = (id) => gl(store.index, id);
@@ -18,7 +18,7 @@ export async function carPage(id) {
         <span class="mono">${num(e.sets.m.pp, 2)}</span><span class="mono">${e.sets.m.rank}/${e.of} ${tierBadge(e.sets.m.tier)}</span></button>`);
 
   app.innerHTML = html`
-    <p><a href="${BASE}" class="link-more">${t("back_rank", groupLabel(car.group))}</a></p>
+    <p><a href="${BASE}ranking/" class="link-more" id="back">${t("back_rank", groupLabel(car.group))}</a></p>
     <section class="panel car-hero">
       <div class="hero-txt"><p class="hero-labels">${[groupLabel(car.group), car.maker, car.drivetrain].map((l) => html`<span>${l}</span>`)}</p><h1>${car.name}</h1><div id="now" class="now"></div></div>
       <div class="hero-pic">${heroPic(id)}</div>
@@ -72,6 +72,7 @@ export async function carPage(id) {
     app.querySelectorAll("#metric button").forEach((b) => { b.classList.toggle("on", b === ev.target); b.setAttribute("aria-pressed", String(b === ev.target)); });
     box.innerHTML = chart(hist, k, box.clientWidth || undefined);
   };
+  app.querySelector("#back").onclick = () => { state.group = car.group; }; // the link names this class
   const box = app.querySelector("#chart");
   box.innerHTML = chart(hist, "pp", box.clientWidth || undefined);
   renderCtx();

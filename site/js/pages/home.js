@@ -1,80 +1,55 @@
 import { t } from "../i18n.js";
 import { BASE } from "../router.js";
-import { html, info, sourceBadge } from "../format.js";
+import { html, vtext } from "../format.js";
 import { load, store, state } from "../data.js";
-import { app, verdict, tierBadge, setBadge, deltaText, fmtDate } from "../ui.js";
+import { app, tierBadge, fmtDate } from "../ui.js";
 import { mountSearch } from "../search.js";
-import { mostAffected, classSentence } from "../bop.js";
-import { weekStrip } from "./week.js";
-import { carImg } from "../carimg.js";
+import { classSentence } from "../bop.js";
+import { weekRaces } from "./week.js";
+import { heroPic } from "./car.js";
+import { topCar } from "./ranking.js";
 
+const carHref = (c) => `${BASE}car/${encodeURIComponent(c.id)}/`;
 
+// entry page: chrome hero with the current class leader, then one card per section of the site
 export async function homePage() {
   const ix = store.index;
   const u = ix.updates[0];
-  showAll = false;
-  const [detail, strip] = await Promise.all([load(`updates/${u.version}.json`), weekStrip()]);
-  const classCards = ix.groups.map((g) => {
-    const cars = mostAffected(detail.groups[g.id]);
-    return html`<div class="card cls"><h3>${g.label}</h3><p class="cls-sentence">${classSentence(u.counts?.[g.id], g.label, t)}</p>
-      ${cars.length ? html`<p class="small muted">${t("most_affected")}</p><ul class="affected">${cars.map((c) => html`
-        <li>${carImg(c.id, "s")}<div><a href="${BASE}car/${encodeURIComponent(c.id)}/">${c.name}</a> ${verdict(c.verdict)} <span class="mono small">${deltaText(c.delta)}</span></div></li>`)}</ul>` : ""}</div>`;
-  });
+  const g = ix.groups.find((x) => x.id === state.group) ?? ix.groups[0];
+  const lead = topCar(g, state.set);
+  const races = await weekRaces();
+  const leaders = ix.groups.map((x) => [x, topCar(x, state.set)]).filter(([, c]) => c);
 
   app.innerHTML = html`
-    <section class="panel hero">
-      <h1>${t("home_title")}</h1>
-      <p class="lead">${t("bop_explain")}</p>
-      <label class="find-label" for="car-q">${t("find_label")}</label>
-      <div class="search">
-        <input id="car-q" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="car-list" autocomplete="off" placeholder="${t("find_ph")}">
-        <ul id="car-list" role="listbox" class="suggest" aria-label="${t("find_label")}" hidden></ul>
+    <section class="panel car-hero landing">
+      <div class="hero-txt">
+        <p class="hero-labels"><span>Gr.1–4</span><span>BoP</span><span>Daily Races</span></p>
+        <h1>${t("home_title")}</h1>
+        <p class="lead">${t("bop_explain")}</p>
+        <label class="find-label" for="car-q">${t("find_label")}</label>
+        <div class="search">
+          <input id="car-q" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="car-list" autocomplete="off" placeholder="${t("find_ph")}">
+          <ul id="car-list" role="listbox" class="suggest" aria-label="${t("find_label")}" hidden></ul>
+        </div>
+        <p id="car-empty" class="muted" role="status" data-msg="${t("find_empty")}" hidden></p>
       </div>
-      <p id="car-empty" class="muted" role="status" data-msg="${t("find_empty")}" hidden></p>
+      ${lead ? html`<div class="hero-feat"><div class="hero-pic">${heroPic(lead.id)}</div>
+        <p class="hero-cap"><a href="${carHref(lead)}">${tierBadge(lead.sets[state.set].tier)} ${t("leader", g.label)}: <b>${lead.name}</b></a></p></div>` : ""}
+      ${vtext("バランス")}
     </section>
-    ${strip}
-    <section class="panel">
-      <h2>${t("latest")}: ${t("version")} ${u.version}</h2>
-      <p class="muted">${t("date_fmt")} ${fmtDate(u.date)}</p>
-      <div class="cls-grid">${classCards}</div>
-      <a class="btn mt" href="${BASE}update/${encodeURIComponent(u.version)}/">${t("see_changes")} →</a>
-    </section>
-    <section class="panel">
-      <h2>${t("ranking_title")}</h2>
-      <div class="toolbar">
-        <div class="seg" id="groups" role="group" aria-label="${t("ranking_title")}">${ix.groups.map((g) => html`<button type="button" class="${g.id === state.group ? "on" : ""}" aria-pressed="${g.id === state.group}" data-g="${g.id}">${g.label} <small>${g.cars.length}</small></button>`)}</div>
-        <div class="seg" id="sets" role="group" aria-label="${t("track_type")}">${["h", "m", "l"].map((s) => html`<button type="button" class="${s === state.set ? "on" : ""}" aria-pressed="${s === state.set}" data-s="${s}">${t("set_" + s)}</button>`)}</div>
-      </div>
-      <div id="ranking"></div>
-      <p class="note">${t("rank_note")}</p>
-    </section>`;
+    <div class="entry-grid">
+      <section class="card entry"><h2>${t("nav_rankings")}</h2>
+        <ul class="entry-list">${leaders.map(([x, c]) => html`<li><span class="mono">${x.label}</span> <a href="${carHref(c)}">${c.name}</a></li>`)}</ul>
+        <a class="link-more" href="${BASE}ranking/">${t("see_ranking")} →</a></section>
+      <section class="card entry"><h2>${t("week_strip")}</h2>
+        ${races.length ? html`<ul class="entry-list">${races.map((r) => html`<li><span class="letter sm" aria-hidden="true">${r.race}</span> ${r.track}</li>`)}</ul>` : ""}
+        <a class="link-more" href="${BASE}week/">${t("see_guide")} →</a></section>
+      ${u ? html`<section class="card entry"><h2>${t("latest")}</h2>
+        <p><b class="mono">${t("version")} ${u.version}</b> <span class="muted">· ${fmtDate(u.date)}</span></p>
+        <ul class="entry-list">${ix.groups.map((x) => html`<li><span class="mono">${x.label}</span> ${classSentence(u.counts?.[x.id], x.label, t)}</li>`)}</ul>
+        <a class="link-more" href="${BASE}update/${encodeURIComponent(u.version)}/">${t("see_changes")} →</a></section>` : ""}
+      <section class="card entry"><h2>${t("help_title")}</h2><p>${t("landing_help")}</p>
+        <a class="link-more" href="${BASE}help/">${t("see_help")} →</a></section>
+    </div>`;
   mountSearch(app.querySelector("#car-q"), ix, { listbox: app.querySelector("#car-list"), empty: app.querySelector("#car-empty") });
-  app.querySelector("#groups").onclick = (e) => { const b = e.target.closest("[data-g]"); if (b) { state.group = b.dataset.g; pressed("#groups", "g", state.group); renderRanking(); } };
-  app.querySelector("#sets").onclick = (e) => { const b = e.target.closest("[data-s]"); if (b) { state.set = b.dataset.s; pressed("#sets", "s", state.set); renderRanking(); } };
-  renderRanking();
-}
-
-function pressed(sel, key, value) {
-  app.querySelectorAll(`${sel} button`).forEach((b) => { const on = b.dataset[key] === value; b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on)); });
-}
-
-const TOP = 10;
-let showAll = false; // the full class list made the phone page ~13 000 px tall
-
-function renderRanking() {
-  const g = store.index.groups.find((x) => x.id === state.group);
-  const sorted = g.cars.slice().sort((a, b) => a.sets[state.set].rank - b.sets[state.set].rank);
-  const rows = (showAll ? sorted : sorted.slice(0, TOP))
-    .map((c) => {
-      const s = c.sets[state.set], lc = c.last_change;
-      return html`<a class="row rk-row" href="${BASE}car/${encodeURIComponent(c.id)}/">
-        <span class="pos ${s.tier}">${s.rank}</span><span class="im">${carImg(c.id, "s")}</span><span class="lv">${tierBadge(s.tier)}</span>
-        <span class="nm"><b>${c.name}</b><small>${c.maker} · ${c.drivetrain}</small>${sourceBadge(s, t)}</span>
-        <span class="bs${c.best_set === state.set ? " same" : ""}">${setBadge(c.best_set)}</span>
-        <span class="lc">${lc ? html`${verdict(lc.verdict)} <small class="mono">${lc.v}</small>` : "—"}</span></a>`;
-    });
-  app.querySelector("#ranking").innerHTML = html`<div class="rows"><div class="row rk-row head"><span class="pos">#</span><span class="im"></span><span class="lv">${t("col_tier")} ${info("level", t)}</span><span class="nm">${t("col_car")}</span><span class="bs">${t("col_best")} ${info("track_types", t)}</span><span class="lc">${t("col_last")}</span></div>${rows}</div>
-    ${sorted.length > rows.length ? html`<button type="button" class="btn ghost mt" id="more">${t("show_all", sorted.length)}</button>` : ""}`;
-  const more = app.querySelector("#more");
-  if (more) more.onclick = () => { showAll = true; renderRanking(); app.querySelectorAll("#ranking a.row")[TOP]?.focus(); };
 }

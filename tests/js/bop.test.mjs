@@ -1,14 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { t, setLang } from "../../site/js/i18n.js";
-import { mostAffected, classSentence } from "../../site/js/bop.js";
+import { classSentence } from "../../site/js/bop.js";
 
-test("mostAffected sorts by absolute PP change", () => {
-  const cars = [-1.7, 3.2, 0.5, -4].map((pp, i) => ({ name: "c" + i, delta: { pp } }));
-  assert.deepEqual(mostAffected(cars).map((c) => c.delta.pp), [-4, 3.2, -1.7]);
-  assert.deepEqual(mostAffected([]), []);
-  assert.equal(mostAffected([{ name: "x", delta: {} }]).length, 1);
-});
 test("classSentence EN", () => {
   setLang("en");
   assert.equal(classSentence({ buff: 13, nerf: 5, mixed: 2 }, "Gr.3", t), "13 cars got faster, 5 slower, 2 mixed");

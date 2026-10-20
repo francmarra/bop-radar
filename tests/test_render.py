@@ -54,6 +54,9 @@ def test_pages_meta_and_paths(tmp_path):
     assert car.count('<meta name="description"') == 1 and car.count('rel="canonical"') == 1
     home = (out / "index.html").read_text(encoding="utf-8")
     assert 'href="style.css?v=' in home and '"@type": "WebSite"' in home and 'href="car/genesis-gr-3/"' in home
+    assert 'href="ranking/"' in home
+    ranking = (out / "ranking" / "index.html").read_text(encoding="utf-8")
+    assert "Cars by class" in ranking and 'href="../car/genesis-gr-3/"' in ranking
 
 
 def test_escaping_week_and_update_content(tmp_path):

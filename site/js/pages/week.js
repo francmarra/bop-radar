@@ -1,5 +1,5 @@
 import { t } from "../i18n.js";
-import { BASE, link } from "../router.js";
+import { link } from "../router.js";
 import { html, raw, info, num, vtext } from "../format.js";
 import { load, store } from "../data.js";
 import { app, tierBadge, fmtDate } from "../ui.js";
@@ -67,15 +67,9 @@ export async function weekPage() {
   render();
 }
 
-// compact strip for the home page; renders nothing when week.json is missing
-export async function weekStrip() {
+// this week's races for the landing card; empty when week.json is missing or stale (never present old races as "this week")
+export async function weekRaces() {
   let data;
-  try { data = await load("week.json"); } catch { return ""; }
-  const races = data.weeks?.find((w) => w.label === "this")?.races ?? [];
-  if (!races.length || isStale(data.generated)) return ""; // never present old races as "this week"
-  return html`<section class="panel strip" aria-labelledby="strip-h"><h2 id="strip-h">${t("week_strip")}</h2>
-    <div class="strip-grid">${races.map((r) => html`<div class="card"><span class="letter sm" aria-hidden="true">${r.race}</span>
-      <b>${r.track}</b><span class="muted small">${t("race_letter", r.race)} · ${classLabel(r) || ""}</span>
-      ${r.kind === "bop" && r.cars[0] ? html`<span class="small">${t("best_bet")}: ${carLink(store.index, r.cars[0])}</span>` : ""}</div>`)}</div>
-    <a class="link-more" href="${BASE}week/">${t("see_guide")} →</a></section>`;
+  try { data = await load("week.json"); } catch { return []; }
+  return isStale(data.generated) ? [] : data.weeks?.find((w) => w.label === "this")?.races ?? [];
 }

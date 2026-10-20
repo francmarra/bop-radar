@@ -102,11 +102,18 @@ def build_pages(site: Path, site_url: str, image, pics: dict[str, list[int]] | N
         latest_html = (f'<h2>Latest BoP: version {e(latest["version"])} ({e(latest["date"])})</h2><ul>'
                        + "".join(f"<li>{e(labels.get(g, g))}: {e(_counts_sentence(c))}</li>" for g, c in latest["counts"].items())
                        + f'</ul><p><a href="update/{e(latest["version"])}/">See all changes</a></p>')
+    leaders = "".join(f'<li>{e(g["label"])}: <a href="car/{e(c["id"])}/">{e(c["name"])}</a></li>'
+                      for g in index["groups"] if g["cars"] for c in [min(g["cars"], key=lambda c: c["sets"]["m"]["rank"])])
     pages.append({"path": "", "title": f"{NAME} — best Gr.1–4 cars and every BoP change", "description": HOME_DESC,
                   "body": f"<h1>How did BoP change your car?</h1><p>BoP (Balance of Performance) is the power and weight adjustment "
-                          f"Polyphony makes to keep race cars even.</p>{latest_html}<h2>Cars by class (medium-speed tracks)</h2>{top}",
+                          f"Polyphony makes to keep race cars even.</p><h2>No. 1 in each class</h2><ul>{leaders}</ul>"
+                          f'<p><a href="ranking/">Cars by class</a> · <a href="week/">Daily Races this week</a> · '
+                          f'<a href="updates/">BoP updates</a> · <a href="help/">Help</a></p>{latest_html}',
                   "jsonld": [_jsonld({"@context": "https://schema.org", "@type": "WebSite", "name": NAME, "url": site_url})],
                   "lastmod": gen, "image": image("default")})
+    pages.append({"path": "ranking/", "title": f"Best GT7 Gr.1–4 cars by class — {NAME}",
+                  "description": "The best Gran Turismo 7 Gr.1–Gr.4 cars under the current BoP, ranked by real Daily Race pace on fast, medium and slow tracks.",
+                  "body": f"<h1>Cars by class</h1><h2>Medium-speed tracks</h2>{top}", "jsonld": [], "lastmod": gen, "image": image("default")})
 
     pages.append({"path": "updates/", "title": f"Every GT7 BoP update — {NAME}",
                   "description": "Every Gran Turismo 7 Balance of Performance update since 1.15 for Gr.1–Gr.4 cars, explained.",

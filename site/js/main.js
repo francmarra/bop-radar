@@ -6,6 +6,7 @@ import { app } from "./ui.js";
 import { initTheme, toggleTheme } from "./theme.js";
 import { BASE, pathOf, hashToPath, link, rootPath, shouldIntercept } from "./router.js";
 import { homePage } from "./pages/home.js";
+import { rankingPage } from "./pages/ranking.js";
 import { tracksPage, trackPage } from "./pages/tracks.js";
 import { updatesPage, updatePage } from "./pages/updates.js";
 import { carPage } from "./pages/car.js";
@@ -38,7 +39,7 @@ let focusOnRoute = false; // not on first load, so the page starts at the top fo
 async function route() {
   const [page, a, b] = pathOf(location.pathname);
   chrome();
-  const current = { "": "home", car: "home", week: "week", update: "updates", updates: "updates", help: "help", about: "help" }[page ?? ""];
+  const current = { "": "home", ranking: "ranking", car: "ranking", week: "week", update: "updates", updates: "updates", help: "help", about: "help" }[page ?? ""];
   document.querySelectorAll("nav a").forEach((x) => {
     const on = x.dataset.page === current;
     x.classList.toggle("on", on);
@@ -52,6 +53,7 @@ async function route() {
     else if (page === "track") await trackPage(a, b);
     else if (page === "update") await updatePage(a);
     else if (page === "updates") updatesPage();
+    else if (page === "ranking") rankingPage();
     else if (page === "week") await weekPage();
     else if (page === "help" || page === "about") helpPage();
     else await homePage();

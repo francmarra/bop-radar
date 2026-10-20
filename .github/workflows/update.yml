@@ -2,7 +2,7 @@ name: Update BoP data and deploy
 
 on:
   schedule:
-    - cron: "0 6 * * *"  # daily 06:00 UTC: the guide follows the running Daily Races
+    - cron: "17 5 * * *"  # daily ~05:17 UTC, off the hour: GitHub delays top-of-hour schedules
   workflow_dispatch:
   push:
     branches: [main]

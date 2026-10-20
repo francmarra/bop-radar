@@ -20,8 +20,9 @@ export async function carPage(id) {
   app.innerHTML = html`
     <p><a href="${BASE}" class="link-more">${t("back_rank", groupLabel(car.group))}</a></p>
     <section class="panel car-hero">
-      <div class="hero-txt"><p class="hero-meta">${groupLabel(car.group)} · ${car.maker} · ${car.drivetrain}</p><h1>${car.name}</h1><div id="now" class="now"></div></div>
-      <div class="hero-pic">${carImg(id, "l", "", true)}</div>
+      <div class="hero-txt"><p class="hero-labels">${[groupLabel(car.group), car.maker, car.drivetrain].map((l) => html`<span>${l}</span>`)}</p><h1>${car.name}</h1><div id="now" class="now"></div></div>
+      <div class="hero-pic">${heroPic(id)}</div>
+      <div id="spec"></div>
       <p id="summary" class="lead"></p>
     </section>
     <section class="panel"><div class="toolbar between"><h2>${t("history")}</h2>
@@ -56,16 +57,12 @@ export async function carPage(id) {
     app.querySelector("#summary").textContent = summary(brief(e, selected));
     const fit = ["h", "m", "l"].map((s) => html`<div class="fit">${setBadge(s)} <span class="muted mono">#${selected === latest && now ? now[s].rank : e.sets[s].rank}</span>
       <div class="bar"><i style="width:${Math.round(c.fit[s] * 100)}%;background:var(--${s})"></i></div></div>`);
-    const hand = (f) => t({ N: "neutral", U: "understeer", O: "oversteer" }[f] || "—");
+    app.querySelector("#spec").innerHTML = specSheet(m, c.handling, t);
     app.querySelector("#cards").innerHTML = html`
       <div class="card"><h3>${t("track_fit")} ${info("track_types", t)}</h3>${fit}<div class="note">${c.tracks.join(", ")}</div></div>
       <div class="card"><h3>${t("strengths")}</h3><div class="chips">${c.strengths.length ? c.strengths.map((s) => html`<span>${I18N[lang].tr[s]}</span>`) : html`<span class="soft">${t("none")}</span>`}</div>
         <h3 class="mt">${t("weaknesses")}</h3><div class="chips">${c.weaknesses.length ? c.weaknesses.map((s) => html`<span class="weak">${I18N[lang].tr[s]}</span>`) : html`<span class="soft">${t("none")}</span>`}</div></div>
-      <div class="card"><h3>${t("tyre_wear")} ${info("estimates", t)}</h3>${level(c.tyre_wear)}<h3 class="mt">${t("fuel_use")}</h3>${level(c.fuel_use)}<div class="note">${t("estimates")}</div></div>
-      <div class="card"><h3>${t("specs")}</h3><dl class="specs">
-        <dt>${t("power")}</dt><dd>${num(m.power_ps)} PS</dd><dt>${t("weight")}</dt><dd>${num(m.weight_kg)} kg</dd>
-        <dt>PS/t ${info("ps_t", t)}</dt><dd>${num(m.ps_per_t, 1)}</dd><dt>${t("balance")} ${info("balance", t)}</dt><dd>${m.balance ?? "—"}</dd>
-        <dt>${t("handling")}</dt><dd>${hand(c.handling.low)} / ${hand(c.handling.high)}</dd></dl></div>`;
+      <div class="card"><h3>${t("tyre_wear")} ${info("estimates", t)}</h3>${level(c.tyre_wear)}<h3 class="mt">${t("fuel_use")}</h3>${level(c.fuel_use)}<div class="note">${t("estimates")}</div></div>`;
     app.querySelectorAll("#changes [data-i]").forEach((r) => r.classList.toggle("sel", +r.dataset.i === selected));
   };
   app.querySelector("#changes").onclick = (ev) => { const r = ev.target.closest("[data-i]"); if (r) { selected = +r.dataset.i; renderCtx(); app.querySelector("#details").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); } };
@@ -78,6 +75,19 @@ export async function carPage(id) {
   box.innerHTML = chart(hist, "pp", box.clientWidth || undefined);
   renderCtx();
 }
+
+// hero spec sheet of the selected version's medium-track BoP (was the "Specs" card)
+export function specSheet(m, handling, t) {
+  const hand = (f) => t({ N: "neutral", U: "understeer", O: "oversteer" }[f] || "—");
+  const val = (v, d, unit) => (typeof v === "number" ? html`${num(v, d)}${unit ? html`<small>${unit}</small>` : ""}` : "—");
+  return html`<dl class="spec" aria-label="${t("specs")}">
+    <div><dt>${t("power")}</dt><dd>${val(m.power_ps, 0, "PS")}</dd></div><div><dt>${t("weight")}</dt><dd>${val(m.weight_kg, 0, "kg")}</dd></div>
+    <div><dt>PS/t ${info("ps_t", t)}</dt><dd>${val(m.ps_per_t, 1)}</dd></div><div><dt>PP</dt><dd>${val(m.pp, 2)}</dd></div>
+    <div><dt>${t("balance")} ${info("balance", t)}</dt><dd>${m.balance ?? "—"}</dd></div><div><dt>${t("handling")}</dt><dd>${hand(handling?.low)} / ${hand(handling?.high)}</dd></div></dl>`;
+}
+
+// the picture plus a mirrored copy as floor reflection; the silhouette gets none
+export const heroPic = (id) => html`${carImg(id, "l", "", true)}${Object.hasOwn(store.images ?? {}, id) ? html`<span class="reflection" aria-hidden="true">${carImg(id, "l")}</span>` : ""}`;
 
 // drawn at the box's real width so axis text keeps its size (a stretched viewBox squashed it on phones)
 // shortcut: not redrawn on resize/rotation (it then scales uniformly), add a ResizeObserver if that matters

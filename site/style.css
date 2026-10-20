@@ -190,7 +190,7 @@ input[type=search], select { background: var(--panel-2); border: 1px solid var(-
 .note { font-size: var(--fs-sm); color: var(--muted); margin-top: 12px; }
 svg.chart { width: 100%; height: 260px; display: block; }
 svg.chart text { fill: var(--muted); font: 15px var(--mono); }
-.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: var(--fs-sm); color: var(--muted); }
+.legend { display: flex; gap: 4px 16px; flex-wrap: wrap; font-size: var(--fs-sm); color: var(--muted); }
 .legend i { display: inline-block; width: 16px; height: 4px; vertical-align: middle; margin-right: 6px; }
 .updates a { display: grid; grid-template-columns: 80px 120px 1fr; gap: 12px; padding: 14px 8px; min-height: var(--tap); text-decoration: none;
   border-bottom: 1px solid var(--line); align-items: center; }
@@ -222,8 +222,10 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
   .trow { grid-template-columns: 48px 72px 40px 1fr 100px; } .trow .sc { grid-column: 4 / 5; } .trow .ev2 { display: none; }
   .urow { grid-template-columns: 130px 72px 1fr auto; } .urow .dp, .urow .rkn { display: none; } .urow .sm { grid-column: 1 / -1; }
   .rrow { grid-template-columns: 1fr auto auto auto; } .rrow > :nth-child(2), .rrow > :nth-child(6) { display: none; }
-  .crow { grid-template-columns: 70px minmax(0, 1fr) minmax(0, 1fr); } .crow > :nth-child(2), .crow > :nth-child(5) { display: none; }
-  .crow > :nth-child(4) { display: flex; flex-wrap: wrap; gap: 4px; min-width: 0; }
+  .crow { grid-template-columns: 72px minmax(0, 1fr) 72px; column-gap: 6px; row-gap: 4px; } .crow > :nth-child(2), .crow > :nth-child(5) { display: none; }
+  /* version | verdict over power/weight | PP rank: 4 cells in 3 columns without wrapping the rank to a new row */
+  .crow > :nth-child(1) { grid-row: span 2; } .crow > :nth-child(3), .crow > :nth-child(4) { grid-column: 2; } .crow > :nth-child(6) { grid-column: 3; grid-row: 1 / span 2; text-align: right; }
+  .crow > :nth-child(4) { display: flex; flex-wrap: wrap; gap: 4px; min-width: 0; } .crow .v { white-space: normal; }
   .row.head .tr, .row.head .sm { display: none; }
 }
 @media (max-width: 640px) {

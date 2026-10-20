@@ -19,3 +19,12 @@ test("method copy mentions real pace in both languages", () => {
   assert.match(I18N.en.help_level, /lap times|pace/i);
   assert.ok(I18N.en.col_pp_rank && I18N.pt.col_pp_rank);
 });
+
+test("topCar picks the class leader on a track type", async () => {
+  globalThis.document ??= { getElementById: () => null };
+  const { topCar } = await import("../../site/js/pages/ranking.js");
+  const g = { cars: [{ id: "a", sets: { m: { rank: 2 }, h: { rank: 1 } } }, { id: "b", sets: { m: { rank: 1 }, h: { rank: 3 } } }] };
+  assert.equal(topCar(g, "m").id, "b");
+  assert.equal(topCar(g, "h").id, "a");
+  assert.equal(topCar({ cars: [] }, "m"), undefined);
+});

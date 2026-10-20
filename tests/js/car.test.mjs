@@ -29,3 +29,11 @@ test("heroPic adds a hidden reflection only for real pictures", () => {
   assert.ok(pic.includes('class="reflection" aria-hidden="true"'));
   assert.equal(pic.match(/<img/g).length, 2);
 });
+
+test("vtext is decorative: hidden from screen readers", async () => {
+  const { vtext } = await import("../../site/js/format.js");
+  const v = String(vtext("グループ3", "バランス"));
+  assert.ok(v.startsWith('<span class="vtext" aria-hidden="true">グループ3'));
+  assert.ok(v.includes("<span>バランス</span>"));
+  assert.ok(!String(vtext("デイリーレース")).includes("<span>"));
+});

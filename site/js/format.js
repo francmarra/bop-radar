@@ -22,6 +22,8 @@ const VERDICT_ICON = { buff: "▲", nerf: "▼", mixed: "◆", unchanged: "=" };
 export const verdictHtml = (v, t) => (VERDICT_ICON[v] ? html`<span class="v ${v}">${VERDICT_ICON[v]} ${t(v)}</span>` : html`<span class="muted">—</span>`);
 export const levelName = (tier, t) => t("level_" + tier);
 let tipSeq = 0;
+// decorative vertical Japanese label (desktop only via CSS); `big` is the large outlined word under it
+export const vtext = (text, big = "") => html`<span class="vtext" aria-hidden="true">${text}${big ? html`<span>${big}</span>` : ""}</span>`;
 export const info = (key, t) => {
   const id = `tip-${key}-${++tipSeq}`;
   return html`<span class="info-wrap"><button type="button" class="info" aria-expanded="false" aria-controls="${id}" aria-label="${t("more_about", t("term_" + key))}">ⓘ</button><span role="tooltip" id="${id}" class="tip" hidden>${t("help_" + key)}</span></span>`;

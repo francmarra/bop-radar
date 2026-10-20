@@ -1,6 +1,6 @@
 import { t } from "../i18n.js";
 import { BASE, link } from "../router.js";
-import { html, raw, info, num } from "../format.js";
+import { html, raw, info, num, vtext } from "../format.js";
 import { load, store } from "../data.js";
 import { app, tierBadge, fmtDate } from "../ui.js";
 import { rulesText, whyText, summaryText, carLink, findCar, isStale } from "../week.js";
@@ -44,9 +44,10 @@ export async function weekPage() {
   const render = () => {
     const races = data.weeks.find((w) => w.label === shown)?.races ?? [];
     app.innerHTML = html`
-      <h1>${t("week_title")}</h1>
+      <div class="page-head"><div><h1>${t("week_title")}</h1>
       ${isStale(data.generated) ? html`<p class="panel stale" role="note">${t("stale_note", fmtDate(data.generated))}</p>` : ""}
-      <div class="seg" id="wk" role="group" aria-label="${t("week_title")}">${["this", "next"].map((w) => html`<button type="button" class="${w === shown ? "on" : ""}" aria-pressed="${w === shown}" data-w="${w}">${t(w + "_week")}</button>`)}</div>
+      <div class="seg" id="wk" role="group" aria-label="${t("week_title")}">${["this", "next"].map((w) => html`<button type="button" class="${w === shown ? "on" : ""}" aria-pressed="${w === shown}" data-w="${w}">${t(w + "_week")}</button>`)}</div></div>
+      ${vtext("デイリーレース")}</div>
       <div class="races">${races.length ? races.map(card) : html`<p class="panel">${t("next_empty")}</p>`}</div>
       <p class="note">${t("generated")}: ${fmtDate(data.generated)}</p>`;
     app.querySelector("#wk").onclick = (e) => { const b = e.target.closest("[data-w]"); if (b && b.dataset.w !== shown) { shown = b.dataset.w; render(); app.querySelector(`#wk [data-w="${shown}"]`).focus(); } };

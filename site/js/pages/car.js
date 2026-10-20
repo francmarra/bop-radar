@@ -1,6 +1,6 @@
 import { t, I18N, lang, summary } from "../i18n.js";
 import { BASE } from "../router.js";
-import { html, num, info, sourceBadge } from "../format.js";
+import { html, num, info, sourceBadge, vtext } from "../format.js";
 import { load, store, groupLabel as gl } from "../data.js";
 import { app, verdict, tierBadge, setBadge, deltaText, level } from "../ui.js";
 import { carImg } from "../carimg.js";
@@ -23,6 +23,7 @@ export async function carPage(id) {
       <div class="hero-txt"><p class="hero-labels">${[groupLabel(car.group), car.maker, car.drivetrain].map((l) => html`<span>${l}</span>`)}</p><h1>${car.name}</h1><div id="now" class="now"></div></div>
       <div class="hero-pic">${heroPic(id)}</div>
       <div id="spec"></div>
+      ${vtext(`グループ${groupLabel(car.group).replace(/\D/g, "")}`, "バランス")}
       <p id="summary" class="lead"></p>
     </section>
     <section class="panel"><div class="toolbar between"><h2>${t("history")}</h2>

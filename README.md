@@ -14,6 +14,7 @@ index** (how many cars really share the Daily Race top 100) rates each BoP updat
 - `data/leaderboards/<board>.json` — per-car pace aggregates of finished Daily Races (no player data)
 - `data/notes/<car-id>.toml` — optional hand-written notes shown on a car's page (`text = "..."`)
 - `data/car_images.toml` — car id → GT7 car id, used to fetch the official car pictures at build time
+- `api/` — ASP.NET Core 9 read-only REST API over `site/data` (PostgreSQL, Docker, xUnit)
 
 ## Usage
 
@@ -84,3 +85,29 @@ evidence. Deeper and older leaderboard data is the main lever for accuracy.
   [gt7-telemetry](https://github.com/francmarra).
 
 MIT licence.
+
+## API (.NET)
+
+[![api](https://github.com/francmarra/bop-radar/actions/workflows/api.yml/badge.svg)](https://github.com/francmarra/bop-radar/actions/workflows/api.yml)
+
+Read-only REST API over the generated data (ASP.NET Core 9, EF Core, PostgreSQL, Docker, xUnit):
+
+`Python pipeline → site/data/*.json → importer → PostgreSQL → ASP.NET Core API`
+
+```sh
+cd api && cp .env.example .env && docker compose up
+```
+
+Then open http://localhost:8080 — `/health`, interactive docs at http://localhost:8080/docs, endpoints under `/api/v1`:
+
+```sh
+curl "http://localhost:8080/api/v1/cars?group=gr3"
+curl "http://localhost:8080/api/v1/cars/155-2-5-v6-ti-93/history?set=m"
+curl "http://localhost:8080/api/v1/compare?ids=155-2-5-v6-ti-93,963-24"
+```
+
+Tests (need Docker, they start PostgreSQL with Testcontainers):
+
+```sh
+dotnet test api
+```

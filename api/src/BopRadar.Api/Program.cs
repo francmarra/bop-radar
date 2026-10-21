@@ -1,3 +1,4 @@
+using BopRadar.Api.Endpoints;
 using BopRadar.Api;
 using BopRadar.Data;
 using Scalar.AspNetCore;
@@ -28,7 +29,7 @@ app.MapScalarApiReference("/docs");
 app.MapHealthChecks("/health");
 
 RouteGroupBuilder api = app.MapGroup("/api/v1");
-_ = api; // endpoints are added by Endpoints/*.cs in later tasks
+api.MapCars();
 
 app.Run();
 return 0;

@@ -30,6 +30,8 @@ app.MapHealthChecks("/health");
 
 RouteGroupBuilder api = app.MapGroup("/api/v1");
 api.MapCars();
+api.MapUpdates();
+api.MapTracks();
 
 app.Run();
 return 0;

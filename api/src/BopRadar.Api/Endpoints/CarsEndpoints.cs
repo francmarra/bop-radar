@@ -1,6 +1,7 @@
 using BopRadar.Api.Dtos;
 using BopRadar.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BopRadar.Api.Endpoints;
 
@@ -10,10 +11,10 @@ public static class CarsEndpoints
     {
         var g = api.MapGroup("/cars");
 
-        g.MapGet("/", async (BopRadarDbContext db, string? group, string? maker, string? q, int page = 1, int pageSize = 20) =>
+        g.MapGet("/", async Task<Results<Ok<Page<CarSummaryDto>>, ValidationProblem>> (BopRadarDbContext db, string? group, string? maker, string? q, int page = 1, int pageSize = 20) =>
         {
             var errors = Validation.Paging(page, pageSize);
-            if (errors.Count > 0) return Results.ValidationProblem(errors);
+            if (errors.Count > 0) return TypedResults.ValidationProblem(errors);
 
             var cars = db.Cars.AsNoTracking().AsQueryable();
             if (!string.IsNullOrEmpty(group)) cars = cars.Where(c => c.Group == group);
@@ -32,10 +33,10 @@ public static class CarsEndpoints
                 .Select(x => new CarSummaryDto(x.Id, x.Name, x.Maker, x.Group,
                     x.L == null ? null : x.L.Rank, x.L == null ? null : x.L.Tier, x.L == null ? null : x.L.Pp))
                 .ToListAsync();
-            return Results.Ok(new Page<CarSummaryDto>(items, page, pageSize, total));
+            return TypedResults.Ok(new Page<CarSummaryDto>(items, page, pageSize, total));
         });
 
-        g.MapGet("/{id}", async (BopRadarDbContext db, string id) =>
+        g.MapGet("/{id}", async Task<Results<Ok<CarDetailDto>, ProblemHttpResult>> (BopRadarDbContext db, string id) =>
         {
             var car = await db.Cars.AsNoTracking().Where(c => c.Id == id)
                 .Select(c => new { c.Id, c.Name, c.Maker, c.Drivetrain, c.Group }).SingleOrDefaultAsync();
@@ -49,22 +50,22 @@ public static class CarsEndpoints
             var note = await db.Notes.AsNoTracking().Where(n => n.CarId == id && n.Version == version)
                 .Select(n => new { n.Version, n.ClassSize, n.Summary, n.Context }).SingleOrDefaultAsync();
 
-            return Results.Ok(new CarDetailDto(car.Id, car.Name, car.Maker, car.Drivetrain, car.Group, version, sets,
+            return TypedResults.Ok(new CarDetailDto(car.Id, car.Name, car.Maker, car.Drivetrain, car.Group, version, sets,
                 note is null ? null : new CarNoteDto(note.Version, note.ClassSize, note.Summary, note.Context.RootElement.Clone())));
         });
 
-        g.MapGet("/{id}/history", async (BopRadarDbContext db, string id, string set = "m") =>
+        g.MapGet("/{id}/history", async Task<Results<Ok<List<HistoryPointDto>>, ValidationProblem, ProblemHttpResult>> (BopRadarDbContext db, string id, string set = "m") =>
         {
             var errors = Validation.Set(set);
-            if (errors.Count > 0) return Results.ValidationProblem(errors);
+            if (errors.Count > 0) return TypedResults.ValidationProblem(errors);
             if (!await db.Cars.AnyAsync(c => c.Id == id)) return Validation.NotFound($"Car '{id}' not found");
 
             var points = await db.Entries.AsNoTracking().Where(e => e.CarId == id && e.Set == set)
                 .Join(db.Updates, e => e.Version, u => u.Version, (e, u) => new { e, u.Date })
-                .OrderBy(x => x.Date)
+                .OrderBy(x => x.Date).ThenBy(x => x.e.Version)
                 .Select(x => new HistoryPointDto(x.e.Version, x.Date, x.e.Changed, x.e.Pp, x.e.PowerPs, x.e.WeightKg, x.e.Rank, x.e.Tier))
                 .ToListAsync();
-            return Results.Ok(points);
+            return TypedResults.Ok(points);
         });
 
         return api;

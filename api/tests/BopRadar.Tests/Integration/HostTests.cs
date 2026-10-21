@@ -21,6 +21,12 @@ public class HostTests(ApiFactory factory)
     }
 
     [Fact]
+    public async Task Openapi_carries_dto_schemas()
+    {
+        Assert.Contains("CarSummaryDto", await _client.GetStringAsync("/openapi/v1.json"));
+    }
+
+    [Fact]
     public async Task Unknown_route_is_problem_details()
     {
         var res = await _client.GetAsync("/api/v1/nope");

@@ -93,15 +93,14 @@ public class ImporterTests(PostgresFixture pg)
         await importer.ImportAsync(Fixtures.SiteDataDir);
         var before = await Counts(db);
 
-        // Reader accepts a duplicated history item; EF/DB rejects the duplicate key after the deletes ran.
+        // Reader accepts a NUL char in a name; Postgres rejects it at SaveChanges, after the deletes ran.
         var dir = Fixtures.TempCopy();
         var file = Path.Combine(dir, "cars", "963-24.json");
         var root = JsonNode.Parse(File.ReadAllText(file))!;
-        var history = root["history"]!.AsArray();
-        history.Add(JsonNode.Parse(history[0]!.ToJsonString()));
+        root["name"] = "bad\u0000name";
         File.WriteAllText(file, root.ToJsonString());
 
-        await Assert.ThrowsAnyAsync<Exception>(() => importer.ImportAsync(dir));
+        await Assert.ThrowsAnyAsync<Microsoft.EntityFrameworkCore.DbUpdateException>(() => importer.ImportAsync(dir));
         Assert.Equal(before, await Counts(db));
     }
 }

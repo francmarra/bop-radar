@@ -56,6 +56,7 @@ public class CarsEndpointsTests(ApiFactory factory)
     {
         await AssertProblem("/api/v1/cars?page=0", "page");
         await AssertProblem("/api/v1/cars?pageSize=101", "pageSize");
+        await AssertProblem("/api/v1/cars?page=2147483647&pageSize=100", "page");
     }
 
     [Fact]

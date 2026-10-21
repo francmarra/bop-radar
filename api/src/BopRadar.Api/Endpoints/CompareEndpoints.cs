@@ -1,6 +1,7 @@
 using BopRadar.Api.Dtos;
 using BopRadar.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BopRadar.Api.Endpoints;
 
@@ -27,12 +28,12 @@ public static class CompareEndpoints
 {
     public static RouteGroupBuilder MapCompare(this RouteGroupBuilder api)
     {
-        api.MapGet("/compare", async (BopRadarDbContext db, string? ids, string? version, string set = "m") =>
+        api.MapGet("/compare", async Task<Results<Ok<CompareDto>, ValidationProblem, ProblemHttpResult>> (BopRadarDbContext db, string? ids, string? version, string set = "m") =>
         {
             var errors = Validation.Set(set);
             var idErrors = CompareRules.ValidateIds(ids, out var parsed);
             foreach (var kv in idErrors) errors[kv.Key] = kv.Value;
-            if (errors.Count > 0) return Results.ValidationProblem(errors);
+            if (errors.Count > 0) return TypedResults.ValidationProblem(errors);
 
             var cars = await db.Cars.AsNoTracking().Where(c => parsed.Contains(c.Id))
                 .Select(c => new { c.Id, c.Name, c.Maker, c.Group }).ToDictionaryAsync(c => c.Id);
@@ -53,7 +54,7 @@ public static class CompareEndpoints
             var noEntry = parsed.Where(i => !stats.ContainsKey(i)).ToArray();
             if (noEntry.Length > 0) return Validation.NotFound($"No BoP entry for version '{version}', set '{set}': {string.Join(", ", noEntry)}");
 
-            return Results.Ok(new CompareDto(version, set,
+            return TypedResults.Ok(new CompareDto(version, set,
                 parsed.Select(i => new CompareCarDto(i, cars[i].Name, cars[i].Maker, cars[i].Group, stats[i])).ToList()));
         });
         return api;

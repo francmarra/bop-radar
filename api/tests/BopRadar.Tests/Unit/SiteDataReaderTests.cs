@@ -5,18 +5,6 @@ namespace BopRadar.Tests.Unit;
 
 public class SiteDataReaderTests
 {
-    static string TempCopy()
-    {
-        var dir = Path.Combine(Path.GetTempPath(), "bop-" + Guid.NewGuid().ToString("N"));
-        foreach (var f in Directory.GetFiles(Fixtures.SiteDataDir, "*", SearchOption.AllDirectories))
-        {
-            var dest = Path.Combine(dir, Path.GetRelativePath(Fixtures.SiteDataDir, f));
-            Directory.CreateDirectory(Path.GetDirectoryName(dest)!);
-            File.Copy(f, dest);
-        }
-        return dir;
-    }
-
     [Fact]
     public void Read_maps_cars_and_entries()
     {
@@ -55,7 +43,7 @@ public class SiteDataReaderTests
     [Fact]
     public void Read_throws_for_missing_required_field()
     {
-        var dir = TempCopy();
+        var dir = Fixtures.TempCopy();
         var file = Path.Combine(dir, "cars", "963-24.json");
         File.WriteAllText(file, File.ReadAllText(file).Replace("\"maker\":\"Porsche\",", ""));
         var ex = Assert.Throws<SiteDataException>(() => SiteDataReader.Read(dir));
@@ -66,7 +54,7 @@ public class SiteDataReaderTests
     [Fact]
     public void Read_throws_for_unknown_car_in_update()
     {
-        var dir = TempCopy();
+        var dir = Fixtures.TempCopy();
         var file = Path.Combine(dir, "updates", "1.72.json");
         File.WriteAllText(file, File.ReadAllText(file).Replace("\"id\":\"963-24\"", "\"id\":\"no-such-car\""));
         var ex = Assert.Throws<SiteDataException>(() => SiteDataReader.Read(dir));
@@ -85,7 +73,7 @@ public class SiteDataReaderTests
     [Fact]
     public void Read_throws_for_missing_index()
     {
-        var dir = TempCopy();
+        var dir = Fixtures.TempCopy();
         File.Delete(Path.Combine(dir, "index.json"));
         Assert.Equal("index.json", Assert.Throws<SiteDataException>(() => SiteDataReader.Read(dir)).Field);
     }
@@ -93,7 +81,7 @@ public class SiteDataReaderTests
     [Fact]
     public void Read_throws_for_non_boolean_changed()
     {
-        var dir = TempCopy();
+        var dir = Fixtures.TempCopy();
         var file = Path.Combine(dir, "cars", "963-24.json");
         File.WriteAllText(file, File.ReadAllText(file).Replace("\"changed\":true", "\"changed\":\"yes\"").Replace("\"changed\":false", "\"changed\":\"no\""));
         var ex = Assert.Throws<SiteDataException>(() => SiteDataReader.Read(dir));
@@ -104,7 +92,7 @@ public class SiteDataReaderTests
     [Fact]
     public void Read_maps_absent_ps_per_t_to_null_and_rejects_wrong_type()
     {
-        var dir = TempCopy();
+        var dir = Fixtures.TempCopy();
         var file = Path.Combine(dir, "cars", "963-24.json");
         var orig = File.ReadAllText(file);
         var re = new System.Text.RegularExpressions.Regex("\"ps_per_t\":[^,}]+,?");

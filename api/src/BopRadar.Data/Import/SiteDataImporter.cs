@@ -8,8 +8,8 @@ public class SiteDataImporter(BopRadarDbContext db)
 {
     public async Task<ImportResult> ImportAsync(string siteDataDir, CancellationToken ct = default)
     {
-        await db.Database.MigrateAsync(ct);
         var data = SiteDataReader.Read(siteDataDir); // fails before any DB write
+        await db.Database.MigrateAsync(ct);
 
         // Execution strategy + explicit transaction: everything below commits or rolls back together.
         var strategy = db.Database.CreateExecutionStrategy();

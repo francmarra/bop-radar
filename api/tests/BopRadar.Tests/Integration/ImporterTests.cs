@@ -84,4 +84,24 @@ public class ImporterTests(PostgresFixture pg)
         await Assert.ThrowsAsync<SiteDataException>(() => importer.ImportAsync(empty));
         Assert.Equal(before, await db.Cars.CountAsync());
     }
+
+    [Fact]
+    public async Task Import_db_failure_after_deletes_rolls_back()
+    {
+        await using var db = pg.NewContext(Db());
+        var importer = new SiteDataImporter(db);
+        await importer.ImportAsync(Fixtures.SiteDataDir);
+        var before = await Counts(db);
+
+        // Reader accepts a duplicated history item; EF/DB rejects the duplicate key after the deletes ran.
+        var dir = Fixtures.TempCopy();
+        var file = Path.Combine(dir, "cars", "963-24.json");
+        var root = JsonNode.Parse(File.ReadAllText(file))!;
+        var history = root["history"]!.AsArray();
+        history.Add(JsonNode.Parse(history[0]!.ToJsonString()));
+        File.WriteAllText(file, root.ToJsonString());
+
+        await Assert.ThrowsAnyAsync<Exception>(() => importer.ImportAsync(dir));
+        Assert.Equal(before, await Counts(db));
+    }
 }

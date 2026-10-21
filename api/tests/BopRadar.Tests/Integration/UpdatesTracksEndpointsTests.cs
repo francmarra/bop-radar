@@ -26,6 +26,9 @@ public class UpdatesTracksEndpointsTests(ApiFactory factory)
         var d = (await _client.GetFromJsonAsync<UpdateDetailDto>("/api/v1/updates/1.72"))!;
         var c = Assert.Single(d.Changes, x => x.CarId == "963-24");
         Assert.False(string.IsNullOrEmpty(c.Verdict));
+        Assert.Equal(JsonValueKind.Object, c.Delta.ValueKind);
+        var keys = d.Changes.Select(x => (x.Group, x.Rank)).ToList();
+        Assert.Equal(keys.OrderBy(k => k.Group, StringComparer.Ordinal).ThenBy(k => k.Rank).ToList(), keys);
     }
 
     [Fact]
@@ -39,6 +42,7 @@ public class UpdatesTracksEndpointsTests(ApiFactory factory)
         var t = Assert.Single(list);
         var d = (await _client.GetFromJsonAsync<TrackDetailDto>("/api/v1/tracks/" + t.Id))!;
         Assert.Equal(JsonValueKind.Object, d.Stats.ValueKind);
+        Assert.NotEmpty(d.Stats.EnumerateObject());
         Assert.Equal(HttpStatusCode.NotFound, (await _client.GetAsync("/api/v1/tracks/nope")).StatusCode);
     }
 }

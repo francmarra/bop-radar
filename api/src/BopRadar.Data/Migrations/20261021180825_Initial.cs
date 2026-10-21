@@ -82,7 +82,7 @@ namespace BopRadar.Data.Migrations
                     power_ps = table.Column<int>(type: "integer", nullable: false),
                     torque_kgfm = table.Column<double>(type: "double precision", nullable: false),
                     weight_kg = table.Column<int>(type: "integer", nullable: false),
-                    ps_per_t = table.Column<double>(type: "double precision", nullable: false),
+                    ps_per_t = table.Column<double>(type: "double precision", nullable: true),
                     balance = table.Column<string>(type: "text", nullable: false),
                     acc100150 = table.Column<double>(type: "double precision", nullable: false),
                     rotg60 = table.Column<double>(type: "double precision", nullable: false),

@@ -112,7 +112,7 @@ namespace BopRadar.Data.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("pp");
 
-                    b.Property<double>("PsPerT")
+                    b.Property<double?>("PsPerT")
                         .HasColumnType("double precision")
                         .HasColumnName("ps_per_t");
 

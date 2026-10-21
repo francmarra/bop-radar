@@ -29,7 +29,7 @@ public class CarBopEntry
     public int PowerPs { get; set; }
     public double TorqueKgfm { get; set; }
     public int WeightKg { get; set; }
-    public double PsPerT { get; set; }
+    public double? PsPerT { get; set; }
     public string Balance { get; set; } = "";
     public double Acc100150 { get; set; }
     public double Rotg60 { get; set; }

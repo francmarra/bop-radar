@@ -22,13 +22,13 @@ public static class SiteDataReader
         var changes = new List<UpdateChange>();
         var tracks = new List<Track>();
 
+        var carsDir = Path.Combine(siteDataDir, "cars");
+        var carFiles = Directory.Exists(carsDir) ? Directory.GetFiles(carsDir, "*.json").Order().ToArray() : [];
+        if (carFiles.Length == 0) throw new SiteDataException("cars", "cars", "no car files found");
         using (var index = Load(siteDataDir, "index.json"))
             foreach (var u in Arr(index.RootElement, "updates", "index.json"))
                 AddUpdate(Str(u, "version", "index.json"), Str(u, "date", "index.json"), "index.json");
 
-        var carsDir = Path.Combine(siteDataDir, "cars");
-        var carFiles = Directory.Exists(carsDir) ? Directory.GetFiles(carsDir, "*.json").Order().ToArray() : [];
-        if (carFiles.Length == 0) throw new SiteDataException("cars", "cars", "no car files found");
         foreach (var path in carFiles)
         {
             var file = Path.GetFileName(path);
@@ -49,7 +49,10 @@ public static class SiteDataReader
                     CarId = car.Id, Version = v, ClassSize = Int(h, "of", file),
                     Summary = Str(h, "summary", file), Context = Clone(Req(h, "context", file)),
                 });
-                var changed = Req(h, "changed", file).ValueKind is JsonValueKind.True;
+                var changedEl = Req(h, "changed", file);
+                if (changedEl.ValueKind is not (JsonValueKind.True or JsonValueKind.False))
+                    throw new SiteDataException(file, "changed", "expected boolean");
+                var changed = changedEl.GetBoolean();
                 var sets = Req(h, "sets", file);
                 if (sets.ValueKind != JsonValueKind.Object) throw new SiteDataException(file, "sets", "expected object");
                 foreach (var s in sets.EnumerateObject())
@@ -62,7 +65,7 @@ public static class SiteDataReader
                         PowerPs = Int(e, "power_ps", file), TorqueKgfm = Num(e, "torque_kgfm", file),
                         WeightKg = Int(e, "weight_kg", file),
                         // ps_per_t is absent in some real rows
-                        PsPerT = e.TryGetProperty("ps_per_t", out var p) && p.ValueKind == JsonValueKind.Number ? p.GetDouble() : 0,
+                        PsPerT = e.TryGetProperty("ps_per_t", out _) ? Num(e, "ps_per_t", file) : null,
                         Balance = Str(e, "balance", file), Acc100150 = Num(e, "acc_100_150", file),
                         Rotg60 = Num(e, "rotg_60", file), Rotg120 = Num(e, "rotg_120", file),
                         Rotg240 = Num(e, "rotg_240", file), StabLow = Num(e, "stab_low", file),

@@ -75,13 +75,47 @@ public class SiteDataReaderTests
     }
 
     [Fact]
-    public void Read_throws_for_empty_dir_and_missing_index()
+    public void Read_throws_for_empty_dir()
     {
         var empty = Path.Combine(Path.GetTempPath(), "bop-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(empty);
-        Assert.Equal("index.json", Assert.Throws<SiteDataException>(() => SiteDataReader.Read(empty)).Field);
-
-        File.WriteAllText(Path.Combine(empty, "index.json"), "{\"updates\":[]}");
         Assert.Equal("cars", Assert.Throws<SiteDataException>(() => SiteDataReader.Read(empty)).Field);
+    }
+
+    [Fact]
+    public void Read_throws_for_missing_index()
+    {
+        var dir = TempCopy();
+        File.Delete(Path.Combine(dir, "index.json"));
+        Assert.Equal("index.json", Assert.Throws<SiteDataException>(() => SiteDataReader.Read(dir)).Field);
+    }
+
+    [Fact]
+    public void Read_throws_for_non_boolean_changed()
+    {
+        var dir = TempCopy();
+        var file = Path.Combine(dir, "cars", "963-24.json");
+        File.WriteAllText(file, File.ReadAllText(file).Replace("\"changed\":true", "\"changed\":\"yes\"").Replace("\"changed\":false", "\"changed\":\"no\""));
+        var ex = Assert.Throws<SiteDataException>(() => SiteDataReader.Read(dir));
+        Assert.EndsWith("963-24.json", ex.File);
+        Assert.Equal("changed", ex.Field);
+    }
+
+    [Fact]
+    public void Read_maps_absent_ps_per_t_to_null_and_rejects_wrong_type()
+    {
+        var dir = TempCopy();
+        var file = Path.Combine(dir, "cars", "963-24.json");
+        var orig = File.ReadAllText(file);
+        var re = new System.Text.RegularExpressions.Regex("\"ps_per_t\":[^,}]+,?");
+        Assert.Matches(re, orig);
+        File.WriteAllText(file, re.Replace(orig, "", 1));
+        var d = SiteDataReader.Read(dir);
+        Assert.Contains(d.Entries, e => e.CarId == "963-24" && e.PsPerT is null);
+        Assert.Contains(d.Entries, e => e.CarId == "963-24" && e.PsPerT is not null);
+
+        File.WriteAllText(file, re.Replace(orig, "\"ps_per_t\":\"x\",", 1));
+        var ex = Assert.Throws<SiteDataException>(() => SiteDataReader.Read(dir));
+        Assert.Equal("ps_per_t", ex.Field);
     }
 }

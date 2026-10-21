@@ -6,8 +6,6 @@ namespace BopRadar.Api.Endpoints;
 
 public static class CarsEndpoints
 {
-    private static string Escape(string s) => s.Replace("\\", "\\\\").Replace("%", "\\%").Replace("_", "\\_");
-
     public static RouteGroupBuilder MapCars(this RouteGroupBuilder api)
     {
         var g = api.MapGroup("/cars");
@@ -19,43 +17,39 @@ public static class CarsEndpoints
 
             var cars = db.Cars.AsNoTracking().AsQueryable();
             if (!string.IsNullOrEmpty(group)) cars = cars.Where(c => c.Group == group);
-            if (!string.IsNullOrEmpty(maker)) cars = cars.Where(c => EF.Functions.ILike(c.Maker, Escape(maker), "\\"));
-            if (!string.IsNullOrEmpty(q)) cars = cars.Where(c => EF.Functions.ILike(c.Name, "%" + Escape(q) + "%", "\\"));
+            if (!string.IsNullOrEmpty(maker)) cars = cars.Where(c => EF.Functions.ILike(c.Maker, Queries.EscapeLike(maker), "\\"));
+            if (!string.IsNullOrEmpty(q)) cars = cars.Where(c => EF.Functions.ILike(c.Name, "%" + Queries.EscapeLike(q) + "%", "\\"));
 
-            // latest-date "m" entry per car; version strings do not sort chronologically
-            var rows = cars.Select(c => new
-            {
-                Car = c,
-                Latest = (from e in db.Entries
-                          join u in db.Updates on e.Version equals u.Version
-                          where e.CarId == c.Id && e.Set == "m"
-                          orderby u.Date descending
-                          select new { e.Rank, e.Tier, e.Pp }).FirstOrDefault(),
-            });
-
-            var total = await rows.CountAsync();
-            var items = (await rows.OrderBy(x => x.Car.Group).ThenBy(x => x.Latest == null).ThenBy(x => x.Latest!.Rank).ThenBy(x => x.Car.Name)
-                .Skip((page - 1) * pageSize).Take(pageSize).ToListAsync())
-                .Select(x => new CarSummaryDto(x.Car.Id, x.Car.Name, x.Car.Maker, x.Car.Group, x.Latest?.Rank, x.Latest?.Tier, x.Latest?.Pp))
-                .ToList();
+            var total = await cars.CountAsync();
+            var latest = Queries.LatestEntries(db, "m");
+            var items = await cars.Select(c => new
+                {
+                    c.Id, c.Name, c.Maker, c.Group,
+                    L = latest.Where(e => e.CarId == c.Id).Select(e => new { e.Rank, e.Tier, e.Pp }).FirstOrDefault(),
+                })
+                .OrderBy(x => x.Group).ThenBy(x => x.L == null).ThenBy(x => x.L!.Rank).ThenBy(x => x.Name).ThenBy(x => x.Id)
+                .Skip((page - 1) * pageSize).Take(pageSize)
+                .Select(x => new CarSummaryDto(x.Id, x.Name, x.Maker, x.Group,
+                    x.L == null ? null : x.L.Rank, x.L == null ? null : x.L.Tier, x.L == null ? null : x.L.Pp))
+                .ToListAsync();
             return Results.Ok(new Page<CarSummaryDto>(items, page, pageSize, total));
         });
 
         g.MapGet("/{id}", async (BopRadarDbContext db, string id) =>
         {
-            var car = await db.Cars.AsNoTracking().SingleOrDefaultAsync(c => c.Id == id);
+            var car = await db.Cars.AsNoTracking().Where(c => c.Id == id)
+                .Select(c => new { c.Id, c.Name, c.Maker, c.Drivetrain, c.Group }).SingleOrDefaultAsync();
             if (car is null) return Validation.NotFound($"Car '{id}' not found");
 
-            var latest = await db.Entries.Where(e => e.CarId == id)
-                .Join(db.Updates, e => e.Version, u => u.Version, (e, u) => u)
-                .OrderByDescending(u => u.Date).Select(u => u.Version).FirstOrDefaultAsync();
-            if (latest is null) return Validation.NotFound($"Car '{id}' has no BoP data");
+            var version = await Queries.LatestEntries(db, "m").Where(e => e.CarId == id).Select(e => e.Version).SingleOrDefaultAsync();
+            if (version is null) return Validation.NotFound($"Car '{id}' has no BoP data");
 
-            var sets = await db.Entries.AsNoTracking().Where(e => e.CarId == id && e.Version == latest)
+            var sets = await db.Entries.AsNoTracking().Where(e => e.CarId == id && e.Version == version)
                 .ToDictionaryAsync(e => e.Set, e => new BopStatsDto(e.Rank, e.Tier, e.Pp, e.PowerPs, e.TorqueKgfm, e.WeightKg, e.PsPerT, e.Balance));
-            var note = await db.Notes.AsNoTracking().Where(n => n.CarId == id && n.Version == latest).SingleOrDefaultAsync();
+            var note = await db.Notes.AsNoTracking().Where(n => n.CarId == id && n.Version == version)
+                .Select(n => new { n.Version, n.ClassSize, n.Summary, n.Context }).SingleOrDefaultAsync();
 
-            return Results.Ok(new CarDetailDto(car.Id, car.Name, car.Maker, car.Drivetrain, car.Group, latest, sets,
+            return Results.Ok(new CarDetailDto(car.Id, car.Name, car.Maker, car.Drivetrain, car.Group, version, sets,
                 note is null ? null : new CarNoteDto(note.Version, note.ClassSize, note.Summary, note.Context.RootElement.Clone())));
         });
 

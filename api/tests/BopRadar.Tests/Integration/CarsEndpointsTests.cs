@@ -59,6 +59,21 @@ public class CarsEndpointsTests(ApiFactory factory)
     }
 
     [Fact]
+    public async Task List_items_carry_latest_m_entry_and_are_ordered()
+    {
+        var m = FixtureHistory().MaxBy(h => h.GetProperty("date").GetString())!.GetProperty("sets").GetProperty("m");
+        var all = (await List("")).Items;
+        var alfa = all.Single(c => c.Id == Alfa);
+        Assert.Equal(m.GetProperty("rank").GetInt32(), alfa.Rank);
+        Assert.Equal(m.GetProperty("tier").GetString(), alfa.Tier);
+        Assert.Equal(m.GetProperty("pp").GetDouble(), alfa.Pp);
+
+        var expected = all.OrderBy(c => c.Group, StringComparer.Ordinal).ThenBy(c => c.Rank is null).ThenBy(c => c.Rank)
+            .ThenBy(c => c.Name, StringComparer.Ordinal).Select(c => c.Id);
+        Assert.Equal(expected, all.Select(c => c.Id));
+    }
+
+    [Fact]
     public async Task Detail_returns_latest_sets_and_note()
     {
         var latest = FixtureHistory().MaxBy(h => h.GetProperty("date").GetString())!.GetProperty("v").GetString();

@@ -41,11 +41,11 @@ public static class CarsEndpoints
                 .Select(c => new { c.Id, c.Name, c.Maker, c.Drivetrain, c.Group }).SingleOrDefaultAsync();
             if (car is null) return Validation.NotFound($"Car '{id}' not found");
 
-            var version = await Queries.LatestEntries(db, "m").Where(e => e.CarId == id).Select(e => e.Version).SingleOrDefaultAsync();
+            var version = await Queries.LatestEntries(db, "m").Where(e => e.CarId == id).Select(e => e.Version).FirstOrDefaultAsync();
             if (version is null) return Validation.NotFound($"Car '{id}' has no BoP data");
 
             var sets = await db.Entries.AsNoTracking().Where(e => e.CarId == id && e.Version == version)
-                .ToDictionaryAsync(e => e.Set, e => new BopStatsDto(e.Rank, e.Tier, e.Pp, e.PowerPs, e.TorqueKgfm, e.WeightKg, e.PsPerT, e.Balance));
+                .Select(e => new { e.Set, Stats = new BopStatsDto(e.Rank, e.Tier, e.Pp, e.PowerPs, e.TorqueKgfm, e.WeightKg, e.PsPerT, e.Balance) }).ToDictionaryAsync(x => x.Set, x => x.Stats);
             var note = await db.Notes.AsNoTracking().Where(n => n.CarId == id && n.Version == version)
                 .Select(n => new { n.Version, n.ClassSize, n.Summary, n.Context }).SingleOrDefaultAsync();
 

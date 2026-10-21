@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BopRadar.Data", "src\BopRad
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BopRadar.Tests", "tests\BopRadar.Tests\BopRadar.Tests.csproj", "{730C5559-429D-42F9-B203-EF0194F573C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BopRadar.Api", "src\BopRadar.Api\BopRadar.Api.csproj", "{573E0715-5EEB-43CA-91C7-D3C35E687540}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,18 @@ Global
 		{730C5559-429D-42F9-B203-EF0194F573C8}.Release|x64.Build.0 = Release|Any CPU
 		{730C5559-429D-42F9-B203-EF0194F573C8}.Release|x86.ActiveCfg = Release|Any CPU
 		{730C5559-429D-42F9-B203-EF0194F573C8}.Release|x86.Build.0 = Release|Any CPU
+		{573E0715-5EEB-43CA-91C7-D3C35E687540}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{573E0715-5EEB-43CA-91C7-D3C35E687540}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{573E0715-5EEB-43CA-91C7-D3C35E687540}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{573E0715-5EEB-43CA-91C7-D3C35E687540}.Debug|x64.Build.0 = Debug|Any CPU
+		{573E0715-5EEB-43CA-91C7-D3C35E687540}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{573E0715-5EEB-43CA-91C7-D3C35E687540}.Debug|x86.Build.0 = Debug|Any CPU
+		{573E0715-5EEB-43CA-91C7-D3C35E687540}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{573E0715-5EEB-43CA-91C7-D3C35E687540}.Release|Any CPU.Build.0 = Release|Any CPU
+		{573E0715-5EEB-43CA-91C7-D3C35E687540}.Release|x64.ActiveCfg = Release|Any CPU
+		{573E0715-5EEB-43CA-91C7-D3C35E687540}.Release|x64.Build.0 = Release|Any CPU
+		{573E0715-5EEB-43CA-91C7-D3C35E687540}.Release|x86.ActiveCfg = Release|Any CPU
+		{573E0715-5EEB-43CA-91C7-D3C35E687540}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,5 +64,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D0915A84-AE7F-4D01-986F-1D1AB5E1EEF2} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{730C5559-429D-42F9-B203-EF0194F573C8} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{573E0715-5EEB-43CA-91C7-D3C35E687540} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal

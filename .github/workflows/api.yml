@@ -2,9 +2,9 @@ name: api
 
 on:
   push:
-    paths: ['api/**', 'site/data/**', '.github/workflows/api.yml']
+    paths: ['api/**', 'site/data/**', 'web/src/api/schema.d.ts', 'web/package*.json', '.github/workflows/api.yml']
   pull_request:
-    paths: ['api/**', 'site/data/**', '.github/workflows/api.yml']
+    paths: ['api/**', 'site/data/**', 'web/src/api/schema.d.ts', 'web/package*.json', '.github/workflows/api.yml']
   # Data commits made with GITHUB_TOKEN do not trigger push workflows.
   workflow_run:
     workflows: ["Update BoP data and deploy"]
@@ -29,3 +29,19 @@ jobs:
       - run: dotnet build api --no-restore -warnaserror
       - run: dotnet test api --no-build
       - run: docker build api
+      # The committed web/src/api/schema.d.ts must match what the API publishes.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+        working-directory: web
+      - name: Check web API types are up to date
+        run: |
+          ConnectionStrings__Default="Host=localhost;Database=none;Username=x;Password=x" \
+            dotnet run --no-build --project api/src/BopRadar.Api --urls http://localhost:8080 &
+          for i in $(seq 1 30); do curl -sf http://localhost:8080/openapi/v1.json >/dev/null && break; sleep 2; done
+          cd web
+          npx openapi-typescript http://localhost:8080/openapi/v1.json -o "$RUNNER_TEMP/schema.d.ts"
+          diff -u src/api/schema.d.ts "$RUNNER_TEMP/schema.d.ts" || { echo "::error::web/src/api/schema.d.ts is out of date; run 'npm run gen:api' in web/"; exit 1; }

@@ -1,4 +1,5 @@
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery, type UseQueryResult } from "@tanstack/react-query";
+import { useMemo } from "react";
 import {
   apiGet,
   type CarSummaryDto,
@@ -36,20 +37,18 @@ export function useCompare(ids: string[], set: SetCode, version?: string) {
   });
 }
 
+const combineHistories = (results: UseQueryResult<HistoryPointDto[]>[]) =>
+  results.map((r) => ({ data: r.data, isLoading: r.isLoading, error: r.error as unknown }));
+
 export function useHistories(ids: string[], set: SetCode) {
-  return useQueries({
+  const combined = useQueries({
     queries: ids.map((id) => ({
       queryKey: ["history", id, set],
       enabled: ids.length >= 2,
       queryFn: ({ signal }: { signal: AbortSignal }) =>
         apiGet<HistoryPointDto[]>(`/api/v1/cars/${encodeURIComponent(id)}/history`, { set }, signal),
     })),
-    combine: (results) =>
-      results.map((r, i) => ({
-        id: ids[i]!,
-        data: r.data as HistoryPointDto[] | undefined,
-        isLoading: r.isLoading,
-        error: r.error as unknown,
-      })),
+    combine: combineHistories,
   });
+  return useMemo(() => combined.map((r, i) => ({ id: ids[i]!, ...r })), [combined, ids]);
 }

@@ -35,7 +35,7 @@ export async function apiGet<T>(
   try {
     res = await fetch(url, { signal });
   } catch (e) {
-    if (e instanceof DOMException && e.name === "AbortError") throw e;
+    if ((e as { name?: string }).name === "AbortError" || signal?.aborted) throw e;
     throw new ApiError(null, e instanceof Error ? e.message : "Network error");
   }
   if (!res.ok) {

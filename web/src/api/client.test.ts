@@ -37,3 +37,20 @@ describe("apiGet", () => {
     expect((err as ApiError).status).toBeNull();
   });
 });
+
+describe("apiGet abort", () => {
+  it("does not turn an aborted request into an ApiError", async () => {
+    server.use(
+      http.get(`${API_BASE}/api/v1/updates`, async () => {
+        await new Promise((r) => setTimeout(r, 200));
+        return HttpResponse.json([]);
+      }),
+    );
+    const ctrl = new AbortController();
+    const pending = apiGet("/api/v1/updates", undefined, ctrl.signal).catch((e: unknown) => e);
+    setTimeout(() => ctrl.abort(), 20);
+    const err = await pending;
+    expect(err).not.toBeInstanceOf(ApiError);
+    expect(err).toMatchObject({ name: "AbortError" });
+  });
+});

@@ -23,7 +23,7 @@ export function toSearch(p: CompareParams): string {
   if (p.ids.length) q.set("ids", p.ids.join(","));
   q.set("set", p.set);
   if (p.version) q.set("version", p.version);
-  return `?${q.toString()}`;
+  return `?${q.toString().replace(/%2C/gi, ",")}`;
 }
 
 export function useCompareParams(): [CompareParams, (next: Partial<CompareParams>) => void] {
@@ -44,14 +44,12 @@ export function useCompareParams(): [CompareParams, (next: Partial<CompareParams
     return () => window.removeEventListener("popstate", onPop);
   }, []);
 
-  const update = useCallback(
-    (next: Partial<CompareParams>) => {
-      const nextSearch = toSearch(parseCompareParams(toSearch({ ...params, ...next })));
-      window.history.pushState(null, "", nextSearch);
-      setSearch(nextSearch);
-    },
-    [params],
-  );
+  const update = useCallback((next: Partial<CompareParams>) => {
+    const current = parseCompareParams(window.location.search);
+    const nextSearch = toSearch(parseCompareParams(toSearch({ ...current, ...next })));
+    window.history.pushState(null, "", nextSearch);
+    setSearch(nextSearch);
+  }, []);
 
   return [params, update];
 }

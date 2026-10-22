@@ -1,4 +1,4 @@
-.car-picker { position: relative; display: grid; gap: 8px; }
+.car-picker { max-width: 640px; position: relative; display: grid; gap: 8px; }
 .car-picker label { font-family: var(--head); letter-spacing: var(--track-wide); text-transform: uppercase; color: var(--muted); font-size: var(--fs-sm); }
 .car-picker input {
   min-height: var(--tap); padding: 0 12px; background: var(--panel); color: var(--text);

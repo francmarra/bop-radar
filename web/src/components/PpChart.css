@@ -1,4 +1,4 @@
-.pp-chart { margin: 16px 0 0; padding: 16px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); }
+.pp-chart { max-width: 880px; margin: 16px 0 0; padding: 16px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); }
 .pp-chart svg { display: block; max-width: 100%; height: auto; }
 .pp-chart .axis { stroke: var(--control-line); stroke-width: 1; }
 .pp-chart .tick { fill: var(--muted); font-family: var(--mono); font-size: 11px; }

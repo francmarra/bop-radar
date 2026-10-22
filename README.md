@@ -124,6 +124,7 @@ per stat and a PP-over-BoP-versions chart. Selection lives in the URL (`?ids=…
 
 ```sh
 cd api && cp .env.example .env && docker compose up   # API on http://localhost:8080
+# in a second terminal (docker compose up keeps running in the first):
 cd web && npm install && npm run dev                  # http://localhost:5173
 ```
 

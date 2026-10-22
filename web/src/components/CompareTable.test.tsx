@@ -34,3 +34,24 @@ it("has a caption with version and set", () => {
   render(<CompareTable data={compare155vs963} />);
   expect(screen.getByRole("table", { name: "Version 1.71 · set M" })).toBeInTheDocument();
 });
+
+it("does not mark Rank as best when the cars are in different groups", () => {
+  render(<CompareTable data={compare155vs963} />);
+  for (const cell of cellsOf("Rank")) expect(cell).not.toHaveTextContent("best");
+});
+
+it("marks the lower Rank as best when all cars share a group", () => {
+  const [a, b] = compare155vs963.cars;
+  const data = { ...compare155vs963, cars: [a!, { ...b!, group: a!.group }] };
+  render(<CompareTable data={data} />);
+  const [first, second] = cellsOf("Rank");
+  expect(first).not.toHaveTextContent("best");
+  expect(second).toHaveTextContent("best");
+});
+
+it("shows a star icon in best cells only", () => {
+  render(<CompareTable data={compare155vs963} />);
+  const [first, second] = cellsOf("PP");
+  expect(first).not.toHaveTextContent("★");
+  expect(second).toHaveTextContent("★");
+});

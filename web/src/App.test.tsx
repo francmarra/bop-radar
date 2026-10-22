@@ -196,3 +196,22 @@ it("labels the chart loading state separately from the table", async () => {
   renderWithClient(<App />);
   expect(await screen.findByRole("region", { name: "Loading PP history" })).toBeInTheDocument();
 });
+
+it("shows a single Try again when both compare and histories fail", async () => {
+  window.history.replaceState(null, "", URL2);
+  server.use(
+    http.get(`${API_BASE}/api/v1/compare`, () => HttpResponse.error()),
+    http.get(`${API_BASE}/api/v1/cars/:id/history`, () => HttpResponse.error()),
+    ...handlers,
+  );
+  renderWithClient(<App />);
+  await screen.findByRole("button", { name: "Try again" });
+  expect(screen.getAllByRole("button", { name: "Try again" })).toHaveLength(1);
+});
+
+it("shows the URL version in the select even when the updates list lacks it", async () => {
+  window.history.replaceState(null, "", `${URL2}&version=0.99`);
+  server.use(...handlers);
+  renderWithClient(<App />);
+  expect(await screen.findByRole("combobox", { name: "Version" })).toHaveValue("0.99");
+});

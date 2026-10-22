@@ -145,4 +145,26 @@ describe("CarPicker behaviour", () => {
     expect(screen.getByRole("combobox")).toBeDisabled();
     expect(screen.getByRole("button", { name: "Remove 963 '24" })).toHaveFocus();
   });
+
+  it("returns focus to the input after removing a chip", async () => {
+    server.use(...handlers);
+    const user = userEvent.setup();
+    function Harness() {
+      const [sel, setSel] = useState([{ id: "963-24", label: "963 '24" }]);
+      return <CarPicker selected={sel} onAdd={vi.fn()} onRemove={(id) => setSel((s) => s.filter((x) => x.id !== id))} />;
+    }
+    renderWithClient(<Harness />);
+    await user.click(screen.getByRole("button", { name: "Remove 963 '24" }));
+    expect(screen.getByRole("combobox")).toHaveFocus();
+  });
+
+  it("reopens the closed list with ArrowDown", async () => {
+    const { user } = setup();
+    await user.type(screen.getByRole("combobox", { name: "Search cars" }), "963");
+    await screen.findByRole("option", { name: /963/ });
+    await user.keyboard("{Escape}");
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    await user.keyboard("{ArrowDown}");
+    expect(await screen.findByRole("listbox")).toBeInTheDocument();
+  });
 });

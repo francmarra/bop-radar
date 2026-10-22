@@ -17,6 +17,8 @@ const ROWS: Row[] = [
 ];
 
 export function CompareTable({ data }: { data: CompareDto }) {
+  // Rank is per class: only comparable when every car is in the same group.
+  const sameGroup = data.cars.every((c) => c.group === data.cars[0]!.group);
   return (
     <div className="compare-table-wrap">
       <table className="compare-table">
@@ -34,7 +36,7 @@ export function CompareTable({ data }: { data: CompareDto }) {
         <tbody>
           {ROWS.map((row) => {
             const values = data.cars.map(row.cell);
-            const best = row.metric
+            const best = row.metric && (row.metric !== "rank" || sameGroup)
               ? bestIndexes(
                   values.map((v) => (typeof v === "number" ? v : null)),
                   METRIC_DIRECTION[row.metric],
@@ -46,7 +48,12 @@ export function CompareTable({ data }: { data: CompareDto }) {
                 {values.map((v, i) => (
                   <td key={data.cars[i]!.id} className={best.has(i) ? "best" : undefined}>
                     {v ?? "—"}
-                    {best.has(i) && <span className="sr-only"> best</span>}
+                    {best.has(i) && (
+                      <>
+                        <span aria-hidden="true"> ★</span>
+                        <span className="sr-only"> best</span>
+                      </>
+                    )}
                   </td>
                 ))}
               </tr>

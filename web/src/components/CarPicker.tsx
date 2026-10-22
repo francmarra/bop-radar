@@ -22,6 +22,14 @@ export function CarPicker({ selected, onAdd, onRemove }: Props) {
   const full = selected.length >= MAX_CARS;
   const chips = useRef<HTMLUListElement>(null);
   const refocus = useRef(false);
+  const input = useRef<HTMLInputElement>(null);
+  const refocusInput = useRef(false);
+  // After removing a chip its button disappears; put focus back on the (re-enabled) input.
+  useEffect(() => {
+    if (!refocusInput.current) return;
+    refocusInput.current = false;
+    input.current?.focus();
+  }, [selected.length]);
   // A disabled input drops focus to body; hand it to the last chip button instead.
   useEffect(() => {
     if (!refocus.current || !full) return;
@@ -44,7 +52,13 @@ export function CarPicker({ selected, onAdd, onRemove }: Props) {
 
   function onKeyDown(e: React.KeyboardEvent) {
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-      if (!expanded) return;
+      if (!expanded) {
+        if (e.key === "ArrowDown" && results.length > 0) {
+          e.preventDefault();
+          setOpen(true);
+        }
+        return;
+      }
       e.preventDefault();
       const step = e.key === "ArrowDown" ? 1 : -1;
       setActive((a) => (a + step + results.length) % results.length);
@@ -63,7 +77,10 @@ export function CarPicker({ selected, onAdd, onRemove }: Props) {
         {selected.map((s) => (
           <li key={s.id}>
             {s.label}
-            <button type="button" aria-label={`Remove ${s.label}`} onClick={() => onRemove(s.id)}>
+            <button type="button" aria-label={`Remove ${s.label}`} onClick={() => {
+                refocusInput.current = true;
+                onRemove(s.id);
+              }}>
               ×
             </button>
           </li>
@@ -72,6 +89,7 @@ export function CarPicker({ selected, onAdd, onRemove }: Props) {
       <label htmlFor={`${base}-input`}>Search cars</label>
       <input
         id={`${base}-input`}
+        ref={input}
         role="combobox"
         aria-expanded={expanded}
         aria-controls={`${base}-list`}

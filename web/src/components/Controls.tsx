@@ -23,6 +23,7 @@ export function Controls({ set, version, onChange }: Props) {
         Version
         <select value={version ?? ""} onChange={(e) => onChange({ version: e.target.value || undefined })}>
           <option value="">Latest common</option>
+          {version && !updates.data?.some((u) => u.version === version) && <option value={version}>{version}</option>}
           {updates.data?.map((u) => (
             <option key={u.version} value={u.version}>
               {u.version}

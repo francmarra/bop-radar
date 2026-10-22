@@ -36,7 +36,7 @@ export default function App() {
           {compare.data && <CompareTable data={compare.data} />}
         </Status>
       )}
-      {params.ids.length >= 2 && (
+      {compare.data && (
         <Status
           label="Loading PP history"
           isLoading={histories.some((h) => h.isLoading)}

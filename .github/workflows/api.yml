@@ -42,6 +42,7 @@ jobs:
           ConnectionStrings__Default="Host=localhost;Database=none;Username=x;Password=x" \
             dotnet run --no-build --project api/src/BopRadar.Api --urls http://localhost:8080 &
           for i in $(seq 1 30); do curl -sf http://localhost:8080/openapi/v1.json >/dev/null && break; sleep 2; done
+          curl -sf http://localhost:8080/openapi/v1.json > /dev/null || { echo "::error::API did not start"; exit 1; }
           cd web
           npx openapi-typescript http://localhost:8080/openapi/v1.json -o "$RUNNER_TEMP/schema.d.ts"
           diff -u src/api/schema.d.ts "$RUNNER_TEMP/schema.d.ts" || { echo "::error::web/src/api/schema.d.ts is out of date; run 'npm run gen:api' in web/"; exit 1; }

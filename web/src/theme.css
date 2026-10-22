@@ -1,0 +1,57 @@
+:root {
+  --bg: #07080a; --panel: #101216; --panel-2: #181b20; --hover: #1d2127;
+  --line: #2a2f36; --control-line: #6b737d; --line-hi: #4a525c; /* hairline + its lit top edge */
+  --tick: #6b737d; /* editorial corner marks (decorative) */
+  --text: #e8ebef; --muted: #9ba4ae;
+  --accent: #e10600; --accent-text: #ff6a60; --accent-soft: rgba(225, 6, 0, .14); --stripe: rgba(232, 235, 239, .10); --focus: #e10600;
+  --buff: #86c9a4; --nerf: #ec938e; --mixed: #d9b676;
+  --s: #e3c56a; --a: #8fb6e0; --b: #aab2bb; --c: #8f98a2;
+  --h: #e3a284; --m: #86bcd9; --l: #bba6df;
+  --chrome: linear-gradient(180deg, #ffffff 0%, #d4d8dd 36%, #8d959e 50%, #eef0f2 64%, #a7aeb6 100%);
+  --chrome-bar: linear-gradient(180deg, #ffffff 0%, #c3c8ce 40%, #5d656e 52%, #e3e6e9 70%, #8f969e 100%);
+  --btn-bg: linear-gradient(180deg, #f4f6f8, #b9c0c7); --btn-text: #0b0c0e;
+  --glow: rgba(255, 255, 255, .22);
+  --panel-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
+  --grain-opacity: .03; --grain-blend: screen;
+  --page: #07080a;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --head: "Barlow Condensed", "Inter", sans-serif;
+  --jp: "Yu Gothic", "Hiragino Sans", "Noto Sans JP", "Meiryo", sans-serif;
+  --fs-sm: .834rem; --fs-base: 1rem; --fs-lg: 1.25rem; --fs-h2: 1.6rem; --fs-h1: 2.25rem;
+  --track-wide: .14em; --tap: 44px; --radius: 6px;
+}
+:root[data-theme="light"] {
+  --bg: #dde0e4; --panel: #ffffff; --panel-2: #eef0f3; --hover: #e7eaee;
+  --line: #c6ccd3; --control-line: #767e88; --line-hi: #ffffff; --tick: #8a929c; --stripe: rgba(20, 23, 27, .12); /* neutral graphite stripes */
+  --text: #15181c; --muted: #4c545e;
+  --accent-text: #b30500; --accent-soft: rgba(225, 6, 0, .07); --focus: #e10600;
+  --buff: #1d6b44; --nerf: #a5302a; --mixed: #7a5500;
+  --s: #7a5d00; --a: #285d93; --b: #545e69; --c: #5f6872;
+  --h: #984722; --m: #245f90; --l: #6a479f;
+  --chrome: linear-gradient(180deg, #5a626b 0%, #2a2f35 44%, #0f1114 52%, #4b535c 74%, #23272c 100%);
+  --chrome-bar: linear-gradient(180deg, #7d858e 0%, #3a4047 44%, #101215 52%, #5d656e 74%, #2a2f35 100%);
+  --btn-bg: linear-gradient(180deg, #3a4047, #15181c); --btn-text: #ffffff;
+  --panel-shadow: inset 0 1px 0 #fff, 0 10px 28px -14px rgba(38, 50, 66, .35), 0 1px 2px rgba(38, 50, 66, .08);
+  --grain-opacity: .05; --grain-blend: multiply;
+  --page: linear-gradient(180deg, #e9ebee 0%, #d6dadf 100%) fixed;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #dde0e4; --panel: #ffffff; --panel-2: #eef0f3; --hover: #e7eaee;
+    --line: #c6ccd3; --control-line: #767e88; --line-hi: #ffffff; --tick: #8a929c; --stripe: rgba(20, 23, 27, .12);
+    --text: #15181c; --muted: #4c545e;
+    --accent-text: #b30500; --accent-soft: rgba(225, 6, 0, .07); --focus: #e10600;
+    --buff: #1d6b44; --nerf: #a5302a; --mixed: #7a5500;
+    --s: #7a5d00; --a: #285d93; --b: #545e69; --c: #5f6872;
+    --h: #984722; --m: #245f90; --l: #6a479f;
+    --chrome: linear-gradient(180deg, #5a626b 0%, #2a2f35 44%, #0f1114 52%, #4b535c 74%, #23272c 100%);
+    --chrome-bar: linear-gradient(180deg, #7d858e 0%, #3a4047 44%, #101215 52%, #5d656e 74%, #2a2f35 100%);
+    --btn-bg: linear-gradient(180deg, #3a4047, #15181c); --btn-text: #ffffff;
+    --panel-shadow: inset 0 1px 0 #fff, 0 10px 28px -14px rgba(38, 50, 66, .35), 0 1px 2px rgba(38, 50, 66, .08);
+    --grain-opacity: .05; --grain-blend: multiply;
+    --page: linear-gradient(180deg, #e9ebee 0%, #d6dadf 100%) fixed;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--text); font-family: Inter, system-ui, sans-serif; line-height: 1.6; }
+button, select, input { font: inherit; color: inherit; }

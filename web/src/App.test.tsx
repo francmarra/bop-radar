@@ -4,7 +4,7 @@ import { http, HttpResponse } from "msw";
 import { beforeEach, expect, it } from "vitest";
 import App from "./App";
 import { API_BASE } from "./api/client";
-import { compare155vs963 } from "./test/fixtures";
+import { compare155vs963, histories } from "./test/fixtures";
 import { handlers } from "./test/handlers";
 import { renderWithClient } from "./test/render";
 import { server } from "./test/server";
@@ -167,4 +167,20 @@ it("shows car names in chips when loading ids from the URL", async () => {
   renderWithClient(<App />);
   expect(await screen.findByRole("button", { name: "Remove 963 '24" })).toBeInTheDocument();
   expect(screen.queryByRole("button", { name: "Remove 963-24" })).not.toBeInTheDocument();
+});
+
+it("shows the PP chart once the histories load, and retries failed ones", async () => {
+  window.history.replaceState(null, "", URL2);
+  let calls = 0;
+  server.use(
+    http.get(`${API_BASE}/api/v1/cars/963-24/history`, () => {
+      calls += 1;
+      return calls === 1 ? HttpResponse.error() : HttpResponse.json(histories["963-24"]);
+    }),
+    ...handlers,
+  );
+  const user = userEvent.setup();
+  renderWithClient(<App />);
+  await user.click(await screen.findByRole("button", { name: "Try again" }));
+  expect(await screen.findByRole("img", { name: "PP by version for 155 2.5 V6 TI '93, 963 '24" })).toBeInTheDocument();
 });

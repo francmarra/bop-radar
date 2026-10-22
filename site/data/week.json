@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21",
+ "generated": "2026-10-22",
  "weeks": [
   {
    "label": "this",
@@ -42,8 +42,8 @@
        "name": "GR Supra Racing Concept '18",
        "tier": "A",
        "source": "live",
-       "laps": 52,
-       "share": 52,
+       "laps": 61,
+       "share": 61,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -56,23 +56,23 @@
        "name": "GT-R NISMO GT3 '18",
        "tier": "S",
        "source": "live",
-       "laps": 8,
-       "share": 8,
+       "laps": 7,
+       "share": 7,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
       },
       {
-       "id": "f-type-gr-3",
-       "name": "F-type Gr.3",
+       "id": "lancer-evolution-final-edition-gr-3",
+       "name": "Lancer Evolution Final Edition Gr.3",
        "tier": "A",
        "source": "live",
-       "laps": 5,
-       "share": 5,
+       "laps": 6,
+       "share": 6,
        "why": {
         "strengths": [
-         "acceleration"
+         "high-speed cornering"
         ],
         "saves_tyres": false
        }
@@ -82,8 +82,8 @@
        "name": "Beetle Gr.3",
        "tier": "A",
        "source": "live",
-       "laps": 12,
-       "share": 12,
+       "laps": 9,
+       "share": 9,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -92,7 +92,7 @@
        }
       }
      ],
-     "balance": 3.3
+     "balance": 2.5
     },
     {
      "race": "C",
@@ -131,7 +131,60 @@
   },
   {
    "label": "next",
-   "races": []
+   "races": [
+    {
+     "race": "A",
+     "start": "2026-10-26",
+     "track": "SUGO International Racing Course",
+     "course_id": "1340",
+     "category": "",
+     "kind": "tbd",
+     "car": null,
+     "tyres": [
+      "SH"
+     ],
+     "fuel": "x1",
+     "tyre_wear": "x1",
+     "group": null,
+     "track_set": "m",
+     "cars": []
+    },
+    {
+     "race": "B",
+     "start": "2026-10-26",
+     "track": "Willow Springs International Raceway: Big Willow",
+     "course_id": "122",
+     "category": "",
+     "kind": "tbd",
+     "car": null,
+     "tyres": [
+      "RH"
+     ],
+     "fuel": "x1",
+     "tyre_wear": "x1",
+     "group": null,
+     "track_set": "m",
+     "cars": []
+    },
+    {
+     "race": "C",
+     "start": "2026-10-26",
+     "track": "SUGO International Racing Course",
+     "course_id": "1340",
+     "category": "",
+     "kind": "tbd",
+     "car": null,
+     "tyres": [
+      "RM",
+      "RS"
+     ],
+     "fuel": "x2",
+     "tyre_wear": "x4",
+     "group": null,
+     "track_set": "m",
+     "cars": []
+    }
+   ]
   }
  ]
 }

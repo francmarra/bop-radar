@@ -105,3 +105,66 @@ it("shows the network message and retries", async () => {
   await user.click(screen.getByRole("button", { name: "Try again" }));
   expect(await screen.findByRole("table")).toBeInTheDocument();
 });
+
+it("shows the 404 detail without waiting for retries (production client)", async () => {
+  window.history.replaceState(null, "", "/?ids=nope,nada");
+  server.use(
+    http.get(`${API_BASE}/api/v1/compare`, () =>
+      HttpResponse.json({ title: "Not Found", detail: "Car not found: nope" }, { status: 404, headers: { "Content-Type": "application/problem+json" } }),
+    ),
+    ...handlers,
+  );
+  renderWithClient(<App />, { realRetry: true });
+  expect(await screen.findByText("Car not found: nope")).toBeInTheDocument();
+});
+
+it("keeps set and version in the URL and restores them on back", async () => {
+  window.history.replaceState(null, "", URL2);
+  captureCompare();
+  const user = userEvent.setup();
+  renderWithClient(<App />);
+  await screen.findByRole("table");
+  await user.click(screen.getByRole("radio", { name: "H" }));
+  expect(window.location.search).toContain("set=h");
+  const select = screen.getByRole("combobox", { name: "Version" });
+  await within(select).findByRole("option", { name: "1.70" });
+  await user.selectOptions(select, "1.70");
+  expect(window.location.search).toContain("version=1.70");
+  window.history.back();
+  await waitFor(() => expect(window.location.search).not.toContain("version"));
+  await waitFor(() => expect(screen.getByRole("combobox", { name: "Version" })).toHaveValue(""));
+  expect(screen.getByRole("radio", { name: "H" })).toBeChecked();
+  window.history.back();
+  await waitFor(() => expect(screen.getByRole("radio", { name: "M" })).toBeChecked());
+});
+
+it("shows car names, not ids, in chips right after picking", async () => {
+  let release!: () => void;
+  const gate = new Promise<void>((r) => (release = r));
+  server.use(
+    http.get(`${API_BASE}/api/v1/compare`, async () => {
+      await gate;
+      return HttpResponse.json(compare155vs963);
+    }),
+    ...handlers,
+  );
+  const user = userEvent.setup();
+  renderWithClient(<App />);
+  const input = screen.getByRole("combobox", { name: "Search cars" });
+  await user.type(input, "155");
+  await user.click(await screen.findByRole("option", { name: /155 2\.5/ }));
+  await user.type(input, "963");
+  await user.click(await screen.findByRole("option", { name: /963/ }));
+  expect(screen.getByRole("button", { name: "Remove 963 '24" })).toBeInTheDocument();
+  expect(screen.queryByRole("button", { name: "Remove 963-24" })).not.toBeInTheDocument();
+  release();
+  await screen.findByRole("table");
+});
+
+it("shows car names in chips when loading ids from the URL", async () => {
+  window.history.replaceState(null, "", URL2);
+  server.use(...handlers);
+  renderWithClient(<App />);
+  expect(await screen.findByRole("button", { name: "Remove 963 '24" })).toBeInTheDocument();
+  expect(screen.queryByRole("button", { name: "Remove 963-24" })).not.toBeInTheDocument();
+});

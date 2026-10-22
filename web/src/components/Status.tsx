@@ -11,12 +11,12 @@ export function Status({ isLoading, error, onRetry, children }: Props) {
       </div>
     );
   }
-  if (error instanceof ApiError) {
+  if (error) {
     return (
       <div role="alert" className="status status-error">
-        {error.status === null ? (
+        {!(error instanceof ApiError) || error.status === null ? (
           <>
-            <p>{`Could not reach the API (${API_BASE}). Is \`docker compose up\` running in api/?`}</p>
+            <p>{error instanceof ApiError ? `Could not reach the API (${API_BASE}). Is \`docker compose up\` running in api/?` : "Something went wrong."}</p>
             <button type="button" onClick={onRetry}>
               Try again
             </button>

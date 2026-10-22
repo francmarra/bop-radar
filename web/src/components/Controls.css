@@ -1,0 +1,16 @@
+.controls { display: flex; flex-wrap: wrap; align-items: end; gap: 16px; }
+.controls fieldset { display: flex; gap: 8px; margin: 0; padding: 0; border: 0; }
+.controls legend, .controls-version { font-family: var(--head); letter-spacing: var(--track-wide); text-transform: uppercase; color: var(--muted); font-size: var(--fs-sm); }
+.controls legend { padding: 0; margin-bottom: 8px; }
+.controls-version { display: grid; gap: 8px; }
+.controls-radio {
+  display: inline-flex; align-items: center; gap: 8px; min-height: var(--tap); padding: 0 12px;
+  background: var(--panel); border: 1px solid var(--control-line); border-radius: var(--radius);
+  font-family: var(--mono); color: var(--text); text-transform: none; letter-spacing: normal; cursor: pointer;
+}
+.controls-radio:has(:checked) { background: var(--panel-2); border-color: var(--text); }
+.controls select {
+  min-height: var(--tap); padding: 0 12px; background: var(--panel); color: var(--text);
+  border: 1px solid var(--control-line); border-radius: var(--radius); font-family: var(--mono);
+}
+.controls :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }

@@ -1,0 +1,8 @@
+.status { padding: 16px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); font-family: var(--mono); }
+.status p { margin: 0 0 8px; }
+.status-error { border-color: var(--nerf); }
+.status button {
+  min-height: var(--tap); padding: 0 16px; background: var(--btn-bg); color: var(--btn-text);
+  border: 0; border-radius: var(--radius); font-family: var(--head); letter-spacing: var(--track-wide); text-transform: uppercase; cursor: pointer;
+}
+.status :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }

@@ -184,3 +184,15 @@ it("shows the PP chart once the histories load, and retries failed ones", async 
   await user.click(await screen.findByRole("button", { name: "Try again" }));
   expect(await screen.findByRole("img", { name: "PP by version for 155 2.5 V6 TI '93, 963 '24" })).toBeInTheDocument();
 });
+
+it("labels the chart loading state separately from the table", async () => {
+  window.history.replaceState(null, "", URL2);
+  server.use(
+    http.get(`${API_BASE}/api/v1/cars/963-24/history`, async () => {
+      await new Promise(() => {});
+    }),
+    ...handlers,
+  );
+  renderWithClient(<App />);
+  expect(await screen.findByRole("region", { name: "Loading PP history" })).toBeInTheDocument();
+});

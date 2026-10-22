@@ -1,12 +1,12 @@
 import { API_BASE, ApiError } from "../api/client";
 import "./Status.css";
 
-type Props = { isLoading: boolean; error: unknown; onRetry(): void; children: React.ReactNode };
+type Props = { isLoading: boolean; error: unknown; onRetry(): void; children: React.ReactNode; label?: string };
 
-export function Status({ isLoading, error, onRetry, children }: Props) {
+export function Status({ isLoading, error, onRetry, children, label = "Loading comparison" }: Props) {
   if (isLoading) {
     return (
-      <div role="region" aria-label="Loading comparison" aria-busy="true" className="status">
+      <div role="region" aria-label={label} aria-busy="true" className="status">
         Loading…
       </div>
     );

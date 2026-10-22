@@ -38,6 +38,7 @@ export default function App() {
       )}
       {params.ids.length >= 2 && (
         <Status
+          label="Loading PP history"
           isLoading={histories.some((h) => h.isLoading)}
           error={histories.find((h) => h.error)?.error}
           onRetry={() => void queryClient.refetchQueries({ queryKey: ["history"], predicate: (q) => q.state.status === "error" })}

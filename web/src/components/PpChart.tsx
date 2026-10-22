@@ -1,5 +1,5 @@
 import type { HistoryPointDto } from "../api/client";
-import { buildSeries, toPath } from "../lib/chart";
+import { buildSeries, labelIndices, toPath } from "../lib/chart";
 import "./PpChart.css";
 
 type Props = { series: { id: string; name: string; points: HistoryPointDto[] }[] };
@@ -14,7 +14,7 @@ export function PpChart({ series }: Props) {
   const span = max - min || 1;
   const x = (i: number) => Math.round((L + (versions.length > 1 ? (i * (W - L - R)) / (versions.length - 1) : (W - L - R) / 2)) * 10) / 10;
   const y = (v: number) => Math.round((T + ((max - v) * (H - T - B)) / span) * 10) / 10;
-  const step = Math.ceil(versions.length / 8);
+  const shown = new Set(labelIndices(versions.length));
   const color = (i: number) => `var(${COLORS[i % COLORS.length]})`;
 
   return (
@@ -25,9 +25,14 @@ export function PpChart({ series }: Props) {
         <text className="tick" x={L - 6} y={T + 4} textAnchor="end">{max.toFixed(1)}</text>
         <text className="tick" x={L - 6} y={H - B} textAnchor="end">{min.toFixed(1)}</text>
         {versions.map((v, i) =>
-          i % step === 0 ? (
+          shown.has(i) ? (
             <text key={v} className="tick" x={x(i)} y={H - B + 18} textAnchor="middle">{v}</text>
           ) : null,
+        )}
+        {lines.map((l, i) =>
+          l.values.map((v, j) =>
+            v === null ? null : <circle key={l.id + j} data-car={l.id} cx={x(j)} cy={y(v)} r={3} fill={color(i)} />,
+          ),
         )}
         {lines.map((l, i) => (
           <path key={l.id} data-car={l.id} d={toPath(l.values, x, y)} fill="none" stroke={color(i)} strokeWidth={2} />

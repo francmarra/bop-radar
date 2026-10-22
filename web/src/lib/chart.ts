@@ -26,3 +26,10 @@ export function toPath(values: (number | null)[], x: (i: number) => number, y: (
     .filter(Boolean)
     .join(" ");
 }
+
+/** Indices of X labels: first, every `step`, and always the last; at most 8. */
+export function labelIndices(n: number): number[] {
+  const step = Math.ceil(n / 8);
+  const last = n - 1;
+  return Array.from({ length: n }, (_, i) => i).filter((i) => i === last || (i % step === 0 && last - i >= step));
+}

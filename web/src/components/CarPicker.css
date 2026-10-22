@@ -1,0 +1,25 @@
+.car-picker { max-width: 640px; position: relative; display: grid; gap: 8px; }
+.car-picker label { font-family: var(--head); letter-spacing: var(--track-wide); text-transform: uppercase; color: var(--muted); font-size: var(--fs-sm); }
+.car-picker input {
+  min-height: var(--tap); padding: 0 12px; background: var(--panel); color: var(--text);
+  border: 1px solid var(--control-line); border-radius: var(--radius); font-family: var(--mono);
+}
+.car-picker input:disabled { opacity: .6; cursor: not-allowed; }
+.car-picker-note { margin: 0; color: var(--muted); font-size: var(--fs-sm); }
+.car-picker-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.car-picker-chips li {
+  display: inline-flex; align-items: center; min-height: var(--tap); padding-left: 12px;
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: var(--radius); font-family: var(--mono);
+}
+.car-picker-chips button {
+  min-width: var(--tap); min-height: var(--tap); background: none; border: 0; color: var(--muted); cursor: pointer; font-size: var(--fs-lg);
+}
+.car-picker-chips button:hover { color: var(--text); }
+.car-picker-list {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 10; margin: 4px 0 0; padding: 4px; list-style: none;
+  background: var(--panel); border: 1px solid var(--line-hi); border-radius: var(--radius); box-shadow: var(--panel-shadow);
+}
+.car-picker-list [role="option"] { display: flex; align-items: center; min-height: var(--tap); padding: 0 12px; border-radius: var(--radius); cursor: pointer; font-family: var(--mono); }
+.car-picker-list [role="option"][aria-selected="true"], .car-picker-list [role="option"]:hover { background: var(--hover); }
+.car-picker-list [aria-disabled="true"] { color: var(--muted); cursor: not-allowed; }
+.car-picker :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }

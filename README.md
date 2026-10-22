@@ -15,6 +15,7 @@ index** (how many cars really share the Daily Race top 100) rates each BoP updat
 - `data/notes/<car-id>.toml` — optional hand-written notes shown on a car's page (`text = "..."`)
 - `data/car_images.toml` — car id → GT7 car id, used to fetch the official car pictures at build time
 - `api/` — ASP.NET Core 9 read-only REST API over `site/data` (PostgreSQL, Docker, xUnit)
+- `web/` — React + TypeScript car comparator (Vite) on top of the API, see [Car comparator (React)](#car-comparator-react)
 
 ## Usage
 
@@ -110,4 +111,31 @@ Tests (need Docker, they start PostgreSQL with Testcontainers):
 
 ```sh
 dotnet test api
+```
+
+## Car comparator (React)
+
+[![web](https://github.com/francmarra/bop-radar/actions/workflows/web.yml/badge.svg)](https://github.com/francmarra/bop-radar/actions/workflows/web.yml)
+
+Local-only React + TypeScript app (`web/`, Vite) that compares 2–4 cars side by side using the API: best-value highlights
+per stat and a PP-over-BoP-versions chart. Selection lives in the URL (`?ids=…&set=m&version=…`).
+
+![Comparing two cars](docs/img/compare.png)
+
+```sh
+cd api && cp .env.example .env && docker compose up   # API on http://localhost:8080
+# in a second terminal (docker compose up keeps running in the first):
+cd web && npm install && npm run dev                  # http://localhost:5173
+```
+
+API types are generated from the OpenAPI document (API running), and CI fails if the committed file drifts:
+
+```sh
+cd web && npm run gen:api
+```
+
+Tests:
+
+```sh
+cd web && npm test -- --run && npm run lint && npm run typecheck
 ```

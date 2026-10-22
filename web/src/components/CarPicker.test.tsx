@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { http, HttpResponse } from "msw";
@@ -98,5 +99,50 @@ describe("CarPicker", () => {
     await user.keyboard("{Escape}");
     await waitFor(() => expect(screen.queryByRole("listbox")).not.toBeInTheDocument());
     expect(screen.getByRole("combobox")).toHaveAttribute("aria-expanded", "false");
+  });
+});
+
+describe("CarPicker behaviour", () => {
+  it("hides the old results while the new text is still debouncing", async () => {
+    const { user } = setup();
+    const input = screen.getByRole("combobox");
+    await user.type(input, "al");
+    await screen.findByRole("option", { name: /155/ });
+    await user.type(input, "x");
+    expect(screen.queryByRole("option")).not.toBeInTheDocument();
+  });
+
+  it("closes the listbox on blur", async () => {
+    const { user } = setup();
+    await user.type(screen.getByRole("combobox"), "al");
+    await screen.findByRole("listbox");
+    await user.tab();
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    expect(screen.getByRole("combobox")).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("moves focus off the disabled input when the 4th car is added", async () => {
+    server.use(...handlers);
+    const user = userEvent.setup();
+    function Harness() {
+      const [sel, setSel] = useState([
+        { id: "a", label: "a" },
+        { id: "b", label: "b" },
+        { id: "c", label: "c" },
+      ]);
+      return (
+        <CarPicker
+          selected={sel}
+          onAdd={(c) => setSel((s) => [...s, { id: c.id, label: c.name }])}
+          onRemove={vi.fn()}
+        />
+      );
+    }
+    renderWithClient(<Harness />);
+    await user.type(screen.getByRole("combobox"), "963");
+    await screen.findByRole("option", { name: /963/ });
+    await user.keyboard("{ArrowDown}{Enter}");
+    expect(screen.getByRole("combobox")).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Remove 963 '24" })).toHaveFocus();
   });
 });

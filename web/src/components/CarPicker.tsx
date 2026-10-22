@@ -1,7 +1,8 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { CarSummaryDto } from "../api/client";
 import { useCarSearch } from "../api/queries";
 import { useDebounced } from "../hooks/useDebounced";
+import "./CarPicker.css";
 
 const MAX_CARS = 4;
 
@@ -19,6 +20,14 @@ export function CarPicker({ selected, onAdd, onRemove }: Props) {
   const search = useCarSearch(debounced);
   const base = useId();
   const full = selected.length >= MAX_CARS;
+  const chips = useRef<HTMLUListElement>(null);
+  const refocus = useRef(false);
+  // A disabled input drops focus to body; hand it to the last chip button instead.
+  useEffect(() => {
+    if (!refocus.current || !full) return;
+    refocus.current = false;
+    chips.current?.querySelector<HTMLButtonElement>("li:last-child button")?.focus();
+  }, [full]);
   // Only show results for the text currently in the debounce window, never an older query's.
   const results = text === debounced ? (search.data ?? []) : [];
   const expanded = open && results.length > 0;
@@ -26,6 +35,7 @@ export function CarPicker({ selected, onAdd, onRemove }: Props) {
 
   function choose(car: CarSummaryDto) {
     if (selected.some((s) => s.id === car.id)) return;
+    refocus.current = selected.length + 1 >= MAX_CARS;
     onAdd(car);
     setText("");
     setOpen(false);
@@ -49,7 +59,7 @@ export function CarPicker({ selected, onAdd, onRemove }: Props) {
 
   return (
     <div className="car-picker">
-      <ul className="chips">
+      <ul className="car-picker-chips" ref={chips}>
         {selected.map((s) => (
           <li key={s.id}>
             {s.label}
@@ -76,10 +86,11 @@ export function CarPicker({ selected, onAdd, onRemove }: Props) {
           setActive(-1);
         }}
         onKeyDown={onKeyDown}
+        onBlur={() => setOpen(false)}
       />
-      {full && <p>Maximum 4 cars</p>}
+      {full && <p className="car-picker-note">Maximum 4 cars</p>}
       {expanded && (
-        <ul id={`${base}-list`} role="listbox" aria-label="Search results">
+        <ul id={`${base}-list`} className="car-picker-list" role="listbox" aria-label="Search results">
           {results.map((car, i) => (
             <li
               key={car.id}

@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-22",
+ "generated": "2026-10-23",
  "weeks": [
   {
    "label": "this",
@@ -42,8 +42,8 @@
        "name": "GR Supra Racing Concept '18",
        "tier": "A",
        "source": "live",
-       "laps": 61,
-       "share": 61,
+       "laps": 68,
+       "share": 68,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -64,26 +64,12 @@
        }
       },
       {
-       "id": "lancer-evolution-final-edition-gr-3",
-       "name": "Lancer Evolution Final Edition Gr.3",
-       "tier": "A",
-       "source": "live",
-       "laps": 6,
-       "share": 6,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
        "id": "beetle-gr-3",
        "name": "Beetle Gr.3",
        "tier": "A",
        "source": "live",
-       "laps": 9,
-       "share": 9,
+       "laps": 7,
+       "share": 7,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -92,7 +78,7 @@
        }
       }
      ],
-     "balance": 2.5
+     "balance": 2.1
     },
     {
      "race": "C",

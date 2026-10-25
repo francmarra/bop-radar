@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-24",
+ "generated": "2026-10-25",
  "weeks": [
   {
    "label": "this",
@@ -42,22 +42,8 @@
        "name": "GR Supra Racing Concept '18",
        "tier": "A",
        "source": "live",
-       "laps": 69,
-       "share": 69,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "beetle-gr-3",
-       "name": "Beetle Gr.3",
-       "tier": "A",
-       "source": "live",
-       "laps": 7,
-       "share": 7,
+       "laps": 78,
+       "share": 78,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -68,7 +54,7 @@
       {
        "id": "gt-r-nismo-gt3-18",
        "name": "GT-R NISMO GT3 '18",
-       "tier": "S",
+       "tier": "A",
        "source": "live",
        "laps": 6,
        "share": 6,
@@ -78,7 +64,7 @@
        }
       }
      ],
-     "balance": 2.0
+     "balance": 1.6
     },
     {
      "race": "C",

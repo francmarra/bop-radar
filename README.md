@@ -17,6 +17,63 @@ index** (how many cars really share the Daily Race top 100) rates each BoP updat
 - `api/` — ASP.NET Core 9 read-only REST API over `site/data` (PostgreSQL, Docker, xUnit)
 - `web/` — React + TypeScript car comparator (Vite) on top of the API, see [Car comparator (React)](#car-comparator-react)
 
+## Architecture
+
+```mermaid
+flowchart LR
+  subgraph sources[External sources]
+    GE[GT ENG!NE<br/>BoP pages]
+    LB[gtsh-rank.com<br/>Daily Race leaderboards]
+  end
+  subgraph action[GitHub Action, daily]
+    P[Python pipeline<br/>fetch → parse → build → assess]
+    C{gt7bop check}
+  end
+  GE --> P
+  LB --> P
+  P --> D[(site/data/*.json<br/>in git)]
+  D --> C
+  C -- ok --> R[render: pre-rendered pages,<br/>sitemap, share images]
+  C -- error --> I[action-alert issue]
+  R --> GP[GitHub Pages<br/>static SPA]
+  D --> IM[importer] --> PG[(PostgreSQL)] --> API[ASP.NET Core API<br/>/api/v1]
+  API --> W[React comparator<br/>types from OpenAPI]
+```
+
+The Python pipeline is the single source of truth; the site is static and free to host. The .NET API and the React
+comparator are an optional query layer on top of the same data and can be rebuilt from it at any time.
+
+## Engineering decisions
+
+Recorded as short ADRs in [`docs/adr/`](docs/adr/README.md):
+
+- **Static site + stdlib-only pipeline** — zero hosting cost, no runtime to keep alive ([ADR 1](docs/adr/0001-static-site-stdlib-pipeline.md)).
+- **Real pace over PP** — ranking validated by a backtest on unseen races, ρ +0.25 vs +0.14 ([ADR 2](docs/adr/0002-rank-by-real-pace.md)).
+- **Checks gate the deploy** — broken scraped data never reaches the live site ([ADR 3](docs/adr/0003-data-checks-gate-deploy.md)).
+- **API as a read-only mirror** — validated import in one transaction, Testcontainers integration tests ([ADR 4](docs/adr/0004-dotnet-api-read-only-mirror.md)).
+- **Generated client** — frontend types come from the OpenAPI document; CI fails on drift ([ADR 5](docs/adr/0005-openapi-generated-client.md)).
+- **No committed car images** — downloaded at build time only, with a kill switch ([ADR 6](docs/adr/0006-car-images-never-committed.md)).
+
+Changes are summarised in [CHANGELOG.md](CHANGELOG.md).
+
+## How I built it (AI-assisted)
+
+I built this project with an AI coding assistant (Claude Code), and most commits are co-authored by it. The
+workflow, the decisions and the review are mine:
+
+1. **Design first** — each feature starts as a written spec in [`docs/superpowers/specs/`](docs/superpowers/specs/)
+   that I review and approve (data sources, rules, what is out of scope).
+2. **Plan with constraints** — the spec becomes a task-by-task plan in [`docs/superpowers/plans/`](docs/superpowers/plans/)
+   with explicit constraints and a "review focus" (e.g. *an import from an empty folder must fail before touching the
+   database*).
+3. **Test-driven tasks** — each task lands as a small commit with its tests; a final review pass fixes what it finds
+   (see the `fix: final-review …` commits).
+4. **Verify against reality** — ranking rules were checked with a backtest on unseen races instead of being tuned by
+   eye, and the scheduled Action refuses to deploy data that fails `gt7bop check`.
+
+What I take from it: the assistant is fast at writing code, so the work that matters is specifying the problem,
+choosing trade-offs, and checking the result — which is what the specs, tests and ADRs here record.
+
 ## Usage
 
 ```sh
@@ -82,6 +139,12 @@ evidence. Deeper and older leaderboard data is the main lever for accuracy.
 
 ## Roadmap
 
+Tracked as [issues and milestones](https://github.com/francmarra/bop-radar/milestones):
+
+- Deploy the API to Azure Container Apps with infrastructure as code (Bicep) and keyless CI/CD.
+- "Ask the Radar": natural-language questions answered only through API tools, with automated evals.
+- Angular front end for the API.
+- The same API in Spring Boot, behind the same OpenAPI contract.
 - Replace the tyre/fuel estimates with real per-car data exported from
   [gt7-telemetry](https://github.com/francmarra).
 

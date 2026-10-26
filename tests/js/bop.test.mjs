@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { t, setLang } from "../../site/js/i18n.js";
-import { classSentence } from "../../site/js/bop.js";
+import { classSentence, updateTotals } from "../../site/js/bop.js";
 
 test("classSentence EN", () => {
   setLang("en");
@@ -17,4 +17,8 @@ test("classSentence PT", () => {
   assert.equal(classSentence({ buff: 1, nerf: 1, mixed: 1 }, "Gr.3", t), "1 carro ficou mais rápido, 1 mais lento, 1 misto");
   assert.equal(classSentence(undefined, "Gr.3", t), "Sem alterações no Gr.3");
   setLang("en");
+});
+test("updateTotals sums every class", () => {
+  assert.deepEqual(updateTotals({ gr3: { buff: 34, nerf: 12, mixed: 3 }, gr4: { buff: 11, nerf: 19 } }), { buff: 45, nerf: 31, mixed: 3 });
+  assert.deepEqual(updateTotals(undefined), { buff: 0, nerf: 0, mixed: 0 });
 });

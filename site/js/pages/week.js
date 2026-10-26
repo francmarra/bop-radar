@@ -1,25 +1,27 @@
 import { t } from "../i18n.js";
-import { link } from "../router.js";
+import { link, BASE } from "../router.js";
 import { html, raw, info, num, vtext } from "../format.js";
 import { load, store } from "../data.js";
-import { app, tierBadge, fmtDate } from "../ui.js";
+import { app, fmtDate } from "../ui.js";
 import { rulesText, whyText, summaryText, carLink, findCar, isStale } from "../week.js";
 import { carImg } from "../carimg.js";
+import { carRow } from "../row.js";
 
 let shown = "this";
 const pageUrl = () => location.origin + link("week/");
 const classLabel = (r) => (r.group ? "Gr." + r.group.slice(2) : r.kind === "one-make" ? t("one_make_label") : r.category);
 const carId = (c) => findCar(store.index, c)?.id ?? c?.id ?? "";
 const srcText = (c) => (c.source === "live" ? t("src_live", c.share) : c.source === "real" ? t("src_real", c.laps) : t("src_est"));
+const carHref = (c) => `${BASE}car/${encodeURIComponent(carId(c))}/`;
 const isMult = (x) => (parseFloat(String(x ?? "").replace(/[^\d.]/g, "")) || 1) !== 1;
 
 function body(r) {
   if (r.kind === "bop") {
     if (!r.cars.length) return html`<p class="muted">${t("no_track_data")}</p>`;
-    return html`<h3>${t("top5")}</h3><ol class="race-cars">${r.cars.map((c) => html`
-      <li>${carImg(carId(c), "s")}<div class="rc-body">${tierBadge(c.tier)} <span class="rc-name">${carLink(store.index, c)}</span>
-        ${whyText(c.why, t) ? html`<span class="why">${whyText(c.why, t)}</span>` : ""}
-        <span class="badge ${c.source === "estimate" ? "est" : "lb"}">${srcText(c)}</span></div></li>`)}</ol>`;
+    const why = r.cars.filter((c) => whyText(c.why, t));
+    return html`<h3>${t("top5")}</h3><div class="rows">${r.cars.map((c, i) => carRow({ href: carHref(c), id: carId(c), name: c.name, sub: srcText(c), pos: i + 1, tier: c.tier, estimate: c.source === "estimate" }))}</div>
+      <details class="why-rules"><summary>${t("why_rules")}</summary>
+        ${why.length ? html`<ul>${why.map((c) => html`<li><b>${c.name}</b>: ${whyText(c.why, t)}</li>`)}</ul>` : ""}</details>`;
   }
   if (r.kind === "one-make") return html`<p>${raw(t("one_make", carLink(store.index, r.car ?? "")))}</p>`; // carLink escapes the name
   if (r.kind === "tbd") return html`<p class="muted">${t("tbd_race", r.start ? fmtDate(r.start) : "")}</p>`;

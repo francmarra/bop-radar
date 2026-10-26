@@ -180,9 +180,6 @@ input[type=search], select { background: var(--panel-2); border: 1px solid var(-
 .panel > .toolbar:has(#groups) { position: sticky; top: 64px; z-index: 4; background: var(--panel); padding-block: 8px; margin-bottom: 6px; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .row .nm small { color: var(--muted); font-size: var(--fs-sm); margin-right: 8px; } /* gap before the source badge, invisible when it wraps */
-.trow { grid-template-columns: 56px 72px 64px minmax(180px, 2fr) minmax(140px, 1.3fr) 100px 180px; }
-.urow { grid-template-columns: 140px 72px minmax(160px, 1.4fr) 200px 80px 60px minmax(220px, 2.4fr); }
-.urow .sm { font-size: var(--fs-sm); }
 .rrow { grid-template-columns: minmax(180px, 2fr) 110px 80px 50px 90px 70px; }
 .crow { grid-template-columns: 80px 120px 150px minmax(160px, 1.5fr) 90px 130px; }
 .row.sel { background: var(--hover); box-shadow: inset 4px 0 0 var(--text); }
@@ -215,7 +212,6 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .updates a { display: grid; grid-template-columns: 80px 120px 1fr; gap: 12px; padding: 14px 8px; min-height: var(--tap); text-decoration: none;
   border-bottom: 1px solid var(--line); align-items: center; }
 .updates a:hover { background: var(--hover); }
-.ug { display: inline-block; margin-right: 16px; white-space: nowrap; }
 /* tracks (unlinked, kept working) */
 .cols3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: start; }
 .cols3 .panel h2 { display: flex; gap: 8px; align-items: center; font-size: var(--fs-lg); }
@@ -239,8 +235,6 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
   .row { grid-template-columns: 34px 34px 1fr 80px; }
   .row .bs, .row .lc { display: none; }
   .row .tr { grid-column: 3 / -1; }
-  .trow { grid-template-columns: 48px 72px 40px 1fr 100px; } .trow .sc { grid-column: 4 / 5; } .trow .ev2 { display: none; }
-  .urow { grid-template-columns: 130px 72px 1fr auto; } .urow .dp, .urow .rkn { display: none; } .urow .sm { grid-column: 1 / -1; }
   .rrow { grid-template-columns: 1fr auto auto auto; } .rrow > :nth-child(2), .rrow > :nth-child(6) { display: none; }
   .crow { grid-template-columns: 72px minmax(0, 1fr) 72px; column-gap: 6px; row-gap: 4px; } .crow > :nth-child(2), .crow > :nth-child(5) { display: none; }
   /* version | verdict over power/weight | PP rank: 4 cells in 3 columns without wrapping the rank to a new row */
@@ -256,8 +250,7 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
     padding-left: 6px; margin-left: -6px; } .stripe { flex: none; } /* room for the skewed stripe inside the clip */
   h1 { font-size: 1.8rem; }
   .counts { grid-template-columns: repeat(2, 1fr); }
-  .updates a { grid-template-columns: 70px minmax(0, 1fr); } .updates a > .muted { display: none; }
-  .updates a > span:last-child { display: flex; flex-wrap: wrap; gap: 4px 12px; min-width: 0; } .ug { margin-right: 0; }
+  .updates a { grid-template-columns: auto auto minmax(0, 1fr); }
   input[type=search], select { min-width: 0; width: 100%; }
   /* equal columns instead of a lone button wrapping onto a 2nd row; labels wrap inside their button */
   .seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); width: 100%; }
@@ -290,14 +283,6 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .suggest li { display: grid; grid-template-columns: 72px 1fr; gap: 12px; align-items: center; padding: 8px 12px; min-height: var(--tap); border-radius: 8px; cursor: pointer; }
 .suggest li[aria-selected="true"], .suggest li:hover { background: var(--hover); box-shadow: inset 4px 0 0 var(--text); }
 #car-empty { margin-top: 10px; }
-@media (max-width: 700px) {
-  .trow { grid-template-columns: 40px 72px 1fr; grid-template-areas: "pos im nm" "pos lv sc" "pos lv gp"; row-gap: 4px; }
-  .trow .pos { grid-area: pos; } .trow .im { grid-area: im; } .trow .nm { grid-area: nm; }
-  .trow .lv { grid-area: lv; justify-self: center; align-self: start; }
-  .trow .sc { grid-area: sc; } .trow .gp { grid-area: gp; }
-  .urow { grid-template-columns: 72px 1fr; grid-template-areas: "im vd" "im nm" "im pw" "sm sm"; row-gap: 2px; }
-  .urow .vd { grid-area: vd; } .urow .im { grid-area: im; align-self: start; } .urow .nm { grid-area: nm; } .urow .pw { grid-area: pw; } .urow .sm { grid-area: sm; }
-}
 /* car page hero: black stage in both themes (dark tokens re-declared), chrome title, glowing car on a floor line, spec sheet */
 .car-hero { --bg: #07080a; --panel: #000; --panel-2: #181b20; --hover: #1d2127; --line: #2a2f36; --control-line: #6b737d; --line-hi: #3a4048; --tick: #6b737d;
   --text: #e8ebef; --muted: #9ba4ae; --buff: #86c9a4; --nerf: #ec938e; --mixed: #d9b676; --s: #e3c56a; --a: #8fb6e0; --b: #aab2bb; --c: #8f98a2;
@@ -386,12 +371,8 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
   font: 700 1.8rem var(--head); }
 .letter.sm { min-width: 36px; height: 36px; font-size: 1.2rem; border-radius: 8px; }
 .rules { font-weight: 600; }
-.race-cars { list-style: none; margin: 8px 0 0; padding: 0; counter-reset: rc; }
-.race-cars li { display: grid; grid-template-columns: 1.6em 72px minmax(0, 1fr); align-items: center; gap: 6px 12px; padding: 10px 0; border-top: 1px solid var(--line); counter-increment: rc; }
-.race-cars li::before { content: counter(rc); font: 600 var(--fs-lg) var(--mono); text-align: center; }
-.rc-body { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
-.rc-name { font-weight: 600; } .rc-name a { color: inherit; }
-.why { color: var(--muted); font-size: var(--fs-sm); flex-basis: 100%; }
+.why-rules > summary { cursor: pointer; min-height: var(--tap); display: flex; align-items: center; }
+.why-rules ul { margin: 0 0 8px; padding-left: 20px; }
 .copy-wrap { margin-top: 12px; }
 .copy-wrap textarea { display: block; width: 100%; margin-top: 6px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px; font: inherit; color: inherit; }
 .btn.ghost { background: none; color: var(--text); border: 2px solid var(--line); }

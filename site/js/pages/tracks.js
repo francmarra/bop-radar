@@ -2,10 +2,10 @@ import { t } from "../i18n.js";
 import { BASE } from "../router.js";
 import { html, num } from "../format.js";
 import { load, store, state, groupLabel as gl } from "../data.js";
-import { app, tierBadge, setBadge } from "../ui.js";
+import { app, setBadge } from "../ui.js";
 const groupLabel = (id) => gl(store.index, id);
 import { carById as cb } from "../data.js";
-import { carImg } from "../carimg.js";
+import { carRow } from "../row.js";
 const carById = (id) => cb(store.index, id);
 
 export async function tracksPage() {
@@ -40,16 +40,10 @@ export async function trackPage(id, group) {
   const events = g.events.map((e) => html`<div class="ev"><b class="mono">${e.date}</b> <span class="muted">Race ${e.race}</span>
     <span>${e.tyres.map((x) => html`<span class="tyre ${x.toLowerCase()}">${x}</span>`)}</span>
     <span class="muted small">${t("fuel")} ${e.fuel} · ${t("tyre_wear")} ${e.tyre_wear} · BoP ${e.bop || "?"}</span></div>`);
-  const best = g.cars[0]?.score || 1;
   const rows = g.cars.map((c, i) => {
     const car = carById(c.id) || { name: c.id, maker: "", brief: null };
     const lb = c.lb;
-    return html`<a class="row trow" href="${BASE}car/${encodeURIComponent(c.id)}/">
-      <span class="pos ${c.tier}">${i + 1}</span><span class="im">${carImg(c.id, "s")}</span><span class="lv">${tierBadge(c.tier)}</span>
-      <span class="nm"><b>${car.name}</b><small>${car.maker}</small></span>
-      <span class="sc"><span class="bar"><i style="width:${Math.round((c.score / best) * 100)}%"></i></span><small class="mono">${num(c.score * 100)}</small></span>
-      <span class="gp mono">${lb ? `+${num(lb.gap_pct, 2)} %` : "—"}</span>
-      <span class="ev2">${lb ? html`<span class="badge lb">${t("ev_lb")}</span> <small class="muted">${lb.top100} ${t("top100")}</small>` : html`<span class="badge est">${t("ev_model")}</span>`}</span></a>`;
+    return carRow({ href: `${BASE}car/${encodeURIComponent(c.id)}/`, id: c.id, name: car.name, sub: car.maker, pos: i + 1, tier: c.tier, estimate: !lb, end: lb ? `+${num(lb.gap_pct, 2)} %` : "—" });
   });
   app.innerHTML = html`
     <p><a href="${BASE}tracks/" class="muted">← ${t("tracks_title")}</a></p>
@@ -59,6 +53,6 @@ export async function trackPage(id, group) {
       <h3>${t("race_events")}</h3>${events.length ? events : html`<p class="muted">${t("no_events")}</p>`}
     </section>
     <section class="panel"><h2>${t("track_cars")} · ${groupLabel(group)}</h2>
-      <div class="rows"><div class="row trow head"><span class="pos">#</span><span class="im"></span><span class="lv">${t("col_tier")}</span><span class="nm">${t("col_car")}</span><span class="sc">${t("score")}</span><span class="gp">${t("gap")}</span><span class="ev2">${t("evidence")}</span></div>${rows}</div>
+      <div class="rows">${rows}</div>
       <p class="note">${t("gap_note")}</p></section>`;
 }

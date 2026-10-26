@@ -20,7 +20,7 @@ export async function updatePage(v) {
   const prev = store.index.updates[i + 1], next = store.index.updates[i - 1];
   const order = { buff: 0, mixed: 1, nerf: 2 };
   const sections = store.index.groups.filter((g) => u.groups[g.id]).map((g) => {
-    const rows = u.groups[g.id].sort((a, b) => order[a.verdict] - order[b.verdict] || a.rank - b.rank).map((c) => carRow({ href: `${BASE}car/${encodeURIComponent(c.id)}/`, id: c.id, name: c.name, sub: deltaText(c.delta), pos: c.rank, end: verdictArrow(c.verdict, t) }));
+    const rows = u.groups[g.id].sort((a, b) => order[a.verdict] - order[b.verdict] || a.rank - b.rank).map((c) => carRow({ href: `${BASE}car/${encodeURIComponent(c.id)}/`, id: c.id, name: c.name, sub: deltaText(c.delta), end: html`<span class="muted mono small">P${c.rank}</span> ${verdictArrow(c.verdict, t)}` }));
     const bal = u.balance?.[g.id], prev = store.index.updates.slice(i + 1).find((x) => x.balance?.[g.id])?.balance[g.id];
     return html`<section class="panel"><h2>${g.label} <span class="muted small">${t("cars_changed", u.groups[g.id].length)}</span></h2>
       ${bal ? html`<p class="muted small">${t("bal_update", num(bal.cars, 1), bal.events)}${prev ? ` · ${t("bal_prev", num(prev.cars, 1))}` : ""} ${info("balance_idx", t)}</p>` : ""}

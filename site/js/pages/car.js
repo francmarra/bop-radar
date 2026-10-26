@@ -53,7 +53,8 @@ export async function carPage(id) {
   const renderCtx = () => {
     const e = hist[selected], c = e.context, m = e.sets.m;
     const head = selected === latest && now ? now.m : m;
-    app.querySelector("#now").innerHTML = html`<span class="tower ${head.tier}">${tierBadge(head.tier)}<b>P${head.rank}</b><span>/ ${e.of}</span></span> ${selected === latest ? sourceBadge(now?.m, t) : ""} ${e.changed && e.verdict ? html`${verdictArrow(e.verdict, t)} <span class="mono">${deltaText(e.delta)}</span>` : ""}`;
+    const ch = selected === latest ? hist.findLast((x) => x.changed && x.verdict) : e.changed && e.verdict ? e : null; // latest view: the newest BoP that touched the car, like the ranking
+    app.querySelector("#now").innerHTML = html`<span class="tower ${head.tier}">${tierBadge(head.tier)}<b>P${head.rank}</b><span>/ ${e.of}</span></span> ${selected === latest ? sourceBadge(now?.m, t) : ""} ${ch ? html`${verdictArrow(ch.verdict, t)} <span class="mono">${deltaText(ch.delta)}</span>` : ""}`;
     app.querySelector("#ctx-title").textContent = t("ctx_title", e.v, e.date);
     app.querySelector("#summary").textContent = summary(brief(e, selected));
     const fit = ["h", "m", "l"].map((s) => html`<div class="fit">${setBadge(s)} <span class="muted mono">#${selected === latest && now ? now[s].rank : e.sets[s].rank}</span>

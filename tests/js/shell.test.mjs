@@ -29,3 +29,12 @@ test("search dialog and settings popover exist", () => {
 test("new nav strings exist in EN and PT", () => {
   for (const k of ["nav_search", "nav_bop", "settings", "close"]) assert.ok(I18N.en[k] && I18N.pt[k], k);
 });
+
+test("footer help link carries the attribute main.js uses to make it absolute", () => {
+  assert.match(src.match(/<footer>[\s\S]*?<\/footer>/)[0], /<a href="help\/" data-t="nav_help">/);
+  assert.ok(readFileSync(new URL("../../site/js/main.js", import.meta.url), "utf8").includes('footer a[data-t=\\"nav_help\\"]'));
+});
+test("search button: placeholder is hidden from the accessible name; viewport covers notches", () => {
+  assert.match(src, /<span class="ph" aria-hidden="true"/);
+  assert.match(src, /viewport-fit=cover/);
+});

@@ -36,3 +36,6 @@ test("carRow without href renders a non-link row", () => {
   const out = String(carRow({ ...base, href: "", pos: 1 }));
   assert.ok(out.startsWith('<div class="row cr"') && !out.includes("<a ") && out.includes("<b>N</b>"));
 });
+test("carRow without a tier never prints undefined", () => {
+  assert.ok(!String(carRow({ href: "/car/x/", id: "x", name: "N", pos: 3 })).includes("undefined"));
+});

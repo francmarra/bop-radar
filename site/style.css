@@ -75,21 +75,24 @@ button, select, input { font: inherit; color: inherit; }
 .stripe i { position: absolute; top: 0; bottom: 0; background: var(--chrome-bar); filter: drop-shadow(-1px 0 0 rgba(255, 50, 110, .45)) drop-shadow(1px 0 0 rgba(60, 200, 255, .45)); }
 .stripe i:nth-child(1) { left: 0; width: 7px; } .stripe i:nth-child(2) { left: 11px; width: 7px; }
 .stripe i:nth-child(3) { left: 22px; width: 3px; background: var(--accent); filter: none; }
-nav.tabs { display: flex; gap: 8px; flex: 1; }
+nav.tabs { display: flex; gap: 8px; flex: 1; min-width: 0; }
 nav.tabs a, nav.tabs button { text-decoration: none; color: var(--muted); font-weight: 600; padding: 8px 14px; border-radius: 8px;
-  min-height: var(--tap); display: inline-flex; align-items: center; gap: 6px; }
+  min-height: var(--tap); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+nav.tabs a { flex: none; }
+@media (min-width: 768px) and (max-width: 970px) { nav.tabs a, nav.tabs button { padding-inline: 8px; } nav.tabs { gap: 4px; } }
 nav.tabs a:hover { color: var(--text); background: var(--hover); }
 nav.tabs a.on { color: var(--text); background: var(--panel-2); box-shadow: inset 0 -3px 0 var(--accent); }
 /* desktop: the search entry looks like a field but opens the same dialog as on phones */
-nav.tabs button { margin-left: auto; width: 240px; background: var(--panel-2); border: 1px solid var(--control-line); border-radius: 10px; cursor: pointer; font: inherit; font-weight: 400; }
+nav.tabs button { margin-left: auto; width: auto; flex: 0 1 240px; min-width: var(--tap); overflow: hidden; background: var(--panel-2); border: 1px solid var(--control-line); border-radius: 10px; cursor: pointer; font: inherit; font-weight: 400; }
 nav.tabs button:hover { color: var(--text); }
-nav.tabs .lbl { display: none; }
+nav.tabs .lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 #settings { position: fixed; inset: 56px 16px auto auto; margin: 0; padding: 8px; background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--panel-shadow); }
 #settings:popover-open { display: flex; gap: 8px; align-items: center; }
 #search-dlg { width: min(560px, 100%); max-height: 80vh; margin: 10vh auto auto; padding: 16px; background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 12px; }
 #search-dlg::backdrop { background: rgba(0, 0, 0, .7); }
 #search-dlg h2 { margin: 0 0 12px; padding-right: 110px; }
-#search-dlg .btn { position: absolute; top: 12px; right: 12px; } /* always visible: the suggestion list overlays what follows */
+#search-dlg .suggest { position: static; margin-top: 4px; } /* in flow so the dialog (max-height, scrolls) holds the list */
+#search-dlg .btn { position: absolute; top: 12px; right: 12px; } /* always visible while the list scrolls */
 #search-dlg input[type=search] { width: 100%; min-width: 0; box-sizing: border-box; }
 .tools { display: flex; gap: 8px; align-items: center; }
 .lang { display: flex; border: 1px solid var(--control-line); border-radius: 8px; overflow: hidden; }
@@ -169,6 +172,7 @@ input[type=search], select { background: var(--panel-2); border: 1px solid var(-
 .delta.flat { color: var(--muted); background: var(--panel-2); } /* PP: direction only, neutral colour */
 .delta.up::before, .delta.rise::before { content: "▲ " / ""; } .delta.down::before, .delta.fall::before { content: "▼ " / ""; }
 .row:hover { background: var(--hover); }
+div.row.cr { cursor: default; } div.row.cr:hover { background: none; }
 .row.head { animation: none; cursor: default; font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 600; padding-block: 10px; }
 .row.head:hover { background: none; }
 .row .nm b { display: block; }
@@ -179,7 +183,7 @@ input[type=search], select { background: var(--panel-2); border: 1px solid var(-
 .cr .nm small { margin: 0; } .cr .end { justify-self: end; min-width: 20px; text-align: center; } .cr sup.est { font-size: 1rem; line-height: 0; margin-left: 2px; font-weight: 700; }
 .panel > .toolbar:has(#groups) { position: sticky; top: 64px; z-index: 4; background: var(--panel); padding-block: 8px; margin-bottom: 6px; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.row .nm small { color: var(--muted); font-size: var(--fs-sm); margin-right: 8px; } /* gap before the source badge, invisible when it wraps */
+.row .nm small { color: var(--muted); font-size: var(--fs-sm); margin-right: 8px; }
 .rrow { grid-template-columns: minmax(180px, 2fr) 110px 80px 50px 90px 70px; }
 .crow { grid-template-columns: 80px 120px 150px minmax(160px, 1.5fr) 90px 130px; }
 .row.sel { background: var(--hover); box-shadow: inset 4px 0 0 var(--text); }
@@ -228,7 +232,6 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .badge { font-size: var(--fs-sm); font-weight: 600; padding: 3px 10px; border-radius: 6px; line-height: 1.4; } /* tighter when it wraps on phones */
 .badge.lb { background: color-mix(in srgb, var(--buff) 18%, transparent); color: var(--buff); }
 .badge.est { background: var(--panel-2); color: var(--muted); }
-.sc { display: flex; align-items: center; gap: 8px; } .sc .bar { flex: 1; margin: 0; }
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; } .cols3 { grid-template-columns: minmax(0, 1fr); }
   .cols3 .panel h2 { flex-wrap: wrap; } .cols3 .panel h2::after { flex: 1 1 0; min-width: 0; }
@@ -377,7 +380,6 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .copy-wrap textarea { display: block; width: 100%; margin-top: 6px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px; font: inherit; color: inherit; }
 .btn.ghost { background: none; color: var(--text); border: 2px solid var(--line); }
 .stale { border-color: var(--mixed); color: var(--text); }
-.row .nm .badge { display: inline-block; margin-top: 4px; }
 @media (max-width: 767px) {
   .top { backdrop-filter: none; } /* it would make the fixed tab bar relative to the header, not the viewport */
   nav.tabs { position: fixed; inset: auto 0 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; min-height: 56px; padding-bottom: env(safe-area-inset-bottom);
@@ -385,7 +387,7 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
   nav.tabs a, nav.tabs button { flex-direction: column; justify-content: center; gap: 2px; padding: 4px; border-radius: 0; font-size: var(--fs-sm); text-align: center;
     width: auto; margin: 0; background: none; border: 0; color: var(--muted); font-weight: 600; }
   nav.tabs a.on { box-shadow: inset 0 3px 0 var(--accent); }
-  nav.tabs .lbl { display: inline; } nav.tabs .ph { display: none; }
+  nav.tabs .lbl { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal; } nav.tabs .ph { display: none; }
   footer { padding-bottom: calc(72px + env(safe-area-inset-bottom)); } /* footer follows main on every page; keeps its last line above the fixed bar */
   #search-dlg { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; border: 0; border-radius: 0; box-sizing: border-box; }
 }

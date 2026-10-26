@@ -80,7 +80,7 @@ async function route() {
 const legacy = hashToPath(location.hash);
 if (legacy !== null) history.replaceState(null, "", link(legacy));
 // header links are relative in the HTML (for crawlers); make them absolute for in-app navigation
-document.querySelectorAll("header a[href], footer a[href=\"help/\"]").forEach((a) => { a.href = link(rootPath(a.getAttribute("href"))); });
+document.querySelectorAll("header a[href], footer a[data-t=\"nav_help\"]").forEach((a) => { a.href = link(rootPath(a.getAttribute("href"))); });
 document.addEventListener("click", (e) => {
   const a = e.target.closest("a[href]");
   if (!a || !shouldIntercept(e, a, location.origin, BASE, location.pathname)) return;

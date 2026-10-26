@@ -12,7 +12,7 @@ test("plain-language terms (EN)", () => {
   setLang("en");
   assert.equal(t("buff"), "Faster");
   assert.equal(t("set_l"), "Slow tracks");
-  assert.equal(t("col_tier"), "Level");
+  assert.equal(t("col_verdict"), "Effect");
   assert.equal(t("col_pp"), "Performance level (PP)");
   assert.equal(t("col_traits"), "Strengths");
   assert.ok(verdictHtml("nerf", t).includes("▼") && verdictHtml("nerf", t).includes("Slower"));

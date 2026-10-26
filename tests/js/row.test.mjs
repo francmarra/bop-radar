@@ -15,7 +15,7 @@ test("carRow escapes the name and sub", () => {
 });
 test("carRow marks estimates with an accessible asterisk", () => {
   const on = String(carRow({ ...base, pos: 1, estimate: true }));
-  assert.ok(on.includes('<sup class="est"') && on.includes('aria-label="Estimate: little race data"'));
+  assert.ok(on.includes('<sup class="est"') && on.includes('<span class="sr">Estimate: little race data</span>'));
   assert.ok(!String(carRow({ ...base, pos: 1, estimate: false })).includes('class="est"'));
 });
 test("carRow without pos has no position cell", () => {
@@ -29,6 +29,6 @@ test("carRow keeps a long name on one cell", () => {
 });
 test("verdictArrow: icon with a spoken label", () => {
   const out = String(verdictArrow("nerf", t));
-  assert.ok(out.includes("▼") && out.includes('aria-label="Slower"'));
+  assert.ok(out.includes("▼") && out.includes('<span class="sr">Slower</span>'));
   assert.equal(String(verdictArrow("x", t)), '<span class="muted">—</span>');
 });

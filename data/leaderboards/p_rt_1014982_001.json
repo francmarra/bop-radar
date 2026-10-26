@@ -1,0 +1,105 @@
+{
+"date": "2026-10-19",
+"board": "p_rt_1014982_001",
+"race": "B",
+"track": "Autódromo de Interlagos",
+"course_id": "152",
+"group": "gr3",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3352,
+"name": "Toyota GR Supra Racing Concept '18",
+"laps": 617,
+"best_ms": 92330,
+"pace_ms": 92510,
+"gap_pct": 0.0,
+"top100": 80
+},
+{
+"code": 3305,
+"name": "Volkswagen Beetle Gr.3",
+"laps": 45,
+"best_ms": 92601,
+"pace_ms": 93002,
+"gap_pct": 0.531,
+"top100": 4
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 14,
+"best_ms": 92780,
+"pace_ms": 93063,
+"gap_pct": 0.598,
+"top100": 1
+},
+{
+"code": 3450,
+"name": "Nissan GT-R NISMO GT3 '18",
+"laps": 83,
+"best_ms": 92617,
+"pace_ms": 93064,
+"gap_pct": 0.599,
+"top100": 5
+},
+{
+"code": 2185,
+"name": "Mitsubishi Lancer Evolution Final Edition Gr.3",
+"laps": 44,
+"best_ms": 92781,
+"pace_ms": 93116,
+"gap_pct": 0.655,
+"top100": 2
+},
+{
+"code": 2186,
+"name": "Subaru WRX Gr.3",
+"laps": 49,
+"best_ms": 92593,
+"pace_ms": 93136,
+"gap_pct": 0.677,
+"top100": 2
+},
+{
+"code": 3311,
+"name": "Porsche 911 RSR (991) '17",
+"laps": 41,
+"best_ms": 92804,
+"pace_ms": 93263,
+"gap_pct": 0.814,
+"top100": 1
+},
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 52,
+"best_ms": 92734,
+"pace_ms": 93272,
+"gap_pct": 0.823,
+"top100": 1
+},
+{
+"code": 3508,
+"name": "SUZUKI Vision Gran Turismo (Gr.3 Version)",
+"laps": 6,
+"best_ms": 93094,
+"pace_ms": 93279,
+"gap_pct": 0.831,
+"top100": 0
+},
+{
+"code": 3502,
+"name": "Genesis X GR3",
+"laps": 5,
+"best_ms": 92747,
+"pace_ms": 93452,
+"gap_pct": 1.018,
+"top100": 2
+}
+]
+}

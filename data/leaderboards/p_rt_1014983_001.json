@@ -1,0 +1,42 @@
+{
+"date": "2026-10-19",
+"board": "p_rt_1014983_001",
+"race": "C",
+"track": "Suzuka Circuit",
+"course_id": "10",
+"group": "gr2",
+"tyres": [
+"RM"
+],
+"fuel": "x2",
+"tyre_wear": "x4",
+"cars": [
+{
+"code": 3348,
+"name": "Honda NSX CONCEPT-GT '16",
+"laps": 951,
+"best_ms": 104296,
+"pace_ms": 104594,
+"gap_pct": 0.0,
+"top100": 98
+},
+{
+"code": 3350,
+"name": "Nissan GT-R NISMO GT500 '16",
+"laps": 33,
+"best_ms": 104795,
+"pace_ms": 105802,
+"gap_pct": 1.154,
+"top100": 1
+},
+{
+"code": 3349,
+"name": "Lexus RC F GT500 '16",
+"laps": 16,
+"best_ms": 105077,
+"pace_ms": 105878,
+"gap_pct": 1.227,
+"top100": 1
+}
+]
+}

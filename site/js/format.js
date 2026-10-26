@@ -20,6 +20,7 @@ export const signedNeutral = (n, unit = "") => {
 export const fold = (s) => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const VERDICT_ICON = { buff: "▲", nerf: "▼", mixed: "◆", unchanged: "=" };
 export const verdictHtml = (v, t) => (VERDICT_ICON[v] ? html`<span class="v ${v}">${VERDICT_ICON[v]} ${t(v)}</span>` : html`<span class="muted">—</span>`);
+export const verdictArrow = (v, t) => (VERDICT_ICON[v] ? html`<span class="v ${v}" title="${t(v)}" aria-label="${t(v)}">${VERDICT_ICON[v]}</span>` : html`<span class="muted">—</span>`);
 export const levelName = (tier, t) => t("level_" + tier);
 let tipSeq = 0;
 // decorative vertical Japanese label (desktop only via CSS); `big` is the large outlined word under it

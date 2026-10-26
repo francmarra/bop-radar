@@ -171,7 +171,14 @@ input[type=search], select { background: var(--panel-2); border: 1px solid var(-
 .row:hover { background: var(--hover); }
 .row.head { animation: none; cursor: default; font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 600; padding-block: 10px; }
 .row.head:hover { background: none; }
-.row .nm b { display: block; } .row .nm small { color: var(--muted); font-size: var(--fs-sm); margin-right: 8px; } /* gap before the source badge, invisible when it wraps */
+.row .nm b { display: block; }
+.row.cr { grid-template-columns: 36px 56px minmax(0, 1fr) auto auto; min-height: 64px; padding: 6px 8px; gap: 10px; }
+.row.cr.nopos { grid-template-columns: 56px minmax(0, 1fr) auto auto; }
+.cr .im .car-img-s { width: 56px; }
+.cr .nm { min-width: 0; } .cr .nm b, .cr .nm small { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cr .nm small { margin: 0; } .cr .end { justify-self: end; min-width: 20px; text-align: center; } .cr sup.est { font-size: 1rem; line-height: 0; margin-left: 2px; font-weight: 700; }
+#groups, #sets { flex: none; }
+.panel > .toolbar:has(#groups) { position: sticky; top: 64px; z-index: 4; background: var(--panel); padding-block: 8px; margin-bottom: 6px; } .row .nm small { color: var(--muted); font-size: var(--fs-sm); margin-right: 8px; } /* gap before the source badge, invisible when it wraps */
 .trow { grid-template-columns: 56px 72px 64px minmax(180px, 2fr) minmax(140px, 1.3fr) 100px 180px; }
 .urow { grid-template-columns: 140px 72px minmax(160px, 1.4fr) 200px 80px 60px minmax(220px, 2.4fr); }
 .urow .sm { font-size: var(--fs-sm); }
@@ -241,6 +248,7 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
   .row.head .tr, .row.head .sm { display: none; }
 }
 @media (max-width: 640px) {
+  .panel > .toolbar:has(#groups) { top: 0; }
   .top { gap: 8px; position: static; } /* a sticky 2-row header would take ~15 % of a phone screen */ .tools { margin-left: auto; flex: none; }
   /* brand shrinks instead of wrapping the tools onto a new row while the web font loads (CLS) */
   .brand { flex: 1 1 0; min-width: 0; overflow: hidden; white-space: nowrap; font-size: 1.3rem;
@@ -279,26 +287,13 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .suggest li { display: grid; grid-template-columns: 72px 1fr; gap: 12px; align-items: center; padding: 8px 12px; min-height: var(--tap); border-radius: 8px; cursor: pointer; }
 .suggest li[aria-selected="true"], .suggest li:hover { background: var(--hover); box-shadow: inset 4px 0 0 var(--text); }
 #car-empty { margin-top: 10px; }
-.rk-row { grid-template-columns: 56px 72px 64px minmax(180px, 2fr) 190px 190px; }
 @media (max-width: 700px) {
-  .rk-row { grid-template-columns: 40px 72px minmax(0, 1fr); grid-template-areas: "pos im nm" "pos lv bs" "pos lv lc"; row-gap: 4px; }
   .trow { grid-template-columns: 40px 72px 1fr; grid-template-areas: "pos im nm" "pos lv sc" "pos lv gp"; row-gap: 4px; }
-  :is(.rk-row, .trow) .pos { grid-area: pos; } :is(.rk-row, .trow) .im { grid-area: im; } :is(.rk-row, .trow) .nm { grid-area: nm; }
-  :is(.rk-row, .trow) .lv { grid-area: lv; justify-self: center; align-self: start; }
-  .rk-row .bs, .rk-row .lc { display: block; } .rk-row .bs { grid-area: bs; } .rk-row .lc { grid-area: lc; }
-  /* compact: "best" is hidden when it equals the filter (implied), so its row collapses and last change sits by the tier */
-  .rk-row { grid-template-columns: 32px 64px minmax(0, 1fr); grid-template-areas: "pos im nm" "pos lv bs" "pos lv lc"; gap: 0 10px; padding-block: 10px; }
-  .rk-row .bs:not(.same) { margin-top: 6px; } .rk-row .lc { margin-top: 6px; }
-  .rk-row .car-img-s { width: 64px; } .rk-row .bs.same { display: none; } .rk-row .lv { align-self: center; }
+  .trow .pos { grid-area: pos; } .trow .im { grid-area: im; } .trow .nm { grid-area: nm; }
+  .trow .lv { grid-area: lv; justify-self: center; align-self: start; }
   .trow .sc { grid-area: sc; } .trow .gp { grid-area: gp; }
   .urow { grid-template-columns: 72px 1fr; grid-template-areas: "im vd" "im nm" "im pw" "sm sm"; row-gap: 2px; }
   .urow .vd { grid-area: vd; } .urow .im { grid-area: im; align-self: start; } .urow .nm { grid-area: nm; } .urow .pw { grid-area: pw; } .urow .sm { grid-area: sm; }
-  .rk-row.head, .trow.head, .urow.head { display: none; }
-}
-@media (min-width: 701px) and (max-width: 900px) {
-  .rk-row { grid-template-columns: 48px 72px 44px 1fr 160px; grid-template-areas: "pos im lv nm bs" "pos im lv nm lc"; row-gap: 4px; }
-  .rk-row .pos { grid-area: pos; } .rk-row .im { grid-area: im; } .rk-row .lv { grid-area: lv; } .rk-row .nm { grid-area: nm; }
-  .rk-row .bs, .rk-row .lc { display: block; } .rk-row .bs { grid-area: bs; } .rk-row .lc { grid-area: lc; }
 }
 /* car page hero: black stage in both themes (dark tokens re-declared), chrome title, glowing car on a floor line, spec sheet */
 .car-hero { --bg: #07080a; --panel: #000; --panel-2: #181b20; --hover: #1d2127; --line: #2a2f36; --control-line: #6b737d; --line-hi: #3a4048; --tick: #6b737d;

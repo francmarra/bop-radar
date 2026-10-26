@@ -1,9 +1,9 @@
 import { t } from "../i18n.js";
 import { BASE } from "../router.js";
-import { html, info, sourceBadge } from "../format.js";
+import { html, info, verdictArrow } from "../format.js";
 import { store, state } from "../data.js";
-import { app, verdict, tierBadge, setBadge } from "../ui.js";
-import { carImg } from "../carimg.js";
+import { app } from "../ui.js";
+import { carRow } from "../row.js";
 
 // class leader on a track type (the landing hero shows it)
 export const topCar = (g, set) => g.cars.reduce((best, c) => (!best || c.sets[set].rank < best.sets[set].rank ? c : best), undefined);
@@ -37,15 +37,9 @@ function renderRanking() {
   const g = store.index.groups.find((x) => x.id === state.group);
   const sorted = g.cars.slice().sort((a, b) => a.sets[state.set].rank - b.sets[state.set].rank);
   const rows = (showAll ? sorted : sorted.slice(0, TOP))
-    .map((c) => {
-      const s = c.sets[state.set], lc = c.last_change;
-      return html`<a class="row rk-row" href="${BASE}car/${encodeURIComponent(c.id)}/">
-        <span class="pos ${s.tier}">${s.rank}</span><span class="im">${carImg(c.id, "s")}</span><span class="lv">${tierBadge(s.tier)}</span>
-        <span class="nm"><b>${c.name}</b><small>${c.maker} · ${c.drivetrain}</small>${sourceBadge(s, t)}</span>
-        <span class="bs${c.best_set === state.set ? " same" : ""}">${setBadge(c.best_set)}</span>
-        <span class="lc">${lc ? html`${verdict(lc.verdict)} <small class="mono">${lc.v}</small>` : "—"}</span></a>`;
-    });
-  app.querySelector("#ranking").innerHTML = html`<div class="rows"><div class="row rk-row head"><span class="pos">#</span><span class="im"></span><span class="lv">${t("col_tier")} ${info("level", t)}</span><span class="nm">${t("col_car")}</span><span class="bs">${t("col_best")} ${info("track_types", t)}</span><span class="lc">${t("col_last")}</span></div>${rows}</div>
+    .map((c) => { const s = c.sets[state.set], lc = c.last_change;
+      return carRow({ href: `${BASE}car/${encodeURIComponent(c.id)}/`, id: c.id, name: c.name, sub: c.maker, pos: s.rank, tier: s.tier, estimate: s.source !== "real", end: lc ? verdictArrow(lc.verdict, t) : "" }); });
+  app.querySelector("#ranking").innerHTML = html`<p class="muted small">${t("est_legend")} ${info("level", t)}</p><div class="rows">${rows}</div>
     ${sorted.length > rows.length ? html`<button type="button" class="btn ghost mt" id="more">${t("show_all", sorted.length)}</button>` : ""}`;
   const more = app.querySelector("#more");
   if (more) more.onclick = () => { showAll = true; renderRanking(); app.querySelectorAll("#ranking a.row")[TOP]?.focus(); };

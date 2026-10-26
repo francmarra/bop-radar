@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>GT7 BoP Radar</title>
   <meta name="description" content="Gran Turismo 7 Balance of Performance history, per-car context and best cars per track for Gr.1, Gr.2, Gr.3 and Gr.4.">
   <link rel="canonical" href="https://francmarra.github.io/bop-radar/">
@@ -21,20 +21,32 @@
   <a class="skip" href="#app" data-t="skip">Skip to content</a>
   <header class="top">
     <a class="brand" href="./"><span class="stripe" aria-hidden="true"><i></i><i></i><i></i></span>GT7 <b>BoP</b> Radar</a>
-    <nav aria-label="Main">
-      <a href="./" data-page="home" data-t="nav_home">Home</a>
-      <a href="ranking/" data-page="ranking" data-t="nav_rankings">Rankings</a>
-      <a href="week/" data-page="week" data-t="nav_week">This week</a>
-      <a href="updates/" data-page="updates" data-t="nav_updates">BoP updates</a>
-      <a href="help/" data-page="help" data-t="nav_help">Help</a>
+    <nav class="tabs" aria-label="Main">
+      <a href="week/" data-page="week"><span class="ico" aria-hidden="true">📅</span><span data-t="nav_week">This week</span></a>
+      <a href="ranking/" data-page="ranking"><span class="ico" aria-hidden="true">🏆</span><span data-t="nav_rankings">Rankings</span></a>
+      <a href="updates/" data-page="updates"><span class="ico" aria-hidden="true">📈</span><span data-t="nav_bop">BoP</span></a>
+      <button type="button" id="search-open"><span class="ico" aria-hidden="true">🔍</span><span class="lbl" data-t="nav_search">Search</span><span class="ph" aria-hidden="true" data-t="find_ph">e.g. Ferrari 296</span></button>
     </nav>
     <div class="tools">
+      <button class="icon-btn" id="settings-btn" type="button" popovertarget="settings" aria-label="Settings">⚙</button>
+    </div>
+    <div id="settings" popover>
       <button class="icon-btn" id="theme" type="button" aria-label="Switch light/dark theme">◐</button>
       <div class="lang" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="pt">PT</button></div>
     </div>
   </header>
+  <dialog id="search-dlg" aria-labelledby="search-title">
+    <h2 id="search-title" data-t="find_label">Find your car</h2>
+    <div class="search">
+      <input id="q" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="q-list" autocomplete="off" aria-labelledby="search-title" placeholder="e.g. Ferrari 296">
+      <ul id="q-list" role="listbox" class="suggest" aria-labelledby="search-title" hidden></ul>
+    </div>
+    <p id="q-empty" class="muted" role="status" data-msg="" hidden></p>
+    <button type="button" class="btn" id="search-close" data-t="close">Close</button>
+  </dialog>
   <main id="app" tabindex="-1"><p class="muted">Loading…</p></main>
   <footer>
+    <a href="help/" data-t="nav_help">Help</a> ·
     BoP: <a href="https://gt-engine.com/gt7/" target="_blank" rel="noopener">GT ENG!NE</a> ·
     leaderboards: <a href="https://gtsh-rank.com/daily/" target="_blank" rel="noopener">gtsh-rank</a> ·
     tracks: <a href="https://github.com/ddm999/gt7info" target="_blank" rel="noopener">gt7info</a> ·

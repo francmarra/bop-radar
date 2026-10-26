@@ -1,6 +1,6 @@
 import { t, I18N, lang, summary } from "../i18n.js";
 import { BASE } from "../router.js";
-import { html, num, info, sourceBadge, vtext } from "../format.js";
+import { html, num, info, sourceBadge, vtext, verdictArrow } from "../format.js";
 import { load, store, state, groupLabel as gl } from "../data.js";
 import { app, verdict, tierBadge, setBadge, deltaText, level } from "../ui.js";
 import { carImg } from "../carimg.js";
@@ -26,7 +26,8 @@ export async function carPage(id) {
       ${vtext(`グループ${groupLabel(car.group).replace(/\D/g, "")}`, "バランス")}
       <p id="summary" class="lead"></p>
     </section>
-    <section class="panel"><div class="toolbar between"><h2>${t("history")}</h2>
+    ${car.notes?.text ? html`<div class="card" style="margin-bottom:18px"><h3>${t("notes")}</h3><p>${car.notes.text}</p></div>` : ""}
+    <details class="panel sec" open><summary><h2>${t("history")}</h2></summary><div class="toolbar between">
       <div class="seg" id="metric" role="group" aria-label="${t("history")}">${[["pp", "PP"], ["ps_per_t", "PS/t"], ["power_ps", t("power")], ["weight_kg", t("weight")]].map(([k, l], i) => html`<button type="button" class="${i ? "" : "on"}" aria-pressed="${!i}" data-k="${k}">${l}</button>`)}</div></div>
       <div id="chart"></div>
       <p class="muted small">${t("chart_alt", num(first, 2), num(last, 2), hist.length)}</p>
@@ -36,11 +37,10 @@ export async function carPage(id) {
       <div class="rows" id="changes"><div class="row crow head"><span>${t("col_version")}</span><span>${t("col_date")}</span><span>${t("col_verdict")}</span><span>${t("col_pw")}</span><span>PP</span><span>${t("col_pp_rank")}</span></div>
       ${changeRows}
       </div>` : html`<p id="changes">${t("no_changes", hist[0].v)}</p>`}
-    </section>
-    <section class="panel" id="details"><h2 id="ctx-title"></h2>
-      <div class="grid" id="cards"></div>
-      ${car.notes?.text ? html`<div class="card" style="margin-top:12px"><h3>${t("notes")}</h3><p>${car.notes.text}</p></div>` : ""}
-    </section>`;
+    </details>
+    <details class="panel sec" id="perf"><summary><h2>${t("sec_perf")}</h2></summary><p class="muted small" id="ctx-title"></p><div class="grid" id="perf-body"></div></details>
+    <details class="panel sec"><summary><h2>${t("sec_tech")}</h2></summary><div id="tech-body"></div></details>
+    <details class="panel sec"><summary><h2>${t("sec_tyres")}</h2></summary><div class="grid" id="tyres-body"></div></details>`;
 
   // the current version uses the real-pace class ranking (car.now); older versions keep their PP ranks
   const latest = hist.length - 1;
@@ -53,20 +53,23 @@ export async function carPage(id) {
   const renderCtx = () => {
     const e = hist[selected], c = e.context, m = e.sets.m;
     const head = selected === latest && now ? now.m : m;
-    app.querySelector("#now").innerHTML = html`<span class="tower ${head.tier}">${tierBadge(head.tier)}<b>P${head.rank}</b><span>/ ${e.of}</span></span> ${selected === latest ? sourceBadge(now?.m, t) : ""}`;
+    const ch = selected === latest ? hist.findLast((x) => x.changed && x.verdict) : e.changed && e.verdict ? e : null; // latest view: the newest BoP that touched the car, like the ranking
+    app.querySelector("#now").innerHTML = html`<span class="tower ${head.tier}">${tierBadge(head.tier)}<b>P${head.rank}</b><span>/ ${e.of}</span></span> ${selected === latest ? sourceBadge(now?.m, t) : ""} ${ch ? html`${verdictArrow(ch.verdict, t)} <span class="mono">${deltaText(ch.delta)}</span>` : ""}`;
     app.querySelector("#ctx-title").textContent = t("ctx_title", e.v, e.date);
     app.querySelector("#summary").textContent = summary(brief(e, selected));
     const fit = ["h", "m", "l"].map((s) => html`<div class="fit">${setBadge(s)} <span class="muted mono">#${selected === latest && now ? now[s].rank : e.sets[s].rank}</span>
       <div class="bar"><i style="width:${Math.round(c.fit[s] * 100)}%;background:var(--${s})"></i></div></div>`);
-    app.querySelector("#spec").innerHTML = specSheet(m, c.handling, t);
-    app.querySelector("#cards").innerHTML = html`
+    app.querySelector("#spec").innerHTML = specSheet(m, t);
+    app.querySelector("#tech-body").innerHTML = techSheet(m, c.handling, t);
+    app.querySelector("#perf-body").innerHTML = html`
       <div class="card"><h3>${t("track_fit")} ${info("track_types", t)}</h3>${fit}<div class="note">${c.tracks.join(", ")}</div></div>
       <div class="card"><h3>${t("strengths")}</h3><div class="chips">${c.strengths.length ? c.strengths.map((s) => html`<span>${I18N[lang].tr[s]}</span>`) : html`<span class="soft">${t("none")}</span>`}</div>
-        <h3 class="mt">${t("weaknesses")}</h3><div class="chips">${c.weaknesses.length ? c.weaknesses.map((s) => html`<span class="weak">${I18N[lang].tr[s]}</span>`) : html`<span class="soft">${t("none")}</span>`}</div></div>
+        <h3 class="mt">${t("weaknesses")}</h3><div class="chips">${c.weaknesses.length ? c.weaknesses.map((s) => html`<span class="weak">${I18N[lang].tr[s]}</span>`) : html`<span class="soft">${t("none")}</span>`}</div></div>`;
+    app.querySelector("#tyres-body").innerHTML = html`
       <div class="card"><h3>${t("tyre_wear")} ${info("estimates", t)}</h3>${level(c.tyre_wear)}<h3 class="mt">${t("fuel_use")}</h3>${level(c.fuel_use)}<div class="note">${t("estimates")}</div></div>`;
     app.querySelectorAll("#changes [data-i]").forEach((r) => r.classList.toggle("sel", +r.dataset.i === selected));
   };
-  app.querySelector("#changes").onclick = (ev) => { const r = ev.target.closest("[data-i]"); if (r) { selected = +r.dataset.i; renderCtx(); app.querySelector("#details").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); } };
+  app.querySelector("#changes").onclick = (ev) => { const r = ev.target.closest("[data-i]"); if (r) { selected = +r.dataset.i; renderCtx(); const perf = app.querySelector("#perf"); perf.open = true; perf.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); } };
   app.querySelector("#metric").onclick = (ev) => {
     const k = ev.target.dataset.k; if (!k) return;
     app.querySelectorAll("#metric button").forEach((b) => { b.classList.toggle("on", b === ev.target); b.setAttribute("aria-pressed", String(b === ev.target)); });
@@ -78,13 +81,18 @@ export async function carPage(id) {
   renderCtx();
 }
 
-// hero spec sheet of the selected version's medium-track BoP (was the "Specs" card)
-export function specSheet(m, handling, t) {
-  const hand = (f) => t({ N: "neutral", U: "understeer", O: "oversteer" }[f] || "—");
+// hero headline: the four numbers that matter, from the selected version's medium-track BoP
+export function specSheet(m, t) {
   const val = (v, d, unit) => (typeof v === "number" ? html`${num(v, d)}${unit ? html`<small>${unit}</small>` : ""}` : "—");
   return html`<dl class="spec" aria-label="${t("specs")}">
     <div><dt>${t("power")}</dt><dd>${val(m.power_ps, 0, "PS")}</dd></div><div><dt>${t("weight")}</dt><dd>${val(m.weight_kg, 0, "kg")}</dd></div>
-    <div><dt>PS/t ${info("ps_t", t)}</dt><dd>${val(m.ps_per_t, 1)}</dd></div><div><dt>PP</dt><dd>${val(m.pp, 2)}</dd></div>
+    <div><dt>PS/t ${info("ps_t", t)}</dt><dd>${val(m.ps_per_t, 1)}</dd></div><div><dt>PP</dt><dd>${val(m.pp, 2)}</dd></div></dl>`;
+}
+
+// the rest of the old spec sheet, in the "Technical details" section
+export function techSheet(m, handling, t) {
+  const hand = (f) => t({ N: "neutral", U: "understeer", O: "oversteer" }[f] || "—");
+  return html`<dl class="spec">
     <div><dt>${t("balance")} ${info("balance", t)}</dt><dd>${m.balance ?? "—"}</dd></div><div><dt>${t("handling")}</dt><dd>${hand(handling?.low)} / ${hand(handling?.high)}</dd></div></dl>`;
 }
 

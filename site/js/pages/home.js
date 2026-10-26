@@ -4,8 +4,9 @@ import { html, vtext } from "../format.js";
 import { load, store, state } from "../data.js";
 import { app, tierBadge, fmtDate } from "../ui.js";
 import { mountSearch } from "../search.js";
-import { classSentence } from "../bop.js";
+import { updateTotals } from "../bop.js";
 import { weekRaces } from "./week.js";
+import { carLink } from "../week.js";
 import { heroPic } from "./car.js";
 import { topCar } from "./ranking.js";
 
@@ -18,6 +19,7 @@ export async function homePage() {
   const g = ix.groups.find((x) => x.id === state.group) ?? ix.groups[0];
   const lead = topCar(g, state.set);
   const races = await weekRaces();
+  const tot = updateTotals(u?.counts);
   const leaders = ix.groups.map((x) => [x, topCar(x, state.set)]).filter(([, c]) => c);
 
   app.innerHTML = html`
@@ -42,14 +44,11 @@ export async function homePage() {
         <ul class="entry-list">${leaders.map(([x, c]) => html`<li><span class="mono">${x.label}</span> <a href="${carHref(c)}">${c.name}</a></li>`)}</ul>
         <a class="link-more" href="${BASE}ranking/">${t("see_ranking")} →</a></section>
       <section class="card entry"><h2>${t("week_strip")}</h2>
-        ${races.length ? html`<ul class="entry-list">${races.map((r) => html`<li><span class="letter sm" aria-hidden="true">${r.race}</span> ${r.track}</li>`)}</ul>` : ""}
+        ${races.length ? html`<ul class="entry-list">${races.map((r) => html`<li><span class="letter sm" aria-hidden="true">${r.race}</span> ${r.track}${r.kind === "bop" && r.cars?.[0] ? html` <span class="muted">·</span> ${carLink(ix, r.cars[0])}` : ""}</li>`)}</ul>` : ""}
         <a class="link-more" href="${BASE}week/">${t("see_guide")} →</a></section>
       ${u ? html`<section class="card entry"><h2>${t("latest")}</h2>
-        <p><b class="mono">${t("version")} ${u.version}</b> <span class="muted">· ${fmtDate(u.date)}</span></p>
-        <ul class="entry-list">${ix.groups.map((x) => html`<li><span class="mono">${x.label}</span> ${classSentence(u.counts?.[x.id], x.label, t)}</li>`)}</ul>
+        <p>${t("bop_line", u.version, fmtDate(u.date), tot.buff, tot.nerf)}</p>
         <a class="link-more" href="${BASE}update/${encodeURIComponent(u.version)}/">${t("see_changes")} →</a></section>` : ""}
-      <section class="card entry"><h2>${t("help_title")}</h2><p>${t("landing_help")}</p>
-        <a class="link-more" href="${BASE}help/">${t("see_help")} →</a></section>
     </div>`;
   mountSearch(app.querySelector("#car-q"), ix, { listbox: app.querySelector("#car-list"), empty: app.querySelector("#car-empty") });
 }

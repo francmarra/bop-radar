@@ -1,16 +1,16 @@
-import { t, summary } from "../i18n.js";
+import { t } from "../i18n.js";
+import { updateTotals } from "../bop.js";
 import { BASE } from "../router.js";
-import { html, info, num, signedNeutral } from "../format.js";
-import { load, store, groupLabel as gl } from "../data.js";
-import { app, verdict, deltaText } from "../ui.js";
-import { carImg } from "../carimg.js";
-const groupLabel = (id) => gl(store.index, id);
+import { html, info, num, verdictArrow } from "../format.js";
+import { load, store } from "../data.js";
+import { app, deltaText } from "../ui.js";
+import { carRow } from "../row.js";
 
 export function updatesPage() {
   app.innerHTML = html`<h1>${t("updates_title")}</h1><p class="muted">${t("updates_sub")}</p>
-    <div class="panel updates">${store.index.updates.map((u) => html`
+    <div class="panel updates">${store.index.updates.map((u) => { const tot = updateTotals(u.counts); return html`
       <a href="${BASE}update/${encodeURIComponent(u.version)}/"><b class="mono">${u.version}</b><span class="muted mono">${u.date}</span>
-      <span>${Object.entries(u.counts).map(([g, c]) => html`<span class="ug"><b>${groupLabel(g)}</b> <span class="v buff">▲${c.buff}</span> <span class="v nerf">▼${c.nerf}</span>${c.mixed ? html` <span class="v mixed">◆${c.mixed}</span>` : ""}${u.balance?.[g] ? html` <span class="bal" title="${t("term_balance_idx")}">⚖ ${num(u.balance[g].cars, 1)}</span>` : ""}</span>`)}</span></a>`)}
+      <span><span class="v buff">▲ ${tot.buff}</span> <span class="v nerf">▼ ${tot.nerf}</span>${tot.mixed ? html` <span class="v mixed">◆ ${tot.mixed}</span>` : ""}</span></a>`; })}
     </div>`;
 }
 
@@ -20,14 +20,11 @@ export async function updatePage(v) {
   const prev = store.index.updates[i + 1], next = store.index.updates[i - 1];
   const order = { buff: 0, mixed: 1, nerf: 2 };
   const sections = store.index.groups.filter((g) => u.groups[g.id]).map((g) => {
-    const rows = u.groups[g.id].sort((a, b) => order[a.verdict] - order[b.verdict] || a.rank - b.rank).map((c) => html`
-      <a class="row urow" href="${BASE}car/${encodeURIComponent(c.id)}/"><span class="vd">${verdict(c.verdict)}</span><span class="im">${carImg(c.id, "s")}</span><span class="nm"><b>${c.name}</b></span>
-      <span class="mono pw">${deltaText(c.delta)}</span><span class="mono dp">${signedNeutral(c.delta.pp)}</span><span class="mono rkn">${c.rank}</span>
-      <span class="sm muted">${summary(c.brief)}</span></a>`);
+    const rows = u.groups[g.id].sort((a, b) => order[a.verdict] - order[b.verdict] || a.rank - b.rank).map((c) => carRow({ href: `${BASE}car/${encodeURIComponent(c.id)}/`, id: c.id, name: c.name, sub: deltaText(c.delta), end: html`<span class="muted mono small">P${c.rank}</span> ${verdictArrow(c.verdict, t)}` }));
     const bal = u.balance?.[g.id], prev = store.index.updates.slice(i + 1).find((x) => x.balance?.[g.id])?.balance[g.id];
     return html`<section class="panel"><h2>${g.label} <span class="muted small">${t("cars_changed", u.groups[g.id].length)}</span></h2>
       ${bal ? html`<p class="muted small">${t("bal_update", num(bal.cars, 1), bal.events)}${prev ? ` · ${t("bal_prev", num(prev.cars, 1))}` : ""} ${info("balance_idx", t)}</p>` : ""}
-      <div class="rows"><div class="row urow head"><span class="vd">${t("col_verdict")}</span><span class="im"></span><span class="nm">${t("col_car")}</span><span class="pw">${t("col_pw")}</span><span class="dp">${t("col_dpp")}</span><span class="rkn">${t("col_rank")}</span><span class="sm">${t("col_context")}</span></div>${rows}</div></section>`;
+      <div class="rows">${rows}</div></section>`;
   });
   app.innerHTML = html`
     <div class="toolbar between">

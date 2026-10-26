@@ -75,11 +75,25 @@ button, select, input { font: inherit; color: inherit; }
 .stripe i { position: absolute; top: 0; bottom: 0; background: var(--chrome-bar); filter: drop-shadow(-1px 0 0 rgba(255, 50, 110, .45)) drop-shadow(1px 0 0 rgba(60, 200, 255, .45)); }
 .stripe i:nth-child(1) { left: 0; width: 7px; } .stripe i:nth-child(2) { left: 11px; width: 7px; }
 .stripe i:nth-child(3) { left: 22px; width: 3px; background: var(--accent); filter: none; }
-nav { display: flex; gap: 8px; flex: 1; }
-nav a { text-decoration: none; color: var(--muted); font-weight: 600; padding: 8px 14px; border-radius: 8px;
-  min-height: var(--tap); display: inline-flex; align-items: center; }
-nav a:hover { color: var(--text); background: var(--hover); }
-nav a.on { color: var(--text); background: var(--panel-2); box-shadow: inset 0 -3px 0 var(--accent); }
+nav.tabs { display: flex; gap: 8px; flex: 1; min-width: 0; }
+nav.tabs a, nav.tabs button { text-decoration: none; color: var(--muted); font-weight: 600; padding: 8px 14px; border-radius: 8px;
+  min-height: var(--tap); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+nav.tabs a { flex: none; }
+@media (min-width: 768px) and (max-width: 970px) { nav.tabs a, nav.tabs button { padding-inline: 8px; } nav.tabs { gap: 4px; } }
+nav.tabs a:hover { color: var(--text); background: var(--hover); }
+nav.tabs a.on { color: var(--text); background: var(--panel-2); box-shadow: inset 0 -3px 0 var(--accent); }
+/* desktop: the search entry looks like a field but opens the same dialog as on phones */
+nav.tabs button { margin-left: auto; width: auto; flex: 0 1 240px; min-width: var(--tap); overflow: hidden; background: var(--panel-2); border: 1px solid var(--control-line); border-radius: 10px; cursor: pointer; font: inherit; font-weight: 400; }
+nav.tabs button:hover { color: var(--text); }
+nav.tabs .lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+#settings { position: fixed; inset: 56px 16px auto auto; margin: 0; padding: 8px; background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--panel-shadow); }
+#settings:popover-open { display: flex; gap: 8px; align-items: center; }
+#search-dlg { width: min(560px, 100%); max-height: 80vh; margin: 10vh auto auto; padding: 16px; background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 12px; }
+#search-dlg::backdrop { background: rgba(0, 0, 0, .7); }
+#search-dlg h2 { margin: 0 0 12px; padding-right: 110px; }
+#search-dlg .suggest { position: static; margin-top: 4px; } /* in flow so the dialog (max-height, scrolls) holds the list */
+#search-dlg .btn { position: absolute; top: 12px; right: 12px; } /* always visible while the list scrolls */
+#search-dlg input[type=search] { width: 100%; min-width: 0; box-sizing: border-box; }
 .tools { display: flex; gap: 8px; align-items: center; }
 .lang { display: flex; border: 1px solid var(--control-line); border-radius: 8px; overflow: hidden; }
 .lang button, .icon-btn { background: none; border: 0; padding: 0 12px; min-width: var(--tap); min-height: var(--tap); cursor: pointer; font-weight: 600; color: var(--muted); }
@@ -158,12 +172,18 @@ input[type=search], select { background: var(--panel-2); border: 1px solid var(-
 .delta.flat { color: var(--muted); background: var(--panel-2); } /* PP: direction only, neutral colour */
 .delta.up::before, .delta.rise::before { content: "▲ " / ""; } .delta.down::before, .delta.fall::before { content: "▼ " / ""; }
 .row:hover { background: var(--hover); }
+div.row.cr { cursor: default; } div.row.cr:hover { background: none; }
 .row.head { animation: none; cursor: default; font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 600; padding-block: 10px; }
 .row.head:hover { background: none; }
-.row .nm b { display: block; } .row .nm small { color: var(--muted); font-size: var(--fs-sm); margin-right: 8px; } /* gap before the source badge, invisible when it wraps */
-.trow { grid-template-columns: 56px 72px 64px minmax(180px, 2fr) minmax(140px, 1.3fr) 100px 180px; }
-.urow { grid-template-columns: 140px 72px minmax(160px, 1.4fr) 200px 80px 60px minmax(220px, 2.4fr); }
-.urow .sm { font-size: var(--fs-sm); }
+.row .nm b { display: block; }
+.row.cr { grid-template-columns: 36px 56px minmax(0, 1fr) auto auto; min-height: 64px; padding: 6px 8px; gap: 10px; }
+.row.cr.nopos { grid-template-columns: 56px minmax(0, 1fr) auto auto; }
+.cr .im .car-img-s { width: 56px; }
+.cr .nm { min-width: 0; } .cr .nm b, .cr .nm small { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cr .nm small { margin: 0; } .cr .end { justify-self: end; min-width: 20px; text-align: center; } .cr sup.est { font-size: 1rem; line-height: 0; margin-left: 2px; font-weight: 700; }
+.panel > .toolbar:has(#groups) { position: sticky; top: 64px; z-index: 4; background: var(--panel); padding-block: 8px; margin-bottom: 6px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.row .nm small { color: var(--muted); font-size: var(--fs-sm); margin-right: 8px; }
 .rrow { grid-template-columns: minmax(180px, 2fr) 110px 80px 50px 90px 70px; }
 .crow { grid-template-columns: 80px 120px 150px minmax(160px, 1.5fr) 90px 130px; }
 .row.sel { background: var(--hover); box-shadow: inset 4px 0 0 var(--text); }
@@ -196,7 +216,6 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .updates a { display: grid; grid-template-columns: 80px 120px 1fr; gap: 12px; padding: 14px 8px; min-height: var(--tap); text-decoration: none;
   border-bottom: 1px solid var(--line); align-items: center; }
 .updates a:hover { background: var(--hover); }
-.ug { display: inline-block; margin-right: 16px; white-space: nowrap; }
 /* tracks (unlinked, kept working) */
 .cols3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: start; }
 .cols3 .panel h2 { display: flex; gap: 8px; align-items: center; font-size: var(--fs-lg); }
@@ -213,15 +232,12 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .badge { font-size: var(--fs-sm); font-weight: 600; padding: 3px 10px; border-radius: 6px; line-height: 1.4; } /* tighter when it wraps on phones */
 .badge.lb { background: color-mix(in srgb, var(--buff) 18%, transparent); color: var(--buff); }
 .badge.est { background: var(--panel-2); color: var(--muted); }
-.sc { display: flex; align-items: center; gap: 8px; } .sc .bar { flex: 1; margin: 0; }
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; } .cols3 { grid-template-columns: minmax(0, 1fr); }
   .cols3 .panel h2 { flex-wrap: wrap; } .cols3 .panel h2::after { flex: 1 1 0; min-width: 0; }
   .row { grid-template-columns: 34px 34px 1fr 80px; }
   .row .bs, .row .lc { display: none; }
   .row .tr { grid-column: 3 / -1; }
-  .trow { grid-template-columns: 48px 72px 40px 1fr 100px; } .trow .sc { grid-column: 4 / 5; } .trow .ev2 { display: none; }
-  .urow { grid-template-columns: 130px 72px 1fr auto; } .urow .dp, .urow .rkn { display: none; } .urow .sm { grid-column: 1 / -1; }
   .rrow { grid-template-columns: 1fr auto auto auto; } .rrow > :nth-child(2), .rrow > :nth-child(6) { display: none; }
   .crow { grid-template-columns: 72px minmax(0, 1fr) 72px; column-gap: 6px; row-gap: 4px; } .crow > :nth-child(2), .crow > :nth-child(5) { display: none; }
   /* version | verdict over power/weight | PP rank: 4 cells in 3 columns without wrapping the rank to a new row */
@@ -230,21 +246,21 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
   .row.head .tr, .row.head .sm { display: none; }
 }
 @media (max-width: 640px) {
-  .top { gap: 8px; position: static; } /* a sticky 2-row header would take ~15 % of a phone screen */ .tools { margin-left: auto; flex: none; } nav { order: 3; flex: 0 0 100%; overflow-x: auto; gap: 2px; scrollbar-width: thin; }
-  nav a { white-space: nowrap; padding: 8px 6px; font-size: .9rem; } /* one line per tab; fits 375 px, scrolls inside nav otherwise */
-  nav.more { mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); } /* hints at hidden tabs */
+  .panel > .toolbar:has(#groups) { top: 0; }
+  .top { gap: 8px; position: static; } /* a sticky 2-row header would take ~15 % of a phone screen */ .tools { margin-left: auto; flex: none; }
   /* brand shrinks instead of wrapping the tools onto a new row while the web font loads (CLS) */
   .brand { flex: 1 1 0; min-width: 0; overflow: hidden; white-space: nowrap; font-size: 1.3rem;
     padding-left: 6px; margin-left: -6px; } .stripe { flex: none; } /* room for the skewed stripe inside the clip */
   h1 { font-size: 1.8rem; }
   .counts { grid-template-columns: repeat(2, 1fr); }
-  .updates a { grid-template-columns: 70px minmax(0, 1fr); } .updates a > .muted { display: none; }
-  .updates a > span:last-child { display: flex; flex-wrap: wrap; gap: 4px 12px; min-width: 0; } .ug { margin-right: 0; }
+  .updates a { grid-template-columns: auto auto minmax(0, 1fr); }
   input[type=search], select { min-width: 0; width: 100%; }
   /* equal columns instead of a lone button wrapping onto a 2nd row; labels wrap inside their button */
   .seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); width: 100%; }
   .seg button, .seg a { flex-wrap: wrap; text-align: center; padding: 4px 6px; line-height: 1.2; }
   .seg small { flex-basis: 100%; } /* count always under the label, so every button wraps the same way */
+  /* pinned ranking selectors stay ~100px: counts inline, no seg padding */
+  .panel > .toolbar:has(#groups) { gap: 4px; padding-block: 4px; margin-bottom: 0; } .toolbar:has(#groups) .seg { padding: 0; gap: 0; } .toolbar:has(#groups) .seg small { flex-basis: auto; margin-left: 4px; }
   .lead { font-size: var(--fs-base); } /* keeps the car search above the fold */
   .panel { padding: 16px; }
   .set { white-space: normal; }
@@ -270,27 +286,6 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .suggest li { display: grid; grid-template-columns: 72px 1fr; gap: 12px; align-items: center; padding: 8px 12px; min-height: var(--tap); border-radius: 8px; cursor: pointer; }
 .suggest li[aria-selected="true"], .suggest li:hover { background: var(--hover); box-shadow: inset 4px 0 0 var(--text); }
 #car-empty { margin-top: 10px; }
-.rk-row { grid-template-columns: 56px 72px 64px minmax(180px, 2fr) 190px 190px; }
-@media (max-width: 700px) {
-  .rk-row { grid-template-columns: 40px 72px minmax(0, 1fr); grid-template-areas: "pos im nm" "pos lv bs" "pos lv lc"; row-gap: 4px; }
-  .trow { grid-template-columns: 40px 72px 1fr; grid-template-areas: "pos im nm" "pos lv sc" "pos lv gp"; row-gap: 4px; }
-  :is(.rk-row, .trow) .pos { grid-area: pos; } :is(.rk-row, .trow) .im { grid-area: im; } :is(.rk-row, .trow) .nm { grid-area: nm; }
-  :is(.rk-row, .trow) .lv { grid-area: lv; justify-self: center; align-self: start; }
-  .rk-row .bs, .rk-row .lc { display: block; } .rk-row .bs { grid-area: bs; } .rk-row .lc { grid-area: lc; }
-  /* compact: "best" is hidden when it equals the filter (implied), so its row collapses and last change sits by the tier */
-  .rk-row { grid-template-columns: 32px 64px minmax(0, 1fr); grid-template-areas: "pos im nm" "pos lv bs" "pos lv lc"; gap: 0 10px; padding-block: 10px; }
-  .rk-row .bs:not(.same) { margin-top: 6px; } .rk-row .lc { margin-top: 6px; }
-  .rk-row .car-img-s { width: 64px; } .rk-row .bs.same { display: none; } .rk-row .lv { align-self: center; }
-  .trow .sc { grid-area: sc; } .trow .gp { grid-area: gp; }
-  .urow { grid-template-columns: 72px 1fr; grid-template-areas: "im vd" "im nm" "im pw" "sm sm"; row-gap: 2px; }
-  .urow .vd { grid-area: vd; } .urow .im { grid-area: im; align-self: start; } .urow .nm { grid-area: nm; } .urow .pw { grid-area: pw; } .urow .sm { grid-area: sm; }
-  .rk-row.head, .trow.head, .urow.head { display: none; }
-}
-@media (min-width: 701px) and (max-width: 900px) {
-  .rk-row { grid-template-columns: 48px 72px 44px 1fr 160px; grid-template-areas: "pos im lv nm bs" "pos im lv nm lc"; row-gap: 4px; }
-  .rk-row .pos { grid-area: pos; } .rk-row .im { grid-area: im; } .rk-row .lv { grid-area: lv; } .rk-row .nm { grid-area: nm; }
-  .rk-row .bs, .rk-row .lc { display: block; } .rk-row .bs { grid-area: bs; } .rk-row .lc { grid-area: lc; }
-}
 /* car page hero: black stage in both themes (dark tokens re-declared), chrome title, glowing car on a floor line, spec sheet */
 .car-hero { --bg: #07080a; --panel: #000; --panel-2: #181b20; --hover: #1d2127; --line: #2a2f36; --control-line: #6b737d; --line-hi: #3a4048; --tick: #6b737d;
   --text: #e8ebef; --muted: #9ba4ae; --buff: #86c9a4; --nerf: #ec938e; --mixed: #d9b676; --s: #e3c56a; --a: #8fb6e0; --b: #aab2bb; --c: #8f98a2;
@@ -379,14 +374,40 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
   font: 700 1.8rem var(--head); }
 .letter.sm { min-width: 36px; height: 36px; font-size: 1.2rem; border-radius: 8px; }
 .rules { font-weight: 600; }
-.race-cars { list-style: none; margin: 8px 0 0; padding: 0; counter-reset: rc; }
-.race-cars li { display: grid; grid-template-columns: 1.6em 72px minmax(0, 1fr); align-items: center; gap: 6px 12px; padding: 10px 0; border-top: 1px solid var(--line); counter-increment: rc; }
-.race-cars li::before { content: counter(rc); font: 600 var(--fs-lg) var(--mono); text-align: center; }
-.rc-body { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
-.rc-name { font-weight: 600; } .rc-name a { color: inherit; }
-.why { color: var(--muted); font-size: var(--fs-sm); flex-basis: 100%; }
+.why-rules > summary { cursor: pointer; min-height: var(--tap); display: flex; align-items: center; }
+.why-rules ul { margin: 0 0 8px; padding-left: 20px; }
 .copy-wrap { margin-top: 12px; }
 .copy-wrap textarea { display: block; width: 100%; margin-top: 6px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px; font: inherit; color: inherit; }
 .btn.ghost { background: none; color: var(--text); border: 2px solid var(--line); }
 .stale { border-color: var(--mixed); color: var(--text); }
-.row .nm .badge { display: inline-block; margin-top: 4px; }
+@media (max-width: 767px) {
+  .top { backdrop-filter: none; } /* it would make the fixed tab bar relative to the header, not the viewport */
+  nav.tabs { position: fixed; inset: auto 0 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; min-height: 56px; padding-bottom: env(safe-area-inset-bottom);
+    background: var(--panel); border-top: 1px solid var(--line); z-index: 6; }
+  nav.tabs a, nav.tabs button { flex-direction: column; justify-content: center; gap: 2px; padding: 4px; border-radius: 0; font-size: var(--fs-sm); text-align: center;
+    width: auto; margin: 0; background: none; border: 0; color: var(--muted); font-weight: 600; }
+  nav.tabs a.on { box-shadow: inset 0 3px 0 var(--accent); }
+  nav.tabs .lbl { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal; } nav.tabs .ph { display: none; }
+  footer { padding-bottom: calc(72px + env(safe-area-inset-bottom)); } /* footer follows main on every page; keeps its last line above the fixed bar */
+  #search-dlg { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; border: 0; border-radius: 0; box-sizing: border-box; }
+}
+/* collapsible secondary sections on the car page */
+details.sec > summary { display: flex; align-items: center; cursor: pointer; min-height: var(--tap); list-style: none; }
+details.sec > summary::-webkit-details-marker { display: none; }
+details.sec > summary h2 { flex: 1; margin: 0; }
+details.sec > summary::before { content: "▸"; color: var(--muted); margin-right: 10px; }
+details.sec[open] > summary::before { content: "▾"; }
+details.sec[open] > summary { margin-bottom: 8px; }
+details.sec > summary h2::after { display: none; } /* the rule line squeezed long titles onto several lines */
+/* hero spec: 4 headline cells in one row on desktop, 2x2 on phones */
+.car-hero .spec { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 900px) { .car-hero .spec { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767px) {
+  details.sec:not([open]) { padding-block: 4px; margin-bottom: 10px; }
+  details.sec[open] > summary { margin-bottom: 4px; }
+  .car-hero .hero-pic > .car-sil { width: 231px; } /* 130px tall at 16:9, same cap as the picture */
+  .car-hero .hero-pic > img { max-height: 130px; width: auto; max-width: 100%; object-fit: contain; } /* main picture only: the mirrored one in .reflection keeps width:100% */
+  .car-hero h1 { margin-bottom: 8px; } .car-hero .spec div { padding-block: 6px; }
+}
+@media (max-width: 767px) { details.sec > summary h2 { font-size: var(--fs-lg); letter-spacing: .06em; line-height: 1.25; } }
+@media (max-width: 767px) { .car-hero { row-gap: 4px; } .car-hero .lead { font-size: var(--fs-base); margin-top: 4px; } }

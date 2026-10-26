@@ -408,3 +408,10 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
   footer { padding-bottom: calc(72px + env(safe-area-inset-bottom)); } /* footer follows main on every page; keeps its last line above the fixed bar */
   #search-dlg { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; border: 0; border-radius: 0; box-sizing: border-box; }
 }
+/* collapsible secondary sections on the car page */
+details.sec > summary { display: flex; align-items: center; cursor: pointer; min-height: var(--tap); list-style: none; }
+details.sec > summary::-webkit-details-marker { display: none; }
+details.sec > summary h2 { flex: 1; margin: 0; }
+details.sec > summary::before { content: "▸"; color: var(--muted); margin-right: 10px; }
+details.sec[open] > summary::before { content: "▾"; }
+details.sec[open] > summary { margin-bottom: 8px; }

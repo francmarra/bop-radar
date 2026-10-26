@@ -422,9 +422,9 @@ details.sec > summary h2::after { display: none; } /* the rule line squeezed lon
 @media (max-width: 767px) {
   details.sec:not([open]) { padding-block: 4px; margin-bottom: 10px; }
   details.sec[open] > summary { margin-bottom: 4px; }
-  .car-hero .hero-pic { max-height: 160px; } .car-hero .hero-pic img, .car-hero .hero-pic svg { max-height: 160px; width: auto; max-width: 100%; }
+  .car-hero .hero-pic > .car-sil { width: 231px; } /* 130px tall at 16:9, same cap as the picture */
+  .car-hero .hero-pic > img { max-height: 130px; width: auto; max-width: 100%; object-fit: contain; } /* main picture only: the mirrored one in .reflection keeps width:100% */
   .car-hero h1 { margin-bottom: 8px; } .car-hero .spec div { padding-block: 6px; }
 }
 @media (max-width: 767px) { details.sec > summary h2 { font-size: var(--fs-lg); letter-spacing: .06em; line-height: 1.25; } }
-@media (max-width: 767px) { .car-hero { row-gap: 4px; } .car-hero .lead { font-size: var(--fs-base); margin-top: 4px; } .car-hero .hero-pic, .car-hero .hero-pic img, .car-hero .hero-pic svg { max-height: 130px; } }
-@media (max-width: 767px) { .car-hero .hero-pic img { object-fit: contain; } } /* the height cap must not stretch the picture */
+@media (max-width: 767px) { .car-hero { row-gap: 4px; } .car-hero .lead { font-size: var(--fs-base); margin-top: 4px; } }

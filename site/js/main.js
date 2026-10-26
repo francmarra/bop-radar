@@ -5,6 +5,7 @@ import { getIndex, getImages, store } from "./data.js";
 import { app } from "./ui.js";
 import { initTheme, toggleTheme } from "./theme.js";
 import { BASE, pathOf, hashToPath, link, rootPath, shouldIntercept } from "./router.js";
+import { mountSearch } from "./search.js";
 import { homePage } from "./pages/home.js";
 import { rankingPage } from "./pages/ranking.js";
 import { tracksPage, trackPage } from "./pages/tracks.js";
@@ -18,14 +19,18 @@ function chrome() {
   document.querySelectorAll("[data-t]").forEach((el) => (el.textContent = t(el.dataset.t)));
   document.querySelectorAll(".lang button").forEach((b) => { b.classList.toggle("on", b.dataset.lang === lang); b.setAttribute("aria-pressed", String(b.dataset.lang === lang)); });
   document.getElementById("theme").setAttribute("aria-label", t("theme_toggle"));
-  navFade(); // labels change width with the language
+  document.getElementById("settings-btn").setAttribute("aria-label", t("settings"));
+  q.placeholder = t("find_ph"); qEmpty.dataset.msg = t("find_empty");
 }
+const dlg = document.getElementById("search-dlg"), q = document.getElementById("q"), qList = document.getElementById("q-list"), qEmpty = document.getElementById("q-empty");
+let searchMounted = false;
 initTheme();
-// fade the end of the tab bar while tabs are hidden past the right edge (narrow phones)
-const nav = document.querySelector("nav");
-const navFade = () => nav.classList.toggle("more", nav.scrollLeft + nav.clientWidth < nav.scrollWidth - 1);
-nav.addEventListener("scroll", navFade, { passive: true });
-addEventListener("resize", navFade);
+document.getElementById("search-open").onclick = async () => {
+  dlg.showModal(); // native: Escape, focus trap and focus return to this button
+  q.value = ""; q.focus();
+  try { const ix = await getIndex(); if (!searchMounted) { searchMounted = true; mountSearch(q, ix, { listbox: qList, empty: qEmpty }); } } catch { /* route() shows the load error */ }
+};
+document.getElementById("search-close").onclick = () => dlg.close();
 document.getElementById("theme").onclick = () => toggleTheme();
 document.querySelector(".skip").onclick = (e) => { e.preventDefault(); app.focus(); };
 document.querySelector(".lang").onclick = (e) => {
@@ -39,8 +44,9 @@ let focusOnRoute = false; // not on first load, so the page starts at the top fo
 async function route() {
   const [page, a, b] = pathOf(location.pathname);
   chrome();
-  const current = { "": "home", ranking: "ranking", car: "ranking", week: "week", update: "updates", updates: "updates", help: "help", about: "help" }[page ?? ""];
-  document.querySelectorAll("nav a").forEach((x) => {
+  dlg.close(); // choosing a car navigates; browser back also lands here
+  const current = { ranking: "ranking", car: "ranking", week: "week", update: "updates", updates: "updates" }[page ?? ""];
+  document.querySelectorAll("nav.tabs a").forEach((x) => {
     const on = x.dataset.page === current;
     x.classList.toggle("on", on);
     if (on) x.setAttribute("aria-current", "page"); else x.removeAttribute("aria-current");
@@ -74,7 +80,7 @@ async function route() {
 const legacy = hashToPath(location.hash);
 if (legacy !== null) history.replaceState(null, "", link(legacy));
 // header links are relative in the HTML (for crawlers); make them absolute for in-app navigation
-document.querySelectorAll("header a[href]").forEach((a) => { a.href = link(rootPath(a.getAttribute("href"))); });
+document.querySelectorAll("header a[href], footer a[href=\"help/\"]").forEach((a) => { a.href = link(rootPath(a.getAttribute("href"))); });
 document.addEventListener("click", (e) => {
   const a = e.target.closest("a[href]");
   if (!a || !shouldIntercept(e, a, location.origin, BASE, location.pathname)) return;

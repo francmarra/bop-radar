@@ -12,7 +12,7 @@ const pageUrl = () => location.origin + link("week/");
 const classLabel = (r) => (r.group ? "Gr." + r.group.slice(2) : r.kind === "one-make" ? t("one_make_label") : r.category);
 const carId = (c) => findCar(store.index, c)?.id ?? c?.id ?? "";
 const srcText = (c) => (c.source === "live" ? t("src_live", c.share) : c.source === "real" ? t("src_real", c.laps) : t("src_est"));
-const carHref = (c) => `${BASE}car/${encodeURIComponent(carId(c))}/`;
+const carHref = (c) => (carId(c) ? `${BASE}car/${encodeURIComponent(carId(c))}/` : "");
 const isMult = (x) => (parseFloat(String(x ?? "").replace(/[^\d.]/g, "")) || 1) !== 1;
 
 function body(r) {
@@ -20,8 +20,7 @@ function body(r) {
     if (!r.cars.length) return html`<p class="muted">${t("no_track_data")}</p>`;
     const why = r.cars.filter((c) => whyText(c.why, t));
     return html`<h3>${t("top5")}</h3><div class="rows">${r.cars.map((c, i) => carRow({ href: carHref(c), id: carId(c), name: c.name, sub: srcText(c), pos: i + 1, tier: c.tier, estimate: c.source === "estimate" }))}</div>
-      <details class="why-rules"><summary>${t("why_rules")}</summary>
-        ${why.length ? html`<ul>${why.map((c) => html`<li><b>${c.name}</b>: ${whyText(c.why, t)}</li>`)}</ul>` : ""}</details>`;
+      ${why.length ? html`<details class="why-rules"><summary>${t("why_rules")}</summary><ul>${why.map((c) => html`<li><b>${c.name}</b>: ${whyText(c.why, t)}</li>`)}</ul></details>` : ""}`;
   }
   if (r.kind === "one-make") return html`<p>${raw(t("one_make", carLink(store.index, r.car ?? "")))}</p>`; // carLink escapes the name
   if (r.kind === "tbd") return html`<p class="muted">${t("tbd_race", r.start ? fmtDate(r.start) : "")}</p>`;

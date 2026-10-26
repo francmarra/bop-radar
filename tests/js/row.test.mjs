@@ -32,3 +32,7 @@ test("verdictArrow: icon with a spoken label", () => {
   assert.ok(out.includes("▼") && out.includes('<span class="sr">Slower</span>'));
   assert.equal(String(verdictArrow("x", t)), '<span class="muted">—</span>');
 });
+test("carRow without href renders a non-link row", () => {
+  const out = String(carRow({ ...base, href: "", pos: 1 }));
+  assert.ok(out.startsWith('<div class="row cr"') && !out.includes("<a ") && out.includes("<b>N</b>"));
+});

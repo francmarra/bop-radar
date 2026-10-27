@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-26",
+ "generated": "2026-10-27",
  "weeks": [
   {
    "label": "this",
@@ -38,27 +38,12 @@
      "track_set": "m",
      "cars": [
       {
-       "id": "elantra-n-tc-24",
-       "name": "ELANTRA N TC '24",
-       "tier": "S",
-       "source": "live",
-       "laps": 48,
-       "share": 48,
-       "why": {
-        "strengths": [
-         "acceleration",
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
        "id": "tt-cup-16",
        "name": "TT Cup '16",
        "tier": "A",
        "source": "live",
-       "laps": 31,
-       "share": 31,
+       "laps": 55,
+       "share": 55,
        "why": {
         "strengths": [
          "acceleration",
@@ -72,15 +57,30 @@
        "name": "Huracán Gr.4",
        "tier": "C",
        "source": "live",
-       "laps": 16,
-       "share": 16,
+       "laps": 26,
+       "share": 26,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
+      },
+      {
+       "id": "elantra-n-tc-24",
+       "name": "ELANTRA N TC '24",
+       "tier": "S",
+       "source": "live",
+       "laps": 18,
+       "share": 18,
+       "why": {
+        "strengths": [
+         "acceleration",
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
       }
      ],
-     "balance": 2.8
+     "balance": 2.5
     },
     {
      "race": "C",
@@ -104,8 +104,8 @@
        "name": "BRZ GT300 '21",
        "tier": null,
        "source": "live",
-       "laps": 52,
-       "share": 52,
+       "laps": 72,
+       "share": 72,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -118,16 +118,30 @@
        "name": "GT-R NISMO GT3 '18",
        "tier": null,
        "source": "live",
-       "laps": 15,
-       "share": 15,
+       "laps": 10,
+       "share": 10,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
       },
       {
-       "id": "beetle-gr-3",
-       "name": "Beetle Gr.3",
+       "id": "m6-gt3-sprint-model-16",
+       "name": "M6 GT3 Sprint Model '16",
+       "tier": null,
+       "source": "live",
+       "laps": 9,
+       "share": 9,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "m6-gt3-endurance-model-16",
+       "name": "M6 GT3 Endurance Model '16",
        "tier": null,
        "source": "live",
        "laps": 5,
@@ -138,23 +152,9 @@
         ],
         "saves_tyres": false
        }
-      },
-      {
-       "id": "m6-gt3-sprint-model-16",
-       "name": "M6 GT3 Sprint Model '16",
-       "tier": null,
-       "source": "live",
-       "laps": 19,
-       "share": 19,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
       }
      ],
-     "balance": 3.0
+     "balance": 1.9
     }
    ]
   },

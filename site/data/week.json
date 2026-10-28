@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-27",
+ "generated": "2026-10-28",
  "weeks": [
   {
    "label": "this",
@@ -42,8 +42,8 @@
        "name": "TT Cup '16",
        "tier": "A",
        "source": "live",
-       "laps": 55,
-       "share": 55,
+       "laps": 89,
+       "share": 89,
        "why": {
         "strengths": [
          "acceleration",
@@ -57,30 +57,15 @@
        "name": "Huracán Gr.4",
        "tier": "C",
        "source": "live",
-       "laps": 26,
-       "share": 26,
+       "laps": 9,
+       "share": 9,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
-      },
-      {
-       "id": "elantra-n-tc-24",
-       "name": "ELANTRA N TC '24",
-       "tier": "S",
-       "source": "live",
-       "laps": 18,
-       "share": 18,
-       "why": {
-        "strengths": [
-         "acceleration",
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
       }
      ],
-     "balance": 2.5
+     "balance": 1.2
     },
     {
      "race": "C",
@@ -104,8 +89,8 @@
        "name": "BRZ GT300 '21",
        "tier": null,
        "source": "live",
-       "laps": 72,
-       "share": 72,
+       "laps": 71,
+       "share": 71,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -114,24 +99,12 @@
        }
       },
       {
-       "id": "gt-r-nismo-gt3-18",
-       "name": "GT-R NISMO GT3 '18",
-       "tier": null,
-       "source": "live",
-       "laps": 10,
-       "share": 10,
-       "why": {
-        "strengths": [],
-        "saves_tyres": false
-       }
-      },
-      {
        "id": "m6-gt3-sprint-model-16",
        "name": "M6 GT3 Sprint Model '16",
        "tier": null,
        "source": "live",
-       "laps": 9,
-       "share": 9,
+       "laps": 8,
+       "share": 8,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -144,12 +117,24 @@
        "name": "M6 GT3 Endurance Model '16",
        "tier": null,
        "source": "live",
-       "laps": 5,
-       "share": 5,
+       "laps": 8,
+       "share": 8,
        "why": {
         "strengths": [
          "high-speed cornering"
         ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "gt-r-nismo-gt3-18",
+       "name": "GT-R NISMO GT3 '18",
+       "tier": null,
+       "source": "live",
+       "laps": 7,
+       "share": 7,
+       "why": {
+        "strengths": [],
         "saves_tyres": false
        }
       }

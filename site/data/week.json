@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-28",
+ "generated": "2026-10-29",
  "weeks": [
   {
    "label": "this",
@@ -42,8 +42,8 @@
        "name": "TT Cup '16",
        "tier": "A",
        "source": "live",
-       "laps": 89,
-       "share": 89,
+       "laps": 90,
+       "share": 90,
        "why": {
         "strengths": [
          "acceleration",
@@ -57,8 +57,8 @@
        "name": "Huracán Gr.4",
        "tier": "C",
        "source": "live",
-       "laps": 9,
-       "share": 9,
+       "laps": 8,
+       "share": 8,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -89,8 +89,8 @@
        "name": "BRZ GT300 '21",
        "tier": null,
        "source": "live",
-       "laps": 71,
-       "share": 71,
+       "laps": 73,
+       "share": 73,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -99,12 +99,24 @@
        }
       },
       {
+       "id": "gt-r-nismo-gt3-18",
+       "name": "GT-R NISMO GT3 '18",
+       "tier": null,
+       "source": "live",
+       "laps": 5,
+       "share": 5,
+       "why": {
+        "strengths": [],
+        "saves_tyres": false
+       }
+      },
+      {
        "id": "m6-gt3-sprint-model-16",
        "name": "M6 GT3 Sprint Model '16",
        "tier": null,
        "source": "live",
-       "laps": 8,
-       "share": 8,
+       "laps": 10,
+       "share": 10,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -125,21 +137,9 @@
         ],
         "saves_tyres": false
        }
-      },
-      {
-       "id": "gt-r-nismo-gt3-18",
-       "name": "GT-R NISMO GT3 '18",
-       "tier": null,
-       "source": "live",
-       "laps": 7,
-       "share": 7,
-       "why": {
-        "strengths": [],
-        "saves_tyres": false
-       }
       }
      ],
-     "balance": 1.9
+     "balance": 1.8
     }
    ]
   },

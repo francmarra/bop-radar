@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-29",
+ "generated": "2026-10-30",
  "weeks": [
   {
    "label": "this",
@@ -42,8 +42,8 @@
        "name": "TT Cup '16",
        "tier": "A",
        "source": "live",
-       "laps": 90,
-       "share": 90,
+       "laps": 95,
+       "share": 95,
        "why": {
         "strengths": [
          "acceleration",
@@ -51,21 +51,9 @@
         ],
         "saves_tyres": false
        }
-      },
-      {
-       "id": "hurac-n-gr-4",
-       "name": "Huracán Gr.4",
-       "tier": "C",
-       "source": "live",
-       "laps": 8,
-       "share": 8,
-       "why": {
-        "strengths": [],
-        "saves_tyres": false
-       }
       }
      ],
-     "balance": 1.2
+     "balance": 1.1
     },
     {
      "race": "C",
@@ -89,8 +77,8 @@
        "name": "BRZ GT300 '21",
        "tier": null,
        "source": "live",
-       "laps": 73,
-       "share": 73,
+       "laps": 80,
+       "share": 80,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -99,24 +87,12 @@
        }
       },
       {
-       "id": "gt-r-nismo-gt3-18",
-       "name": "GT-R NISMO GT3 '18",
-       "tier": null,
-       "source": "live",
-       "laps": 5,
-       "share": 5,
-       "why": {
-        "strengths": [],
-        "saves_tyres": false
-       }
-      },
-      {
        "id": "m6-gt3-sprint-model-16",
        "name": "M6 GT3 Sprint Model '16",
        "tier": null,
        "source": "live",
-       "laps": 10,
-       "share": 10,
+       "laps": 8,
+       "share": 8,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -129,8 +105,8 @@
        "name": "M6 GT3 Endurance Model '16",
        "tier": null,
        "source": "live",
-       "laps": 8,
-       "share": 8,
+       "laps": 9,
+       "share": 9,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -139,13 +115,66 @@
        }
       }
      ],
-     "balance": 1.8
+     "balance": 1.5
     }
    ]
   },
   {
    "label": "next",
-   "races": []
+   "races": [
+    {
+     "race": "A",
+     "start": "2026-11-02",
+     "track": "Dragon Trail - Gardens",
+     "course_id": "847",
+     "category": "",
+     "kind": "tbd",
+     "car": null,
+     "tyres": [
+      "CS"
+     ],
+     "fuel": "x1",
+     "tyre_wear": "x1",
+     "group": null,
+     "track_set": "m",
+     "cars": []
+    },
+    {
+     "race": "B",
+     "start": "2026-11-02",
+     "track": "Grand Valley - Highway 1",
+     "course_id": "1292",
+     "category": "",
+     "kind": "tbd",
+     "car": null,
+     "tyres": [
+      "RM"
+     ],
+     "fuel": "x1",
+     "tyre_wear": "x1",
+     "group": null,
+     "track_set": "m",
+     "cars": []
+    },
+    {
+     "race": "C",
+     "start": "2026-11-02",
+     "track": "Watkins Glen Long Course",
+     "course_id": "1240",
+     "category": "",
+     "kind": "tbd",
+     "car": null,
+     "tyres": [
+      "RH",
+      "RM"
+     ],
+     "fuel": "x3",
+     "tyre_wear": "x5",
+     "group": null,
+     "track_set": "h",
+     "cars": []
+    }
+   ]
   }
  ]
 }

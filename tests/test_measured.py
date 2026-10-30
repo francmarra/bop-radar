@@ -69,3 +69,10 @@ def test_unreadable_json_raises(tmp_path):
 def test_unknown_gt7_id_is_a_warning(tmp_path):
     cars, warnings = load(_file(tmp_path, [{**ENTRY, "gt7_id": 1}]), MAP)
     assert cars == {} and len(warnings) == 1 and "1" in warnings[0]
+
+
+@pytest.mark.parametrize("field,value", [("fuel_pct_per_lap", float("nan")), ("fuel_pct_per_km", float("inf")),
+                                         ("grip_loss_pct_per_lap", float("nan")), ("fuel_pct_per_lap", -1.0)])
+def test_non_finite_or_negative_values_raise(tmp_path, field, value):
+    with pytest.raises(MeasuredError, match=field):
+        load(_file(tmp_path, [{**ENTRY, field: value}]), MAP)

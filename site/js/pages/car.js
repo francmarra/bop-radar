@@ -49,7 +49,7 @@ export async function carPage(id) {
   const trackNames = Object.fromEntries((car.tracks ?? []).map((r) => [r.id, r.name]));
   const brief = (e, i) => {
     const b = { verdict: e.verdict, changed: e.changed, delta: e.delta, of: e.of, rank: e.sets[e.context.best_set].rank, tier: e.sets[e.context.best_set].tier, ...e.context };
-    const m = { ...b, measured: car.measured?.length ?? 0 };
+    const m = { ...b, measured: measuredTracks(car.measured) };
     return i === latest && now ? { ...m, best_set: nowBest, rank: now[nowBest].rank, tier: now[nowBest].tier } : m;
   };
   const renderCtx = () => {
@@ -101,6 +101,7 @@ export function techSheet(m, handling, t) {
 // the picture plus a mirrored copy as floor reflection; the silhouette gets none
 // gt7-telemetry measurements (ADR 7): fuel is measured, grip is an indicator (GT7 does not send tyre wear)
 const dec = (v, lang) => (lang === "pt" ? num(v, 1).replace(".", ",") : num(v, 1));
+export const measuredTracks = (list) => new Set((list ?? []).map((m) => m.track)).size;
 export function measuredLines(list, t, lang, names = {}) {
   if (!list?.length) return "";
   return html`<div class="note">${list.map((m) => {

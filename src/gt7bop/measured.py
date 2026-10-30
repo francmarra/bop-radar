@@ -3,17 +3,23 @@
 The file is exported by `gt7 export-measurements` and committed here: CI never sees the owner's sessions."""
 
 import json
+import math
 from pathlib import Path
 
 SCHEMA = 1
 _NUMBER = (int, float)
+
+
+def _finite(v) -> bool:  # json.loads accepts NaN and Infinity
+    return isinstance(v, _NUMBER) and not isinstance(v, bool) and math.isfinite(v)
+
 FIELDS = {  # field -> check
     "gt7_id": lambda v: isinstance(v, int) and not isinstance(v, bool),
     "track": lambda v: isinstance(v, str) and bool(v),
     "compound": lambda v: isinstance(v, str) and bool(v),
-    "fuel_pct_per_lap": lambda v: isinstance(v, _NUMBER) and not isinstance(v, bool),
-    "fuel_pct_per_km": lambda v: isinstance(v, _NUMBER) and not isinstance(v, bool),
-    "grip_loss_pct_per_lap": lambda v: v is None or (isinstance(v, _NUMBER) and not isinstance(v, bool)),
+    "fuel_pct_per_lap": lambda v: _finite(v) and v >= 0,
+    "fuel_pct_per_km": lambda v: _finite(v) and v >= 0,
+    "grip_loss_pct_per_lap": lambda v: v is None or _finite(v),
     "laps": lambda v: isinstance(v, int) and not isinstance(v, bool) and v >= 1,
     "sessions": lambda v: isinstance(v, int) and not isinstance(v, bool) and v >= 1,
     "last_date": lambda v: isinstance(v, str) and len(v) == 10,

@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 globalThis.document = { getElementById: () => null };
 const { t, setLang } = await import("../../site/js/i18n.js");
 const { store } = await import("../../site/js/data.js");
-const { specSheet, techSheet, heroPic, measuredLines } = await import("../../site/js/pages/car.js");
+const { specSheet, techSheet, heroPic, measuredLines, measuredTracks } = await import("../../site/js/pages/car.js");
 
 test("specSheet shows the four headline values", () => {
   const s = String(specSheet({ power_ps: 476, weight_kg: 1260, ps_per_t: 377.8, pp: 687.78, balance: "52:48" }, t));
@@ -73,4 +73,9 @@ test("measuredLines is empty without measurements", () => {
 test("measuredLines escapes the track", () => {
   const s = String(measuredLines([{ ...SPA, track: "<b>x</b>" }], t, "en"));
   assert.ok(s.includes("&lt;b&gt;") && !s.includes("<b>x"));
+});
+
+test("measuredTracks counts tracks, not compounds", () => {
+  assert.equal(measuredTracks([SPA, { ...SPA, compound: "RM" }, { ...SPA, track: "suzuka" }]), 2);
+  assert.equal(measuredTracks(undefined), 0);
 });

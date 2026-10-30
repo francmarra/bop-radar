@@ -46,9 +46,11 @@ export async function carPage(id) {
   const latest = hist.length - 1;
   const now = car.now;
   const nowBest = now ? Object.keys(now).reduce((a, b) => (now[b].rank < now[a].rank ? b : a), "m") : null;
+  const trackNames = Object.fromEntries((car.tracks ?? []).map((r) => [r.id, r.name]));
   const brief = (e, i) => {
     const b = { verdict: e.verdict, changed: e.changed, delta: e.delta, of: e.of, rank: e.sets[e.context.best_set].rank, tier: e.sets[e.context.best_set].tier, ...e.context };
-    return i === latest && now ? { ...b, best_set: nowBest, rank: now[nowBest].rank, tier: now[nowBest].tier } : b;
+    const m = { ...b, measured: car.measured?.length ?? 0 };
+    return i === latest && now ? { ...m, best_set: nowBest, rank: now[nowBest].rank, tier: now[nowBest].tier } : m;
   };
   const renderCtx = () => {
     const e = hist[selected], c = e.context, m = e.sets.m;
@@ -66,7 +68,7 @@ export async function carPage(id) {
       <div class="card"><h3>${t("strengths")}</h3><div class="chips">${c.strengths.length ? c.strengths.map((s) => html`<span>${I18N[lang].tr[s]}</span>`) : html`<span class="soft">${t("none")}</span>`}</div>
         <h3 class="mt">${t("weaknesses")}</h3><div class="chips">${c.weaknesses.length ? c.weaknesses.map((s) => html`<span class="weak">${I18N[lang].tr[s]}</span>`) : html`<span class="soft">${t("none")}</span>`}</div></div>`;
     app.querySelector("#tyres-body").innerHTML = html`
-      <div class="card"><h3>${t("tyre_wear")} ${info("estimates", t)}</h3>${level(c.tyre_wear)}<h3 class="mt">${t("fuel_use")}</h3>${level(c.fuel_use)}<div class="note">${t("estimates")}</div></div>`;
+      <div class="card"><h3>${t("tyre_wear")} ${info("estimates", t)}</h3>${level(c.tyre_wear)}<h3 class="mt">${t("fuel_use")}</h3>${level(c.fuel_use)}<div class="note">${t("estimates")}</div>${car.measured?.length ? html`${measuredLines(car.measured, t, lang, trackNames)} ${info("measured", t)}` : ""}</div>`;
     app.querySelectorAll("#changes [data-i]").forEach((r) => r.classList.toggle("sel", +r.dataset.i === selected));
   };
   app.querySelector("#changes").onclick = (ev) => { const r = ev.target.closest("[data-i]"); if (r) { selected = +r.dataset.i; renderCtx(); const perf = app.querySelector("#perf"); perf.open = true; perf.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); } };
@@ -97,6 +99,18 @@ export function techSheet(m, handling, t) {
 }
 
 // the picture plus a mirrored copy as floor reflection; the silhouette gets none
+// gt7-telemetry measurements (ADR 7): fuel is measured, grip is an indicator (GT7 does not send tyre wear)
+const dec = (v, lang) => (lang === "pt" ? num(v, 1).replace(".", ",") : num(v, 1));
+export function measuredLines(list, t, lang, names = {}) {
+  if (!list?.length) return "";
+  return html`<div class="note">${list.map((m) => {
+    const track = names[m.track] ?? m.track.charAt(0).toUpperCase() + m.track.slice(1);
+    const g = m.grip_loss_pct_per_lap === null ? null : -m.grip_loss_pct_per_lap;
+    const grip = g === null ? "" : ` · ${t("m_grip")} ${g < 0 ? "−" : g > 0 ? "+" : ""}${dec(Math.abs(g), lang)} ${t("per_lap")}`;
+    return html`<div>${t("measured")} · ${track}, ${m.compound}, x1: ${t("m_fuel")} ${dec(m.fuel_pct_per_lap, lang)} ${t("per_lap")}${grip} (${t("laps_n", m.laps)})</div>`;
+  })}</div>`;
+}
+
 export const heroPic = (id) => html`${carImg(id, "l", "", true)}${Object.hasOwn(store.images ?? {}, id) ? html`<span class="reflection" aria-hidden="true">${carImg(id, "l")}</span>` : ""}`;
 
 // drawn at the box's real width so axis text keeps its size (a stretched viewBox squashed it on phones)

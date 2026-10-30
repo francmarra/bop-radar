@@ -66,7 +66,7 @@ def apply_ranking(groups: list[dict], car_files: dict[str, dict], ranking: dict)
 
 
 def export(histories: list[GroupHistory], assessments: dict[str, dict], out: Path, notes_dir: Path,
-           events: list[dict] | None = None) -> None:
+           events: list[dict] | None = None, measured: dict[str, list[dict]] | None = None) -> None:
     for sub in ("cars", "updates"):  # generated output: drop files of cars/versions that no longer exist
         shutil.rmtree(out / sub, ignore_errors=True)
     index = {"generated": date.today().isoformat(), "groups": [], "updates": [], "events": len(events or [])}
@@ -85,6 +85,8 @@ def export(histories: list[GroupHistory], assessments: dict[str, dict], out: Pat
                 "id": s, "name": name, "maker": car.maker, "drivetrain": car.drivetrain,
                 "group": hist.group, "history": entries, "notes": notes, "tracks": [],
             }
+            if (measured or {}).get(s):  # gt7-telemetry measurements (ADR 7); no key for cars without them
+                car_files[s]["measured"] = measured[s]
             last = entries[-1]
             if last["v"] == latest:  # still in the current BoP list
                 cars_meta.append({

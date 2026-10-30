@@ -50,7 +50,8 @@ def main(argv: list[str] | None = None) -> None:
         return
 
     if args.cmd == "check":
-        errors, warnings = check.check(ROOT / "site" / "data", args.baseline, args.max_age)
+        errors, warnings = check.check(ROOT / "site" / "data", args.baseline, args.max_age,
+                                       measured=ROOT / "data" / "measured.json")
         for msg in errors:
             print(f"error: {msg}")
         for msg in warnings:

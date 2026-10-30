@@ -77,3 +77,17 @@ def test_stale_data_is_only_a_warning(tmp_path):
     errors, warnings = check(_data(tmp_path, generated="2026-10-12"), max_age_days=5, today=TODAY)
     assert errors == [] and any("index.json" in w for w in warnings) and any("week.json" in w for w in warnings)
     assert check(_data(tmp_path, generated="2026-10-12"), today=TODAY) == ([], [])  # push builds don't refresh data
+
+
+def test_check_reports_broken_measured_file(tmp_path):
+    bad = tmp_path / "measured.json"
+    bad.write_text(json.dumps({"schema": 2, "entries": []}), encoding="utf-8")
+    errors, _ = check(_data(tmp_path), _baseline(tmp_path), max_age_days=5, today=TODAY, measured=bad)
+    assert any(e.startswith("measured.json:") for e in errors)
+
+
+def test_check_accepts_a_valid_measured_file(tmp_path):
+    ok = tmp_path / "measured.json"
+    ok.write_text(json.dumps({"schema": 1, "generated": "2026-10-30", "source": "gt7-telemetry", "entries": []}),
+                  encoding="utf-8")
+    assert check(_data(tmp_path), _baseline(tmp_path), max_age_days=5, today=TODAY, measured=ok) == ([], [])

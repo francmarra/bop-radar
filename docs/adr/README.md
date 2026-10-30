@@ -8,3 +8,4 @@ Short records of the decisions that shaped bop-radar (context → decision → c
 4. [.NET API as a read-only mirror of the site data in PostgreSQL](0004-dotnet-api-read-only-mirror.md)
 5. [Frontend types generated from the API's OpenAPI document](0005-openapi-generated-client.md)
 6. [Official car images are downloaded at build time and never committed](0006-car-images-never-committed.md)
+7. [Measured tyres and fuel come from gt7-telemetry as a committed, versioned file](0007-measured-data-file-contract.md)

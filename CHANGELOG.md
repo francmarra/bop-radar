@@ -2,6 +2,11 @@
 
 Notable changes, newest first. Daily `data: BoP update` commits are not listed.
 
+## 2026-10-30 — Measured tyres and fuel (gt7-telemetry)
+- Car pages show measured fuel use and a grip-loss indicator next to the estimate, from the owner's own laps (ADR 7).
+- `data/measured.json` (schema 1) is exported by gt7-telemetry and validated by `gt7bop check`; empty for now.
+- Recording protocol in `docs/telemetry-protocol.md`.
+
 ## 2026-10-22 — Car comparator (React + TypeScript)
 - `web/`: compare 2–4 cars side by side (best value per stat, PP-over-BoP-versions chart), state in the URL.
 - Typed client generated from the API's OpenAPI document; CI fails on type drift (ADR 5).

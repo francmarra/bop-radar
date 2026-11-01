@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-30",
+ "generated": "2026-11-01",
  "weeks": [
   {
    "label": "this",
@@ -42,8 +42,8 @@
        "name": "TT Cup '16",
        "tier": "A",
        "source": "live",
-       "laps": 95,
-       "share": 95,
+       "laps": 97,
+       "share": 97,
        "why": {
         "strengths": [
          "acceleration",
@@ -91,8 +91,8 @@
        "name": "M6 GT3 Sprint Model '16",
        "tier": null,
        "source": "live",
-       "laps": 8,
-       "share": 8,
+       "laps": 10,
+       "share": 10,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -105,8 +105,8 @@
        "name": "M6 GT3 Endurance Model '16",
        "tier": null,
        "source": "live",
-       "laps": 9,
-       "share": 9,
+       "laps": 7,
+       "share": 7,
        "why": {
         "strengths": [
          "high-speed cornering"

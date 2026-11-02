@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-01",
+ "generated": "2026-11-02",
  "weeks": [
   {
    "label": "this",
@@ -7,129 +7,11 @@
     {
      "race": "A",
      "start": null,
-     "track": "SUGO International Racing Course",
-     "course_id": "1340",
-     "category": "Specified Car",
-     "kind": "one-make",
-     "car": "Nissan Fairlady Z (Z34) '08",
-     "tyres": [
-      "SH"
-     ],
-     "fuel": "x1",
-     "tyre_wear": "x1",
-     "group": null,
-     "track_set": "m",
-     "cars": []
-    },
-    {
-     "race": "B",
-     "start": null,
-     "track": "Willow Springs International Raceway: Big Willow",
-     "course_id": "122",
-     "category": "Gr.4",
-     "kind": "bop",
-     "car": null,
-     "tyres": [
-      "RH"
-     ],
-     "fuel": "x1",
-     "tyre_wear": "x1",
-     "group": "gr4",
-     "track_set": "m",
-     "cars": [
-      {
-       "id": "tt-cup-16",
-       "name": "TT Cup '16",
-       "tier": "A",
-       "source": "live",
-       "laps": 97,
-       "share": 97,
-       "why": {
-        "strengths": [
-         "acceleration",
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      }
-     ],
-     "balance": 1.1
-    },
-    {
-     "race": "C",
-     "start": null,
-     "track": "SUGO International Racing Course",
-     "course_id": "1340",
-     "category": "Gr.3",
-     "kind": "bop",
-     "car": null,
-     "tyres": [
-      "RM",
-      "RS"
-     ],
-     "fuel": "x2",
-     "tyre_wear": "x4",
-     "group": "gr3",
-     "track_set": "m",
-     "cars": [
-      {
-       "id": "brz-gt300-21",
-       "name": "BRZ GT300 '21",
-       "tier": null,
-       "source": "live",
-       "laps": 80,
-       "share": 80,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "m6-gt3-sprint-model-16",
-       "name": "M6 GT3 Sprint Model '16",
-       "tier": null,
-       "source": "live",
-       "laps": 10,
-       "share": 10,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "m6-gt3-endurance-model-16",
-       "name": "M6 GT3 Endurance Model '16",
-       "tier": null,
-       "source": "live",
-       "laps": 7,
-       "share": 7,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      }
-     ],
-     "balance": 1.5
-    }
-   ]
-  },
-  {
-   "label": "next",
-   "races": [
-    {
-     "race": "A",
-     "start": "2026-11-02",
      "track": "Dragon Trail - Gardens",
      "course_id": "847",
-     "category": "",
-     "kind": "tbd",
-     "car": null,
+     "category": "Specified Car",
+     "kind": "one-make",
+     "car": "Chevrolet Corvette Stingray Convertible (C3) '69",
      "tyres": [
       "CS"
      ],
@@ -141,28 +23,84 @@
     },
     {
      "race": "B",
-     "start": "2026-11-02",
+     "start": null,
      "track": "Grand Valley - Highway 1",
      "course_id": "1292",
-     "category": "",
-     "kind": "tbd",
+     "category": "Gr.3",
+     "kind": "bop",
      "car": null,
      "tyres": [
       "RM"
      ],
      "fuel": "x1",
      "tyre_wear": "x1",
-     "group": null,
+     "group": "gr3",
      "track_set": "m",
-     "cars": []
+     "cars": [
+      {
+       "id": "lancer-evolution-final-edition-gr-3",
+       "name": "Lancer Evolution Final Edition Gr.3",
+       "tier": "S",
+       "source": "live",
+       "laps": 25,
+       "share": 25,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "z4-gt3-11",
+       "name": "Z4 GT3 '11",
+       "tier": "B",
+       "source": "live",
+       "laps": 6,
+       "share": 6,
+       "why": {
+        "strengths": [
+         "acceleration"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "gr-supra-racing-concept-18",
+       "name": "GR Supra Racing Concept '18",
+       "tier": "S",
+       "source": "live",
+       "laps": 23,
+       "share": 23,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "gt-r-nismo-gt3-18",
+       "name": "GT-R NISMO GT3 '18",
+       "tier": "A",
+       "source": "live",
+       "laps": 8,
+       "share": 8,
+       "why": {
+        "strengths": [],
+        "saves_tyres": false
+       }
+      }
+     ],
+     "balance": 7.3
     },
     {
      "race": "C",
-     "start": "2026-11-02",
+     "start": null,
      "track": "Watkins Glen Long Course",
      "course_id": "1240",
-     "category": "",
-     "kind": "tbd",
+     "category": "Gr.4",
+     "kind": "bop",
      "car": null,
      "tyres": [
       "RH",
@@ -170,11 +108,32 @@
      ],
      "fuel": "x3",
      "tyre_wear": "x5",
-     "group": null,
+     "group": "gr4",
      "track_set": "h",
-     "cars": []
+     "cars": [
+      {
+       "id": "tt-cup-16",
+       "name": "TT Cup '16",
+       "tier": "S",
+       "source": "live",
+       "laps": 100,
+       "share": 100,
+       "why": {
+        "strengths": [
+         "straight-line speed",
+         "high-speed cornering"
+        ],
+        "saves_tyres": true
+       }
+      }
+     ],
+     "balance": 1.0
     }
    ]
+  },
+  {
+   "label": "next",
+   "races": []
   }
  ]
 }

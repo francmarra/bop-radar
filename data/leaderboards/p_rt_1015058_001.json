@@ -1,0 +1,42 @@
+{
+"date": "2026-10-26",
+"board": "p_rt_1015058_001",
+"race": "B",
+"track": "Willow Springs International Raceway: Big Willow",
+"course_id": "122",
+"group": "gr4",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3298,
+"name": "Audi TT Cup '16",
+"laps": 933,
+"best_ms": 78798,
+"pace_ms": 78962,
+"gap_pct": 0.0,
+"top100": 97
+},
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 44,
+"best_ms": 79086,
+"pace_ms": 79484,
+"gap_pct": 0.662,
+"top100": 3
+},
+{
+"code": 3590,
+"name": "Hyundai ELANTRA N TC '24",
+"laps": 15,
+"best_ms": 79370,
+"pace_ms": 79820,
+"gap_pct": 1.087,
+"top100": 0
+}
+]
+}

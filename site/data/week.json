@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-02",
+ "generated": "2026-11-03",
  "weeks": [
   {
    "label": "this",
@@ -38,12 +38,12 @@
      "track_set": "m",
      "cars": [
       {
-       "id": "lancer-evolution-final-edition-gr-3",
-       "name": "Lancer Evolution Final Edition Gr.3",
+       "id": "gr-supra-racing-concept-18",
+       "name": "GR Supra Racing Concept '18",
        "tier": "S",
        "source": "live",
-       "laps": 25,
-       "share": 25,
+       "laps": 28,
+       "share": 28,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -52,26 +52,26 @@
        }
       },
       {
-       "id": "z4-gt3-11",
-       "name": "Z4 GT3 '11",
-       "tier": "B",
+       "id": "wrx-gr-3",
+       "name": "WRX Gr.3",
+       "tier": "S",
        "source": "live",
-       "laps": 6,
-       "share": 6,
+       "laps": 9,
+       "share": 9,
        "why": {
         "strengths": [
-         "acceleration"
+         "high-speed cornering"
         ],
         "saves_tyres": false
        }
       },
       {
-       "id": "gr-supra-racing-concept-18",
-       "name": "GR Supra Racing Concept '18",
+       "id": "lancer-evolution-final-edition-gr-3",
+       "name": "Lancer Evolution Final Edition Gr.3",
        "tier": "S",
        "source": "live",
-       "laps": 23,
-       "share": 23,
+       "laps": 15,
+       "share": 15,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -84,15 +84,15 @@
        "name": "GT-R NISMO GT3 '18",
        "tier": "A",
        "source": "live",
-       "laps": 8,
-       "share": 8,
+       "laps": 14,
+       "share": 14,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
       }
      ],
-     "balance": 7.3
+     "balance": 7.2
     },
     {
      "race": "C",

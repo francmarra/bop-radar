@@ -78,7 +78,7 @@ def live_rankings(page: str, ranking=fetch_ranking, log=print) -> dict[str, tupl
         if ev["final"]:
             continue
         try:
-            out[ev["race"]] = ranking(ev["url"], LIVE_DEPTH)
+            out[ev["race"]] = ranking(ev["url"], ev["board"], LIVE_DEPTH)
         except Exception as e:  # noqa: BLE001 — the race falls back to the history
             log(f"week: no live data for race {ev['race']} ({e})")
     return out
@@ -87,7 +87,7 @@ def live_rankings(page: str, ranking=fetch_ranking, log=print) -> dict[str, tupl
 def _live_cars(rows: list[dict], names: dict, cars: list[dict]) -> list[tuple[str, int, int]]:
     """(car id, laps, % of the board) in this week's pace order, mapped onto our cars."""
     matcher, seen, out = CarMatcher(cars), set(), []
-    for c in aggregate(rows, names)[1]:
+    for c in aggregate(rows, names):
         car = matcher.match(c["name"])
         if car and car["id"] not in seen:
             seen.add(car["id"])

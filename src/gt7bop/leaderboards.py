@@ -1,4 +1,5 @@
-"""Daily Race time-trial leaderboards (official GT7 data mirrored by gtsh-rank.com).
+"""Daily Race time-trial leaderboards: events and car names from gtsh-rank.com, laps from gtstats.live
+(both mirror the official GT7 data).
 
 Only per-car aggregates are kept — never player names or ids."""
 
@@ -11,16 +12,17 @@ from collections import defaultdict
 from pathlib import Path
 
 BASE = "https://gtsh-rank.com"
+STATS = "https://gtstats.live"  # gtsh gated its lap API on 2026-11-08 (401)
 USER_AGENT = "Mozilla/5.0 (compatible; bop-radar/0.1; +https://github.com/francmarra/bop-radar)"
 DELAY_S = 2.0
 GROUPS = {"Gr.1": "gr1", "Gr.2": "gr2", "Gr.3": "gr3", "Gr.4": "gr4"}
 TOP_K = 20  # a car's pace = median of its best K laps
 MIN_LAPS = 5
-DEPTH = 1000  # laps read per event (top of the leaderboard = representative pace)
-PAGE = 200  # the paging API's maximum
+DEPTH = 500  # laps read per event (top of the leaderboard = representative pace); gtstats serves the top 500
 
 BOARD_RE = re.compile(r"p_rt_\d+_\d+")
 URL_RE = re.compile(r"/daily/leaderboard/\?event=[A-Za-z0-9_\-=]+")
+DATE_RE = re.compile(r"\d{4}-\d\d-\d\d")
 ARTICLE_RE = re.compile(r"<article class=\"daily-race-card[^\"]*\">(.*?)</article>", re.DOTALL)
 
 
@@ -48,6 +50,7 @@ def parse_week_page(html: str) -> list[dict]:
         if _find(r"<span>BoP</span><strong>([^<]+)<", card) != "On":
             continue
         events.append({
+            "date": _find(r'href="/daily/week/(\d{4}-\d\d-\d\d)/"', card),  # week start
             "board": _find(r'data-board="([^"]+)"', card),
             "race": _find(r'class="daily-letter">([A-Z])<', card),
             "track": _find(r'<h2 title="([^"]+)"', card),
@@ -69,14 +72,13 @@ def effective_cars(counts: list[int]) -> float:
     return round(total * total / sum(c * c for c in counts), 1) if total else 0.0
 
 
-def aggregate(ranking: list[dict], names: dict[str, str]) -> tuple[str, list[dict]]:
-    """(event date, per-car pace) from the top of a leaderboard."""
+def aggregate(ranking: list[dict], names: dict[str, str]) -> list[dict]:
+    """Per-car pace from the top of a leaderboard."""
     laps: dict[int, list[int]] = defaultdict(list)
     for row in ranking:
         laps[row["ranking_stats"]["car_code"]].append(row["score"])
     if not laps:
-        return "", []
-    start = min(row["update_time"] for row in ranking)[:10]
+        return []
     overall = sorted(t for ts in laps.values() for t in ts)
     ref = statistics.median(overall[:TOP_K])
     top100 = defaultdict(int)
@@ -94,20 +96,16 @@ def aggregate(ranking: list[dict], names: dict[str, str]) -> tuple[str, list[dic
             "top100": top100[code],
         })
     cars.sort(key=lambda c: c["pace_ms"])
-    return start, cars
+    return cars
 
 
-def fetch_ranking(url: str, depth: int = DEPTH) -> tuple[list[dict], dict[str, str]]:
-    """Car-name map from the (small, archived) event page + the top `depth` laps via its paging API."""
+def fetch_ranking(url: str, board: str, depth: int = DEPTH) -> tuple[list[dict], dict[str, str]]:
+    """Car-name map from the gtsh event page + the top `depth` laps from gtstats."""
     names = json.loads(_find(r"const carNames = (\{.*?\});", _get(BASE + url)) or "{}")
-    rows: list[dict] = []
-    for offset in range(0, depth, PAGE):
-        time.sleep(DELAY_S)
-        data = json.loads(_get(f"{BASE}{url}&page_data=1&offset={offset}&limit={PAGE}"))
-        rows += data.get("board", [])
-        if not data.get("has_more"):
-            break
-    return rows[:depth], names  # pages come in PAGE-sized chunks
+    time.sleep(DELAY_S)
+    event_id = int(board.split("_")[2]) - 1_000_000  # gtsh board p_rt_1015255_001 = gtstats event 15255
+    rows = json.loads(_get(f"{STATS}/api/dailies/{event_id}/times")).get("list", [])
+    return rows[:depth], names
 
 
 def update(out_dir: Path, pages: int = 13, log=print) -> int:
@@ -119,12 +117,13 @@ def update(out_dir: Path, pages: int = 13, log=print) -> int:
         time.sleep(DELAY_S)
         for ev in parse_week_page(html):
             path = out_dir / f"{ev['board']}.json"
-            if not ev.pop("final") or path.exists():  # running events are re-read once archived
+            # running events are re-read once archived; the date dates the BoP version, so no date = skip
+            if not ev.pop("final") or path.exists() or not DATE_RE.fullmatch(ev["date"]):
                 continue
             log(f"leaderboard {ev['board']} {ev['group']} {ev['track']}")
-            date, cars = aggregate(*fetch_ranking(ev.pop("url")))
+            cars = aggregate(*fetch_ranking(ev.pop("url"), ev["board"]))
             if cars:
-                path.write_text(json.dumps({"date": date, **ev, "cars": cars}, ensure_ascii=False, indent=0),
+                path.write_text(json.dumps({**ev, "cars": cars}, ensure_ascii=False, indent=0),
                                 encoding="utf-8")
                 added += 1
     return added

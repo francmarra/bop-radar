@@ -1,19 +1,19 @@
 {
- "generated": "2026-10-29",
+ "generated": "2026-11-12",
  "weeks": [
   {
    "label": "this",
    "races": [
     {
      "race": "A",
-     "start": null,
-     "track": "SUGO International Racing Course",
-     "course_id": "1340",
+     "start": "2026-11-09",
+     "track": "Suzuka Circuit East Course",
+     "course_id": "442",
      "category": "Specified Car",
      "kind": "one-make",
-     "car": "Nissan Fairlady Z (Z34) '08",
+     "car": "Honda Integra Type R (DC2) '95",
      "tyres": [
-      "SH"
+      "CS"
      ],
      "fuel": "x1",
      "tyre_wear": "x1",
@@ -23,14 +23,14 @@
     },
     {
      "race": "B",
-     "start": null,
-     "track": "Willow Springs International Raceway: Big Willow",
-     "course_id": "122",
+     "start": "2026-11-09",
+     "track": "Trial Mountain Circuit",
+     "course_id": "1024",
      "category": "Gr.4",
      "kind": "bop",
      "car": null,
      "tyres": [
-      "RH"
+      "RM"
      ],
      "fuel": "x1",
      "tyre_wear": "x1",
@@ -38,12 +38,11 @@
      "track_set": "m",
      "cars": [
       {
-       "id": "tt-cup-16",
-       "name": "TT Cup '16",
-       "tier": "A",
-       "source": "live",
-       "laps": 90,
-       "share": 90,
+       "id": "elantra-n-tc-24",
+       "name": "ELANTRA N TC '24",
+       "tier": "S",
+       "source": "estimate",
+       "laps": null,
        "why": {
         "strengths": [
          "acceleration",
@@ -53,25 +52,67 @@
        }
       },
       {
-       "id": "hurac-n-gr-4",
-       "name": "Huracán Gr.4",
-       "tier": "C",
-       "source": "live",
-       "laps": 8,
-       "share": 8,
+       "id": "swift-sport-gr-4",
+       "name": "Swift Sport Gr.4",
+       "tier": "S",
+       "source": "estimate",
+       "laps": null,
        "why": {
-        "strengths": [],
+        "strengths": [
+         "acceleration",
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "tt-cup-16",
+       "name": "TT Cup '16",
+       "tier": "S",
+       "source": "estimate",
+       "laps": null,
+       "why": {
+        "strengths": [
+         "acceleration",
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "mazda3-gr-4",
+       "name": "MAZDA3 Gr.4",
+       "tier": "A",
+       "source": "estimate",
+       "laps": null,
+       "why": {
+        "strengths": [
+         "acceleration",
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "scirocco-gr-4",
+       "name": "Scirocco Gr.4",
+       "tier": "A",
+       "source": "estimate",
+       "laps": null,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
         "saves_tyres": false
        }
       }
-     ],
-     "balance": 1.2
+     ]
     },
     {
      "race": "C",
-     "start": null,
-     "track": "SUGO International Racing Course",
-     "course_id": "1340",
+     "start": "2026-11-09",
+     "track": "Michelin Raceway Road Atlanta",
+     "course_id": "1007",
      "category": "Gr.3",
      "kind": "bop",
      "car": null,
@@ -80,17 +121,42 @@
       "RS"
      ],
      "fuel": "x2",
-     "tyre_wear": "x4",
+     "tyre_wear": "x5",
      "group": "gr3",
      "track_set": "m",
      "cars": [
       {
-       "id": "brz-gt300-21",
-       "name": "BRZ GT300 '21",
-       "tier": null,
-       "source": "live",
-       "laps": 73,
-       "share": 73,
+       "id": "m6-gt3-sprint-model-16",
+       "name": "M6 GT3 Sprint Model '16",
+       "tier": "S",
+       "source": "real",
+       "laps": 755,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "296-gt3-23",
+       "name": "296 GT3 '23",
+       "tier": "S",
+       "source": "real",
+       "laps": 306,
+       "why": {
+        "strengths": [
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "911-gt3-r-992-22",
+       "name": "911 GT3 R (992) '22",
+       "tier": "S",
+       "source": "real",
+       "laps": 430,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -101,36 +167,20 @@
       {
        "id": "gt-r-nismo-gt3-18",
        "name": "GT-R NISMO GT3 '18",
-       "tier": null,
-       "source": "live",
-       "laps": 5,
-       "share": 5,
+       "tier": "S",
+       "source": "real",
+       "laps": 174,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
       },
       {
-       "id": "m6-gt3-sprint-model-16",
-       "name": "M6 GT3 Sprint Model '16",
-       "tier": null,
-       "source": "live",
-       "laps": 10,
-       "share": 10,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "m6-gt3-endurance-model-16",
-       "name": "M6 GT3 Endurance Model '16",
-       "tier": null,
-       "source": "live",
-       "laps": 8,
-       "share": 8,
+       "id": "wrx-gr-3",
+       "name": "WRX Gr.3",
+       "tier": "S",
+       "source": "real",
+       "laps": 7,
        "why": {
         "strengths": [
          "high-speed cornering"
@@ -138,8 +188,7 @@
         "saves_tyres": false
        }
       }
-     ],
-     "balance": 1.8
+     ]
     }
    ]
   },

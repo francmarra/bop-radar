@@ -41,7 +41,8 @@ jobs:
         if: github.event_name != 'push'
         run: |
           cp -r site/data "$RUNNER_TEMP/prev-data"
-          uv run gt7bop leaderboards --pages 2
+          # gtsh-rank gated its paging API on 2026-11-08 (401); keep stored leaderboards, still update BoP and deploy
+          uv run gt7bop leaderboards --pages 2 || echo "warning: leaderboards fetch failed, kept stored events (see log)" | tee "$RUNNER_TEMP/leaderboards.txt"
           uv run gt7bop update --refresh
           uv run gt7bop week
       # errors stop here, before bad data is committed or deployed; warnings deploy and raise an alert
@@ -73,7 +74,7 @@ jobs:
         env:
           CHECK_REPORT: ${{ steps.check.outputs.report }}
         run: |
-          { echo "report<<REPORT_EOF"; [ -n "$CHECK_REPORT" ] && echo "$CHECK_REPORT"; grep -E '^warning:' "$RUNNER_TEMP/render.txt" 2>/dev/null || true; echo REPORT_EOF; } >> "$GITHUB_OUTPUT"
+          { echo "report<<REPORT_EOF"; [ -n "$CHECK_REPORT" ] && echo "$CHECK_REPORT"; grep -hE '^warning:' "$RUNNER_TEMP/leaderboards.txt" "$RUNNER_TEMP/render.txt" 2>/dev/null || true; echo REPORT_EOF; } >> "$GITHUB_OUTPUT"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

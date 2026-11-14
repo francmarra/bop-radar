@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13",
+ "generated": "2026-11-14",
  "weeks": [
   {
    "label": "this",
@@ -38,30 +38,14 @@
      "track_set": "m",
      "cars": [
       {
-       "id": "elantra-n-tc-24",
-       "name": "ELANTRA N TC '24",
-       "tier": "S",
-       "source": "estimate",
-       "laps": null,
+       "id": "hurac-n-gr-4",
+       "name": "Huracán Gr.4",
+       "tier": "C",
+       "source": "live",
+       "laps": 64,
+       "share": 64,
        "why": {
-        "strengths": [
-         "acceleration",
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "swift-sport-gr-4",
-       "name": "Swift Sport Gr.4",
-       "tier": "S",
-       "source": "estimate",
-       "laps": null,
-       "why": {
-        "strengths": [
-         "acceleration",
-         "high-speed cornering"
-        ],
+        "strengths": [],
         "saves_tyres": false
        }
       },
@@ -69,44 +53,19 @@
        "id": "tt-cup-16",
        "name": "TT Cup '16",
        "tier": "S",
-       "source": "estimate",
-       "laps": null,
+       "source": "live",
+       "laps": 34,
+       "share": 34,
        "why": {
         "strengths": [
          "acceleration",
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "mazda3-gr-4",
-       "name": "MAZDA3 Gr.4",
-       "tier": "A",
-       "source": "estimate",
-       "laps": null,
-       "why": {
-        "strengths": [
-         "acceleration",
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "scirocco-gr-4",
-       "name": "Scirocco Gr.4",
-       "tier": "A",
-       "source": "estimate",
-       "laps": null,
-       "why": {
-        "strengths": [
          "high-speed cornering"
         ],
         "saves_tyres": false
        }
       }
-     ]
+     ],
+     "balance": 1.9
     },
     {
      "race": "C",
@@ -126,69 +85,21 @@
      "track_set": "m",
      "cars": [
       {
-       "id": "m6-gt3-sprint-model-16",
-       "name": "M6 GT3 Sprint Model '16",
-       "tier": "S",
-       "source": "real",
-       "laps": 755,
+       "id": "gr-supra-racing-concept-18",
+       "name": "GR Supra Racing Concept '18",
+       "tier": "A",
+       "source": "live",
+       "laps": 98,
+       "share": 98,
        "why": {
         "strengths": [
          "high-speed cornering"
         ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "296-gt3-23",
-       "name": "296 GT3 '23",
-       "tier": "S",
-       "source": "real",
-       "laps": 306,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "911-gt3-r-992-22",
-       "name": "911 GT3 R (992) '22",
-       "tier": "S",
-       "source": "real",
-       "laps": 430,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "gt-r-nismo-gt3-18",
-       "name": "GT-R NISMO GT3 '18",
-       "tier": "S",
-       "source": "real",
-       "laps": 174,
-       "why": {
-        "strengths": [],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "wrx-gr-3",
-       "name": "WRX Gr.3",
-       "tier": "S",
-       "source": "real",
-       "laps": 7,
-       "why": {
-        "strengths": [
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
+        "saves_tyres": true
        }
       }
-     ]
+     ],
+     "balance": 1.0
     }
    ]
   },

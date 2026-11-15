@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-14",
+ "generated": "2026-11-15",
  "weeks": [
   {
    "label": "this",
@@ -42,8 +42,8 @@
        "name": "Huracán Gr.4",
        "tier": "C",
        "source": "live",
-       "laps": 64,
-       "share": 64,
+       "laps": 69,
+       "share": 69,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -54,8 +54,8 @@
        "name": "TT Cup '16",
        "tier": "S",
        "source": "live",
-       "laps": 34,
-       "share": 34,
+       "laps": 29,
+       "share": 29,
        "why": {
         "strengths": [
          "acceleration",
@@ -65,7 +65,7 @@
        }
       }
      ],
-     "balance": 1.9
+     "balance": 1.8
     },
     {
      "race": "C",

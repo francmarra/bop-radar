@@ -14,7 +14,7 @@ export async function tracksPage() {
     const q = state.tq.toLowerCase();
     const cols = ["h", "m", "l"].map((s) => {
       const list = store.tracks.filter((x) => x.set === s && (!q || x.name.toLowerCase().includes(q)));
-      return html`<div class="panel"><h2>${setBadge(s)} ${t("set_" + s + "_long")}</h2>${list.length ? list.map((x) => {
+      return html`<div class="panel"><h2>${t("set_" + s + "_long")}</h2>${list.length ? list.map((x) => {
         const n = Object.values(x.groups).reduce((a, g) => a + g.events.length, 0);
         const groups = Object.keys(x.groups).map((g) => html`<a class="pill ${x.groups[g].events.length ? "has" : ""}" href="${BASE}track/${encodeURIComponent(x.id)}/${encodeURIComponent(g)}/">${groupLabel(g)}</a>`);
         return html`<div class="trk"><a href="${BASE}track/${encodeURIComponent(x.id)}/${Object.keys(x.groups).find((g) => x.groups[g].events.length) || "gr3"}/"><b>${x.name}</b></a>
@@ -48,7 +48,7 @@ export async function trackPage(id, group) {
   app.innerHTML = html`
     <p><a href="${BASE}tracks/" class="muted">← ${t("tracks_title")}</a></p>
     <section class="panel">
-      <div class="toolbar between"><div><h3>${setBadge(tr.set)} ${t("set_" + tr.set + "_long")}</h3><h1>${tr.name}</h1></div>
+      <div class="toolbar between"><div><h3>${setBadge(tr.set)}</h3><h1>${tr.name}</h1></div>
       <div class="seg">${Object.keys(tr.groups).map((x) => html`<a class="${x === group ? "on" : ""}" href="${BASE}track/${encodeURIComponent(tr.id)}/${encodeURIComponent(x)}/">${groupLabel(x)}</a>`)}</div></div>
       <h3>${t("race_events")}</h3>${events.length ? events : html`<p class="muted">${t("no_events")}</p>`}
     </section>

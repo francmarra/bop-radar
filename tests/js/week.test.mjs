@@ -52,3 +52,15 @@ test("race headings count the cars and name a class the radar does not cover", (
   assert.match(I18N.en.other_class("SF"), /SF cars.*Gr\.1–4/);
   assert.match(I18N.pt.other_class("SF"), /carros SF.*Gr\.1–4/);
 });
+
+import { trackLink } from "../../site/js/week.js";
+test("race track links to its track page only when known, always escaped", () => {
+  assert.match(String(trackLink({ track: "Spa", track_id: "spa", group: "gr3" })), /^<a href="[^"]*\/track\/spa\/gr3\/">Spa<\/a>$/);
+  assert.equal(String(trackLink({ track: "Nowhere <b>", track_id: null, group: "gr3" })), "Nowhere &lt;b&gt;");
+  assert.equal(String(trackLink({ track: "Suzuka", track_id: "suzuka", group: null })), "Suzuka"); // SF race: no Gr. page
+});
+
+test("track list counts events in singular and plural", () => {
+  assert.equal(I18N.en.with_data(1), "1 leaderboard event");
+  assert.equal(I18N.pt.with_data(3), "3 eventos com leaderboard");
+});

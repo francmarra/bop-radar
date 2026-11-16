@@ -3,7 +3,7 @@ import { link, BASE } from "../router.js";
 import { html, raw, info, num } from "../format.js";
 import { load, store } from "../data.js";
 import { app, fmtDate } from "../ui.js";
-import { rulesText, whyText, summaryText, carLink, findCar, isStale } from "../week.js";
+import { rulesText, whyText, summaryText, carLink, findCar, isStale, trackLink } from "../week.js";
 import { carImg } from "../carimg.js";
 import { carRow } from "../row.js";
 
@@ -31,7 +31,7 @@ function card(r, i) {
   const meta = [t("race_letter", r.race), classLabel(r) || "", r.start ? fmtDate(r.start) : ""].filter(Boolean).join(" · ");
   return html`<article class="panel race">
     <div class="race-head"><span class="letter" aria-hidden="true">${r.race}</span>
-      <div><h2>${r.track}</h2><p class="muted">${meta}</p></div>
+      <div><h2>${trackLink(r)}</h2><p class="muted">${meta}</p></div>
       ${r.kind === "bop" && r.cars[0] ? html`<div class="race-feat" aria-hidden="true">${carImg(carId(r.cars[0]), "l")}<span class="feat-tag">P1</span></div>` : ""}</div>
     <p class="rules">${rulesText(r, t)} ${isMult(r.fuel) ? info("fuel_x", t) : ""} ${isMult(r.tyre_wear) ? info("wear_x", t) : ""}</p>
     ${r.balance ? html`<p class="muted small">${t("bal_race", num(r.balance, 1))} ${info("balance_idx", t)}</p>` : ""}

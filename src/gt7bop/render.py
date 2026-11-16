@@ -108,7 +108,7 @@ def build_pages(site: Path, site_url: str, image, pics: dict[str, list[int]] | N
                   "body": f"<h1>How did BoP change your car?</h1><p>BoP (Balance of Performance) is the power and weight adjustment "
                           f"Polyphony makes to keep race cars even.</p><h2>No. 1 in each class</h2><ul>{leaders}</ul>"
                           f'<p><a href="ranking/">Cars by class</a> · <a href="week/">Daily Races this week</a> · '
-                          f'<a href="updates/">BoP updates</a> · <a href="help/">Help</a></p>{latest_html}',
+                          f'<a href="tracks/">Tracks</a> · <a href="updates/">BoP updates</a> · <a href="help/">Help</a></p>{latest_html}',
                   "jsonld": [_jsonld({"@context": "https://schema.org", "@type": "WebSite", "name": NAME, "url": site_url})],
                   "lastmod": gen, "image": image("default")})
     pages.append({"path": "ranking/", "title": f"Best GT7 Gr.1–4 cars by class — {NAME}",
@@ -170,6 +170,8 @@ def build_pages(site: Path, site_url: str, image, pics: dict[str, list[int]] | N
                 "jsonld": [_crumbs(site_url, [(g["label"], ""), (car["name"], path)])],
                 "lastmod": hist[-1]["date"], "image": image(f"car-{meta['id']}")})
 
+    pages += track_pages(_load(data / "tracks.json") or [], index, labels, site_url, gen, image)
+
     week = _load(data / "week.json")
     body = "<h1>This week's Daily Races</h1>"
     for w in (week or {}).get("weeks", []):
@@ -188,6 +190,39 @@ def build_pages(site: Path, site_url: str, image, pics: dict[str, list[int]] | N
                           "its class. Levels: S = top 10 %, A = top 35 %, B = top 70 %, C = the rest, based on real Daily Race pace "
                           "when available.</p>", "jsonld": [], "lastmod": gen, "image": image("default")})
     return pages
+
+
+def track_pages(tracks: list[dict], index: dict, labels: dict, site_url: str, gen: str, image) -> list[dict]:
+    """tracks/ plus one page per track and class that has real Daily Race data ("best Gr.3 car at Spa" is what people
+    search for); estimate-only combos stay reachable in the app but are not offered to search engines (thin content)."""
+    names = {c["id"]: c["name"] for g in index["groups"] for c in g["cars"]}
+    pages, by_set = [], {s: [] for s in SET_NAMES}
+    for tr in sorted(tracks, key=lambda t: t["name"]):
+        for gid, tg in tr["groups"].items():
+            if not tg["events"]:
+                continue
+            path = f"track/{tr['id']}/{gid}/"
+            label = labels.get(gid, gid)
+            by_set.setdefault(tr["set"], []).append(f'<li><a href="{e(path)}">{e(tr["name"])} · {e(label)}</a></li>')
+            top = [c for c in tg["cars"] if c["id"] in names][:10]
+            events = "".join(f"<li>{e(ev['date'])}: Race {e(ev['race'])}, tyres {e(' '.join(ev['tyres']))}, fuel {e(ev['fuel'])}, "
+                             f"tyre wear {e(ev['tyre_wear'])}, BoP {e(ev.get('bop') or '?')}</li>" for ev in tg["events"])
+            n = len(tg["events"])
+            pages.append({
+                "path": path, "title": f"Best GT7 {label} cars at {tr['name']} — {NAME}",
+                "description": (f"The best Gran Turismo 7 {label} cars at {tr['name']} under the current BoP, from {n} Daily Race "
+                                f"leaderboard{'s' if n != 1 else ''}: " + ", ".join(names[c["id"]] for c in top[:3]) + "."),
+                "body": (f"<h1>Best {e(label)} cars at {e(tr['name'])}</h1><p>{e(SET_NAMES.get(tr['set'], '').capitalize())}-speed track · "
+                         f"{n} Daily Race{'s' if n != 1 else ''} with leaderboards.</p><ol>"
+                         + "".join(f'<li><a href="car/{e(c["id"])}/">{e(names[c["id"]])}</a> (level {e(c["tier"])})</li>' for c in top)
+                         + f"</ol><h2>Daily Races here</h2><ul>{events}</ul>"),
+                "jsonld": [_crumbs(site_url, [("Tracks", "tracks/"), (f"{tr['name']} · {label}", path)])],
+                "lastmod": max(ev["date"] for ev in tg["events"]), "image": image("default")})
+    body = "<h1>Tracks</h1><p>Pick a track and class to see which cars are fastest there.</p>" + "".join(
+        f"<h2>{SET_NAMES[s].capitalize()}-speed tracks</h2><ul>{''.join(items)}</ul>" for s, items in by_set.items() if items)
+    return [{"path": "tracks/", "title": f"Best GT7 cars for every track — {NAME}",
+             "description": "The best Gran Turismo 7 Gr.1–Gr.4 cars for each track, from real Daily Race leaderboards.",
+             "body": body, "jsonld": [], "lastmod": gen, "image": image("default")}] + pages
 
 
 def analytics_tag(code: str) -> str:

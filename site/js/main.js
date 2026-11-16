@@ -1,4 +1,4 @@
-/* GT7 BoP Radar — static SPA with real paths: / · week/ · updates/ · update/<v>/ · car/<id>/ · help/ (tracks/, track/<id>/<g>/ unlinked) */
+/* GT7 BoP Radar — static SPA with real paths: / · week/ · tracks/ · track/<id>/<g>/ · updates/ · update/<v>/ · car/<id>/ · help/ */
 import { t, lang, setLang } from "./i18n.js";
 import { html } from "./format.js";
 import { getIndex, getImages, store } from "./data.js";
@@ -45,7 +45,7 @@ async function route() {
   const [page, a, b] = pathOf(location.pathname);
   chrome();
   dlg.close(); // choosing a car navigates; browser back also lands here
-  const current = { ranking: "ranking", car: "ranking", week: "week", update: "updates", updates: "updates" }[page ?? ""];
+  const current = { ranking: "ranking", car: "ranking", week: "week", tracks: "tracks", track: "tracks", update: "updates", updates: "updates" }[page ?? ""];
   document.querySelectorAll("nav.tabs a").forEach((x) => {
     const on = x.dataset.page === current;
     x.classList.toggle("on", on);

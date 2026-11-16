@@ -204,3 +204,23 @@ def test_low_image_coverage_warns(tmp_path, capsys):
 def test_full_image_coverage_no_warning(tmp_path, capsys):
     render(_site(tmp_path), tmp_path / "dist", URL, og=False, car_images={"genesis-gr-3": 2160}, image_cache=tmp_path / "cache", fetch=_fake_png)
     assert "warning:" not in capsys.readouterr().out
+
+
+def test_track_pages_only_with_real_data(tmp_path):
+    site = _site(tmp_path)
+    ev = {"date": "2026-10-12", "race": "B", "tyres": ["RM"], "fuel": "x1", "tyre_wear": "x1", "bop": "1.71", "board": "p_rt_1_001"}
+    (site / "data" / "tracks.json").write_text(json.dumps([
+        {"id": "spa", "name": "Spa <B>", "set": "m", "groups": {
+            "gr3": {"events": [ev], "cars": [{"id": "odd-car", "tier": "A"}, {"id": "genesis-gr-3", "tier": "S"}, {"id": "gone-car", "tier": "B"}]},
+            "gr4": {"events": [], "cars": [{"id": "genesis-gr-3", "tier": "S"}]}}}]), encoding="utf-8")
+    out = tmp_path / "dist"
+    pages = render(site, out, URL, og=False)
+    assert "tracks/" in pages and "track/spa/gr3/" in pages
+    assert "track/spa/gr4/" not in pages  # estimate only: thin content, app-only
+    page = (out / "track" / "spa" / "gr3" / "index.html").read_text(encoding="utf-8")
+    assert "<title>Best GT7 Gr.3 cars at Spa &lt;B&gt; — GT7 BoP Radar</title>" in page and "<B>" not in page
+    assert 'href="../../../car/odd-car/"' in page and "gone-car" not in page  # cars no longer in the index are skipped
+    assert "1 Daily Race with leaderboards" in page and "BreadcrumbList" in page
+    assert 'href="../track/spa/gr3/"' in (out / "tracks" / "index.html").read_text(encoding="utf-8")
+    sm = (out / "sitemap.xml").read_text(encoding="utf-8")
+    assert f"<loc>{URL}track/spa/gr3/</loc><lastmod>2026-10-12</lastmod>" in sm

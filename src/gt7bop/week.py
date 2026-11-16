@@ -108,6 +108,7 @@ def build_week(schedule: list[dict], tracks: list[dict], index: dict, generated:
         race = {k: v for k, v in r.items() if k not in ("bop", "week")}
         race["group"] = group
         race["track_set"] = combo["set"] if combo else track_set(r["track"])
+        race["track_id"] = combo["id"] if combo else None  # links the guide to the track page
         race["cars"] = []
         history = combo["groups"][group]["cars"] if group and combo and group in combo["groups"] else []
         rows, names = (live or {}).get(r["race"], ([], {})) if group and r["week"] == "this" else ([], {})

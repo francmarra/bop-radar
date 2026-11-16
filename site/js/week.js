@@ -43,6 +43,11 @@ export function carLink(index, car) {
 }
 
 // the Action runs daily; older than 7 days means scraping has been failing
+// the race's track page (best cars there for its class) for Gr.1-4 races on a known track; always escaped
+export const trackLink = (r) => (r.track_id && r.group
+  ? html`<a href="${BASE}track/${encodeURIComponent(r.track_id)}/${encodeURIComponent(r.group)}/">${r.track}</a>`
+  : html`${r.track}`);
+
 export function isStale(generated, now = new Date()) {
   const t0 = Date.parse(generated);
   return !Number.isFinite(t0) || now - t0 > 7 * 24 * 3600 * 1000;

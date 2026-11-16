@@ -67,6 +67,7 @@ def test_build_week_bop_race():
     assert [w["label"] for w in week["weeks"]] == ["this", "next"]
     race = week["weeks"][0]["races"][0]
     assert race["group"] == "gr3" and race["track_set"] == "m" and "bop" not in race and race["category"] == "Gr.3"
+    assert race["track_id"] == "circuit-de-spa-francorchamps"  # the guide links to the track page
     cars = race["cars"]
     assert [c["id"] for c in cars] == ["f-type", "genesis", "rsr"]
     assert cars[0] == {"id": "f-type", "name": "F-type Gr.3", "tier": "S", "source": "real", "laps": 968,
@@ -82,6 +83,7 @@ def test_build_week_matching_and_non_bop():
     this, nxt = week["weeks"][0]["races"], week["weeks"][1]["races"]
     assert [c["id"] for c in this[0]["cars"]] == ["genesis"]
     assert this[1]["cars"] == []
+    assert this[1]["track_id"] is None  # unknown track: no link
     assert this[2]["cars"] == [] and this[2]["group"] is None and this[2]["car"] == "X2014"
     assert len(nxt) == 1 and nxt[0]["group"] is None
 

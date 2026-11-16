@@ -1,31 +1,14 @@
 {
- "generated": "2026-11-15",
+ "generated": "2026-11-16",
  "weeks": [
   {
    "label": "this",
    "races": [
     {
      "race": "A",
-     "start": "2026-11-09",
-     "track": "Suzuka Circuit East Course",
-     "course_id": "442",
-     "category": "Specified Car",
-     "kind": "one-make",
-     "car": "Honda Integra Type R (DC2) '95",
-     "tyres": [
-      "CS"
-     ],
-     "fuel": "x1",
-     "tyre_wear": "x1",
-     "group": null,
-     "track_set": "m",
-     "cars": []
-    },
-    {
-     "race": "B",
-     "start": "2026-11-09",
-     "track": "Trial Mountain Circuit",
-     "course_id": "1024",
+     "start": "2026-11-16",
+     "track": "Blue Moon Bay Speedway - Infield A",
+     "course_id": "820",
      "category": "Gr.4",
      "kind": "bop",
      "car": null,
@@ -38,24 +21,24 @@
      "track_set": "m",
      "cars": [
       {
-       "id": "hurac-n-gr-4",
-       "name": "Huracán Gr.4",
-       "tier": "C",
+       "id": "gt-r-gr-4",
+       "name": "GT-R Gr.4",
+       "tier": null,
        "source": "live",
-       "laps": 69,
-       "share": 69,
+       "laps": 27,
+       "share": 27,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
       },
       {
-       "id": "tt-cup-16",
-       "name": "TT Cup '16",
-       "tier": "S",
+       "id": "mazda3-gr-4",
+       "name": "MAZDA3 Gr.4",
+       "tier": null,
        "source": "live",
-       "laps": 29,
-       "share": 29,
+       "laps": 27,
+       "share": 27,
        "why": {
         "strengths": [
          "acceleration",
@@ -63,90 +46,114 @@
         ],
         "saves_tyres": false
        }
-      }
-     ],
-     "balance": 1.8
-    },
-    {
-     "race": "C",
-     "start": "2026-11-09",
-     "track": "Michelin Raceway Road Atlanta",
-     "course_id": "1007",
-     "category": "Gr.3",
-     "kind": "bop",
-     "car": null,
-     "tyres": [
-      "RM",
-      "RS"
-     ],
-     "fuel": "x2",
-     "tyre_wear": "x5",
-     "group": "gr3",
-     "track_set": "m",
-     "cars": [
+      },
       {
-       "id": "gr-supra-racing-concept-18",
-       "name": "GR Supra Racing Concept '18",
-       "tier": "A",
+       "id": "tt-cup-16",
+       "name": "TT Cup '16",
+       "tier": null,
        "source": "live",
-       "laps": 98,
-       "share": 98,
+       "laps": 30,
+       "share": 30,
        "why": {
         "strengths": [
+         "acceleration",
          "high-speed cornering"
         ],
-        "saves_tyres": true
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "hurac-n-gr-4",
+       "name": "Huracán Gr.4",
+       "tier": null,
+       "source": "live",
+       "laps": 7,
+       "share": 7,
+       "why": {
+        "strengths": [],
+        "saves_tyres": false
        }
       }
      ],
-     "balance": 1.0
-    }
-   ]
-  },
-  {
-   "label": "next",
-   "races": [
-    {
-     "race": "A",
-     "start": "2026-11-16",
-     "track": "Blue Moon Bay Speedway - Infield A",
-     "course_id": "820",
-     "category": "",
-     "kind": "tbd",
-     "car": null,
-     "tyres": [
-      "RM"
-     ],
-     "fuel": "x1",
-     "tyre_wear": "x1",
-     "group": null,
-     "track_set": "m",
-     "cars": []
+     "balance": 4.1
     },
     {
      "race": "B",
      "start": "2026-11-16",
      "track": "Deep Forest Raceway",
      "course_id": "51",
-     "category": "",
-     "kind": "tbd",
+     "category": "Gr.3",
+     "kind": "bop",
      "car": null,
      "tyres": [
       "RH"
      ],
      "fuel": "x1",
      "tyre_wear": "x1",
-     "group": null,
+     "group": "gr3",
      "track_set": "h",
-     "cars": []
+     "cars": [
+      {
+       "id": "f-type-gr-3",
+       "name": "F-type Gr.3",
+       "tier": "B",
+       "source": "live",
+       "laps": 37,
+       "share": 37,
+       "why": {
+        "strengths": [],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "z4-gt3-11",
+       "name": "Z4 GT3 '11",
+       "tier": "B",
+       "source": "live",
+       "laps": 8,
+       "share": 8,
+       "why": {
+        "strengths": [],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "viper-srt-gt3-r-15",
+       "name": "Viper SRT GT3-R '15",
+       "tier": "S",
+       "source": "live",
+       "laps": 11,
+       "share": 11,
+       "why": {
+        "strengths": [],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "gr-supra-racing-concept-18",
+       "name": "GR Supra Racing Concept '18",
+       "tier": "S",
+       "source": "live",
+       "laps": 20,
+       "share": 20,
+       "why": {
+        "strengths": [
+         "straight-line speed",
+         "high-speed cornering"
+        ],
+        "saves_tyres": false
+       }
+      }
+     ],
+     "balance": 5.0
     },
     {
      "race": "C",
      "start": "2026-11-16",
      "track": "Suzuka Circuit",
      "course_id": "10",
-     "category": "",
-     "kind": "tbd",
+     "category": "SF",
+     "kind": "other",
      "car": null,
      "tyres": [
       "RS"
@@ -158,6 +165,10 @@
      "cars": []
     }
    ]
+  },
+  {
+   "label": "next",
+   "races": []
   }
  ]
 }

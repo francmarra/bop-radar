@@ -19,14 +19,15 @@
      "tyre_wear": "x1",
      "group": "gr4",
      "track_set": "m",
+     "track_id": null,
      "cars": [
       {
        "id": "gt-r-gr-4",
        "name": "GT-R Gr.4",
        "tier": null,
        "source": "live",
-       "laps": 27,
-       "share": 27,
+       "laps": 28,
+       "share": 28,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -37,8 +38,8 @@
        "name": "MAZDA3 Gr.4",
        "tier": null,
        "source": "live",
-       "laps": 27,
-       "share": 27,
+       "laps": 26,
+       "share": 26,
        "why": {
         "strengths": [
          "acceleration",
@@ -52,8 +53,8 @@
        "name": "TT Cup '16",
        "tier": null,
        "source": "live",
-       "laps": 30,
-       "share": 30,
+       "laps": 31,
+       "share": 31,
        "why": {
         "strengths": [
          "acceleration",
@@ -67,15 +68,15 @@
        "name": "Huracán Gr.4",
        "tier": null,
        "source": "live",
-       "laps": 7,
-       "share": 7,
+       "laps": 5,
+       "share": 5,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
       }
      ],
-     "balance": 4.1
+     "balance": 4.0
     },
     {
      "race": "B",
@@ -92,14 +93,15 @@
      "tyre_wear": "x1",
      "group": "gr3",
      "track_set": "h",
+     "track_id": "deep-forest-raceway",
      "cars": [
       {
        "id": "f-type-gr-3",
        "name": "F-type Gr.3",
        "tier": "B",
        "source": "live",
-       "laps": 37,
-       "share": 37,
+       "laps": 35,
+       "share": 35,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -110,8 +112,8 @@
        "name": "Z4 GT3 '11",
        "tier": "B",
        "source": "live",
-       "laps": 8,
-       "share": 8,
+       "laps": 10,
+       "share": 10,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -122,8 +124,8 @@
        "name": "Viper SRT GT3-R '15",
        "tier": "S",
        "source": "live",
-       "laps": 11,
-       "share": 11,
+       "laps": 10,
+       "share": 10,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -134,8 +136,8 @@
        "name": "GR Supra Racing Concept '18",
        "tier": "S",
        "source": "live",
-       "laps": 20,
-       "share": 20,
+       "laps": 22,
+       "share": 22,
        "why": {
         "strengths": [
          "straight-line speed",
@@ -162,6 +164,7 @@
      "tyre_wear": "x3",
      "group": null,
      "track_set": "m",
+     "track_id": "suzuka-circuit",
      "cars": []
     }
    ]

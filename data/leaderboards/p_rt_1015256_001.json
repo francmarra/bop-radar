@@ -1,0 +1,52 @@
+{
+"date": "2026-11-09",
+"board": "p_rt_1015256_001",
+"race": "C",
+"track": "Michelin Raceway Road Atlanta",
+"course_id": "1007",
+"group": "gr3",
+"tyres": [
+"RM",
+"RS"
+],
+"fuel": "x2",
+"tyre_wear": "x5",
+"cars": [
+{
+"code": 3352,
+"name": "Toyota GR Supra Racing Concept '18",
+"laps": 456,
+"best_ms": 75876,
+"pace_ms": 75988,
+"gap_pct": 0.0,
+"top100": 98
+},
+{
+"code": 3531,
+"name": "Mercedes-AMG GT3 '20",
+"laps": 5,
+"best_ms": 76281,
+"pace_ms": 76382,
+"gap_pct": 0.519,
+"top100": 1
+},
+{
+"code": 3218,
+"name": "BMW M6 GT3 Endurance Model '16",
+"laps": 9,
+"best_ms": 76342,
+"pace_ms": 76603,
+"gap_pct": 0.809,
+"top100": 0
+},
+{
+"code": 3221,
+"name": "BMW M6 GT3 Sprint Model '16",
+"laps": 16,
+"best_ms": 76227,
+"pace_ms": 76674,
+"gap_pct": 0.902,
+"top100": 1
+}
+]
+}

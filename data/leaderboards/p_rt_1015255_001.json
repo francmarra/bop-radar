@@ -1,0 +1,51 @@
+{
+"date": "2026-11-09",
+"board": "p_rt_1015255_001",
+"race": "B",
+"track": "Trial Mountain Circuit",
+"course_id": "1024",
+"group": "gr4",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 220,
+"best_ms": 119045,
+"pace_ms": 119403,
+"gap_pct": 0.0,
+"top100": 72
+},
+{
+"code": 3298,
+"name": "Audi TT Cup '16",
+"laps": 246,
+"best_ms": 119618,
+"pace_ms": 119878,
+"gap_pct": 0.397,
+"top100": 26
+},
+{
+"code": 3537,
+"name": "MAZDA3 Gr.4",
+"laps": 8,
+"best_ms": 119883,
+"pace_ms": 120394,
+"gap_pct": 0.83,
+"top100": 1
+},
+{
+"code": 3590,
+"name": "Hyundai ELANTRA N TC '24",
+"laps": 15,
+"best_ms": 119951,
+"pace_ms": 120417,
+"gap_pct": 0.849,
+"top100": 1
+}
+]
+}

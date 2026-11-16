@@ -1,0 +1,25 @@
+{
+"date": "2026-11-02",
+"board": "p_rt_1015201_001",
+"race": "C",
+"track": "Watkins Glen Long Course",
+"course_id": "1240",
+"group": "gr4",
+"tyres": [
+"RH",
+"RM"
+],
+"fuel": "x3",
+"tyre_wear": "x5",
+"cars": [
+{
+"code": 3298,
+"name": "Audi TT Cup '16",
+"laps": 498,
+"best_ms": 113834,
+"pace_ms": 114004,
+"gap_pct": 0.0,
+"top100": 100
+}
+]
+}

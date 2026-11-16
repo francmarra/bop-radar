@@ -62,7 +62,7 @@ def page_html(shell: str, prefix: str, meta: dict, body: str) -> str:
     head += meta.get("jsonld", [])
     html = re.sub(r"<title>.*?</title>", lambda _: f"<title>{e(meta['title'])}</title>", html, count=1)
     html = html.replace("</head>", "  " + "\n  ".join(head) + "\n</head>", 1)
-    return re.sub(r'(<main id="app"[^>]*>).*?(</main>)', lambda m: m[1] + body + m[2], html, count=1, flags=re.DOTALL)
+    return re.sub(r'(<main id="app"[^>]*>).*?(</main>)', lambda m: m[1] + '<div class="pre">' + body + "</div>" + m[2], html, count=1, flags=re.DOTALL)
 
 
 def _hash(path: Path) -> str:

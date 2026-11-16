@@ -1,6 +1,6 @@
 import { t } from "../i18n.js";
 import { BASE } from "../router.js";
-import { html, vtext } from "../format.js";
+import { html } from "../format.js";
 import { load, store, state } from "../data.js";
 import { app, tierBadge, fmtDate } from "../ui.js";
 import { mountSearch } from "../search.js";
@@ -37,7 +37,6 @@ export async function homePage() {
       </div>
       ${lead ? html`<div class="hero-feat"><div class="hero-pic">${heroPic(lead.id)}</div>
         <p class="hero-cap"><a href="${carHref(lead)}">${tierBadge(lead.sets[state.set].tier)} ${t("leader", g.label)}: <b>${lead.name}</b></a></p></div>` : ""}
-      ${vtext("バランス")}
     </section>
     <div class="entry-grid">
       <section class="card entry"><h2>${t("nav_rankings")}</h2>

@@ -1,6 +1,5 @@
-/* Light/dark theme toggle. Default follows the system; a choice is remembered when storage allows. */
+/* Light/dark theme toggle. Dark by default (the pit-wall look); a choice is remembered when storage allows. */
 const root = () => document.documentElement;
-const systemTheme = () => (globalThis.matchMedia?.("(prefers-color-scheme: light)").matches ? "light" : "dark");
 
 export function initTheme(storage) {
   let saved = null;
@@ -10,7 +9,7 @@ export function initTheme(storage) {
 }
 
 export function toggleTheme(storage) {
-  const next = (root().dataset.theme || systemTheme()) === "light" ? "dark" : "light";
+  const next = root().dataset.theme === "light" ? "dark" : "light";
   root().dataset.theme = next;
   try { (storage ?? globalThis.localStorage)?.setItem("theme", next); } catch { /* storage blocked */ }
   return next;

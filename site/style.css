@@ -1,7 +1,6 @@
 :root {
   --bg: #07080a; --panel: #101216; --panel-2: #181b20; --hover: #1d2127;
   --line: #2a2f36; --control-line: #6b737d; --line-hi: #4a525c; /* hairline + its lit top edge */
-  --tick: #6b737d; /* editorial corner marks (decorative) */
   --text: #e8ebef; --muted: #9ba4ae;
   --accent: #e10600; --accent-text: #ff6a60; --accent-soft: rgba(225, 6, 0, .14); --stripe: rgba(232, 235, 239, .10); --focus: #e10600;
   --buff: #86c9a4; --nerf: #ec938e; --mixed: #d9b676;
@@ -16,13 +15,12 @@
   --page: #07080a;
   --mono: "JetBrains Mono", ui-monospace, monospace;
   --head: "Barlow Condensed", "Inter", sans-serif;
-  --jp: "Yu Gothic", "Hiragino Sans", "Noto Sans JP", "Meiryo", sans-serif;
   --fs-sm: .834rem; --fs-base: 1rem; --fs-lg: 1.25rem; --fs-h2: 1.6rem; --fs-h1: 2.25rem;
   --track-wide: .14em; --tap: 44px; --radius: 6px;
 }
 :root[data-theme="light"] {
   --bg: #dde0e4; --panel: #ffffff; --panel-2: #eef0f3; --hover: #e7eaee;
-  --line: #c6ccd3; --control-line: #767e88; --line-hi: #ffffff; --tick: #8a929c; --stripe: rgba(20, 23, 27, .12); /* neutral graphite stripes */
+  --line: #c6ccd3; --control-line: #767e88; --line-hi: #ffffff; --stripe: rgba(20, 23, 27, .12); /* neutral graphite stripes */
   --text: #15181c; --muted: #4c545e;
   --accent-text: #b30500; --accent-soft: rgba(225, 6, 0, .07); --focus: #e10600;
   --buff: #1d6b44; --nerf: #a5302a; --mixed: #7a5500;
@@ -34,23 +32,6 @@
   --panel-shadow: inset 0 1px 0 #fff, 0 10px 28px -14px rgba(38, 50, 66, .35), 0 1px 2px rgba(38, 50, 66, .08);
   --grain-opacity: .05; --grain-blend: multiply;
   --page: linear-gradient(180deg, #e9ebee 0%, #d6dadf 100%) fixed;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --bg: #dde0e4; --panel: #ffffff; --panel-2: #eef0f3; --hover: #e7eaee;
-    --line: #c6ccd3; --control-line: #767e88; --line-hi: #ffffff; --tick: #8a929c; --stripe: rgba(20, 23, 27, .12);
-    --text: #15181c; --muted: #4c545e;
-    --accent-text: #b30500; --accent-soft: rgba(225, 6, 0, .07); --focus: #e10600;
-    --buff: #1d6b44; --nerf: #a5302a; --mixed: #7a5500;
-    --s: #7a5d00; --a: #285d93; --b: #545e69; --c: #5f6872;
-    --h: #984722; --m: #245f90; --l: #6a479f;
-    --chrome: linear-gradient(180deg, #5a626b 0%, #2a2f35 44%, #0f1114 52%, #4b535c 74%, #23272c 100%);
-    --chrome-bar: linear-gradient(180deg, #7d858e 0%, #3a4047 44%, #101215 52%, #5d656e 74%, #2a2f35 100%);
-    --btn-bg: linear-gradient(180deg, #3a4047, #15181c); --btn-text: #ffffff;
-    --panel-shadow: inset 0 1px 0 #fff, 0 10px 28px -14px rgba(38, 50, 66, .35), 0 1px 2px rgba(38, 50, 66, .08);
-    --grain-opacity: .05; --grain-blend: multiply;
-    --page: linear-gradient(180deg, #e9ebee 0%, #d6dadf 100%) fixed;
-  }
 }
 * { box-sizing: border-box; }
 html { font-size: 112.5%; scroll-behavior: smooth; scrollbar-gutter: stable; } /* no sideways jump when the JS render adds a scrollbar (CLS) */
@@ -79,6 +60,9 @@ nav.tabs { display: flex; gap: 8px; flex: 1; min-width: 0; }
 nav.tabs a, nav.tabs button { text-decoration: none; color: var(--muted); font-weight: 600; padding: 8px 14px; border-radius: 8px;
   min-height: var(--tap); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 nav.tabs a { flex: none; }
+.ico { display: inline-flex; } .ico svg { width: 1.1em; height: 1.1em; }
+/* the pre-rendered page (search engines, no JS) flashed unstyled before the app replaced it; still shown after 3 s if JS fails */
+.js .pre { visibility: hidden; animation: pre-show 0s 3s forwards; } @keyframes pre-show { to { visibility: visible; } }
 @media (min-width: 768px) and (max-width: 970px) { nav.tabs a, nav.tabs button { padding-inline: 8px; } nav.tabs { gap: 4px; } }
 nav.tabs a:hover { color: var(--text); background: var(--hover); }
 nav.tabs a.on { color: var(--text); background: var(--panel-2); box-shadow: inset 0 -3px 0 var(--accent); }
@@ -115,11 +99,6 @@ p { margin: 0 0 12px; }
 .muted { color: var(--muted); } .small { font-size: var(--fs-sm); } .mono { font-family: var(--mono); } .mt { margin-top: 14px; } .pad { padding: 16px; }
 .lead { font-size: var(--fs-lg); max-width: 70ch; margin: 8px 0 0; }
 .panel { position: relative; background: var(--panel); border: 1px solid var(--line); border-top-color: var(--line-hi); box-shadow: var(--panel-shadow); border-radius: var(--radius); padding: 20px; margin-bottom: 18px; }
-/* corner ticks: ::before = top corners, ::after = bottom corners (8 px L-shapes) */
-.panel::before, .panel::after { content: ""; position: absolute; left: 5px; right: 5px; height: 8px; pointer-events: none; opacity: .7; background-repeat: no-repeat;
-  background-image: linear-gradient(var(--tick), var(--tick)), linear-gradient(var(--tick), var(--tick)), linear-gradient(var(--tick), var(--tick)), linear-gradient(var(--tick), var(--tick)); }
-.panel::before { top: 5px; background-position: 0 0, 0 0, 100% 0, 100% 0; background-size: 8px 1px, 1px 8px, 8px 1px, 1px 8px; }
-.panel::after { bottom: 5px; background-position: 0 100%, 0 100%, 100% 100%, 100% 100%; background-size: 8px 1px, 1px 8px, 8px 1px, 1px 8px; }
 .panel.accent { border-color: var(--line-hi); background: var(--panel-2); }
 .prose li { margin-bottom: 8px; }
 .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 18px; }
@@ -176,9 +155,9 @@ div.row.cr { cursor: default; } div.row.cr:hover { background: none; }
 .row.head { animation: none; cursor: default; font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 600; padding-block: 10px; }
 .row.head:hover { background: none; }
 .row .nm b { display: block; }
-.row.cr { grid-template-columns: 36px 56px minmax(0, 1fr) auto auto; min-height: 64px; padding: 6px 8px; gap: 10px; }
-.row.cr.nopos { grid-template-columns: 56px minmax(0, 1fr) auto auto; }
-.cr .im .car-img-s { width: 56px; }
+.row.cr { grid-template-columns: 36px 88px minmax(0, 1fr) auto auto; min-height: 72px; padding: 6px 8px; gap: 10px; }
+.row.cr.nopos { grid-template-columns: 88px minmax(0, 1fr) auto auto; }
+.cr .im .car-img-s { width: 88px; } /* the car pictures are the prettiest thing here: show them */
 .cr .nm { min-width: 0; } .cr .nm b, .cr .nm small { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @media (max-width: 767px) { /* phones cut "This week: 27% of the top 100": wrap it and give the text more room */
   .cr .nm b, .cr .nm small { white-space: normal; }
@@ -293,11 +272,11 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .suggest li[aria-selected="true"], .suggest li:hover { background: var(--hover); box-shadow: inset 4px 0 0 var(--text); }
 #car-empty { margin-top: 10px; }
 /* car page hero: black stage in both themes (dark tokens re-declared), chrome title, glowing car on a floor line, spec sheet */
-.car-hero { --bg: #07080a; --panel: #000; --panel-2: #181b20; --hover: #1d2127; --line: #2a2f36; --control-line: #6b737d; --line-hi: #3a4048; --tick: #6b737d;
+.car-hero { --bg: #07080a; --panel: #000; --panel-2: #181b20; --hover: #1d2127; --line: #2a2f36; --control-line: #6b737d; --line-hi: #3a4048;
   --text: #e8ebef; --muted: #9ba4ae; --buff: #86c9a4; --nerf: #ec938e; --mixed: #d9b676; --s: #e3c56a; --a: #8fb6e0; --b: #aab2bb; --c: #8f98a2;
   --chrome: linear-gradient(180deg, #ffffff 0%, #d4d8dd 36%, #8d959e 50%, #eef0f2 64%, #a7aeb6 100%); --panel-shadow: none;
   color: var(--text); color-scheme: dark;
-  display: grid; grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: "txt pic jp" "spec pic jp" "sum sum jp"; gap: 8px 32px;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "txt pic" "spec pic" "sum sum"; gap: 8px 32px;
   animation: rise 220ms ease-out backwards; }
 .hero-txt { grid-area: txt; min-width: 0; align-self: end; } .car-hero #spec { grid-area: spec; min-width: 0; } .car-hero .lead { grid-area: sum; }
 .car-hero h1 { font-size: calc(var(--fs-h1) * 1.4); line-height: 1.05; margin: 0 0 14px; overflow-wrap: anywhere;
@@ -321,17 +300,7 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .spec dd { margin: 0; font: 600 var(--fs-lg)/1.3 var(--mono); overflow-wrap: anywhere; }
 .spec div { position: relative; } .spec .info-wrap { position: static; } .spec .tip { left: 0; transform: none; } /* tip anchored to the cell: centred on the ⓘ it ran off the phone screen */
 .spec dd small { font-size: var(--fs-sm); color: var(--muted); font-weight: 400; margin-left: 4px; }
-/* decorative vertical Japanese labels: own grid column / flex item, so they never overlap content; desktop only */
-.vtext { writing-mode: vertical-rl; text-orientation: upright; font: 700 1rem/1 var(--jp); letter-spacing: .4em; color: var(--muted); opacity: .75; user-select: none; }
-.vtext span { display: block; margin-top: .8em; font-size: 4.2rem; letter-spacing: .08em; color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--text) 20%, transparent); }
-.car-hero .vtext { grid-area: jp; }
 .page-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; } .page-head > div { flex: 1; min-width: 0; }
-.page-head .vtext { font-size: .85rem; margin-top: 8px; }
-@media (forced-colors: active) { .vtext span { -webkit-text-stroke-color: CanvasText; } }
-@media (max-width: 900px) {
-  .vtext { display: none; }
-  .car-hero { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "txt pic" "spec pic" "sum sum"; }
-}
 .race-feat { position: relative; isolation: isolate; }
 .race-feat::before { content: ""; position: absolute; z-index: -1; left: -14%; right: -14%; top: 34%; bottom: 6%;
   background: repeating-linear-gradient(115deg, var(--stripe) 0 8px, transparent 8px 20px);
@@ -346,8 +315,8 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
   .spec { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .car-hero h1 { font-size: calc(1.8rem * 1.4); }
 }
-/* landing: the car hero layout with only text | class leader | vertical label; text first on phones (search above the fold) */
-.landing { grid-template-areas: "txt pic jp"; }
+/* landing: the car hero layout with only text | class leader; text first on phones (search above the fold) */
+.landing { grid-template-areas: "txt pic"; }
 .landing h1 { font-size: calc(var(--fs-h1) * 1.2); }
 .landing .hero-txt { align-self: center; }
 .hero-feat { grid-area: pic; align-self: center; min-width: 0; }
@@ -362,7 +331,6 @@ svg.chart text { fill: var(--muted); font: 15px var(--mono); }
 .entry-list li { display: flex; gap: 8px; align-items: center; padding: 6px 0; border-top: 1px solid var(--line); }
 .entry-list a { white-space: nowrap; } /* "GT-R Gr.4" broke onto two lines */
 .entry .link-more { margin-top: auto; }
-@media (max-width: 900px) { .landing { grid-template-areas: "txt pic"; } }
 @media (max-width: 700px) { .landing { grid-template-areas: "txt" "pic"; } .landing h1 { font-size: 2.1rem; } }
 /* help */
 .steps { padding-left: 1.4em; } .steps li { margin-bottom: 10px; padding-left: 4px; }

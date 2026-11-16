@@ -36,13 +36,6 @@ test("heroPic adds a hidden reflection only for real pictures", () => {
   assert.equal(pic.match(/<img/g).length, 2);
 });
 
-test("vtext is decorative: hidden from screen readers", async () => {
-  const { vtext } = await import("../../site/js/format.js");
-  const v = String(vtext("グループ3", "バランス"));
-  assert.ok(v.startsWith('<span class="vtext" aria-hidden="true">グループ3'));
-  assert.ok(v.includes("<span>バランス</span>"));
-  assert.ok(!String(vtext("デイリーレース")).includes("<span>"));
-});
 
 const SPA = { track: "spa", compound: "RS", fuel_pct_per_lap: 2.7, grip_loss_pct_per_lap: 0.4, laps: 8, sessions: 1, date: "2026-11-02" };
 

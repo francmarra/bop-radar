@@ -39,13 +39,6 @@ test("no font size below 15px / .8333rem", () => {
   }
 });
 
-test("prefers-color-scheme light block mirrors [data-theme=light]", () => {
-  const m = css.indexOf("@media (prefers-color-scheme: light)");
-  assert.ok(m >= 0, "missing media block");
-  const sel = ':root:not([data-theme="dark"]) {';
-  const i = css.indexOf(sel, m);
-  assert.ok(i >= 0, "missing media :root block");
-  const body = css.slice(i, css.indexOf("}", i));
-  const tokens = Object.fromEntries([...body.matchAll(/--([\w-]+):\s*(#[0-9a-f]{6})/gi)].map((x) => [x[1], x[2]]));
-  assert.deepEqual(tokens, block(':root[data-theme="light"]'));
+test("dark is the default: the system light preference no longer switches the theme", () => {
+  assert.equal(css.indexOf("prefers-color-scheme: light"), -1);
 });

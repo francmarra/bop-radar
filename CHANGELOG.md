@@ -2,6 +2,12 @@
 
 Notable changes, newest first. Daily `data: BoP update` commits are not listed.
 
+## 2026-11-16 — Track pages, BoP feed, dark look
+- Track pages in the menu and for search engines: `tracks/` plus one pre-rendered page per track and class with real Daily Race data; the weekly guide links each race to its track.
+- RSS feed of the latest 20 BoP updates (`updates.xml`), advertised in every page's `<head>` and linked from the BoP page.
+- Dark "pit wall" look by default (light theme in settings), bigger car pictures, fewer decorations.
+- Daily Race classes come from gtstats when gtsh-rank leaves them out.
+
 ## 2026-10-30 — Measured tyres and fuel (gt7-telemetry)
 - Car pages show measured fuel use and a grip-loss indicator next to the estimate, from the owner's own laps (ADR 7).
 - `data/measured.json` (schema 1) is exported by gt7-telemetry and validated by `gt7bop check`; empty for now.

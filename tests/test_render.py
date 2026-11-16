@@ -224,3 +224,21 @@ def test_track_pages_only_with_real_data(tmp_path):
     assert 'href="../track/spa/gr3/"' in (out / "tracks" / "index.html").read_text(encoding="utf-8")
     sm = (out / "sitemap.xml").read_text(encoding="utf-8")
     assert f"<loc>{URL}track/spa/gr3/</loc><lastmod>2026-10-12</lastmod>" in sm
+
+
+def test_bop_rss_feed(tmp_path):
+    import xml.etree.ElementTree as ET
+
+    out = tmp_path / "dist"
+    render(_site(tmp_path), out, URL, og=False)
+    channel = ET.parse(out / "updates.xml").getroot().find("channel")  # well-formed, even with <Car> "X" in a name
+    (item,) = channel.findall("item")
+    assert item.find("title").text == "GT7 BoP update 1.71 — Gr.3: 1 faster, 1 slower"
+    assert item.find("link").text == item.find("guid").text == f"{URL}update/1.71/"
+    assert item.find("pubDate").text == "Thu, 20 Aug 2026 00:00:00 +0000"
+    desc = item.find("description").text  # HTML for feed readers, escaped once inside the XML
+    assert f'<a href="{URL}car/odd-car/">Odd &lt;Car&gt; &quot;X&quot;</a>: Slower (+10 kg)' in desc
+    assert channel.find("{http://www.w3.org/2005/Atom}link").get("href") == f"{URL}updates.xml"
+    home = (out / "index.html").read_text(encoding="utf-8")
+    assert '<link rel="alternate" type="application/rss+xml" title="GT7 BoP updates" href="updates.xml">' in home
+    assert 'href="../updates.xml"' in (out / "updates" / "index.html").read_text(encoding="utf-8")

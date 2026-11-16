@@ -7,6 +7,8 @@ import hashlib
 import json
 import re
 import shutil
+from datetime import UTC, date, datetime, time
+from email.utils import format_datetime
 from html import escape
 from pathlib import Path
 from urllib.parse import urlparse
@@ -117,7 +119,7 @@ def build_pages(site: Path, site_url: str, image, pics: dict[str, list[int]] | N
 
     pages.append({"path": "updates/", "title": f"Every GT7 BoP update — {NAME}",
                   "description": "Every Gran Turismo 7 Balance of Performance update since 1.15 for Gr.1–Gr.4 cars, explained.",
-                  "body": "<h1>BoP updates</h1><ul>" + "".join(
+                  "body": '<h1>BoP updates</h1><p><a href="updates.xml">Subscribe (RSS)</a></p><ul>' + "".join(
                       f'<li><a href="update/{e(u["version"])}/">Version {e(u["version"])}</a> ({e(u["date"])}): '
                       + e("; ".join(f"{labels.get(g, g)} {_counts_sentence(c)}" for g, c in u["counts"].items())) + "</li>"
                       for u in index["updates"]) + "</ul>", "jsonld": [], "lastmod": latest["date"] if latest else gen,
@@ -225,6 +227,39 @@ def track_pages(tracks: list[dict], index: dict, labels: dict, site_url: str, ge
              "body": body, "jsonld": [], "lastmod": gen, "image": image("default")}] + pages
 
 
+FEED_ITEMS = 20
+
+
+def rfc822(day: str) -> str:
+    return format_datetime(datetime.combine(date.fromisoformat(day), time(), UTC))
+
+
+def bop_feed(site: Path, site_url: str) -> str:
+    """RSS 2.0 of the latest BoP updates, so players learn about a new BoP without visiting the site."""
+    data = site / "data"
+    index = _load(data / "index.json")
+    labels = {g["id"]: g["label"] for g in index["groups"]}
+    items = []
+    for u in index["updates"][:FEED_ITEMS]:
+        detail = _load(data / "updates" / f"{u['version']}.json") or {"groups": {}}
+        link = f"{site_url}update/{u['version']}/"
+        html = "".join(f"<h3>{e(labels.get(g, g))}</h3><ul>" + "".join(
+            f'<li><a href="{e(site_url)}car/{e(c["id"])}/">{e(c["name"])}</a>: {e(VERDICT.get(c["verdict"], c["verdict"]))}'
+            + (f" ({e(_delta(c.get('delta') or {}))})" if _delta(c.get("delta") or {}) else "") + "</li>" for c in cars) + "</ul>"
+            for g, cars in detail["groups"].items())
+        summary = "; ".join(f"{labels.get(g, g)}: {_counts_sentence(c)}" for g, c in u["counts"].items())
+        title = f"GT7 BoP update {u['version']} — {summary}"
+        items.append(f"  <item>\n    <title>{e(title)}</title>\n"
+                     f"    <link>{e(link)}</link>\n    <guid isPermaLink=\"true\">{e(link)}</guid>\n"
+                     f"    <pubDate>{rfc822(u['date'])}</pubDate>\n    <description>{e(html)}</description>\n  </item>\n")
+    built = rfc822(index["updates"][0]["date"]) if index["updates"] else rfc822(index["generated"])
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n<channel>\n'
+            f"  <title>{NAME} — GT7 BoP updates</title>\n  <link>{e(site_url)}updates/</link>\n"
+            f'  <atom:link href="{e(site_url)}updates.xml" rel="self" type="application/rss+xml"/>\n'
+            "  <description>Every Gran Turismo 7 Balance of Performance update for Gr.1–Gr.4 cars: which cars got faster or slower.</description>\n"
+            f"  <language>en</language>\n  <lastBuildDate>{built}</lastBuildDate>\n" + "".join(items) + "</channel>\n</rss>\n")
+
+
 def analytics_tag(code: str) -> str:
     """GoatCounter: cookie-free, no personal data, so no consent banner. It skips localhost by itself."""
     if not re.fullmatch(r"[a-z0-9-]+", code):
@@ -283,5 +318,6 @@ def render(site: Path, out: Path, site_url: str = SITE_URL, og: bool = True, goa
     urls = "".join(f"  <url><loc>{e(site_url + p['path'])}</loc><lastmod>{e(p['lastmod'])}</lastmod></url>\n" for p in pages)
     (out / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
                                      f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n', encoding="utf-8")
+    (out / "updates.xml").write_text(bop_feed(site, site_url), encoding="utf-8")
     (out / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {site_url}sitemap.xml\n", encoding="utf-8")
     return [p["path"] for p in pages]

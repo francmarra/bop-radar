@@ -7,7 +7,7 @@ import { app, deltaText } from "../ui.js";
 import { carRow } from "../row.js";
 
 export function updatesPage() {
-  app.innerHTML = html`<h1>${t("updates_title")}</h1><p class="muted">${t("updates_sub")}</p>
+  app.innerHTML = html`<h1>${t("updates_title")}</h1><p class="muted">${t("updates_sub")} <a href="${BASE}updates.xml">${t("rss")}</a></p>
     <div class="panel updates">${store.index.updates.map((u) => { const tot = updateTotals(u.counts); return html`
       <a href="${BASE}update/${encodeURIComponent(u.version)}/"><b class="mono">${u.version}</b><span class="muted mono">${u.date}</span>
       <span><span class="v buff">▲ ${tot.buff}</span> <span class="v nerf">▼ ${tot.nerf}</span>${tot.mixed ? html` <span class="v mixed">◆ ${tot.mixed}</span>` : ""}</span></a>`; })}

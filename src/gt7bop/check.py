@@ -8,6 +8,9 @@ import json
 from datetime import date
 from pathlib import Path
 
+from gt7bop import carimages
+from gt7bop import measured as measured_mod
+
 GROUPS = ("gr1", "gr2", "gr3", "gr4")
 MIN_KEPT = 0.8  # a group losing more than 20 % of its cars in one run is a scraping problem, not a BoP update
 
@@ -29,11 +32,17 @@ def _summary(index: dict, tracks: list) -> dict:
             "updates": len(index["updates"]), "latest": max((u["version"] for u in index["updates"]), key=_version, default="0")}
 
 
-def check(data: Path, baseline: Path | None = None, max_age_days: int | None = None, today: date | None = None
-          ) -> tuple[list[str], list[str]]:
-    """Return (errors, warnings). baseline: the previous site/data; max_age_days: only when this run refreshed the data."""
+def check(data: Path, baseline: Path | None = None, max_age_days: int | None = None, today: date | None = None,
+          measured: Path | None = None) -> tuple[list[str], list[str]]:
+    """Return (errors, warnings). baseline: the previous site/data; max_age_days: only when this run refreshed the data;
+    measured: data/measured.json (its GT7 ids are mapped with the car_images.toml next to it)."""
     errors: list[str] = []
     warnings: list[str] = []
+    if measured is not None:
+        try:
+            warnings += measured_mod.load(measured, carimages.read_mapping(measured.parent / "car_images.toml"))[1]
+        except measured_mod.MeasuredError as e:
+            errors.append(str(e))
     index, tracks, week = (_load(data / f, errors) for f in ("index.json", "tracks.json", "week.json"))
     if index is None:
         return errors, warnings

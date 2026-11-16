@@ -45,3 +45,17 @@ test("info() renders an accessible toggle", () => {
   assert.match(html, /role="tooltip" id="tip-pp-\d+" class="tip" hidden>Performance Points/);
   assert.notEqual(info("pp", t).match(/id="(tip-pp-\d+)"/)[1], html.match(/id="(tip-pp-\d+)"/)[1]);
 });
+
+const BRIEF = { changed: false, delta: {}, of: 20, rank: 3, tier: "A", best_set: "m", all_rounder: false, strengths: [], tyre_wear: "low", fuel_use: "medium" };
+
+test("summary mentions measured tracks", () => {
+  setLang("en");
+  const base = I18N.en.summary(BRIEF);
+  assert.ok(!/easured/.test(base));
+  assert.equal(I18N.en.summary({ ...BRIEF, measured: 2 }), `${base} Measured on 2 tracks.`);
+  assert.ok(I18N.en.summary({ ...BRIEF, measured: 1 }).endsWith("Measured on 1 track."));
+  const pt = I18N.pt.summary(BRIEF);
+  assert.equal(I18N.pt.summary({ ...BRIEF, measured: 2 }), `${pt} Medido em 2 pistas.`);
+  assert.ok(I18N.pt.summary({ ...BRIEF, measured: 1 }).endsWith("Medido em 1 pista."));
+  assert.equal(I18N.en.summary({ ...BRIEF, measured: 0 }), base);
+});

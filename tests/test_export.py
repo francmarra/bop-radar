@@ -51,3 +51,34 @@ def test_balance_per_version_and_group():
               ev("2025-05-01", "gr3", [100])]  # before any known change: ignored
     assert _balance(events, updates) == {"1.60": {"gr3": {"cars": 1.5, "events": 2}, "gr4": {"cars": 1.0, "events": 1}},
                                          "1.61": {"gr4": {"cars": 4.0, "events": 1}}}
+
+
+def _export(tmp_path, measured, name="out"):
+    from test_assess import comps
+
+    from gt7bop.assess import assess_group
+    from gt7bop.build import build_group
+    from gt7bop.export import export, slug
+    hist = build_group("gr3", comps())
+    out = tmp_path / name
+    export([hist], {"gr3": assess_group(hist)}, out, tmp_path / "notes", [], measured=measured)
+    return out / "cars", slug("Car A"), slug("Car B")
+
+
+MEASURE = {"track": "spa", "compound": "RS", "fuel_pct_per_lap": 2.7, "grip_loss_pct_per_lap": 0.4,
+           "laps": 8, "sessions": 1, "date": "2026-11-02"}
+
+
+def test_export_adds_measured_for_that_car_only(tmp_path):
+    import json
+    cars, a, b = _export(tmp_path, {"car-a": [MEASURE]})
+    assert a == "car-a"
+    assert json.loads((cars / f"{a}.json").read_text(encoding="utf-8"))["measured"] == [MEASURE]
+    assert "measured" not in json.loads((cars / f"{b}.json").read_text(encoding="utf-8"))
+
+
+def test_export_without_measured_is_unchanged(tmp_path):
+    none, a, b = _export(tmp_path, None, "none")
+    empty, _, _ = _export(tmp_path, {}, "empty")
+    for s in (a, b):
+        assert (none / f"{s}.json").read_bytes() == (empty / f"{s}.json").read_bytes()

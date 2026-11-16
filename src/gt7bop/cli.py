@@ -5,7 +5,7 @@ import json
 import sys
 from pathlib import Path
 
-from gt7bop import carimages, check, leaderboards, render, week
+from gt7bop import carimages, check, leaderboards, measured, render, week
 from gt7bop.assess import assess_group
 from gt7bop.build import build_group
 from gt7bop.evaluate import evaluate
@@ -50,7 +50,8 @@ def main(argv: list[str] | None = None) -> None:
         return
 
     if args.cmd == "check":
-        errors, warnings = check.check(ROOT / "site" / "data", args.baseline, args.max_age)
+        errors, warnings = check.check(ROOT / "site" / "data", args.baseline, args.max_age,
+                                       measured=ROOT / "data" / "measured.json")
         for msg in errors:
             print(f"error: {msg}")
         for msg in warnings:
@@ -92,7 +93,11 @@ def main(argv: list[str] | None = None) -> None:
         print(f"{res['events']} events · Spearman rho: real-pace ranking {res['rho_pace']:+.3f} · PP ranking {res['rho_pp']:+.3f}"
               f" · real-pace better in {res['pace_wins']:.0%} of events")
         return
-    export(histories, assessments, ROOT / "site" / "data", ROOT / "data" / "notes", events)
+    measured_cars, measured_warnings = measured.load(ROOT / "data" / "measured.json",
+                                                     carimages.read_mapping(ROOT / "data" / "car_images.toml"))
+    for msg in measured_warnings:
+        print(f"warning: {msg}", file=sys.stderr)
+    export(histories, assessments, ROOT / "site" / "data", ROOT / "data" / "notes", events, measured=measured_cars)
     print(f"{len(events)} leaderboard events")
     print("wrote site/data")
 

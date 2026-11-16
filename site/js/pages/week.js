@@ -19,12 +19,12 @@ function body(r) {
   if (r.kind === "bop") {
     if (!r.cars.length) return html`<p class="muted">${t("no_track_data")}</p>`;
     const why = r.cars.filter((c) => whyText(c.why, t));
-    return html`<h3>${t("top5")}</h3><div class="rows">${r.cars.map((c, i) => carRow({ href: carHref(c), id: carId(c), name: c.name, sub: srcText(c), pos: i + 1, tier: c.tier, estimate: c.source === "estimate" }))}</div>
+    return html`<h3>${t("top5", r.cars.length)}</h3><div class="rows">${r.cars.map((c, i) => carRow({ href: carHref(c), id: carId(c), name: c.name, sub: srcText(c), pos: i + 1, tier: c.tier, estimate: c.source === "estimate" }))}</div>
       ${why.length ? html`<details class="why-rules"><summary>${t("why_rules")}</summary><ul>${why.map((c) => html`<li><b>${c.name}</b>: ${whyText(c.why, t)}</li>`)}</ul></details>` : ""}`;
   }
   if (r.kind === "one-make") return html`<p>${raw(t("one_make", carLink(store.index, r.car ?? "")))}</p>`; // carLink escapes the name
   if (r.kind === "tbd") return html`<p class="muted">${t("tbd_race", r.start ? fmtDate(r.start) : "")}</p>`;
-  return html`<p class="muted">${t("other_race")}</p>`;
+  return html`<p class="muted">${r.category ? t("other_class", r.category) : t("other_race")}</p>`;
 }
 
 function card(r, i) {

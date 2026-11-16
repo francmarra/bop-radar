@@ -44,3 +44,11 @@ test("guide older than a week is stale", () => {
   assert.equal(isStale("2026-10-12", new Date("2026-10-16")), false);
   assert.equal(isStale("garbage", new Date("2026-10-16")), true);
 });
+
+test("race headings count the cars and name a class the radar does not cover", () => {
+  assert.equal(I18N.en.top5(4), "Top 4 cars");
+  assert.equal(I18N.en.top5(1), "Top 1 car");
+  assert.equal(I18N.pt.top5(4), "Os 4 melhores carros");
+  assert.match(I18N.en.other_class("SF"), /SF cars.*Gr\.1–4/);
+  assert.match(I18N.pt.other_class("SF"), /carros SF.*Gr\.1–4/);
+});

@@ -44,7 +44,7 @@ export async function homePage() {
         <ul class="entry-list">${leaders.map(([x, c]) => html`<li><span class="mono">${x.label}</span> <a href="${carHref(c)}">${c.name}</a></li>`)}</ul>
         <a class="link-more" href="${BASE}ranking/">${t("see_ranking")} →</a></section>
       <section class="card entry"><h2>${t("week_strip")}</h2>
-        ${races.length ? html`<ul class="entry-list">${races.map((r) => html`<li><span class="letter sm" aria-hidden="true">${r.race}</span> ${r.track}${r.kind === "bop" && r.cars?.[0] ? html` <span class="muted">·</span> ${carLink(ix, r.cars[0])}` : ""}</li>`)}</ul>` : ""}
+        ${races.length ? html`<ul class="entry-list">${races.map((r) => html`<li><span class="letter sm" aria-hidden="true">${r.race}</span> ${r.track}${r.kind === "bop" && r.cars?.[0] ? html` <span class="muted">·</span> ${carLink(ix, r.cars[0])}` : r.kind === "other" && r.category ? html` <span class="muted">· ${r.category}</span>` : ""}</li>`)}</ul>` : ""}
         <a class="link-more" href="${BASE}week/">${t("see_guide")} →</a></section>
       ${u ? html`<section class="card entry"><h2>${t("latest")}</h2>
         <p>${t("bop_line", u.version, fmtDate(u.date), tot.buff, tot.nerf)}</p>

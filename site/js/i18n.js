@@ -37,7 +37,7 @@ export const I18N = {
     bal_update: (n, e) => `Balance in the Daily Races: ${n} effective cars (${e} ${e === 1 ? "race" : "races"})`, bal_prev: (n) => `before: ${n}`, bal_race: (n) => `Balance this week: ${n} effective cars`,
     help_track_types: "Since update 1.19 each car has three BoP settings: one for fast tracks (long straights, e.g. Monza), one for medium tracks and one for slow, twisty tracks (e.g. Tsukuba).",
     help_level: "Where the car sits in its class, based on real lap times from Daily Races on this type of track (or our estimate when there are not enough races): S = top 10 %, A = top 35 %, B = top 70 %, C = the rest.",
-    help_estimates: "Tyre wear and fuel use are estimated from weight, torque, drivetrain and power. Some cars also show measured values.",
+    help_estimates: "Tyre wear and fuel use are estimated from weight, torque, drivetrain and power.",
     measured: "Measured", m_fuel: "fuel", m_grip: "grip", per_lap: "%/lap", laps_n: (n) => `${n} lap${n === 1 ? "" : "s"}`, term_measured: "measured values",
     help_measured: "Fuel use is measured from the owner's own laps (fuel and wear x1). Grip is an indicator: how much the cornering grip fell per lap. GT7 does not report tyre wear.",
     
@@ -125,7 +125,7 @@ export const I18N = {
     bal_update: (n, e) => `Equilíbrio nas Daily Races: ${n} carros efetivos (${e} ${e === 1 ? "corrida" : "corridas"})`, bal_prev: (n) => `antes: ${n}`, bal_race: (n) => `Equilíbrio esta semana: ${n} carros efetivos`,
     help_track_types: "Desde a atualização 1.19, cada carro tem três afinações de BoP: uma para pistas rápidas (retas longas, por ex. Monza), uma para pistas médias e uma para pistas lentas e sinuosas (por ex. Tsukuba).",
     help_level: "Onde o carro fica na sua classe, com base em tempos reais das Daily Races neste tipo de pista (ou na nossa estimativa quando não há corridas suficientes): S = 10 % melhores, A = 35 % melhores, B = 70 % melhores, C = restantes.",
-    help_estimates: "O desgaste de pneus e o consumo são estimados a partir do peso, binário, tração e potência. Alguns carros mostram também valores medidos.",
+    help_estimates: "O desgaste de pneus e o consumo são estimados a partir do peso, binário, tração e potência.",
     measured: "Medido", m_fuel: "consumo", m_grip: "aderência", per_lap: "%/volta", laps_n: (n) => `${n} volta${n === 1 ? "" : "s"}`, term_measured: "valores medidos",
     help_measured: "O consumo é medido nas voltas do autor (combustível e desgaste x1). A aderência é um indicador: quanto caiu a aderência em curva por volta. O GT7 não indica o desgaste dos pneus.",
     

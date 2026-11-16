@@ -15,8 +15,10 @@ from gt7bop.leaderboards import (
     _find,
     _get,
     aggregate,
+    card_class,
     effective_cars,
     fetch_ranking,
+    gtstats_class,
     parse_week_page,
 )
 from gt7bop.tracks import CarMatcher, track_id, track_set
@@ -30,17 +32,17 @@ LIVE_MIN_LAPS = LIVE_DEPTH  # early in the week a board that is not full yet is 
 TYRE_RE = re.compile(r'class="tire-ring tire-[a-z]+ ?[^"]*"[^>]*>([A-Z]{1,2})<')
 
 
-def parse_schedule(page: str) -> list[dict]:
+def parse_schedule(page: str, class_of=None) -> list[dict]:
     """Every race card on /daily/ page 1: the running week plus the "next week" preview."""
     races = []
     for cls, card in CARD_RE.findall(page):
         if "is-expired" in cls:  # Mondays: last week's finished races are still listed
             continue
-        cats = re.findall(r'class="daily-category([^"]*)">([^<]+)<', card)
+        nxt = "is-next" in cls
+        cats = card_class(card, None if nxt else class_of)  # the preview has no class yet: nothing to look up
         category = cats[0][1].strip() if cats else ""
         one_make = any("is-specified" in c for c, _ in cats)
         bop = _find(r"<span>BoP</span><strong>([^<]+)<", card) == "On"
-        nxt = "is-next" in cls
         if nxt:
             kind = "tbd"  # the preview does not name the class yet
         elif one_make:
@@ -71,10 +73,10 @@ def _multiplier(text: str) -> float:
     return float(m.group()) if m else 1.0
 
 
-def live_rankings(page: str, ranking=fetch_ranking, log=print) -> dict[str, tuple[list[dict], dict]]:
+def live_rankings(page: str, ranking=fetch_ranking, log=print, class_of=None) -> dict[str, tuple[list[dict], dict]]:
     """Race letter -> (top laps, car names) of this week's running BoP races; a failed board is just skipped."""
     out = {}
-    for ev in parse_week_page(page):
+    for ev in parse_week_page(page, class_of):
         if ev["final"]:
             continue
         try:
@@ -131,11 +133,11 @@ def build_week(schedule: list[dict], tracks: list[dict], index: dict, generated:
     return {"generated": generated, "weeks": [{"label": k, "races": v} for k, v in weeks.items()]}
 
 
-def update_week(out: Path, fetch=_get, log=print, ranking=fetch_ranking) -> bool:
+def update_week(out: Path, fetch=_get, log=print, ranking=fetch_ranking, class_of=gtstats_class) -> bool:
     """Refresh out/week.json; on any failure keep the previous file."""
     try:
         page = fetch(f"{BASE}/daily/")
-        schedule = parse_schedule(page)
+        schedule = parse_schedule(page, class_of)
         if not schedule:
             raise ValueError("no race cards found (page layout changed?)")
         for r in schedule:  # a partial markup change must not publish wrong guidance
@@ -143,7 +145,7 @@ def update_week(out: Path, fetch=_get, log=print, ranking=fetch_ranking) -> bool
                 raise ValueError(f"incomplete race card {r['race'] or '?'} (page layout changed?)")
         tracks = json.loads((out / "tracks.json").read_text(encoding="utf-8"))
         index = json.loads((out / "index.json").read_text(encoding="utf-8"))
-        week = build_week(schedule, tracks, index, date.today().isoformat(), live_rankings(page, ranking, log))
+        week = build_week(schedule, tracks, index, date.today().isoformat(), live_rankings(page, ranking, log, class_of))
     except Exception as e:  # noqa: BLE001 — network, markup or data problems must not break the weekly job
         log(f"week: kept previous week.json ({e})")
         return False

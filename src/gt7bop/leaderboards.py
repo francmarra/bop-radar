@@ -9,6 +9,7 @@ import statistics
 import time
 import urllib.request
 from collections import defaultdict
+from functools import lru_cache
 from pathlib import Path
 
 BASE = "https://gtsh-rank.com"
@@ -37,11 +38,36 @@ def _find(pattern: str, text: str) -> str:
     return m.group(1).strip() if m else ""
 
 
-def parse_week_page(html: str) -> list[dict]:
+def _event_id(board: str) -> int:
+    return int(board.split("_")[2]) - 1_000_000  # gtsh board p_rt_1015255_001 = gtstats event 15255
+
+
+@lru_cache
+def gtstats_class(board: str) -> str:
+    """Car class of an event from gtstats ("Gr4" -> "Gr.4", "SF" stays); "" if unknown or unreachable."""
+    if not BOARD_RE.fullmatch(board):
+        return ""
+    try:
+        car_type = json.loads(_get(f"{STATS}/api/dailies/{_event_id(board)}")).get("carType") or ""
+    except (OSError, ValueError):
+        return ""
+    return re.sub(r"^Gr(\d)$", r"Gr.\1", car_type)
+
+
+def card_class(card: str, class_of=None) -> list[tuple[str, str]]:
+    """(css class, label) of a card's class tags; gtsh sometimes leaves them out (2026-11-16), then ask class_of(board)."""
+    cats = re.findall(r'class="daily-category([^"]*)">([^<]+)<', card)
+    board = _find(r'data-board="([^"]+)"', card)
+    if not cats and class_of and board and (label := class_of(board)):
+        cats = [(" ", label)]
+    return cats
+
+
+def parse_week_page(html: str, class_of=None) -> list[dict]:
     """Event cards of an archive page; only finished/running BoP events of Gr.1-4."""
     events = []
     for card in ARTICLE_RE.findall(html):
-        cats = re.findall(r'class="daily-category([^"]*)">([^<]+)<', card)
+        cats = card_class(card, class_of)
         if any("is-specified" in cls for cls, _ in cats):  # one-make race, says nothing about BoP
             continue
         category = next((c.strip() for _, c in cats if c.strip() in GROUPS), "")
@@ -103,8 +129,7 @@ def fetch_ranking(url: str, board: str, depth: int = DEPTH) -> tuple[list[dict],
     """Car-name map from the gtsh event page + the top `depth` laps from gtstats."""
     names = json.loads(_find(r"const carNames = (\{.*?\});", _get(BASE + url)) or "{}")
     time.sleep(DELAY_S)
-    event_id = int(board.split("_")[2]) - 1_000_000  # gtsh board p_rt_1015255_001 = gtstats event 15255
-    rows = json.loads(_get(f"{STATS}/api/dailies/{event_id}/times")).get("list", [])
+    rows = json.loads(_get(f"{STATS}/api/dailies/{_event_id(board)}/times")).get("list", [])
     return rows[:depth], names
 
 
@@ -115,7 +140,7 @@ def update(out_dir: Path, pages: int = 13, log=print) -> int:
     for page in range(1, pages + 1):
         html = _get(f"{BASE}/daily/" + (f"?page={page}" if page > 1 else ""))
         time.sleep(DELAY_S)
-        for ev in parse_week_page(html):
+        for ev in parse_week_page(html, gtstats_class):
             path = out_dir / f"{ev['board']}.json"
             # running events are re-read once archived; the date dates the BoP version, so no date = skip
             if not ev.pop("final") or path.exists() or not DATE_RE.fullmatch(ev["date"]):

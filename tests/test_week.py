@@ -121,7 +121,7 @@ def test_update_week_rejects_partial_markup_change(tmp_path):
     assert update_week(tmp_path, fetch=lambda url: FIXTURE, log=lambda *a: None, ranking=NO_LIVE) is True  # sanity: intact page works
     old.write_text('{"old": true}', encoding="utf-8")
     broken = re.sub(r'class="daily-category[^"]*">[^<]+<', "<", FIXTURE)  # class labels vanish
-    assert update_week(tmp_path, fetch=lambda url: broken, log=lambda *a: None, ranking=NO_LIVE) is False
+    assert update_week(tmp_path, fetch=lambda url: broken, log=lambda *a: None, ranking=NO_LIVE, class_of=lambda b: "") is False
     assert old.read_text(encoding="utf-8") == '{"old": true}'
     no_tracks = re.sub(r'<h2 title="[^"]+"', "<h2", FIXTURE)
     assert update_week(tmp_path, fetch=lambda url: no_tracks, log=lambda *a: None, ranking=NO_LIVE) is False
@@ -220,3 +220,37 @@ def test_build_week_live_race_has_balance():
     race = build_week([_race()], TRACKS, INDEX, "d", live)["weeks"][0]["races"][0]
     assert race["balance"] == 2.0
     assert "balance" not in build_week([_race()], TRACKS, INDEX, "d", {})["weeks"][0]["races"][0]
+
+
+def test_missing_class_label_falls_back_to_gtstats(tmp_path):
+    # 2026-11-16: gtsh left the class out of two cards; gtstats still names it
+    import json
+    import re
+
+    from gt7bop.leaderboards import parse_week_page
+    broken = re.sub(r'class="daily-category ">Gr\.[34]<', "<", FIXTURE)
+    classes = {"p_rt_1014978_001": "Gr.3", "p_rt_1014979_001": "SF"}
+    cur = [r for r in parse_schedule(broken, classes.get) if r["week"] == "this"]
+    assert [(r["kind"], r["category"]) for r in cur] == [("one-make", "Specified Car"), ("bop", "Gr.3"), ("other", "SF")]
+    assert [e["board"] for e in parse_week_page(broken, classes.get)] == ["p_rt_1014978_001"]
+    assert parse_week_page(broken) == []  # without the lookup the class-less cards are skipped, as before
+    (tmp_path / "tracks.json").write_text(json.dumps(TRACKS), encoding="utf-8")
+    (tmp_path / "index.json").write_text(json.dumps(INDEX), encoding="utf-8")
+    assert update_week(tmp_path, fetch=lambda url: broken, log=lambda *a: None, ranking=NO_LIVE, class_of=classes.get) is True
+
+
+def test_gtstats_class(monkeypatch):
+    from gt7bop import leaderboards as lb
+    answers = {"https://gtstats.live/api/dailies/15389": '{"carType": "Gr4"}',
+               "https://gtstats.live/api/dailies/15391": '{"carType": "SF"}'}
+    def fake_get(url):
+        if url not in answers:
+            raise OSError("offline")
+        return answers[url]
+    monkeypatch.setattr(lb, "_get", fake_get)
+    lb.gtstats_class.cache_clear()
+    assert lb.gtstats_class("p_rt_1015389_001") == "Gr.4"
+    assert lb.gtstats_class("p_rt_1015391_001") == "SF"
+    assert lb.gtstats_class("p_rt_1015390_001") == ""  # unreachable: no guess
+    assert lb.gtstats_class("../etc") == ""  # third-party value never reaches a URL unchecked
+    lb.gtstats_class.cache_clear()

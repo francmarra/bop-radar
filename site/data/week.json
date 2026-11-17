@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-16",
+ "generated": "2026-11-17",
  "weeks": [
   {
    "label": "this",
@@ -26,8 +26,8 @@
        "name": "GT-R Gr.4",
        "tier": null,
        "source": "live",
-       "laps": 36,
-       "share": 36,
+       "laps": 79,
+       "share": 79,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -38,8 +38,8 @@
        "name": "MAZDA3 Gr.4",
        "tier": null,
        "source": "live",
-       "laps": 32,
-       "share": 32,
+       "laps": 10,
+       "share": 10,
        "why": {
         "strengths": [
          "acceleration",
@@ -49,24 +49,12 @@
        }
       },
       {
-       "id": "hurac-n-gr-4",
-       "name": "Huracán Gr.4",
-       "tier": null,
-       "source": "live",
-       "laps": 5,
-       "share": 5,
-       "why": {
-        "strengths": [],
-        "saves_tyres": false
-       }
-      },
-      {
        "id": "tt-cup-16",
        "name": "TT Cup '16",
        "tier": null,
        "source": "live",
-       "laps": 20,
-       "share": 20,
+       "laps": 7,
+       "share": 7,
        "why": {
         "strengths": [
          "acceleration",
@@ -76,7 +64,7 @@
        }
       }
      ],
-     "balance": 3.6
+     "balance": 1.6
     },
     {
      "race": "B",
@@ -96,12 +84,24 @@
      "track_id": "deep-forest-raceway",
      "cars": [
       {
+       "id": "viper-srt-gt3-r-15",
+       "name": "Viper SRT GT3-R '15",
+       "tier": "S",
+       "source": "live",
+       "laps": 28,
+       "share": 28,
+       "why": {
+        "strengths": [],
+        "saves_tyres": false
+       }
+      },
+      {
        "id": "f-type-gr-3",
        "name": "F-type Gr.3",
        "tier": "B",
        "source": "live",
-       "laps": 39,
-       "share": 39,
+       "laps": 31,
+       "share": 31,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -112,8 +112,8 @@
        "name": "GR Supra Racing Concept '18",
        "tier": "S",
        "source": "live",
-       "laps": 14,
-       "share": 14,
+       "laps": 10,
+       "share": 10,
        "why": {
         "strengths": [
          "straight-line speed",
@@ -123,31 +123,19 @@
        }
       },
       {
-       "id": "viper-srt-gt3-r-15",
-       "name": "Viper SRT GT3-R '15",
-       "tier": "S",
-       "source": "live",
-       "laps": 7,
-       "share": 7,
-       "why": {
-        "strengths": [],
-        "saves_tyres": false
-       }
-      },
-      {
        "id": "z4-gt3-11",
        "name": "Z4 GT3 '11",
        "tier": "B",
        "source": "live",
-       "laps": 10,
-       "share": 10,
+       "laps": 13,
+       "share": 13,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
       }
      ],
-     "balance": 5.0
+     "balance": 4.8
     },
     {
      "race": "C",

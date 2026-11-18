@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-17",
+ "generated": "2026-11-18",
  "weeks": [
   {
    "label": "this",
@@ -26,8 +26,8 @@
        "name": "GT-R Gr.4",
        "tier": null,
        "source": "live",
-       "laps": 79,
-       "share": 79,
+       "laps": 87,
+       "share": 87,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -38,23 +38,8 @@
        "name": "MAZDA3 Gr.4",
        "tier": null,
        "source": "live",
-       "laps": 10,
-       "share": 10,
-       "why": {
-        "strengths": [
-         "acceleration",
-         "high-speed cornering"
-        ],
-        "saves_tyres": false
-       }
-      },
-      {
-       "id": "tt-cup-16",
-       "name": "TT Cup '16",
-       "tier": null,
-       "source": "live",
-       "laps": 7,
-       "share": 7,
+       "laps": 8,
+       "share": 8,
        "why": {
         "strengths": [
          "acceleration",
@@ -64,7 +49,7 @@
        }
       }
      ],
-     "balance": 1.6
+     "balance": 1.3
     },
     {
      "race": "B",
@@ -88,22 +73,24 @@
        "name": "Viper SRT GT3-R '15",
        "tier": "S",
        "source": "live",
-       "laps": 28,
-       "share": 28,
+       "laps": 48,
+       "share": 48,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
       },
       {
-       "id": "f-type-gr-3",
-       "name": "F-type Gr.3",
-       "tier": "B",
+       "id": "v12-vantage-gt3-12",
+       "name": "V12 Vantage GT3 '12",
+       "tier": "C",
        "source": "live",
-       "laps": 31,
-       "share": 31,
+       "laps": 5,
+       "share": 5,
        "why": {
-        "strengths": [],
+        "strengths": [
+         "straight-line speed"
+        ],
         "saves_tyres": false
        }
       },
@@ -112,8 +99,8 @@
        "name": "GR Supra Racing Concept '18",
        "tier": "S",
        "source": "live",
-       "laps": 10,
-       "share": 10,
+       "laps": 6,
+       "share": 6,
        "why": {
         "strengths": [
          "straight-line speed",
@@ -123,19 +110,31 @@
        }
       },
       {
+       "id": "f-type-gr-3",
+       "name": "F-type Gr.3",
+       "tier": "B",
+       "source": "live",
+       "laps": 20,
+       "share": 20,
+       "why": {
+        "strengths": [],
+        "saves_tyres": false
+       }
+      },
+      {
        "id": "z4-gt3-11",
        "name": "Z4 GT3 '11",
        "tier": "B",
        "source": "live",
-       "laps": 13,
-       "share": 13,
+       "laps": 6,
+       "share": 6,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
       }
      ],
-     "balance": 4.8
+     "balance": 3.5
     },
     {
      "race": "C",

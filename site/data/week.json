@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-21",
+ "generated": "2026-11-22",
  "weeks": [
   {
    "label": "this",
@@ -26,10 +26,25 @@
        "name": "GT-R Gr.4",
        "tier": null,
        "source": "live",
-       "laps": 89,
-       "share": 89,
+       "laps": 87,
+       "share": 87,
        "why": {
         "strengths": [],
+        "saves_tyres": false
+       }
+      },
+      {
+       "id": "tt-cup-16",
+       "name": "TT Cup '16",
+       "tier": null,
+       "source": "live",
+       "laps": 5,
+       "share": 5,
+       "why": {
+        "strengths": [
+         "acceleration",
+         "high-speed cornering"
+        ],
         "saves_tyres": false
        }
       }
@@ -58,8 +73,8 @@
        "name": "Viper SRT GT3-R '15",
        "tier": "S",
        "source": "live",
-       "laps": 65,
-       "share": 65,
+       "laps": 68,
+       "share": 68,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -70,8 +85,8 @@
        "name": "F-type Gr.3",
        "tier": "B",
        "source": "live",
-       "laps": 13,
-       "share": 13,
+       "laps": 10,
+       "share": 10,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -90,7 +105,7 @@
        }
       }
      ],
-     "balance": 2.2
+     "balance": 2.1
     },
     {
      "race": "C",

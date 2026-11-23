@@ -1,0 +1,60 @@
+{
+"date": "2026-11-16",
+"board": "p_rt_1015389_001",
+"race": "A",
+"track": "Blue Moon Bay Speedway - Infield A",
+"course_id": "820",
+"group": "gr4",
+"tyres": [
+"RM"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 2161,
+"name": "Nissan GT-R Gr.4",
+"laps": 312,
+"best_ms": 72136,
+"pace_ms": 72402,
+"gap_pct": 0.0,
+"top100": 87
+},
+{
+"code": 3537,
+"name": "MAZDA3 Gr.4",
+"laps": 59,
+"best_ms": 72690,
+"pace_ms": 72922,
+"gap_pct": 0.719,
+"top100": 3
+},
+{
+"code": 3298,
+"name": "Audi TT Cup '16",
+"laps": 91,
+"best_ms": 72702,
+"pace_ms": 72996,
+"gap_pct": 0.82,
+"top100": 6
+},
+{
+"code": 3251,
+"name": "Honda NSX Gr.4",
+"laps": 14,
+"best_ms": 72528,
+"pace_ms": 73106,
+"gap_pct": 0.973,
+"top100": 1
+},
+{
+"code": 3253,
+"name": "Lamborghini Huracán Gr.4",
+"laps": 12,
+"best_ms": 72747,
+"pace_ms": 73119,
+"gap_pct": 0.99,
+"top100": 3
+}
+]
+}

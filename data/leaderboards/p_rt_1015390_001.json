@@ -1,0 +1,69 @@
+{
+"date": "2026-11-16",
+"board": "p_rt_1015390_001",
+"race": "B",
+"track": "Deep Forest Raceway",
+"course_id": "51",
+"group": "gr3",
+"tyres": [
+"RH"
+],
+"fuel": "x1",
+"tyre_wear": "x1",
+"cars": [
+{
+"code": 3223,
+"name": "Dodge Viper SRT GT3-R '15",
+"laps": 298,
+"best_ms": 87061,
+"pace_ms": 87289,
+"gap_pct": 0.006,
+"top100": 70
+},
+{
+"code": 2184,
+"name": "Jaguar F-type Gr.3",
+"laps": 85,
+"best_ms": 87372,
+"pace_ms": 87550,
+"gap_pct": 0.305,
+"top100": 10
+},
+{
+"code": 1902,
+"name": "BMW Z4 GT3 '11",
+"laps": 50,
+"best_ms": 87326,
+"pace_ms": 87566,
+"gap_pct": 0.323,
+"top100": 7
+},
+{
+"code": 3183,
+"name": "PEUGEOT Vision Gran Turismo (Gr.3)",
+"laps": 12,
+"best_ms": 87317,
+"pace_ms": 87721,
+"gap_pct": 0.501,
+"top100": 3
+},
+{
+"code": 2131,
+"name": "Aston Martin V12 Vantage GT3 '12",
+"laps": 10,
+"best_ms": 87479,
+"pace_ms": 87737,
+"gap_pct": 0.519,
+"top100": 2
+},
+{
+"code": 3352,
+"name": "Toyota GR Supra Racing Concept '18",
+"laps": 18,
+"best_ms": 87336,
+"pace_ms": 87758,
+"gap_pct": 0.542,
+"top100": 3
+}
+]
+}

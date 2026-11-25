@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-24",
+ "generated": "2026-11-25",
  "weeks": [
   {
    "label": "this",
@@ -44,15 +44,15 @@
        "name": "Huracán Gr.4",
        "tier": "C",
        "source": "live",
-       "laps": 91,
-       "share": 91,
+       "laps": 95,
+       "share": 95,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
       }
      ],
-     "balance": 1.2
+     "balance": 1.1
     },
     {
      "race": "C",
@@ -78,8 +78,8 @@
        "name": "M Hybrid V8 '25",
        "tier": "A",
        "source": "live",
-       "laps": 44,
-       "share": 44,
+       "laps": 40,
+       "share": 40,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -90,8 +90,8 @@
        "name": "963 '24",
        "tier": "S",
        "source": "live",
-       "laps": 32,
-       "share": 32,
+       "laps": 43,
+       "share": 43,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -102,15 +102,15 @@
        "name": "9X8 '25",
        "tier": "C",
        "source": "live",
-       "laps": 21,
-       "share": 21,
+       "laps": 14,
+       "share": 14,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
       }
      ],
-     "balance": 2.9
+     "balance": 2.7
     }
    ]
   },

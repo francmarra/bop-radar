@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-25",
+ "generated": "2026-11-26",
  "weeks": [
   {
    "label": "this",
@@ -44,8 +44,8 @@
        "name": "Huracán Gr.4",
        "tier": "C",
        "source": "live",
-       "laps": 95,
-       "share": 95,
+       "laps": 97,
+       "share": 97,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -74,24 +74,24 @@
      "track_id": "24-heures-du-mans-racing-circuit",
      "cars": [
       {
-       "id": "m-hybrid-v8-25",
-       "name": "M Hybrid V8 '25",
-       "tier": "A",
+       "id": "963-24",
+       "name": "963 '24",
+       "tier": "S",
        "source": "live",
-       "laps": 40,
-       "share": 40,
+       "laps": 41,
+       "share": 41,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
       },
       {
-       "id": "963-24",
-       "name": "963 '24",
-       "tier": "S",
+       "id": "m-hybrid-v8-25",
+       "name": "M Hybrid V8 '25",
+       "tier": "A",
        "source": "live",
-       "laps": 43,
-       "share": 43,
+       "laps": 42,
+       "share": 42,
        "why": {
         "strengths": [],
         "saves_tyres": false
@@ -102,21 +102,76 @@
        "name": "9X8 '25",
        "tier": "C",
        "source": "live",
-       "laps": 14,
-       "share": 14,
+       "laps": 13,
+       "share": 13,
        "why": {
         "strengths": [],
         "saves_tyres": false
        }
       }
      ],
-     "balance": 2.7
+     "balance": 2.8
     }
    ]
   },
   {
    "label": "next",
-   "races": []
+   "races": [
+    {
+     "race": "A",
+     "start": "2026-11-30",
+     "track": "Sardegna - Road Track - A",
+     "course_id": "921",
+     "category": "",
+     "kind": "tbd",
+     "car": null,
+     "tyres": [
+      "CM"
+     ],
+     "fuel": "x1",
+     "tyre_wear": "x1",
+     "group": null,
+     "track_set": "m",
+     "track_id": "sardegna-road-track-a",
+     "cars": []
+    },
+    {
+     "race": "B",
+     "start": "2026-11-30",
+     "track": "SUGO International Racing Course",
+     "course_id": "1340",
+     "category": "",
+     "kind": "tbd",
+     "car": null,
+     "tyres": [
+      "RS"
+     ],
+     "fuel": "x1",
+     "tyre_wear": "x1",
+     "group": null,
+     "track_set": "m",
+     "track_id": "sugo-international-racing-course",
+     "cars": []
+    },
+    {
+     "race": "C",
+     "start": "2026-11-30",
+     "track": "Autodrome Lago Maggiore - Full Course",
+     "course_id": "365",
+     "category": "",
+     "kind": "tbd",
+     "car": null,
+     "tyres": [
+      "RS"
+     ],
+     "fuel": "x2",
+     "tyre_wear": "x4",
+     "group": null,
+     "track_set": "m",
+     "track_id": "autodrome-lago-maggiore-full-course",
+     "cars": []
+    }
+   ]
   }
  ]
 }
